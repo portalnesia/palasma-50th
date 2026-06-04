@@ -3,8 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   output: "static",
-  site: "https://portalnesia.github.io",
-  base: "/palasma-50th",
+  site: "https://plm-50th.portalnesia.com",
   vite: {
     plugins: [tailwindcss()],
   },
