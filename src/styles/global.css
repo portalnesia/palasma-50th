@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* ===== Tailwind v4 Theme ===== */
+@theme {
+  --color-navy: #0a1f3e;
+  --color-navy-50: #e8edf5;
+  --color-navy-100: #c5d1e8;
+  --color-navy-200: #9cb3d6;
+  --color-navy-300: #6e8fbf;
+  --color-navy-400: #4b72ad;
+  --color-navy-500: #0a1f3e;
+  --color-navy-600: #081a35;
+  --color-navy-700: #06152c;
+  --color-navy-800: #051023;
+  --color-navy-900: #030b1a;
+
+  --color-earth-brown: #8b6914;
+  --color-earth-sand: #d4b886;
+  --color-earth-cream: #f5e6c8;
+  --color-earth-moss: #4a7c59;
+  --color-earth-moss-light: #6b9e7a;
+  --color-earth-moss-dark: #3a6647;
+
+  --color-gold: #c8a84e;
+  --color-gold-light: #e0c86a;
+  --color-gold-dark: #a8882e;
+
+  --font-sans: "Inter", "Nunito", "Open Sans", sans-serif;
+  --font-heading: "Nunito", "Inter", "Open Sans", sans-serif;
+  --font-body: "Open Sans", "Inter", "Nunito", sans-serif;
+
+  --text-body-sm: 16px;
+  --text-body: 18px;
+  --text-heading-sm: 24px;
+  --text-heading: 32px;
+  --text-heading-lg: 40px;
+  --text-heading-xl: 48px;
+
+  --spacing-section: 5rem;
+  --spacing-section-lg: 8rem;
+
+  --radius-btn: 12px;
+}
+
+/* ===== Base styles ===== */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+body {
+  background-color: var(--color-navy);
+  color: var(--color-earth-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+/* ===== Utility classes ===== */
+.section-gap {
+  padding-top: var(--spacing-section);
+  padding-bottom: var(--spacing-section);
+}
+
+/* GSAP fallback: content visible without JS */
+.js-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Touch target accessibility */
+.touch-target {
+  min-width: 48px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

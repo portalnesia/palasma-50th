@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+bun.lock
+
+# Build output
+dist/
+.astro/
+
+# Environment & local config
+.env
+.env.local
+.env.*.local
+*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs & debugging
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
