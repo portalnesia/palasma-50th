@@ -16,29 +16,35 @@ Website ini adalah landing page statik untuk acara Reuni Akbar PALASMA yang akan
 ## Fitur Utama (Rencana)
 
 - **Splash Screen** — halaman pembuka dengan countdown dan tombol "Buka Undangan"
-- **RSVP Interaktif** — konfirmasi kehadiran dua arah (Hadir/Absen)
 - **Kata Sambutan** — sambutan dari panitia
 - **Detail Acara & Google Maps** — informasi lokasi dan peta interaktif
+- **Twibbon Generator** — buat twibbon langsung di browser (Croppie.js)
+- **RSVP Interaktif** — konfirmasi kehadiran dua arah (Hadir/Absen)
 - **Galeri Foto Nostalgia** — foto ekspedisi PALASMA lintas dekade
 - **Ucapan & Doa** — kirim ucapan untuk PALASMA (Supabase)
-- **Twibbon Generator** — buat twibbon langsung di browser (Croppie.js)
 
 ## Cara Menjalankan
 
-**Prasyarat:** Node.js 20+
+**Prasyarat:** Bun v1.3.14
 
 ```bash
 # Install dependencies
-npm install
+bun install
 
 # Development server
-npm run dev
+bun run dev
+
+# Unit testing
+bun run test
+
+# e2e testing
+bun run test:e2e
 
 # Build production
-npm run build
+bun run build
 
 # Preview production build
-npm run preview
+bun run preview
 ```
 
 ## Struktur Proyek

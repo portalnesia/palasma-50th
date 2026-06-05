@@ -1,580 +1,739 @@
 ---
 import { CONTENT } from "@config/content.ts";
 import { ASSETS } from "@config/assets.ts";
+import { getRecipientName } from "@utils/splash.ts";
+
+const { splash } = CONTENT;
+const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
 ---
 
-<section id="splash" class="splash-section">
-  {/* ── Background layers ──────────────────────────────────── */}
-  <div class="splash-bg" aria-hidden="true">
-    <img src={ASSETS.splash} alt="" loading="eager" class="splash-bg-img" />
-    <div class="splash-bg-overlay"></div>
-    {/* Subtle gold grain texture overlay */}
-    <div class="splash-bg-grain"></div>
+<section id="splash" class="splash-screen" aria-label="Splash Screen">
+  {/* ── Radial golden glow ────────────────────────────────── */}
+  <div class="splash-glow" aria-hidden="true"></div>
+
+  {/* ── Floating balloons ─────────────────────────────────── */}
+  <div class="splash-balloons" aria-hidden="true">
+    <div class="splash-balloon splash-balloon-1"></div>
+    <div class="splash-balloon splash-balloon-2"></div>
+    <div class="splash-balloon splash-balloon-3"></div>
+    <div class="splash-balloon splash-balloon-4"></div>
+    <div class="splash-balloon splash-balloon-5"></div>
+    <div class="splash-balloon splash-balloon-6"></div>
   </div>
 
-  {/* ── Decorative floating elements ───────────────────────── */}
-  <div class="splash-decor" aria-hidden="true">
-    <div class="splash-orb splash-orb-1"></div>
-    <div class="splash-orb splash-orb-2"></div>
-    <div class="splash-orb splash-orb-3"></div>
-    <div class="splash-line splash-line-left"></div>
-    <div class="splash-line splash-line-right"></div>
+  {/* ── Sparkle / twinkle decorations ─────────────────────── */}
+  <div class="splash-sparkles" aria-hidden="true">
+    <span class="splash-sparkle splash-sparkle-1"></span>
+    <span class="splash-sparkle splash-sparkle-2"></span>
+    <span class="splash-sparkle splash-sparkle-3"></span>
+    <span class="splash-sparkle splash-sparkle-4"></span>
+    <span class="splash-sparkle splash-sparkle-5"></span>
+    <span class="splash-sparkle splash-sparkle-6"></span>
+    <span class="splash-sparkle splash-sparkle-7"></span>
+    <span class="splash-sparkle splash-sparkle-8"></span>
+    <span class="splash-sparkle splash-sparkle-9"></span>
+    <span class="splash-sparkle splash-sparkle-10"></span>
+    <span class="splash-sparkle splash-sparkle-11"></span>
+    <span class="splash-sparkle splash-sparkle-12"></span>
   </div>
 
-  {/* ── Content ─────────────────────────────────────────────── */}
-  <div class="splash-content">
-    {/* Year badge */}
-    <div class="splash-badge js-reveal" data-reveal="splash-badge">
-      <span class="splash-badge-text">Est. 1976</span>
-    </div>
+  {/* ── Floating confetti particles ───────────────────────── */}
+  <div class="splash-confetti" aria-hidden="true">
+    <span class="splash-confetti-piece splash-confetti-1"></span>
+    <span class="splash-confetti-piece splash-confetti-2"></span>
+    <span class="splash-confetti-piece splash-confetti-3"></span>
+    <span class="splash-confetti-piece splash-confetti-4"></span>
+    <span class="splash-confetti-piece splash-confetti-5"></span>
+    <span class="splash-confetti-piece splash-confetti-6"></span>
+    <span class="splash-confetti-piece splash-confetti-7"></span>
+    <span class="splash-confetti-piece splash-confetti-8"></span>
+    <span class="splash-confetti-piece splash-confetti-9"></span>
+    <span class="splash-confetti-piece splash-confetti-10"></span>
+    <span class="splash-confetti-piece splash-confetti-11"></span>
+    <span class="splash-confetti-piece splash-confetti-12"></span>
+    <span class="splash-confetti-piece splash-confetti-13"></span>
+    <span class="splash-confetti-piece splash-confetti-14"></span>
+    <span class="splash-confetti-piece splash-confetti-15"></span>
+  </div>
 
-    <h1 class="splash-title js-reveal" data-reveal="splash-title">
-      {CONTENT.splash.title}
-    </h1>
-
-    {/* Gold divider */}
-    <div class="splash-divider js-reveal" data-reveal="splash-divider">
-      <span class="splash-divider-line"></span>
-      <span class="splash-divider-diamond"></span>
-      <span class="splash-divider-line"></span>
-    </div>
-
-    <p class="splash-subtitle js-reveal" data-reveal="splash-subtitle">
-      {CONTENT.splash.subtitle}
-    </p>
-
-    {/* Recipient */}
-    <div class="splash-recipient js-reveal" data-reveal="splash-recipient">
-      <p class="splash-greeting">{CONTENT.splash.greeting}</p>
-      <p id="splash-recipient-name" class="splash-name">
-        {CONTENT.splash.defaultName}
-      </p>
-    </div>
-
-    {/* Countdown removed per revision */}
-
-    {/* CTA */}
-    <button id="splash-cta" type="button" class="splash-cta js-reveal" data-reveal="splash-cta">
-      <span>{CONTENT.splash.buttonLabel}</span>
-      <svg
-        class="splash-cta-arrow"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z"
-          clip-rule="evenodd"></path>
+  {/* ── Birthday decorations (rise on scroll exit) ───────── */}
+  <div class="splash-decorations" aria-hidden="true">
+    {/* Cake */}
+    <div class="bday-cake">
+      <svg viewBox="0 0 160 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="35" y="32" width="90" height="26" rx="5" fill="#c8a84e" opacity="0.85"></rect>
+        <rect x="35" y="32" width="90" height="6" rx="3" fill="#e0c86a" opacity="0.5"></rect>
+        <rect x="20" y="58" width="120" height="28" rx="5" fill="#a8882e" opacity="0.75"></rect>
+        <rect x="20" y="58" width="120" height="6" rx="3" fill="#d4b886" opacity="0.4"></rect>
+        <rect x="8" y="86" width="144" height="30" rx="5" fill="#8b6914" opacity="0.7"></rect>
+        <rect x="8" y="86" width="144" height="6" rx="3" fill="#c8a84e" opacity="0.35"></rect>
+        <ellipse cx="80" cy="122" rx="78" ry="10" fill="rgba(200,168,78,0.12)"></ellipse>
+        <rect x="52" y="14" width="3" height="18" rx="1.5" fill="#d4b886"></rect>
+        <ellipse cx="53.5" cy="12" rx="4" ry="6" fill="#e0c86a" opacity="0.9"></ellipse>
+        <rect x="78" y="10" width="3" height="22" rx="1.5" fill="#c8a84e"></rect>
+        <ellipse cx="79.5" cy="8" rx="4" ry="6" fill="#e0c86a" opacity="0.9"></ellipse>
+        <rect x="104" y="14" width="3" height="18" rx="1.5" fill="#d4b886"></rect>
+        <ellipse cx="105.5" cy="12" rx="4" ry="6" fill="#e0c86a" opacity="0.9"></ellipse>
       </svg>
-    </button>
+    </div>
+
+    {/* Balloons */}
+    <div class="bday-balloon bday-balloon-1">
+      <div class="bday-balloon-body" style="background:var(--color-gold);"></div>
+      <div class="bday-balloon-string"></div>
+    </div>
+    <div class="bday-balloon bday-balloon-2">
+      <div class="bday-balloon-body" style="background:var(--color-earth-moss-light);"></div>
+      <div class="bday-balloon-string"></div>
+    </div>
+    <div class="bday-balloon bday-balloon-3">
+      <div class="bday-balloon-body" style="background:var(--color-earth-sand);"></div>
+      <div class="bday-balloon-string"></div>
+    </div>
+    <div class="bday-balloon bday-balloon-4">
+      <div class="bday-balloon-body" style="background:var(--color-gold-light);"></div>
+      <div class="bday-balloon-string"></div>
+    </div>
+
+    {/* Party hat */}
+    <div class="bday-hat">
+      <svg viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 5 L55 75 L5 75Z" fill="url(#hat-grad)" opacity="0.7"></path>
+        <circle cx="30" cy="5" r="5" fill="#e0c86a" opacity="0.8"></circle>
+        <line x1="18" y1="50" x2="42" y2="50" stroke="#e0c86a" stroke-width="1.5" opacity="0.3"
+        ></line>
+        <line x1="13" y1="62" x2="47" y2="62" stroke="#d4b886" stroke-width="1.5" opacity="0.25"
+        ></line>
+        <defs>
+          <linearGradient
+            id="hat-grad"
+            x1="30"
+            y1="5"
+            x2="30"
+            y2="75"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stop-color="#c8a84e"></stop>
+            <stop offset="100%" stop-color="#a8882e"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    {/* Gift box */}
+    <div class="bday-gift">
+      <svg viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="25" width="70" height="40" rx="4" fill="#a8882e" opacity="0.65"></rect>
+        <rect x="5" y="25" width="70" height="12" rx="4" fill="#c8a84e" opacity="0.7"></rect>
+        <rect x="36" y="25" width="8" height="40" fill="#e0c86a" opacity="0.35"></rect>
+        <path d="M40 25 C40 15 25 10 20 18 C18 22 25 25 40 25Z" fill="#c8a84e" opacity="0.5"></path>
+        <path d="M40 25 C40 15 55 10 60 18 C62 22 55 25 40 25Z" fill="#d4b886" opacity="0.5"></path>
+      </svg>
+    </div>
+
+    {/* Confetti burst */}
+    <div class="bday-confetti">
+      <span class="bday-confetti-piece bday-cp-1"></span>
+      <span class="bday-confetti-piece bday-cp-2"></span>
+      <span class="bday-confetti-piece bday-cp-3"></span>
+      <span class="bday-confetti-piece bday-cp-4"></span>
+      <span class="bday-confetti-piece bday-cp-5"></span>
+      <span class="bday-confetti-piece bday-cp-6"></span>
+      <span class="bday-confetti-piece bday-cp-7"></span>
+      <span class="bday-confetti-piece bday-cp-8"></span>
+      <span class="bday-confetti-piece bday-cp-9"></span>
+      <span class="bday-confetti-piece bday-cp-10"></span>
+      <span class="bday-confetti-piece bday-cp-11"></span>
+      <span class="bday-confetti-piece bday-cp-12"></span>
+    </div>
   </div>
 
-  {/* ── Music toggle ─────────────────────────────────────────── */}
-  <button
-    id="music-toggle"
-    type="button"
-    aria-label="Toggle musik latar"
-    class="splash-music js-reveal"
-    data-reveal="splash-music"
-  >
-    <svg
-      id="icon-music-on"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="w-5 h-5 hidden"
-    >
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-    </svg>
-    <svg
-      id="icon-music-off"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="w-5 h-5"
-    >
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <line x1="23" y1="9" x2="17" y2="15"></line>
-      <line x1="17" y1="9" x2="23" y2="15"></line>
-    </svg>
-  </button>
+  {/* ── Ornamental border frame ───────────────────────────── */}
+  <div class="splash-ornament" aria-hidden="true">
+    <span class="splash-ornament-corner splash-ornament-tl"></span>
+    <span class="splash-ornament-corner splash-ornament-tr"></span>
+    <span class="splash-ornament-corner splash-ornament-bl"></span>
+    <span class="splash-ornament-corner splash-ornament-br"></span>
+  </div>
 
-  <audio id="bg-music" preload="metadata" loop>
+  {/* ── Navigation moved to DefaultLayout.astro ──────────── */}
+
+  {/* ── Main content ──────────────────────────────────────── */}
+  <div class="splash-content">
+    <img
+      data-splash="emblem"
+      src={ASSETS.logo.palasma}
+      alt="PALASMA Emblem"
+      class="splash-emblem"
+      width="140"
+      height="140"
+      loading="eager"
+    />
+    <div>
+      <div data-splash="50" class="splash-anniversary">50</div>
+      <div data-splash="tahun" class="splash-title">Tahun</div>
+      <div data-splash="palasma" class="splash-subtitle">PALASMA</div>
+    </div>
+    <div data-splash="tagline" class="splash-tagline">
+      Setengah Abad Alam, Petualangan, dan Persaudaraan
+    </div>
+    <div data-splash="name" class="splash-recipient">{recipientName}</div>
+    <a href="#hero" data-splash="cta" class="splash-cta touch-target">
+      {splash.buttonLabel}
+      <svg
+        class="splash-cta-icon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <polyline points="19 12 12 19 5 12"></polyline>
+      </svg>
+    </a>
+  </div>
+
+  {/* ── Audio (background music) ──────────────────────────── */}
+  <audio id="bg-music" preload="auto" loop>
     <source src={ASSETS.bgMusic} type="audio/mpeg" />
   </audio>
 </section>
 
-<script>
-  /* ── GSAP Apple-style pinned scroll ─────────────────────── */
-  async function initSplashScroll() {
-    const gsapModule = await import("gsap");
-    const gsap = gsapModule.default;
-    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-    gsap.registerPlugin(ScrollTrigger);
-
-    const splash = document.getElementById("splash");
-    const bg = splash?.querySelector<HTMLElement>(".splash-bg");
-    const bgImg = splash?.querySelector<HTMLElement>(".splash-bg-img");
-    const content = splash?.querySelector<HTMLElement>(".splash-content");
-    if (!splash || !bg || !bgImg || !content) return;
-
-    /* Master timeline — pinned to viewport */
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: splash,
-        start: "top top",
-        end: "+=150%",
-        pin: true,
-        scrub: 1,
-      },
-    });
-
-    /* Background: slow parallax upward */
-    tl.to(
-      bgImg,
-      {
-        y: "-20%",
-        scale: 1.08,
-        ease: "none",
-        duration: 1,
-      },
-      0,
-    );
-
-    /* Overlay darkens as you scroll away */
-    tl.to(
-      bg,
-      {
-        opacity: 0.3,
-        ease: "none",
-        duration: 1,
-      },
-      0,
-    );
-
-    /* Content fades out + scales down — cinematic dissolve */
-    tl.to(
-      content,
-      {
-        opacity: 0,
-        scale: 0.92,
-        y: -40,
-        ease: "power2.in",
-        duration: 0.8,
-      },
-      0.1,
-    );
-
-    /* Signal splash pin is ready — hero must wait for this before
-       creating its own ScrollTrigger to avoid pin-spacer race condition. */
-    window.dispatchEvent(new Event("splash:gsap-ready"));
-  }
-
-  /* ── Entrance animations ──────────────────────────────────── */
-  async function initSplashEntrance() {
-    const gsap = (await import("gsap")).default;
-
-    const reveals = document.querySelectorAll<HTMLElement>(".splash-content .js-reveal");
-    gsap.from(reveals, {
-      opacity: 0,
-      y: 30,
-      stagger: 0.12,
-      duration: 0.9,
-      ease: "power2.out",
-      delay: 0.3,
-    });
-
-    /* Music button fade-in later */
-    const musicBtn = document.getElementById("music-toggle");
-    if (musicBtn) {
-      gsap.from(musicBtn, {
-        opacity: 0,
-        duration: 0.6,
-        delay: 1.8,
-      });
-    }
-  }
-
-  /* ── Music toggle ───────────────────────────────────────────── */
-  function initMusic() {
-    const btn = document.getElementById("music-toggle");
-    const audio = document.getElementById("bg-music") as HTMLAudioElement | null;
-    const iconOn = document.getElementById("icon-music-on");
-    const iconOff = document.getElementById("icon-music-off");
-    if (!btn || !audio || !iconOn || !iconOff) return;
-
-    let playing = false;
-    const update = () => {
-      iconOn.classList.toggle("hidden", !playing);
-      iconOff.classList.toggle("hidden", playing);
-    };
-
-    btn.addEventListener("click", async () => {
-      if (playing) {
-        audio.pause();
-        playing = false;
-      } else {
-        try {
-          await audio.play();
-          playing = true;
-        } catch {
-          /* noop */
-        }
-      }
-      update();
-    });
-  }
-
-  /* ── Recipient from ?to= ───────────────────────────────────── */
-  function initRecipient() {
-    const to = new URLSearchParams(window.location.search).get("to");
-    const el = document.getElementById("splash-recipient-name");
-    if (el && to) el.textContent = to;
-  }
-
-  /* ── CTA scroll ─────────────────────────────────────────────── */
-  function initCtaScroll() {
-    const btn = document.getElementById("splash-cta");
-    btn?.addEventListener("click", async () => {
-      const hero = document.getElementById("hero");
-      if (!hero) return;
-
-      const gsapModule = await import("gsap");
-      const gsap = gsapModule.default;
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      const { ScrollToPlugin } = await import("gsap/ScrollToPlugin");
-      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-      // Find the hero's ScrollTrigger
-      const heroTrigger = ScrollTrigger.getAll().find((t) => t.trigger === hero || t.pin === hero);
-
-      if (!heroTrigger) {
-        hero.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
-
-      // The hero scrub timeline runs 0→1 over the pinned scroll range.
-      // All content starts at opacity:0 (fromTo initial state).
-      // Content is fully visible between ~0.40 and ~0.65 (before outro begins).
-      // Target the sweet spot: 50% into the pin.
-      const pinDuration = heroTrigger.end - heroTrigger.start;
-      const targetY = heroTrigger.start + pinDuration * 0.5;
-
-      gsap.to(window, {
-        duration: 1.4,
-        scrollTo: { y: targetY, autoKill: false },
-        ease: "power3.inOut",
-      });
-    });
-  }
-
-  /* Boot */
-  initMusic();
-  initRecipient();
-  initCtaScroll();
-  initSplashEntrance();
-  initSplashScroll();
-</script>
-
 <style>
-  /* ════════════════════════════════════════════════════════════
-     Splash Section — full viewport
-     ════════════════════════════════════════════════════════════ */
-  .splash-section {
+  /* ── Base ─────────────────────────────────────────────────── */
+  .splash-screen {
     position: relative;
-    height: 100svh;
     width: 100%;
-    overflow: hidden;
+    height: 100vh;
+    min-height: 600px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-
-  /* ── Background ─────────────────────────────────────────── */
-  .splash-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-
-  .splash-bg-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    will-change: transform;
-  }
-
-  .splash-bg-overlay {
-    position: absolute;
-    inset: 0;
+    overflow: hidden;
     background:
-      radial-gradient(ellipse at 50% 30%, rgba(10, 31, 62, 0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 50% 50%, rgba(139, 105, 20, 0.08) 0%, transparent 100%),
       linear-gradient(
-        to bottom,
-        rgba(10, 31, 62, 0.55) 0%,
-        rgba(10, 31, 62, 0.4) 40%,
-        rgba(10, 31, 62, 0.75) 100%
+        175deg,
+        var(--color-navy-800) 0%,
+        var(--color-navy-700) 50%,
+        var(--color-navy) 100%
       );
+    z-index: 50;
   }
 
-  .splash-bg-grain {
+  /* ── Radial golden glow ───────────────────────────────────── */
+  .splash-glow {
     position: absolute;
     inset: 0;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-size: 200px;
-  }
-
-  /* ── Decorative floating elements ────────────────────────── */
-  .splash-decor {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(200, 168, 78, 0.06) 0%,
+      rgba(200, 168, 78, 0.03) 40%,
+      transparent 70%
+    );
     pointer-events: none;
   }
 
-  .splash-orb {
+  /* ── Balloons ─────────────────────────────────────────────── */
+  .splash-balloons {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.12;
+    inset: 0;
+    pointer-events: none;
   }
 
-  .splash-orb-1 {
-    width: 320px;
-    height: 320px;
-    top: -80px;
-    right: -60px;
-    background: var(--color-gold);
-    animation: float-orb 12s ease-in-out infinite alternate;
-  }
-
-  .splash-orb-2 {
-    width: 200px;
-    height: 200px;
-    bottom: 10%;
-    left: -40px;
-    background: var(--color-earth-moss);
-    animation: float-orb 10s ease-in-out 2s infinite alternate;
-  }
-
-  .splash-orb-3 {
-    width: 140px;
-    height: 140px;
-    top: 40%;
-    right: 10%;
-    background: var(--color-gold-light);
-    animation: float-orb 8s ease-in-out 4s infinite alternate;
-  }
-
-  .splash-line {
+  .splash-balloon {
     position: absolute;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    animation: balloon-float 6s ease-in-out infinite;
+  }
+
+  @keyframes balloon-float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-2deg);
+    }
+    50% {
+      transform: translateY(-14px) rotate(2deg);
+    }
+  }
+
+  /* Balloon knot (triangle) */
+  .splash-balloon::before {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid var(--balloon-color, var(--color-gold));
+  }
+
+  /* Balloon string */
+  .splash-balloon::after {
+    content: "";
+    position: absolute;
+    bottom: -44px;
+    left: 50%;
     width: 1px;
-    height: 120px;
-    opacity: 0.15;
-    background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+    height: 38px;
+    background: linear-gradient(to bottom, var(--balloon-color, var(--color-gold)), transparent);
   }
 
-  .splash-line-left {
+  .splash-balloon-1 {
+    --balloon-color: var(--color-gold);
+    width: 42px;
+    height: 54px;
     left: 8%;
+    bottom: 30%;
+  }
+
+  .splash-balloon-2 {
+    --balloon-color: var(--color-earth-moss-light);
+    width: 34px;
+    height: 44px;
+    left: 18%;
+    bottom: 22%;
+  }
+
+  .splash-balloon-3 {
+    --balloon-color: var(--color-earth-sand);
+    width: 38px;
+    height: 50px;
+    left: 28%;
+    bottom: 35%;
+  }
+
+  .splash-balloon-4 {
+    --balloon-color: var(--color-gold-light);
+    width: 30px;
+    height: 40px;
+    right: 28%;
+    bottom: 28%;
+  }
+
+  .splash-balloon-5 {
+    --balloon-color: var(--color-earth-moss);
+    width: 40px;
+    height: 52px;
+    right: 16%;
+    bottom: 20%;
+  }
+
+  .splash-balloon-6 {
+    --balloon-color: var(--color-gold-dark);
+    width: 36px;
+    height: 46px;
+    right: 7%;
+    bottom: 33%;
+  }
+
+  /* ── Sparkles ─────────────────────────────────────────────── */
+  .splash-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .splash-sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--color-gold);
+    animation: sparkle-twinkle 3s ease-in-out infinite;
+    clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+    );
+  }
+
+  @keyframes sparkle-twinkle {
+    0%,
+    100% {
+      opacity: 0.15;
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.3) rotate(15deg);
+    }
+  }
+
+  .splash-sparkle-1 {
+    width: 10px;
+    height: 10px;
+    left: 12%;
+    top: 18%;
+    animation-delay: 0s;
+  }
+  .splash-sparkle-2 {
+    width: 6px;
+    height: 6px;
+    left: 25%;
+    top: 30%;
+    animation-delay: 0.4s;
+  }
+  .splash-sparkle-3 {
+    width: 8px;
+    height: 8px;
+    left: 40%;
+    top: 12%;
+    animation-delay: 0.8s;
+  }
+  .splash-sparkle-4 {
+    width: 7px;
+    height: 7px;
+    left: 55%;
+    top: 22%;
+    animation-delay: 1.2s;
+  }
+  .splash-sparkle-5 {
+    width: 9px;
+    height: 9px;
+    left: 70%;
+    top: 15%;
+    animation-delay: 1.6s;
+  }
+  .splash-sparkle-6 {
+    width: 6px;
+    height: 6px;
+    left: 85%;
+    top: 28%;
+    animation-delay: 2s;
+  }
+  .splash-sparkle-7 {
+    width: 8px;
+    height: 8px;
+    left: 15%;
+    top: 65%;
+    animation-delay: 0.3s;
+  }
+  .splash-sparkle-8 {
+    width: 7px;
+    height: 7px;
+    left: 30%;
+    top: 72%;
+    animation-delay: 0.9s;
+  }
+  .splash-sparkle-9 {
+    width: 10px;
+    height: 10px;
+    left: 65%;
+    top: 68%;
+    animation-delay: 1.4s;
+  }
+  .splash-sparkle-10 {
+    width: 6px;
+    height: 6px;
+    left: 80%;
+    top: 62%;
+    animation-delay: 1.8s;
+  }
+  .splash-sparkle-11 {
+    width: 8px;
+    height: 8px;
+    left: 45%;
+    top: 80%;
+    animation-delay: 2.2s;
+  }
+  .splash-sparkle-12 {
+    width: 7px;
+    height: 7px;
+    left: 52%;
+    top: 75%;
+    animation-delay: 0.6s;
+  }
+
+  /* ── Confetti ─────────────────────────────────────────────── */
+  .splash-confetti {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .splash-confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 4px;
+    border-radius: 1px;
+    animation: confetti-drift 8s ease-in-out infinite;
+  }
+
+  @keyframes confetti-drift {
+    0%,
+    100% {
+      opacity: 0.15;
+      transform: translateY(0) rotate(0deg);
+    }
+    25% {
+      opacity: 0.3;
+      transform: translateY(6px) rotate(90deg);
+    }
+    50% {
+      opacity: 0.15;
+      transform: translateY(-4px) rotate(180deg);
+    }
+    75% {
+      opacity: 0.3;
+      transform: translateY(3px) rotate(270deg);
+    }
+  }
+
+  .splash-confetti-1 {
+    background: var(--color-gold);
+    left: 10%;
+    top: 15%;
+    animation-delay: 0s;
+  }
+  .splash-confetti-2 {
+    background: var(--color-earth-sand);
+    left: 20%;
+    top: 25%;
+    width: 6px;
+    height: 3px;
+    animation-delay: 0.5s;
+  }
+  .splash-confetti-3 {
+    background: var(--color-earth-moss);
+    left: 32%;
+    top: 10%;
+    animation-delay: 1s;
+  }
+  .splash-confetti-4 {
+    background: var(--color-gold-light);
+    left: 42%;
     top: 20%;
-    animation: float-line 6s ease-in-out infinite alternate;
+    width: 7px;
+    height: 3px;
+    animation-delay: 1.5s;
+  }
+  .splash-confetti-5 {
+    background: var(--color-earth-cream);
+    left: 58%;
+    top: 12%;
+    animation-delay: 2s;
+  }
+  .splash-confetti-6 {
+    background: var(--color-gold-dark);
+    left: 68%;
+    top: 22%;
+    width: 6px;
+    height: 4px;
+    animation-delay: 2.5s;
+  }
+  .splash-confetti-7 {
+    background: var(--color-earth-moss-light);
+    left: 78%;
+    top: 16%;
+    animation-delay: 3s;
+  }
+  .splash-confetti-8 {
+    background: var(--color-gold);
+    left: 88%;
+    top: 28%;
+    width: 7px;
+    height: 3px;
+    animation-delay: 3.5s;
+  }
+  .splash-confetti-9 {
+    background: var(--color-earth-sand);
+    left: 14%;
+    top: 55%;
+    animation-delay: 0.8s;
+  }
+  .splash-confetti-10 {
+    background: var(--color-gold-light);
+    left: 26%;
+    top: 62%;
+    width: 6px;
+    height: 4px;
+    animation-delay: 1.3s;
+  }
+  .splash-confetti-11 {
+    background: var(--color-earth-moss);
+    left: 38%;
+    top: 58%;
+    animation-delay: 1.8s;
+  }
+  .splash-confetti-12 {
+    background: var(--color-gold);
+    left: 62%;
+    top: 54%;
+    width: 7px;
+    height: 3px;
+    animation-delay: 2.3s;
+  }
+  .splash-confetti-13 {
+    background: var(--color-earth-cream);
+    left: 74%;
+    top: 60%;
+    animation-delay: 2.8s;
+  }
+  .splash-confetti-14 {
+    background: var(--color-earth-sand);
+    left: 82%;
+    top: 56%;
+    width: 6px;
+    height: 4px;
+    animation-delay: 3.3s;
+  }
+  .splash-confetti-15 {
+    background: var(--color-gold-dark);
+    left: 92%;
+    top: 64%;
+    animation-delay: 0.2s;
   }
 
-  .splash-line-right {
-    right: 8%;
-    bottom: 25%;
-    animation: float-line 7s ease-in-out 1s infinite alternate;
+  /* ── Ornamental border corners ────────────────────────────── */
+  .splash-ornament {
+    position: absolute;
+    inset: 24px;
+    pointer-events: none;
   }
 
-  @keyframes float-orb {
-    from {
-      transform: translate(0, 0) scale(1);
-    }
-    to {
-      transform: translate(15px, -20px) scale(1.1);
-    }
+  .splash-ornament-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-color: rgba(200, 168, 78, 0.25);
+    border-style: solid;
   }
 
-  @keyframes float-line {
-    from {
-      transform: translateY(0);
-      opacity: 0.1;
-    }
-    to {
-      transform: translateY(-20px);
-      opacity: 0.25;
-    }
+  .splash-ornament-tl {
+    top: 0;
+    left: 0;
+    border-width: 2px 0 0 2px;
   }
 
-  /* ── Content ─────────────────────────────────────────────── */
+  .splash-ornament-tr {
+    top: 0;
+    right: 0;
+    border-width: 2px 2px 0 0;
+  }
+
+  .splash-ornament-bl {
+    bottom: 0;
+    left: 0;
+    border-width: 0 0 2px 2px;
+  }
+
+  .splash-ornament-br {
+    bottom: 0;
+    right: 0;
+    border-width: 0 2px 2px 0;
+  }
+
+  /* ── Main content ────────────────────────────────────────── */
   .splash-content {
     position: relative;
     z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
+    padding: 2rem;
     text-align: center;
-    padding: 0 1.5rem;
-    max-width: 36rem;
-    will-change: transform, opacity;
   }
 
-  /* Badge */
-  .splash-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0.3rem 0.875rem;
-    border: 1px solid rgba(200, 168, 78, 0.35);
-    border-radius: 9999px;
-    margin-bottom: 1.25rem;
-    backdrop-filter: blur(4px);
-    background: rgba(200, 168, 78, 0.06);
+  .splash-emblem {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(200, 168, 78, 0.3));
   }
 
-  .splash-badge-text {
+  .splash-anniversary {
     font-family: var(--font-heading);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-gold-light);
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--color-gold);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 40px rgba(200, 168, 78, 0.3);
   }
 
-  /* Title */
   .splash-title {
     font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(1.75rem, 5vw, 2.75rem);
-    line-height: 1.15;
-    color: var(--color-gold);
-    text-shadow: 0 2px 24px rgba(200, 168, 78, 0.2);
-  }
-
-  /* Divider */
-  .splash-divider {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    margin: 1rem 0;
-  }
-
-  .splash-divider-line {
-    width: 3rem;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--color-gold), transparent);
-    opacity: 0.5;
-  }
-
-  .splash-divider-diamond {
-    width: 6px;
-    height: 6px;
-    background: var(--color-gold);
-    transform: rotate(45deg);
-    opacity: 0.7;
-  }
-
-  /* Subtitle */
-  .splash-subtitle {
-    font-size: clamp(0.875rem, 2.5vw, 1.05rem);
-    color: var(--color-earth-cream, #f5e6c8);
-    opacity: 0.75;
-    line-height: 1.6;
-    max-width: 28rem;
-  }
-
-  /* Recipient */
-  .splash-recipient {
-    margin-top: 1.5rem;
-  }
-
-  .splash-greeting {
-    font-size: 0.8rem;
-    color: var(--color-earth-cream, #f5e6c8);
-    opacity: 0.5;
-    letter-spacing: 0.08em;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-earth-cream);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
   }
 
-  .splash-name {
+  .splash-subtitle {
     font-family: var(--font-heading);
+    font-size: 2.4rem;
     font-weight: 800;
-    font-size: clamp(1.3rem, 4vw, 1.75rem);
-    color: var(--color-gold-light);
-    margin-top: 0.25rem;
-    text-shadow: 0 1px 12px rgba(200, 168, 78, 0.15);
+    color: var(--color-earth-cream);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(200, 168, 78, 0.2);
   }
 
-  /* CTA */
+  .splash-tagline {
+    max-width: 480px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-earth-sand);
+    margin-top: 0.5rem;
+  }
+
+  .splash-recipient {
+    font-size: 2rem;
+    color: var(--color-earth-sand);
+    margin-top: 1rem;
+  }
+
   .splash-cta {
-    margin-top: 2rem;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 0.5rem;
-    min-height: 52px;
-    min-width: 200px;
-    padding: 0 2.5rem;
-    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+    margin-top: 1.5rem;
+    padding: 0.875rem 2rem;
+    background-color: var(--color-gold);
     color: var(--color-navy);
+    border-radius: var(--radius-btn);
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.05rem;
-    border: none;
-    border-radius: var(--radius-btn);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow:
-      0 4px 24px rgba(200, 168, 78, 0.25),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .splash-cta::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      transparent 40%,
-      rgba(255, 255, 255, 0.15) 50%,
-      transparent 60%
-    );
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(200, 168, 78, 0.3);
+    transition:
+      background-color 0.2s,
+      box-shadow 0.2s,
+      transform 0.2s;
   }
 
   .splash-cta:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 8px 32px rgba(200, 168, 78, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-
-  .splash-cta:hover::before {
-    transform: translateX(100%);
+    background-color: var(--color-gold-light);
+    box-shadow: 0 6px 30px rgba(200, 168, 78, 0.4);
+    transform: translateY(-1px);
   }
 
   .splash-cta:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0);
   }
 
-  .splash-cta-arrow {
-    width: 18px;
-    height: 18px;
+  .splash-cta-icon {
+    width: 16px;
+    height: 16px;
     animation: bounce-down 2s ease-in-out infinite;
   }
 
@@ -584,32 +743,461 @@ import { ASSETS } from "@config/assets.ts";
       transform: translateY(0);
     }
     50% {
-      transform: translateY(3px);
+      transform: translateY(4px);
     }
   }
 
-  /* Music toggle */
-  .splash-music {
-    position: absolute;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid rgba(245, 230, 200, 0.15);
-    background: rgba(10, 31, 62, 0.5);
-    backdrop-filter: blur(8px);
-    color: rgba(245, 230, 200, 0.6);
-    cursor: pointer;
-    transition: all 0.25s ease;
+  @media (max-width: 640px) {
+    .splash-emblem {
+      width: 120px;
+      height: 120px;
+    }
   }
 
-  .splash-music:hover {
-    color: var(--color-gold);
-    border-color: rgba(200, 168, 78, 0.4);
+  /* ── Birthday decorations (scroll-rise phase) ─────────────── */
+  .splash-decorations {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+  }
+
+  /* Cake */
+  .bday-cake {
+    position: absolute;
+    left: 50%;
+    bottom: -120px;
+    transform: translateX(-50%);
+    width: 150px;
+    opacity: 0;
+  }
+
+  /* Balloons */
+  .bday-balloon {
+    position: absolute;
+    bottom: -100px;
+    opacity: 0;
+  }
+
+  .bday-balloon-body {
+    width: 40px;
+    height: 52px;
+    border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+    position: relative;
+  }
+
+  .bday-balloon-body::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 7px solid inherit;
+  }
+
+  .bday-balloon-string {
+    width: 1px;
+    height: 40px;
+    margin: 0 auto;
+    background: linear-gradient(to bottom, rgba(200, 168, 78, 0.4), transparent);
+  }
+
+  .bday-balloon-1 {
+    left: 10%;
+  }
+  .bday-balloon-2 {
+    left: 25%;
+  }
+  .bday-balloon-3 {
+    right: 20%;
+  }
+  .bday-balloon-4 {
+    right: 8%;
+  }
+
+  /* Party hat */
+  .bday-hat {
+    position: absolute;
+    right: 15%;
+    bottom: -80px;
+    width: 50px;
+    opacity: 0;
+    transform: rotate(-12deg);
+  }
+
+  /* Gift box */
+  .bday-gift {
+    position: absolute;
+    left: 12%;
+    bottom: -80px;
+    width: 70px;
+    opacity: 0;
+  }
+
+  /* Confetti burst */
+  .bday-confetti {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .bday-confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 4px;
+    border-radius: 1px;
+    opacity: 0;
+    bottom: -20px;
+  }
+
+  .bday-cp-1 {
+    background: var(--color-gold);
+    left: 15%;
+  }
+  .bday-cp-2 {
+    background: var(--color-earth-sand);
+    left: 25%;
+    width: 6px;
+    height: 3px;
+  }
+  .bday-cp-3 {
+    background: var(--color-earth-moss);
+    left: 35%;
+  }
+  .bday-cp-4 {
+    background: var(--color-gold-light);
+    left: 45%;
+    width: 7px;
+    height: 3px;
+  }
+  .bday-cp-5 {
+    background: var(--color-gold);
+    left: 55%;
+  }
+  .bday-cp-6 {
+    background: var(--color-earth-moss-light);
+    left: 65%;
+    width: 5px;
+  }
+  .bday-cp-7 {
+    background: var(--color-earth-sand);
+    left: 75%;
+    width: 6px;
+    height: 3px;
+  }
+  .bday-cp-8 {
+    background: var(--color-gold-light);
+    left: 85%;
+  }
+  .bday-cp-9 {
+    background: var(--color-earth-moss);
+    left: 20%;
+    width: 5px;
+    height: 3px;
+  }
+  .bday-cp-10 {
+    background: var(--color-gold);
+    left: 50%;
+    width: 7px;
+  }
+  .bday-cp-11 {
+    background: var(--color-earth-sand);
+    left: 40%;
+    width: 6px;
+    height: 3px;
+  }
+  .bday-cp-12 {
+    background: var(--color-gold-light);
+    left: 70%;
   }
 </style>
+
+<script>
+  import { initGSAP, refreshScrollTrigger } from "@utils/gsap.ts";
+
+  const section = document.getElementById("splash") as HTMLElement;
+  if (!section) throw new Error("Splash screen section not found");
+
+  /* ── CTA scroll → hero visible immediately ─────────────── */
+  const ctaBtn = section.querySelector('[data-splash="cta"]') as HTMLElement;
+  if (ctaBtn) {
+    ctaBtn.addEventListener("click", () => {
+      document.body.setAttribute("data-skip-hero-intro", "true");
+      const hero = document.getElementById("hero");
+      if (hero) {
+        const heroTop = hero.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: heroTop + 80, behavior: "smooth" });
+      }
+    });
+  }
+
+  /* ── GSAP animations ───────────────────────────────────── */
+  await initSplashGSAP();
+
+  async function initSplashGSAP() {
+    const { gsap } = await initGSAP();
+
+    gsap.context(() => {
+      const emblem = section.querySelector('[data-splash="emblem"]');
+      const fifty = section.querySelector('[data-splash="50"]');
+      const tahun = section.querySelector('[data-splash="tahun"]');
+      const palasma = section.querySelector('[data-splash="palasma"]');
+      const tagline = section.querySelector('[data-splash="tagline"]');
+      const name = section.querySelector('[data-splash="name"]');
+      const cta = section.querySelector('[data-splash="cta"]');
+      const glow = section.querySelector<HTMLElement>(".splash-glow");
+      const ornament = section.querySelector<HTMLElement>(".splash-ornament");
+
+      const balloons = section.querySelectorAll<HTMLElement>(".splash-balloon");
+      const sparkles = section.querySelectorAll<HTMLElement>(".splash-sparkle");
+      const confetti = section.querySelectorAll<HTMLElement>(".splash-confetti-piece");
+
+      /* ── Birthday decoration elements ─────────────────── */
+      const bdayCake = section.querySelector<HTMLElement>(".bday-cake");
+      const bdayBalloons = section.querySelectorAll<HTMLElement>(".bday-balloon");
+      const bdayHat = section.querySelector<HTMLElement>(".bday-hat");
+      const bdayGift = section.querySelector<HTMLElement>(".bday-gift");
+      const bdayConfetti = section.querySelectorAll<HTMLElement>(".bday-confetti-piece");
+
+      // ── Pinned scrub timeline ──
+      // Phase 1 (0 → 0.05):  content visible (hold — short)
+      // Phase 2 (0.05 → 0.20): birthday decorations appear while text STILL visible
+      // Phase 3 (0.20 → 0.30): text fades out, original decorations fade
+      // Phase 4 (0.30 → 0.75): birthday decorations float up out of viewport
+      // Phase 5 (0.75 → 1.0):  transition to hero (pin release)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "+=280%",
+          pin: true,
+          pinSpacing: true,
+          scrub: 1,
+        },
+      });
+
+      // ── Phase 2: Birthday decorations APPEAR (0.05 → 0.20) ──
+      // Decorations pop up from bottom while text remains fully visible
+      //
+      // NOTE: CSS positions decorations BELOW viewport (bottom: -Npx).
+      // GSAP y values use translateY: NEGATIVE = move UP into view.
+      // Phase2 end y must bring elements INTO the visible area.
+
+      // Cake: CSS bottom: -120px. y: 130→-220 = starts 130px below, ends ~100px into view
+      if (bdayCake) {
+        tl.fromTo(
+          bdayCake,
+          { y: 130, opacity: 0, scale: 0.7 },
+          { y: -220, opacity: 0.85, scale: 1, ease: "back.out(1.4)", duration: 0.15 },
+          0.05,
+        );
+      }
+
+      // Birthday balloons: CSS bottom: -100px. y: 100→-170
+      bdayBalloons.forEach((balloon, i) => {
+        tl.fromTo(
+          balloon,
+          { y: 100 + i * 5, opacity: 0, rotation: -5 + i * 3, scale: 0.5 },
+          {
+            y: -170 - i * 5,
+            opacity: 0.75,
+            rotation: 5 - i * 3,
+            scale: 1,
+            ease: "back.out(1.7)",
+            duration: 0.13,
+          },
+          0.06 + i * 0.012,
+        );
+      });
+
+      // Party hat: CSS bottom: -80px. y: 100→-140
+      if (bdayHat) {
+        tl.fromTo(
+          bdayHat,
+          { y: 100, opacity: 0, rotation: -20, scale: 0.6 },
+          { y: -140, opacity: 0.7, rotation: 5, scale: 1, ease: "back.out(1.3)", duration: 0.15 },
+          0.07,
+        );
+      }
+
+      // Gift: CSS bottom: -80px. y: 100→-140
+      if (bdayGift) {
+        tl.fromTo(
+          bdayGift,
+          { y: 100, opacity: 0, scale: 0.6 },
+          { y: -140, opacity: 0.65, scale: 1, ease: "back.out(1.3)", duration: 0.15 },
+          0.08,
+        );
+      }
+
+      // Confetti burst
+      bdayConfetti.forEach((piece, i) => {
+        const angle = (i / bdayConfetti.length) * 360;
+        const xDrift = Math.cos((angle * Math.PI) / 180) * 30;
+        tl.fromTo(
+          piece,
+          {
+            y: 80 + Math.random() * 20,
+            x: xDrift,
+            opacity: 0,
+            rotation: -180 + Math.random() * 360,
+            scale: 0,
+          },
+          {
+            y: -100 - Math.random() * 50,
+            x: 0,
+            opacity: 0.5,
+            rotation: Math.random() * 360,
+            scale: 1,
+            ease: "back.out(1.2)",
+            duration: 0.12,
+          },
+          0.09 + i * 0.006,
+        );
+      });
+
+      // ── Phase 3: Text + original decorations fade out (0.20 → 0.30) ──
+
+      if (cta) {
+        tl.to(cta, { opacity: 0, y: -20, ease: "power2.in", duration: 0.08 }, 0.2);
+      }
+
+      if (name) {
+        tl.to(name, { opacity: 0, y: -15, ease: "power2.in", duration: 0.08 }, 0.21);
+      }
+
+      if (tagline) {
+        tl.to(tagline, { opacity: 0, y: -20, ease: "power2.in", duration: 0.08 }, 0.215);
+      }
+
+      if (ornament) {
+        tl.to(ornament, { opacity: 0, scaleX: 0.5, ease: "power2.in", duration: 0.07 }, 0.22);
+      }
+
+      if (palasma) {
+        tl.to(palasma, { opacity: 0, y: -40, ease: "power2.in", duration: 0.08 }, 0.225);
+      }
+
+      if (tahun) {
+        tl.to(tahun, { opacity: 0, y: -30, ease: "power2.in", duration: 0.07 }, 0.23);
+      }
+
+      if (fifty) {
+        tl.to(fifty, { opacity: 0, scale: 1.5, y: -30, ease: "power2.in", duration: 0.1 }, 0.235);
+      }
+
+      if (emblem) {
+        tl.to(
+          emblem,
+          { opacity: 0, scale: 1.8, filter: "blur(4px)", ease: "power2.in", duration: 0.12 },
+          0.24,
+        );
+      }
+
+      if (glow) {
+        tl.to(glow, { opacity: 0, ease: "power2.in", duration: 0.08 }, 0.25);
+      }
+
+      // Original splash balloons float away
+      balloons.forEach((balloon, i) => {
+        tl.to(
+          balloon,
+          {
+            opacity: 0,
+            y: -120 - Math.random() * 80,
+            scale: 0.4,
+            rotation: -20 + Math.random() * 40,
+            ease: "power2.in",
+            duration: 0.12,
+          },
+          0.22 + i * 0.008,
+        );
+      });
+
+      // Original sparkles fade out
+      sparkles.forEach((sparkle) => {
+        tl.to(
+          sparkle,
+          {
+            opacity: 0,
+            scale: 0,
+            ease: "power2.in",
+            duration: 0.06,
+          },
+          0.24,
+        );
+      });
+
+      // Original confetti drift away
+      confetti.forEach((piece, i) => {
+        tl.to(
+          piece,
+          {
+            opacity: 0,
+            y: 50 + Math.random() * 60,
+            rotation: "+=360",
+            ease: "power2.in",
+            duration: 0.1,
+          },
+          0.25 + i * 0.006,
+        );
+      });
+
+      // ── Phase 4: Birthday decorations float up out of viewport (0.30 → 0.75) ──
+      // Phase2 ended with decorations visible inside viewport.
+      // Now float them far up until overflow:hidden clips them out.
+
+      if (bdayCake) {
+        tl.to(bdayCake, { y: -700, ease: "power1.in", duration: 0.45 }, 0.3);
+      }
+
+      bdayBalloons.forEach((balloon, i) => {
+        tl.to(
+          balloon,
+          {
+            y: -600 - i * 20,
+            rotation: 10 - i * 5,
+            ease: "power1.in",
+            duration: 0.4 + i * 0.015,
+          },
+          0.31 + i * 0.01,
+        );
+      });
+
+      if (bdayHat) {
+        tl.to(bdayHat, { y: -550, rotation: 25, ease: "power1.in", duration: 0.42 }, 0.32);
+      }
+
+      if (bdayGift) {
+        tl.to(bdayGift, { y: -550, ease: "power1.in", duration: 0.4 }, 0.33);
+      }
+
+      bdayConfetti.forEach((piece, i) => {
+        const xDrift = Math.random() * 30 - 15;
+        tl.to(
+          piece,
+          {
+            y: -500 - Math.random() * 100,
+            x: xDrift,
+            rotation: "+=720",
+            ease: "power1.in",
+            duration: 0.38,
+          },
+          0.34 + i * 0.008,
+        );
+      });
+    });
+
+    // Brief delay lets the pin spacer settle in layout before refresh.
+    await new Promise<void>((r) => setTimeout(r, 50));
+    await refreshScrollTrigger();
+
+    // Signal downstream sections that splash GSAP is ready
+    window.dispatchEvent(new Event("splash:gsap-ready"));
+  }
+</script>

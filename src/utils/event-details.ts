@@ -109,9 +109,7 @@ export function setupEventDetailsReveal(section: HTMLElement): () => void {
       });
 
       // Ornamental top flourish
-      const ornamentTop = section.querySelector<HTMLElement>(
-        '[data-reveal="event-ornament-top"]',
-      );
+      const ornamentTop = section.querySelector<HTMLElement>('[data-reveal="event-ornament-top"]');
       if (ornamentTop) {
         gsap.set(ornamentTop, { opacity: 0, scale: 0.7, y: -30 });
         eventTl.to(
@@ -154,11 +152,7 @@ export function setupEventDetailsReveal(section: HTMLElement): () => void {
       const rows = section.querySelectorAll<HTMLElement>('[data-reveal^="event-info-row-"]');
       rows.forEach((row, i) => {
         gsap.set(row, { opacity: 0, x: -25 });
-        eventTl.to(
-          row,
-          { opacity: 1, x: 0, ease: "power2.out", duration: 0.08 },
-          0.35 + i * 0.05,
-        );
+        eventTl.to(row, { opacity: 1, x: 0, ease: "power2.out", duration: 0.08 }, 0.35 + i * 0.05);
       });
 
       // Info dividers — scale in

@@ -1,18 +1,18 @@
 {
   "name": "palasma-50th",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
+    "dev": "bunx --bun astro dev",
+    "build": "bunx --bun astro build",
+    "preview": "bunx --bun astro preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
+    "test": "bunx --bun vitest run",
+    "test:watch": "bunx --bun vitest",
+    "test:e2e": "bunx --bun playwright test",
+    "test:e2e:ui": "bunx --bun playwright test --ui",
     "test:ci": "bun run format:check && bun run test && bun run test:e2e"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "gsap": "^3.12.5"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/vite": "^4.1.0",
     "@types/gsap": "^3.0.0",
@@ -27,6 +28,7 @@
     "prettier": "^3.4.0",
     "prettier-plugin-astro": "^0.14.0",
     "tailwindcss": "^4.1.0",
+    "typescript": "^6.0.3",
     "vitest": "^4.1.8"
   }
 }

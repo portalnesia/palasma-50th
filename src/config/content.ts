@@ -8,7 +8,7 @@ export const CONTENT = {
   },
   hero: {
     welcome: "Selamat Datang",
-    tagline: "Reuni Akbar PALASMA",
+    tagline: "Reuni Akbar\nPECINTA ALAM SMAN 1 MATARAM",
     subtitle: "Setengah abad perjalanan, kenangan, dan persaudaraan yang tak pernah pudar.",
     ctaLabel: "Lihat Detail Acara",
     ctaTarget: "event-details",
@@ -20,7 +20,7 @@ export const CONTENT = {
   sambutan: {
     title: "Kata Sambutan",
     body: "Assalamualaikum warahmatullahi wabarakatuh,\n\nPuji syukur ke hadirat Tuhan Yang Maha Esa, karena atas berkat dan rahmat-Nya kita dapat berkumpul kembali dalam acara Reuni Akbar HUT ke-50 PALASMA.\n\nSetengah abad sudah PALASMA berdiri, menemani perjalanan para pecinta alam dari berbagai angkatan. Melalui momen ini, kami mengajak seluruh keluarga besar PALASMA untuk bernostalgia, melepas rindu, dan merayakan pencapaian bersama.\n\nMari kita sambut hangat hari bahagia ini dengan penuh sukacita.\n\nWassalamualaikum warahmatullahi wabarakatuh,\n\nPanitia HUT ke-50 PALASMA",
-    author: "Ketua Panitia",
+    author: "Panitia",
     authorRole: "HUT ke-50 PALASMA",
   },
   modalApresiasi: {
