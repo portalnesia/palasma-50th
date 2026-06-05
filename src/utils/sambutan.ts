@@ -35,11 +35,7 @@ export function setupSambutanReveal(section: HTMLElement) {
       const titleEl = section.querySelector<HTMLElement>('[data-reveal="sambutan-title"]');
       if (titleEl) {
         gsap.set(titleEl, { opacity: 0, y: 50 });
-        sambutanTl.to(
-          titleEl,
-          { opacity: 1, y: 0, ease: "power3.out", duration: 0.2 },
-          0.05,
-        );
+        sambutanTl.to(titleEl, { opacity: 1, y: 0, ease: "power3.out", duration: 0.2 }, 0.05);
       }
 
       // Photo — scale up from small with glow
@@ -57,11 +53,7 @@ export function setupSambutanReveal(section: HTMLElement) {
       const authorEl = section.querySelector<HTMLElement>('[data-reveal="sambutan-author"]');
       if (authorEl) {
         gsap.set(authorEl, { opacity: 0, y: 15 });
-        sambutanTl.to(
-          authorEl,
-          { opacity: 1, y: 0, ease: "power2.out", duration: 0.15 },
-          0.2,
-        );
+        sambutanTl.to(authorEl, { opacity: 1, y: 0, ease: "power2.out", duration: 0.15 }, 0.2);
       }
 
       // Glass card — rise from below

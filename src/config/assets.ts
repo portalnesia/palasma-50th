@@ -1,13 +1,11 @@
 export const ASSETS = {
-  logo: "/assets/images/logo-palasma.svg",
-  hero: "/assets/images/hero-dummy.jpg",
-  splash: "/assets/images/splash-dummy.jpg",
+  logo: {
+    palasma: "/assets/images/logo-palasma.png",
+    "50th": "/assets/images/logo-50.png",
+  },
   twibbon: {
     frame: "/assets/images/twibbon-frame.png",
     overlay: "/assets/images/twibbon-overlay.png",
-  },
-  sambutan: {
-    photo: "/assets/images/ketua-panitia-dummy.jpg",
   },
   gallery: [
     "/assets/images/gallery/photo-1.jpg",
