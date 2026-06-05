@@ -118,6 +118,9 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
     });
 
     cleanupFns.push(() => ctx.revert());
+    // Splash pin is guaranteed ready (splash:gsap-ready event).
+    // Brief delay lets the pin spacer settle in layout before refresh.
+    await new Promise<void>((r) => setTimeout(r, 50));
     await refreshScrollTrigger();
   }
 

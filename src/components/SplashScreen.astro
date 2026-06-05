@@ -175,6 +175,10 @@ import { ASSETS } from "@config/assets.ts";
       },
       0.1,
     );
+
+    /* Signal splash pin is ready — hero must wait for this before
+       creating its own ScrollTrigger to avoid pin-spacer race condition. */
+    window.dispatchEvent(new Event("splash:gsap-ready"));
   }
 
   /* ── Entrance animations ──────────────────────────────────── */
@@ -242,11 +246,36 @@ import { ASSETS } from "@config/assets.ts";
   /* ── CTA scroll ─────────────────────────────────────────────── */
   function initCtaScroll() {
     const btn = document.getElementById("splash-cta");
-    btn?.addEventListener("click", () => {
-      const target = document.getElementById("hero");
-      if (target) {
-        target.scrollIntoView({ behavior: "auto" });
+    btn?.addEventListener("click", async () => {
+      const hero = document.getElementById("hero");
+      if (!hero) return;
+
+      const gsapModule = await import("gsap");
+      const gsap = gsapModule.default;
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      const { ScrollToPlugin } = await import("gsap/ScrollToPlugin");
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+      // Find the hero's ScrollTrigger
+      const heroTrigger = ScrollTrigger.getAll().find((t) => t.trigger === hero || t.pin === hero);
+
+      if (!heroTrigger) {
+        hero.scrollIntoView({ behavior: "smooth" });
+        return;
       }
+
+      // The hero scrub timeline runs 0→1 over the pinned scroll range.
+      // All content starts at opacity:0 (fromTo initial state).
+      // Content is fully visible between ~0.40 and ~0.65 (before outro begins).
+      // Target the sweet spot: 50% into the pin.
+      const pinDuration = heroTrigger.end - heroTrigger.start;
+      const targetY = heroTrigger.start + pinDuration * 0.5;
+
+      gsap.to(window, {
+        duration: 1.4,
+        scrollTo: { y: targetY, autoKill: false },
+        ease: "power3.inOut",
+      });
     });
   }
 
@@ -256,14 +285,6 @@ import { ASSETS } from "@config/assets.ts";
   initCtaScroll();
   initSplashEntrance();
   initSplashScroll();
-
-  /* Refresh ScrollTrigger after all animations are set up */
-  (async () => {
-    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-  })();
 </script>
 
 <style>
@@ -272,7 +293,7 @@ import { ASSETS } from "@config/assets.ts";
      ════════════════════════════════════════════════════════════ */
   .splash-section {
     position: relative;
-    height: 100dvh;
+    height: 100svh;
     width: 100%;
     overflow: hidden;
     display: flex;
