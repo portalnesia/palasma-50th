@@ -1,0 +1,594 @@
+---
+import { CONTENT } from "@config/content.ts";
+import { ASSETS } from "@config/assets.ts";
+---
+
+<section id="splash" class="splash-section">
+  {/* ── Background layers ──────────────────────────────────── */}
+  <div class="splash-bg" aria-hidden="true">
+    <img src={ASSETS.splash} alt="" loading="eager" class="splash-bg-img" />
+    <div class="splash-bg-overlay"></div>
+    {/* Subtle gold grain texture overlay */}
+    <div class="splash-bg-grain"></div>
+  </div>
+
+  {/* ── Decorative floating elements ───────────────────────── */}
+  <div class="splash-decor" aria-hidden="true">
+    <div class="splash-orb splash-orb-1"></div>
+    <div class="splash-orb splash-orb-2"></div>
+    <div class="splash-orb splash-orb-3"></div>
+    <div class="splash-line splash-line-left"></div>
+    <div class="splash-line splash-line-right"></div>
+  </div>
+
+  {/* ── Content ─────────────────────────────────────────────── */}
+  <div class="splash-content">
+    {/* Year badge */}
+    <div class="splash-badge js-reveal" data-reveal="splash-badge">
+      <span class="splash-badge-text">Est. 1976</span>
+    </div>
+
+    <h1 class="splash-title js-reveal" data-reveal="splash-title">
+      {CONTENT.splash.title}
+    </h1>
+
+    {/* Gold divider */}
+    <div class="splash-divider js-reveal" data-reveal="splash-divider">
+      <span class="splash-divider-line"></span>
+      <span class="splash-divider-diamond"></span>
+      <span class="splash-divider-line"></span>
+    </div>
+
+    <p class="splash-subtitle js-reveal" data-reveal="splash-subtitle">
+      {CONTENT.splash.subtitle}
+    </p>
+
+    {/* Recipient */}
+    <div class="splash-recipient js-reveal" data-reveal="splash-recipient">
+      <p class="splash-greeting">{CONTENT.splash.greeting}</p>
+      <p id="splash-recipient-name" class="splash-name">
+        {CONTENT.splash.defaultName}
+      </p>
+    </div>
+
+    {/* Countdown removed per revision */}
+
+    {/* CTA */}
+    <button id="splash-cta" type="button" class="splash-cta js-reveal" data-reveal="splash-cta">
+      <span>{CONTENT.splash.buttonLabel}</span>
+      <svg
+        class="splash-cta-arrow"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z"
+          clip-rule="evenodd"></path>
+      </svg>
+    </button>
+  </div>
+
+  {/* ── Music toggle ─────────────────────────────────────────── */}
+  <button
+    id="music-toggle"
+    type="button"
+    aria-label="Toggle musik latar"
+    class="splash-music js-reveal"
+    data-reveal="splash-music"
+  >
+    <svg
+      id="icon-music-on"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="w-5 h-5 hidden"
+    >
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+    </svg>
+    <svg
+      id="icon-music-off"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="w-5 h-5"
+    >
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+  </button>
+
+  <audio id="bg-music" preload="metadata" loop>
+    <source src={ASSETS.bgMusic} type="audio/mpeg" />
+  </audio>
+</section>
+
+<script>
+  /* ── GSAP Apple-style pinned scroll ─────────────────────── */
+  async function initSplashScroll() {
+    const gsapModule = await import("gsap");
+    const gsap = gsapModule.default;
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
+
+    const splash = document.getElementById("splash");
+    const bg = splash?.querySelector<HTMLElement>(".splash-bg");
+    const bgImg = splash?.querySelector<HTMLElement>(".splash-bg-img");
+    const content = splash?.querySelector<HTMLElement>(".splash-content");
+    if (!splash || !bg || !bgImg || !content) return;
+
+    /* Master timeline — pinned to viewport */
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: splash,
+        start: "top top",
+        end: "+=150%",
+        pin: true,
+        scrub: 1,
+      },
+    });
+
+    /* Background: slow parallax upward */
+    tl.to(
+      bgImg,
+      {
+        y: "-20%",
+        scale: 1.08,
+        ease: "none",
+        duration: 1,
+      },
+      0,
+    );
+
+    /* Overlay darkens as you scroll away */
+    tl.to(
+      bg,
+      {
+        opacity: 0.3,
+        ease: "none",
+        duration: 1,
+      },
+      0,
+    );
+
+    /* Content fades out + scales down — cinematic dissolve */
+    tl.to(
+      content,
+      {
+        opacity: 0,
+        scale: 0.92,
+        y: -40,
+        ease: "power2.in",
+        duration: 0.8,
+      },
+      0.1,
+    );
+  }
+
+  /* ── Entrance animations ──────────────────────────────────── */
+  async function initSplashEntrance() {
+    const gsap = (await import("gsap")).default;
+
+    const reveals = document.querySelectorAll<HTMLElement>(".splash-content .js-reveal");
+    gsap.from(reveals, {
+      opacity: 0,
+      y: 30,
+      stagger: 0.12,
+      duration: 0.9,
+      ease: "power2.out",
+      delay: 0.3,
+    });
+
+    /* Music button fade-in later */
+    const musicBtn = document.getElementById("music-toggle");
+    if (musicBtn) {
+      gsap.from(musicBtn, {
+        opacity: 0,
+        duration: 0.6,
+        delay: 1.8,
+      });
+    }
+  }
+
+  /* ── Music toggle ───────────────────────────────────────────── */
+  function initMusic() {
+    const btn = document.getElementById("music-toggle");
+    const audio = document.getElementById("bg-music") as HTMLAudioElement | null;
+    const iconOn = document.getElementById("icon-music-on");
+    const iconOff = document.getElementById("icon-music-off");
+    if (!btn || !audio || !iconOn || !iconOff) return;
+
+    let playing = false;
+    const update = () => {
+      iconOn.classList.toggle("hidden", !playing);
+      iconOff.classList.toggle("hidden", playing);
+    };
+
+    btn.addEventListener("click", async () => {
+      if (playing) {
+        audio.pause();
+        playing = false;
+      } else {
+        try {
+          await audio.play();
+          playing = true;
+        } catch {
+          /* noop */
+        }
+      }
+      update();
+    });
+  }
+
+  /* ── Recipient from ?to= ───────────────────────────────────── */
+  function initRecipient() {
+    const to = new URLSearchParams(window.location.search).get("to");
+    const el = document.getElementById("splash-recipient-name");
+    if (el && to) el.textContent = to;
+  }
+
+  /* ── CTA scroll ─────────────────────────────────────────────── */
+  function initCtaScroll() {
+    const btn = document.getElementById("splash-cta");
+    btn?.addEventListener("click", () => {
+      const target = document.getElementById("hero");
+      if (target) {
+        target.scrollIntoView({ behavior: "auto" });
+      }
+    });
+  }
+
+  /* Boot */
+  initMusic();
+  initRecipient();
+  initCtaScroll();
+  initSplashEntrance();
+  initSplashScroll();
+
+  /* Refresh ScrollTrigger after all animations are set up */
+  (async () => {
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+  })();
+</script>
+
+<style>
+  /* ════════════════════════════════════════════════════════════
+     Splash Section — full viewport
+     ════════════════════════════════════════════════════════════ */
+  .splash-section {
+    position: relative;
+    height: 100dvh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Background ─────────────────────────────────────────── */
+  .splash-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .splash-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+  }
+
+  .splash-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(10, 31, 62, 0.3) 0%, transparent 60%),
+      linear-gradient(
+        to bottom,
+        rgba(10, 31, 62, 0.55) 0%,
+        rgba(10, 31, 62, 0.4) 40%,
+        rgba(10, 31, 62, 0.75) 100%
+      );
+  }
+
+  .splash-bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+
+  /* ── Decorative floating elements ────────────────────────── */
+  .splash-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .splash-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.12;
+  }
+
+  .splash-orb-1 {
+    width: 320px;
+    height: 320px;
+    top: -80px;
+    right: -60px;
+    background: var(--color-gold);
+    animation: float-orb 12s ease-in-out infinite alternate;
+  }
+
+  .splash-orb-2 {
+    width: 200px;
+    height: 200px;
+    bottom: 10%;
+    left: -40px;
+    background: var(--color-earth-moss);
+    animation: float-orb 10s ease-in-out 2s infinite alternate;
+  }
+
+  .splash-orb-3 {
+    width: 140px;
+    height: 140px;
+    top: 40%;
+    right: 10%;
+    background: var(--color-gold-light);
+    animation: float-orb 8s ease-in-out 4s infinite alternate;
+  }
+
+  .splash-line {
+    position: absolute;
+    width: 1px;
+    height: 120px;
+    opacity: 0.15;
+    background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+  }
+
+  .splash-line-left {
+    left: 8%;
+    top: 20%;
+    animation: float-line 6s ease-in-out infinite alternate;
+  }
+
+  .splash-line-right {
+    right: 8%;
+    bottom: 25%;
+    animation: float-line 7s ease-in-out 1s infinite alternate;
+  }
+
+  @keyframes float-orb {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      transform: translate(15px, -20px) scale(1.1);
+    }
+  }
+
+  @keyframes float-line {
+    from {
+      transform: translateY(0);
+      opacity: 0.1;
+    }
+    to {
+      transform: translateY(-20px);
+      opacity: 0.25;
+    }
+  }
+
+  /* ── Content ─────────────────────────────────────────────── */
+  .splash-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.5rem;
+    max-width: 36rem;
+    will-change: transform, opacity;
+  }
+
+  /* Badge */
+  .splash-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.3rem 0.875rem;
+    border: 1px solid rgba(200, 168, 78, 0.35);
+    border-radius: 9999px;
+    margin-bottom: 1.25rem;
+    backdrop-filter: blur(4px);
+    background: rgba(200, 168, 78, 0.06);
+  }
+
+  .splash-badge-text {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gold-light);
+  }
+
+  /* Title */
+  .splash-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    line-height: 1.15;
+    color: var(--color-gold);
+    text-shadow: 0 2px 24px rgba(200, 168, 78, 0.2);
+  }
+
+  /* Divider */
+  .splash-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin: 1rem 0;
+  }
+
+  .splash-divider-line {
+    width: 3rem;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+    opacity: 0.5;
+  }
+
+  .splash-divider-diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--color-gold);
+    transform: rotate(45deg);
+    opacity: 0.7;
+  }
+
+  /* Subtitle */
+  .splash-subtitle {
+    font-size: clamp(0.875rem, 2.5vw, 1.05rem);
+    color: var(--color-earth-cream, #f5e6c8);
+    opacity: 0.75;
+    line-height: 1.6;
+    max-width: 28rem;
+  }
+
+  /* Recipient */
+  .splash-recipient {
+    margin-top: 1.5rem;
+  }
+
+  .splash-greeting {
+    font-size: 0.8rem;
+    color: var(--color-earth-cream, #f5e6c8);
+    opacity: 0.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .splash-name {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.3rem, 4vw, 1.75rem);
+    color: var(--color-gold-light);
+    margin-top: 0.25rem;
+    text-shadow: 0 1px 12px rgba(200, 168, 78, 0.15);
+  }
+
+  /* CTA */
+  .splash-cta {
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 52px;
+    min-width: 200px;
+    padding: 0 2.5rem;
+    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+    color: var(--color-navy);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    border: none;
+    border-radius: var(--radius-btn);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:
+      0 4px 24px rgba(200, 168, 78, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .splash-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.15) 50%,
+      transparent 60%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .splash-cta:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 32px rgba(200, 168, 78, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .splash-cta:hover::before {
+    transform: translateX(100%);
+  }
+
+  .splash-cta:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .splash-cta-arrow {
+    width: 18px;
+    height: 18px;
+    animation: bounce-down 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce-down {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(3px);
+    }
+  }
+
+  /* Music toggle */
+  .splash-music {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(245, 230, 200, 0.15);
+    background: rgba(10, 31, 62, 0.5);
+    backdrop-filter: blur(8px);
+    color: rgba(245, 230, 200, 0.6);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .splash-music:hover {
+    color: var(--color-gold);
+    border-color: rgba(200, 168, 78, 0.4);
+  }
+</style>

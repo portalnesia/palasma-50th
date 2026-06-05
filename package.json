@@ -8,17 +8,24 @@
     "build": "astro build",
     "preview": "astro preview",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "astro": "^5.7.0",
     "gsap": "^3.12.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/vite": "^4.1.0",
-    "tailwindcss": "^4.1.0",
+    "@types/gsap": "^3.0.0",
+    "happy-dom": "^20.10.1",
     "prettier": "^3.4.0",
     "prettier-plugin-astro": "^0.14.0",
-    "@types/gsap": "^3.0.0"
+    "tailwindcss": "^4.1.0",
+    "vitest": "^4.1.8"
   }
 }
