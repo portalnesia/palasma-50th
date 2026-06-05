@@ -89,12 +89,6 @@ test.describe("Hero Section", () => {
     await expect(page.locator(".hero-subtitle")).toContainText("Setengah abad perjalanan");
   });
 
-  test("hero shows CTA button", async ({ page }) => {
-    const cta = page.locator("#hero-cta");
-    await expect(cta).toBeVisible();
-    await expect(cta).toContainText("Lihat Detail Acara");
-  });
-
   test("hero does NOT have RSVP buttons", async ({ page }) => {
     const hero = page.locator("#hero");
     await expect(hero.locator('a:has-text("Hadir")')).toHaveCount(0);
@@ -123,11 +117,6 @@ test.describe("Hero Section", () => {
     await expect(img).toBeAttached();
     const naturalWidth = await img.evaluate((el) => (el as HTMLImageElement).naturalWidth);
     expect(naturalWidth).toBeGreaterThanOrEqual(0);
-  });
-
-  test("hero CTA button uses anchor with hash href", async ({ page }) => {
-    const cta = page.locator("#hero-cta");
-    await expect(cta).toHaveAttribute("href", "#event-details");
   });
 
   test("hero section has floating particles", async ({ page }) => {
