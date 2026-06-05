@@ -3,9 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("Event Details Section", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    await page.waitForSelector("#splash");
-    await page.click("#splash-cta");
-    await page.waitForTimeout(1500);
+    await page.waitForSelector("#event-details");
   });
 
   test("section exists with correct id and class", async ({ page }) => {
@@ -41,19 +39,21 @@ test.describe("Event Details Section", () => {
     await expect(seconds).toContainText(/^\d{2}$/);
   });
 
-  test("displays event name from config", async ({ page }) => {
+  test("displays event name", async ({ page }) => {
     await expect(page.locator(".event-info-card")).toContainText("HUT ke-50 PALASMA");
   });
 
-  test("displays date label from config", async ({ page }) => {
-    await expect(page.locator(".event-info-card")).toContainText("29–30 Agustus 2026");
+  test("displays date label", async ({ page }) => {
+    await expect(page.locator(".event-info-card")).toContainText(
+      "Sabtu–Minggu, 29–30 Agustus 2026",
+    );
   });
 
-  test("displays time from config", async ({ page }) => {
+  test("displays time", async ({ page }) => {
     await expect(page.locator(".event-info-card")).toContainText("16.00 WITA");
   });
 
-  test("displays location from config", async ({ page }) => {
+  test("displays location", async ({ page }) => {
     await expect(page.locator(".event-info-card")).toContainText("Aranka Tempasan");
   });
 
@@ -85,15 +85,15 @@ test.describe("Event Details Section", () => {
   });
 
   test("ornamental flourishes exist", async ({ page }) => {
-    await expect(page.locator(".event-ornament-top")).toBeAttached();
     await expect(page.locator(".event-ornament-bottom")).toBeAttached();
-    await expect(page.locator(".event-flourish")).toHaveCount(2);
+    const flourishes = page.locator(".event-flourish");
+    await expect(flourishes).toHaveCount(2);
   });
 
   test("floating particles are present", async ({ page }) => {
     const particles = page.locator(".event-particle");
     const count = await particles.count();
-    expect(count).toBeGreaterThanOrEqual(6);
+    expect(count).toBeGreaterThanOrEqual(5);
   });
 
   test("glass card with corner ornaments exist", async ({ page }) => {

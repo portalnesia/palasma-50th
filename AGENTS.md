@@ -3,6 +3,7 @@
 ## Essential Commands
 - Install: `bun install`
 - Dev server: `bun run dev` (runs at http://localhost:4321)
+- Astro check: `bunx --bun astro check`
 - Unit tests: `bun run test` (Vitest)
 - E2E tests: `bun run test:e2e` (Playwright, requires dev server on port 4321)
 - Format: `bun run format` (Prettier with Astro plugin)

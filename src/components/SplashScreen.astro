@@ -174,10 +174,10 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
       <div data-splash="tahun" class="splash-title">Tahun</div>
       <div data-splash="palasma" class="splash-subtitle">PALASMA</div>
     </div>
-    <div data-splash="tagline" class="splash-tagline">
-      Setengah Abad Alam, Petualangan, dan Persaudaraan
+    <div>
+      <div data-splash="tagline" class="splash-tagline">Yang Terhormat</div>
+      <div data-splash="name" class="splash-recipient">{recipientName}</div>
     </div>
-    <div data-splash="name" class="splash-recipient">{recipientName}</div>
     <a href="#hero" data-splash="cta" class="splash-cta touch-target">
       {splash.buttonLabel}
       <svg
@@ -196,11 +196,6 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
       </svg>
     </a>
   </div>
-
-  {/* ── Audio (background music) ──────────────────────────── */}
-  <audio id="bg-music" preload="auto" loop>
-    <source src={ASSETS.bgMusic} type="audio/mpeg" />
-  </audio>
 </section>
 
 <style>
@@ -208,7 +203,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
   .splash-screen {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     min-height: 600px;
     display: flex;
     flex-direction: column;
@@ -648,6 +643,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
     gap: 1rem;
     padding: 2rem;
     text-align: center;
+    top: -7%;
   }
 
   .splash-emblem {
@@ -696,7 +692,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
   .splash-recipient {
     font-size: 2rem;
     color: var(--color-earth-sand);
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
   }
 
   .splash-cta {
@@ -919,22 +915,17 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
 
 <script>
   import { initGSAP, refreshScrollTrigger } from "@utils/gsap.ts";
+  import { bindCtaScroll, getRecipientName } from "@utils/splash";
+
+  /* ── Client-side recipient name from query param ──────── */
+  const urlRecipient = getRecipientName(window.location.search);
+  if (urlRecipient) {
+    const nameEl = document.querySelector('[data-splash="name"]');
+    if (nameEl) nameEl.textContent = urlRecipient;
+  }
 
   const section = document.getElementById("splash") as HTMLElement;
   if (!section) throw new Error("Splash screen section not found");
-
-  /* ── CTA scroll → hero visible immediately ─────────────── */
-  const ctaBtn = section.querySelector('[data-splash="cta"]') as HTMLElement;
-  if (ctaBtn) {
-    ctaBtn.addEventListener("click", () => {
-      document.body.setAttribute("data-skip-hero-intro", "true");
-      const hero = document.getElementById("hero");
-      if (hero) {
-        const heroTop = hero.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: heroTop + 80, behavior: "smooth" });
-      }
-    });
-  }
 
   /* ── GSAP animations ───────────────────────────────────── */
   await initSplashGSAP();
@@ -1199,5 +1190,11 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
 
     // Signal downstream sections that splash GSAP is ready
     window.dispatchEvent(new Event("splash:gsap-ready"));
+
+    /* ── CTA scroll → hero visible immediately ─────────────── */
+    const ctaBtn = section.querySelector('[data-splash="cta"]') as HTMLElement;
+    if (ctaBtn) {
+      bindCtaScroll(gsap, ctaBtn, "hero");
+    }
   }
 </script>

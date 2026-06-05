@@ -49,7 +49,7 @@ const { hero } = CONTENT;
 
   {/* ── Content ────────────────────────────────────────────── */}
   <div class="hero-content" id="hero-content">
-    <span data-hero="badge" class="hero-badge">{hero.welcome}</span>
+    <span data-hero="badge" data-reveal="hero-badge" class="hero-badge">{hero.welcome}</span>
 
     <h1 class="hero-title">
       {
@@ -71,11 +71,13 @@ const { hero } = CONTENT;
 
   {/* ── Nature leaves (transition to sambutan) ────────────── */}
   <div class="hero-leaves" aria-hidden="true">
-    {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-      <svg class={`hero-leaf hero-leaf-${i}`} viewBox="0 0 40 60" fill="none">
-        <path d="M20 58 C10 40 0 30 16 12 C20 2 28 2 35 8 C42 14 38 28 28 40 C24 46 22 52 20 58Z" />
-      </svg>
-    ))}
+    {
+      [1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+        <svg class={`hero-leaf hero-leaf-${i}`} viewBox="0 0 40 60" fill="none">
+          <path d="M20 58 C10 40 0 30 16 12 C20 2 28 2 35 8 C42 14 38 28 28 40 C24 46 22 52 20 58Z" />
+        </svg>
+      ))
+    }
   </div>
 
   <div class="hero-spacer" aria-hidden="true"></div>
@@ -86,7 +88,7 @@ const { hero } = CONTENT;
   .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     min-height: 600px;
     display: flex;
     flex-direction: column;
@@ -399,30 +401,6 @@ const { hero } = CONTENT;
     text-align: center;
   }
 
-  .hero-content > * {
-    animation: hero-fade-in 1s ease-out both;
-  }
-  .hero-content > :nth-child(1) {
-    animation-delay: 0.1s;
-  }
-  .hero-content > :nth-child(2) {
-    animation-delay: 0.25s;
-  }
-  .hero-content > :nth-child(3) {
-    animation-delay: 0.4s;
-  }
-
-  @keyframes hero-fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   /* ── JS-ready: hide content, GSAP reveals on scroll ── */
   .js-ready .hero-content > * {
     animation: none;
@@ -493,17 +471,57 @@ const { hero } = CONTENT;
     height: 90px;
     opacity: 0;
     bottom: -20px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
   }
 
-  .hero-leaf-1 { left: 3%; width: 55px; height: 85px; fill: rgba(74,124,89,0.4); }
-  .hero-leaf-2 { left: 13%; width: 48px; height: 72px; fill: rgba(90,140,100,0.35); }
-  .hero-leaf-3 { left: 23%; width: 70px; height: 105px; fill: rgba(55,100,70,0.4); }
-  .hero-leaf-4 { left: 43%; width: 45px; height: 68px; fill: rgba(74,124,89,0.3); }
-  .hero-leaf-5 { left: 63%; width: 68px; height: 102px; fill: rgba(90,140,100,0.35); }
-  .hero-leaf-6 { left: 76%; width: 55px; height: 82px; fill: rgba(55,100,70,0.4); }
-  .hero-leaf-7 { left: 88%; width: 60px; height: 90px; fill: rgba(74,124,89,0.3); }
-  .hero-leaf-8 { left: 52%; width: 40px; height: 60px; fill: rgba(90,140,100,0.35); }
+  .hero-leaf-1 {
+    left: 3%;
+    width: 55px;
+    height: 85px;
+    fill: rgba(74, 124, 89, 0.4);
+  }
+  .hero-leaf-2 {
+    left: 13%;
+    width: 48px;
+    height: 72px;
+    fill: rgba(90, 140, 100, 0.35);
+  }
+  .hero-leaf-3 {
+    left: 23%;
+    width: 70px;
+    height: 105px;
+    fill: rgba(55, 100, 70, 0.4);
+  }
+  .hero-leaf-4 {
+    left: 43%;
+    width: 45px;
+    height: 68px;
+    fill: rgba(74, 124, 89, 0.3);
+  }
+  .hero-leaf-5 {
+    left: 63%;
+    width: 68px;
+    height: 102px;
+    fill: rgba(90, 140, 100, 0.35);
+  }
+  .hero-leaf-6 {
+    left: 76%;
+    width: 55px;
+    height: 82px;
+    fill: rgba(55, 100, 70, 0.4);
+  }
+  .hero-leaf-7 {
+    left: 88%;
+    width: 60px;
+    height: 90px;
+    fill: rgba(74, 124, 89, 0.3);
+  }
+  .hero-leaf-8 {
+    left: 52%;
+    width: 40px;
+    height: 60px;
+    fill: rgba(90, 140, 100, 0.35);
+  }
 
   /* ── GSAP fallback: content visible without JS ────────────── */
   .js-reveal {
