@@ -49,13 +49,33 @@ export function setupMusicToggle(
 }
 
 /**
- * Bind a CTA button that smooth-scrolls to a target element.
+ * Bind a CTA button that smooth-scrolls to a target element using GSAP.
  * Returns a cleanup function.
  */
-export function bindCtaScroll(btn: HTMLElement, targetId: string): () => void {
+export function bindCtaScroll(
+  gsap: typeof globalThis.gsap,
+  btn: HTMLElement,
+  targetId: string,
+): () => void {
   function handler(): void {
-    const target = document.getElementById(targetId);
-    if (target) target.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById(targetId) as HTMLElement;
+    if (target) {
+      // Tell the hero to skip its intro scroll and show content immediately
+      document.body.setAttribute("data-skip-hero-intro", "true");
+
+      const heroTop = target.getBoundingClientRect().top + window.scrollY;
+      // Hero pinned "top top" + "+=100%" → timeline progress = scroll_px / innerHeight
+      // Text lines start appearing at progress 0.04 (badge) → 0.10 (title3)
+      // Target progress 0.10: text entering, decorations still hidden (start 0.14+)
+      const targetScroll = heroTop + 0.1 * window.innerHeight;
+
+      // Use GSAP to smoothly scroll and keep ScrollTrigger in sync
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: { y: targetScroll, autoKill: false },
+        ease: "power2.out",
+      });
+    }
   }
 
   btn.addEventListener("click", handler);

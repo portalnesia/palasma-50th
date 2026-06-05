@@ -8,8 +8,9 @@
 export async function initGSAP() {
   const { gsap } = await import("gsap");
   const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-  gsap.registerPlugin(ScrollTrigger);
-  return { gsap, ScrollTrigger };
+  const { ScrollToPlugin } = await import("gsap/ScrollToPlugin");
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+  return { gsap, ScrollTrigger, ScrollToPlugin };
 }
 
 /**
@@ -32,7 +33,7 @@ export async function refreshScrollTrigger() {
  * Generic reveal-on-scroll animation for elements with [data-reveal].
  */
 export async function setupScrollReveal() {
-  const { gsap, ScrollTrigger } = await initGSAP();
+  const { gsap } = await initGSAP();
 
   const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
   elements.forEach((el) => {

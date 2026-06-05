@@ -94,7 +94,7 @@ export function setupEventDetailsReveal(section: HTMLElement): () => void {
   const cleanupFns: (() => void)[] = [];
 
   async function init() {
-    const { gsap, ScrollTrigger } = await initGSAP();
+    const { gsap } = await initGSAP();
 
     const ctx = gsap.context(() => {
       // ── Single scrub timeline — everything synced to scroll progress ──
@@ -209,13 +209,13 @@ export function setupEventDetailsReveal(section: HTMLElement): () => void {
   }
 
   // Wait for splash pin spacer to exist before computing ScrollTrigger positions
-  window.addEventListener("splash:gsap-ready", init, { once: true });
+  window.addEventListener("splash:gsap-ready", init);
   // Safety fallback
-  const safetyTimeout = setTimeout(init, 2000);
-  window.addEventListener("splash:gsap-ready", () => clearTimeout(safetyTimeout), { once: true });
+  // const safetyTimeout = setTimeout(init, 2000);
+  // window.addEventListener("splash:gsap-ready", () => clearTimeout(safetyTimeout), { once: true });
 
   return () => {
-    clearTimeout(safetyTimeout);
+    // clearTimeout(safetyTimeout);
     window.removeEventListener("splash:gsap-ready", init);
     cleanupFns.forEach((fn) => fn());
   };

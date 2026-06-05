@@ -1,4 +1,34 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+
+vi.mock("@utils/gsap", () => {
+  const mockGsap: any = {
+    context: (fn: () => void) => {
+      fn();
+      return { revert: () => {} };
+    },
+    timeline: () => ({
+      to: vi.fn(),
+      from: vi.fn(),
+      fromTo: vi.fn(),
+      set: vi.fn(),
+    }),
+    from: vi.fn(),
+    to: vi.fn(),
+    set: vi.fn(),
+    fromTo: vi.fn(),
+    registerPlugin: vi.fn(),
+  };
+  return {
+    initGSAP: async () => ({
+      gsap: mockGsap,
+      ScrollTrigger: { refresh: () => {} },
+      ScrollToPlugin: {},
+    }),
+    refreshScrollTrigger: async () => {},
+    setupScrollReveal: async () => {},
+  };
+});
+
 import { setupHeroParallax } from "@utils/hero";
 
 describe("setupHeroParallax()", () => {
@@ -33,11 +63,13 @@ describe("setupHeroParallax()", () => {
     expect(() => setupHeroParallax(section, bg, content)).not.toThrow();
   });
 
-  it("adds js-ready class to body", () => {
+  it("adds js-ready class to body after splash:gsap-ready", async () => {
     const section = document.getElementById("hero")!;
     const bg = section.querySelector<HTMLElement>(".hero-bg")!;
     const content = document.getElementById("hero-content")!;
     setupHeroParallax(section, bg, content);
+    window.dispatchEvent(new Event("splash:gsap-ready"));
+    await new Promise((r) => setTimeout(r, 10));
     expect(document.body.classList.contains("js-ready")).toBe(true);
   });
 });

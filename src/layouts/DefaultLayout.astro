@@ -17,6 +17,7 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a1f3e" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png" />
@@ -90,6 +91,11 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     </header>
 
     <slot />
+
+    {/* ── Audio (background music) ──────────────────────────── */}
+    <audio id="bg-music" preload="auto" loop>
+      <source src={ASSETS.bgMusic} type="audio/mpeg" />
+    </audio>
 
     {/* ── Music toggle logic ─────────────────────────────────── */}
     <script>

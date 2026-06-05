@@ -22,6 +22,9 @@ jobs:
       - name: Install Playwright browsers
         run: bunx playwright install --with-deps chromium
 
+      - name: Astro check
+        run: bunx --bun astro check
+
       - name: Check formatting
         run: bun run format:check
 

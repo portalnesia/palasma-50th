@@ -34,6 +34,15 @@ bun install
 # Development server
 bun run dev
 
+# Astro check
+bunx --bun astro check
+
+# Format (write)
+bun run format
+
+# Format (check)
+bun run format:check
+
 # Unit testing
 bun run test
 

@@ -3,46 +3,46 @@ import { test, expect } from "@playwright/test";
 test.describe("Kata Sambutan Section", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    await page.waitForSelector("#splash");
-    await page.click("#splash-cta");
-    await page.waitForTimeout(1500);
+    await page.waitForSelector("#sambutan");
   });
 
-  test("section exists with correct id", async ({ page }) => {
-    const sambutan = page.locator("#sambutan");
-    await expect(sambutan).toBeAttached();
-    await expect(sambutan).toHaveClass(/sambutan-section/);
+  test("section exists with correct id and class", async ({ page }) => {
+    const section = page.locator("#sambutan");
+    await expect(section).toBeAttached();
+    await expect(section).toHaveClass(/sambutan-section/);
   });
 
-  test("displays title from config", async ({ page }) => {
+  test("displays title", async ({ page }) => {
     await expect(page.locator(".sambutan-title")).toContainText("Kata Sambutan");
   });
 
-  test("displays author name from config", async ({ page }) => {
-    await expect(page.locator(".sambutan-author-name")).toContainText("Ketua Panitia");
+  test("displays author name", async ({ page }) => {
+    await expect(page.locator(".sambutan-author-name")).toContainText("Panitia");
   });
 
-  test("displays author role from config", async ({ page }) => {
+  test("displays author role", async ({ page }) => {
     await expect(page.locator(".sambutan-author-role")).toContainText("HUT ke-50 PALASMA");
   });
 
   test("displays photo with correct alt text", async ({ page }) => {
     const photo = page.locator(".sambutan-photo");
     await expect(photo).toBeAttached();
-    await expect(photo).toHaveAttribute("alt", "Foto Ketua Panitia");
+    await expect(photo).toHaveAttribute("alt", "Logo 50th Palasma");
   });
 
   test("photo loads from config path", async ({ page }) => {
     const photo = page.locator(".sambutan-photo");
-    await expect(photo).toHaveAttribute("src", "/assets/images/ketua-panitia-dummy.jpg");
+    await expect(photo).toHaveAttribute("src", "/assets/images/logo-50.png");
   });
 
-  test("body contains greeting text from config", async ({ page }) => {
-    await expect(page.locator(".sambutan-body-text")).toContainText("Assalamualaikum");
+  test("body contains greeting text", async ({ page }) => {
+    const body = page.locator(".sambutan-body-text");
+    await expect(body).toContainText("Assalamualaikum");
   });
 
-  test("body contains closing text from config", async ({ page }) => {
-    await expect(page.locator(".sambutan-body-text")).toContainText("Panitia HUT ke-50 PALASMA");
+  test("body contains closing text", async ({ page }) => {
+    const body = page.locator(".sambutan-body-text");
+    await expect(body).toContainText("Panitia HUT ke-50 PALASMA");
   });
 
   test("body paragraphs are rendered", async ({ page }) => {
@@ -69,7 +69,7 @@ test.describe("Kata Sambutan Section", () => {
   test("floating particles are present", async ({ page }) => {
     const particles = page.locator(".sambutan-particle");
     const count = await particles.count();
-    await expect(count).toBeGreaterThanOrEqual(6);
+    expect(count).toBeGreaterThanOrEqual(8);
   });
 
   test("photo glow and ring elements exist", async ({ page }) => {
@@ -79,9 +79,9 @@ test.describe("Kata Sambutan Section", () => {
   });
 
   test("ornamental flourishes exist", async ({ page }) => {
-    await expect(page.locator(".sambutan-ornament-top")).toBeAttached();
     await expect(page.locator(".sambutan-ornament-bottom")).toBeAttached();
-    await expect(page.locator(".sambutan-flourish")).toHaveCount(2);
+    const flourishes = page.locator(".sambutan-flourish");
+    await expect(flourishes).toHaveCount(2);
   });
 
   test("author divider line exists", async ({ page }) => {

@@ -63,9 +63,9 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
       if (badge) {
         heroTl.fromTo(
           badge,
-          { opacity: 0, y: 20, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, ease: "power2.out", duration: 0.12 },
-          0.08,
+          { opacity: 0, y: 25, scale: 0.7, rotation: -5 },
+          { opacity: 1, y: 0, scale: 1, rotation: 0, ease: "back.out(1.7)", duration: 0.12 },
+          0.04,
         );
       }
 
@@ -73,8 +73,8 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
         heroTl.fromTo(
           titleFirst,
           { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, ease: "power2.out", duration: 0.12 },
-          0.12,
+          { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 },
+          0.06,
         );
       }
 
@@ -82,8 +82,8 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
         heroTl.fromTo(
           titleSecond,
           { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, ease: "power2.out", duration: 0.12 },
-          0.15,
+          { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 },
+          0.08,
         );
       }
 
@@ -91,12 +91,12 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
         heroTl.fromTo(
           titleThird,
           { opacity: 0, y: 25 },
-          { opacity: 1, y: 0, ease: "power2.out", duration: 0.12 },
-          0.18,
+          { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 },
+          0.1,
         );
       }
 
-      // ── Decorative elements fade in (0 → 0.18) ──
+      // ── Decorative elements fade in (0.14 → 0.28) ──
       bokehOrbs.forEach((orb, i) => {
         heroTl.fromTo(
           orb,
@@ -105,9 +105,9 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
             opacity: 0.8 + Math.random() * 0.2,
             scale: 1,
             ease: "power2.out",
-            duration: 0.10,
+            duration: 0.14,
           },
-          0.02 + i * 0.015,
+          0.14 + i * 0.02,
         );
       });
 
@@ -119,9 +119,9 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
             opacity: 0.2 + Math.random() * 0.2,
             scale: 0.8 + Math.random() * 0.4,
             ease: "back.out(2)",
-            duration: 0.05,
+            duration: 0.08,
           },
-          0.05 + i * 0.01,
+          0.16 + i * 0.015,
         );
       });
 
@@ -140,9 +140,9 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
             rotation: Math.random() * 360,
             scale: 1,
             ease: "power2.out",
-            duration: 0.06,
+            duration: 0.1,
           },
-          0.06 + i * 0.008,
+          0.18 + i * 0.012,
         );
       });
 
@@ -163,7 +163,7 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
             rotation: rot * 0.2,
             scale: 1,
             ease: "power1.inOut",
-            duration: 0.30,
+            duration: 0.3,
           },
           0.15 + i * 0.012,
         );
@@ -179,7 +179,7 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
       // ═══════════════════════════════════════════════════════
 
       if (badge) {
-        heroTl.to(badge, { opacity: 0, y: -15, ease: "power2.in", duration: 0.15 }, 0.80);
+        heroTl.to(badge, { opacity: 0, y: -15, ease: "power2.in", duration: 0.15 }, 0.8);
       }
 
       if (titleFirst) {
@@ -238,11 +238,11 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
 
       // Overlay/grain fade in
       if (overlay) {
-        heroTl.to(overlay, { opacity: 1, ease: "none", duration: 0.2 }, 0.90);
+        heroTl.to(overlay, { opacity: 1, ease: "none", duration: 0.2 }, 0.9);
       }
 
       if (grain) {
-        heroTl.to(grain, { opacity: 1, ease: "none", duration: 0.2 }, 0.90);
+        heroTl.to(grain, { opacity: 1, ease: "none", duration: 0.2 }, 0.9);
       }
 
       // ═══════════════════════════════════════════════════════
@@ -250,18 +250,30 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
       // ═══════════════════════════════════════════════════════
 
       leaves.forEach((leaf, i) => {
-        heroTl.to(leaf, {
-          y: -700 - Math.random() * 100,
-          rotation: -15 + Math.random() * 30,
-          ease: "power1.inOut",
-          duration: 0.30,
-        }, 0.92 + i * 0.008);
+        heroTl.to(
+          leaf,
+          {
+            y: -700 - Math.random() * 100,
+            rotation: -15 + Math.random() * 30,
+            ease: "power1.inOut",
+            duration: 0.3,
+          },
+          0.92 + i * 0.008,
+        );
       });
     });
     cleanupFns.push(() => ctx.revert());
-    await new Promise<void>((r) => setTimeout(r, 50));
     await refreshScrollTrigger();
   }
-  init();
-  return () => cleanupFns.forEach((fn) => fn());
+  // Wait for splash pin spacer to exist before computing ScrollTrigger positions
+  window.addEventListener("splash:gsap-ready", init);
+  // Safety fallback
+  // const safetyTimeout = setTimeout(init, 2000);
+  // window.addEventListener("splash:gsap-ready", () => clearTimeout(safetyTimeout), { once: true });
+
+  return () => {
+    // clearTimeout(safetyTimeout);
+    window.removeEventListener("splash:gsap-ready", init);
+    cleanupFns.forEach((fn) => fn());
+  };
 }
