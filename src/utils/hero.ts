@@ -50,7 +50,12 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
 
       if (badge) {
         heroTl
-          .fromTo(badge, { opacity: 0, y: 20 }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.08 }, 0)
+          .fromTo(
+            badge,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, ease: "power2.out", duration: 0.08 },
+            0,
+          )
           .to(badge, { opacity: 0, y: -20, ease: "power2.in" }, 0.65);
       }
 
@@ -67,19 +72,34 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
 
       if (titleFirst) {
         heroTl
-          .fromTo(titleFirst, { opacity: 0, y: 40 }, { opacity: 1, y: 0, ease: "power3.out", duration: 0.12 }, 0.15)
+          .fromTo(
+            titleFirst,
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, ease: "power3.out", duration: 0.12 },
+            0.15,
+          )
           .to(titleFirst, { opacity: 0, y: -30, ease: "power2.in" }, 0.75);
       }
 
       if (titleSecond) {
         heroTl
-          .fromTo(titleSecond, { opacity: 0, y: 40 }, { opacity: 1, y: 0, ease: "power3.out", duration: 0.12 }, 0.2)
+          .fromTo(
+            titleSecond,
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, ease: "power3.out", duration: 0.12 },
+            0.2,
+          )
           .to(titleSecond, { opacity: 0, y: -30, ease: "power2.in" }, 0.8);
       }
 
       if (subtitle) {
         heroTl
-          .fromTo(subtitle, { opacity: 0, y: 30 }, { opacity: 1, y: 0, ease: "power2.out", duration: 0.12 }, 0.3)
+          .fromTo(
+            subtitle,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, ease: "power2.out", duration: 0.12 },
+            0.3,
+          )
           .to(subtitle, { opacity: 0, y: -20, ease: "power2.in" }, 0.82);
       }
 
