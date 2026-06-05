@@ -13,6 +13,22 @@ export async function initGSAP() {
 }
 
 /**
+ * Refresh ScrollTrigger calculations.
+ * Uses double-rAF to wait for browser layout after DOM changes.
+ */
+export async function refreshScrollTrigger() {
+  const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+  return new Promise<void>((resolve) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+        resolve();
+      });
+    });
+  });
+}
+
+/**
  * Generic reveal-on-scroll animation for elements with [data-reveal].
  */
 export async function setupScrollReveal() {

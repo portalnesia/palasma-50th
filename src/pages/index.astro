@@ -1,32 +1,16 @@
 ---
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { CONTENT } from "@config/content.ts";
+import SplashScreen from "@components/SplashScreen.astro";
+import HeroSection from "@components/HeroSection.astro";
+import KataSambutan from "@components/KataSambutan.astro";
 ---
 
 <DefaultLayout>
-  <main class="min-h-screen flex items-center justify-center">
-    <div class="text-center space-y-6 px-6">
-      <!-- Logo placeholder -->
-      <div
-        class="mx-auto w-32 h-32 rounded-full bg-earth-moss/20 flex items-center justify-center border-2 border-gold"
-      >
-        <span class="text-gold text-4xl font-bold font-heading">50</span>
-      </div>
+  <SplashScreen />
 
-      <h1 class="text-3xl md:text-5xl font-bold text-gold font-heading">
-        {CONTENT.splash.title}
-      </h1>
+  <HeroSection />
 
-      <p class="text-lg md:text-xl text-earth-cream/80 max-w-md mx-auto">
-        {CONTENT.splash.subtitle}
-      </p>
+  <KataSambutan />
 
-      <a
-        href="#"
-        class="inline-flex items-center justify-center min-h-12 min-w-50 px-8 py-3 bg-gold text-navy font-bold rounded-btn hover:bg-gold-light transition-colors text-lg"
-      >
-        {CONTENT.splash.buttonLabel}
-      </a>
-    </div>
-  </main>
+  <!-- Future sections: detail acara, maps, gallery, etc. -->
 </DefaultLayout>

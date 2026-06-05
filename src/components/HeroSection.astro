@@ -1,0 +1,422 @@
+---
+import { CONTENT } from "@config/content.ts";
+import { ASSETS } from "@config/assets.ts";
+
+const { hero } = CONTENT;
+---
+
+<section id="hero" class="hero-section">
+  <div class="hero-bg" aria-hidden="true">
+    <img src={ASSETS.hero} alt="" loading="eager" class="hero-bg-img" />
+    <div class="hero-bg-overlay"></div>
+    <div class="hero-bg-grain"></div>
+  </div>
+
+  {/* ── Floating particles ──────────────────────────────── */}
+  <div class="hero-particles" aria-hidden="true">
+    <span class="hero-particle hero-particle-1"></span>
+    <span class="hero-particle hero-particle-2"></span>
+    <span class="hero-particle hero-particle-3"></span>
+    <span class="hero-particle hero-particle-4"></span>
+    <span class="hero-particle hero-particle-5"></span>
+    <span class="hero-particle hero-particle-6"></span>
+  </div>
+
+  <div class="hero-content" id="hero-content">
+    <noscript>
+      <style>
+        .hero-content {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+
+    <div class="hero-badge" data-hero="badge">
+      <span class="hero-badge-dot"></span>
+      <span>Reuni Akbar</span>
+      <span class="hero-badge-dot"></span>
+    </div>
+
+    <div class="hero-emblem" data-hero="emblem">
+      <div class="hero-emblem-ring">
+        <span>50</span>
+      </div>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="hero-title-line" data-hero="title-line-1">{hero.welcome}</span>
+      <span class="hero-title-line hero-title-highlight" data-hero="title-line-2"
+        >{hero.tagline}</span
+      >
+    </h1>
+
+    <p class="hero-subtitle" data-hero="subtitle">{hero.subtitle}</p>
+
+    <div class="hero-cta" data-hero="cta">
+      <a href={`#${hero.ctaTarget}`} class="hero-cta-btn" id="hero-cta">
+        {hero.ctaLabel}
+        <svg
+          class="hero-cta-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M7 13l5 5 5-5"></path>
+          <path d="M7 6l5 5 5-5"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-spacer" aria-hidden="true"></div>
+</section>
+
+<script>
+  import { setupHeroParallax, bindHeroCta } from "@utils/hero";
+
+  const section = document.getElementById("hero")!;
+  const bg = section.querySelector<HTMLElement>(".hero-bg")!;
+  const content = document.getElementById("hero-content")!;
+
+  const parallaxCleanup = setupHeroParallax(section, bg, content);
+
+  const cta = document.getElementById("hero-cta");
+  let ctaCleanup: (() => void) | null = null;
+  if (cta instanceof HTMLAnchorElement) {
+    ctaCleanup = bindHeroCta(cta, "event-details");
+  }
+
+  document.addEventListener("astro:before-swap", () => {
+    parallaxCleanup();
+    ctaCleanup?.();
+  });
+</script>
+
+<style>
+  .hero-section {
+    position: relative;
+    z-index: 50;
+    height: 100dvh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    will-change: transform;
+  }
+
+  .hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    /* Starts transparent — GSAP animates to 1 (solid navy) for clean transition */
+    background: var(--color-navy);
+    opacity: 0.25;
+    will-change: opacity;
+  }
+
+  .hero-bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  /* ── Floating particles ────────────────────────────────── */
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--color-earth-cream);
+    opacity: 0;
+    animation: hero-float linear infinite;
+  }
+
+  .hero-particle-1 {
+    width: 2px;
+    height: 2px;
+    left: 15%;
+    top: 20%;
+    animation-duration: 9s;
+    animation-delay: 0s;
+  }
+  .hero-particle-2 {
+    width: 3px;
+    height: 3px;
+    left: 80%;
+    top: 30%;
+    animation-duration: 7s;
+    animation-delay: 1.2s;
+  }
+  .hero-particle-3 {
+    width: 2px;
+    height: 2px;
+    left: 30%;
+    top: 70%;
+    animation-duration: 10s;
+    animation-delay: 2.5s;
+  }
+  .hero-particle-4 {
+    width: 3px;
+    height: 3px;
+    left: 70%;
+    top: 60%;
+    animation-duration: 8s;
+    animation-delay: 0.8s;
+  }
+  .hero-particle-5 {
+    width: 2px;
+    height: 2px;
+    left: 50%;
+    top: 15%;
+    animation-duration: 11s;
+    animation-delay: 3.5s;
+  }
+  .hero-particle-6 {
+    width: 3px;
+    height: 3px;
+    left: 90%;
+    top: 75%;
+    animation-duration: 8.5s;
+    animation-delay: 1.8s;
+  }
+
+  @keyframes hero-float {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(1);
+    }
+    20% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.2;
+    }
+    80% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-60px) scale(0.6);
+    }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    max-width: 48rem;
+    width: 100%;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(200, 168, 78, 0.3);
+    background: rgba(10, 31, 62, 0.5);
+    backdrop-filter: blur(8px);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-earth-cream);
+    margin-bottom: 2rem;
+  }
+
+  .hero-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-gold);
+  }
+
+  .hero-emblem {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-emblem-ring {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    border: 3px solid var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(200, 168, 78, 0.1);
+    backdrop-filter: blur(4px);
+    margin: 0 auto;
+  }
+
+  .hero-emblem-ring span {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-gold);
+    line-height: 1;
+  }
+
+  .hero-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title-line {
+    font-family: var(--font-heading);
+    font-size: var(--text-heading);
+    font-weight: 700;
+    color: var(--color-earth-cream);
+    line-height: 1.15;
+  }
+
+  .hero-title-highlight {
+    font-size: var(--text-heading-lg);
+    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-body);
+    color: rgba(245, 230, 200, 1);
+    max-width: 36rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .hero-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-btn);
+    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+    color: var(--color-navy);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    cursor: pointer;
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  .hero-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200, 168, 78, 0.3);
+  }
+
+  .hero-cta-btn:focus-visible {
+    outline: 2px solid var(--color-gold-light);
+    outline-offset: 3px;
+  }
+
+  .hero-cta-icon {
+    transition: transform 0.2s ease;
+  }
+
+  .hero-cta-btn:hover .hero-cta-icon {
+    transform: translateY(4px);
+  }
+
+  .hero-spacer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 1.5rem;
+    z-index: 2;
+  }
+
+  @media (max-width: 639px) {
+    .hero-content {
+      padding: 2rem 1.25rem;
+    }
+
+    .hero-emblem-ring {
+      width: 72px;
+      height: 72px;
+    }
+
+    .hero-emblem-ring span {
+      font-size: 1.5rem;
+    }
+
+    .hero-title-line {
+      font-size: var(--text-heading-sm);
+    }
+
+    .hero-title-highlight {
+      font-size: var(--text-heading);
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-body-sm);
+    }
+
+    .hero-cta-btn {
+      font-size: 1rem;
+      padding: 0.875rem 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-title-line {
+      font-size: var(--text-heading-xl);
+    }
+
+    .hero-title-highlight {
+      font-size: 56px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+    }
+  }
+</style>

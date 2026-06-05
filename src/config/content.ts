@@ -3,9 +3,17 @@ export const CONTENT = {
     title: "PALASMA 50 Tahun",
     subtitle: "Setengah Abad Alam, Petualangan, dan Persaudaraan",
     buttonLabel: "Buka Undangan",
+    greeting: "Kepada Yth.",
+    defaultName: "Abang / Mba",
   },
   hero: {
-    welcome: "Selamat Datang di Reuni Akbar PALASMA",
+    welcome: "Selamat Datang",
+    tagline: "Reuni Akbar PALASMA",
+    subtitle: "Setengah abad perjalanan, kenangan, dan persaudaraan yang tak pernah pudar.",
+    ctaLabel: "Lihat Detail Acara",
+    ctaTarget: "event-details",
+  },
+  rsvp: {
     ctaHadir: "Ya, Saya Hadir",
     ctaAbsen: "Maaf, Saya Absen",
   },

@@ -24,5 +24,8 @@ jobs:
       - name: Check formatting
         run: bun run format:check
 
+      - name: Testing
+        run: bun run test && bun run test:e2e
+
       - name: Build
         run: bun run build

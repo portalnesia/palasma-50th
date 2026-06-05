@@ -1,0 +1,870 @@
+---
+import { CONTENT } from "@config/content.ts";
+import { ASSETS } from "@config/assets.ts";
+import { parseBodyParagraphs } from "@utils/sambutan.ts";
+
+const { sambutan } = CONTENT;
+const paragraphs = parseBodyParagraphs(sambutan.body);
+---
+
+<section id="sambutan" class="sambutan-section">
+  {/* ── Background layers ──────────────────────────────────── */}
+  <div class="sambutan-bg" aria-hidden="true">
+    <div class="sambutan-bg-gradient-1"></div>
+    <div class="sambutan-bg-gradient-2"></div>
+    <div class="sambutan-bg-gradient-3"></div>
+    <div class="sambutan-bg-grain"></div>
+  </div>
+
+  {/* ── Floating gold particles ──────────────────────────────── */}
+  <div class="sambutan-particles" aria-hidden="true">
+    <span class="sambutan-particle sambutan-particle-1"></span>
+    <span class="sambutan-particle sambutan-particle-2"></span>
+    <span class="sambutan-particle sambutan-particle-3"></span>
+    <span class="sambutan-particle sambutan-particle-4"></span>
+    <span class="sambutan-particle sambutan-particle-5"></span>
+    <span class="sambutan-particle sambutan-particle-6"></span>
+    <span class="sambutan-particle sambutan-particle-7"></span>
+    <span class="sambutan-particle sambutan-particle-8"></span>
+  </div>
+
+  {/* ── Decorative side lines ─────────────────────────────────── */}
+  <div class="sambutan-side-decor sambutan-side-left" aria-hidden="true">
+    <div class="sambutan-side-line"></div>
+    <div class="sambutan-side-dot"></div>
+    <div class="sambutan-side-line"></div>
+  </div>
+  <div class="sambutan-side-decor sambutan-side-right" aria-hidden="true">
+    <div class="sambutan-side-line"></div>
+    <div class="sambutan-side-dot"></div>
+    <div class="sambutan-side-line"></div>
+  </div>
+
+  <div class="sambutan-container">
+    {/* ── Top ornamental flourish ──────────────────────────── */}
+    <div class="sambutan-ornament-top" data-reveal="sambutan-ornament-top" aria-hidden="true">
+      <svg
+        class="sambutan-flourish"
+        viewBox="0 0 200 30"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M100 15 C85 5, 60 5, 40 15 S10 25, 0 15"
+          stroke="url(#gold-grad-l)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <path
+          d="M100 15 C115 5, 140 5, 160 15 S190 25, 200 15"
+          stroke="url(#gold-grad-r)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
+        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
+        ></circle>
+        <defs>
+          <linearGradient id="gold-grad-l" x1="200" y1="15" x2="0" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+          <linearGradient id="gold-grad-r" x1="0" y1="15" x2="200" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    {/* ── Title ──────────────────────────────────────────────── */}
+    <h2 class="sambutan-title" data-reveal="sambutan-title">
+      <span class="sambutan-title-star" aria-hidden="true">✦</span>
+      <span class="sambutan-title-text">{sambutan.title}</span>
+      <span class="sambutan-title-star" aria-hidden="true">✦</span>
+    </h2>
+
+    {/* ── Author photo with glow ─────────────────────────────── */}
+    <div class="sambutan-photo-wrapper" data-reveal="sambutan-photo">
+      <div class="sambutan-photo-glow" aria-hidden="true"></div>
+      <div class="sambutan-photo-ring-outer" aria-hidden="true"></div>
+      <div class="sambutan-photo-ring-inner" aria-hidden="true"></div>
+      <div class="sambutan-photo-frame">
+        <img
+          src={ASSETS.sambutan.photo}
+          alt={`Foto ${sambutan.author}`}
+          class="sambutan-photo"
+          loading="lazy"
+          width="160"
+          height="160"
+        />
+      </div>
+      <div class="sambutan-author-info" data-reveal="sambutan-author">
+        <span class="sambutan-author-name">{sambutan.author}</span>
+        <span class="sambutan-author-divider" aria-hidden="true"></span>
+        <span class="sambutan-author-role">{sambutan.authorRole}</span>
+      </div>
+    </div>
+
+    {/* ── Glass card speech body ──────────────────────────────── */}
+    <div class="sambutan-glass-card" data-reveal="sambutan-card">
+      <div class="sambutan-glass-border" aria-hidden="true"></div>
+
+      {/* Corner ornaments */}
+      <svg
+        class="sambutan-corner sambutan-corner-tl"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 30 V8 C2 4 4 2 8 2 H30"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="2" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+      </svg>
+      <svg
+        class="sambutan-corner sambutan-corner-tr"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M30 30 V8 C30 4 28 2 24 2 H2"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="30" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+      </svg>
+      <svg
+        class="sambutan-corner sambutan-corner-bl"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 2 V24 C2 28 4 30 8 30 H30"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="2" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+      </svg>
+      <svg
+        class="sambutan-corner sambutan-corner-br"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M30 2 V24 C30 28 28 30 24 30 H2"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="30" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+      </svg>
+
+      <span
+        class="sambutan-quote-mark sambutan-quote-open"
+        data-reveal="sambutan-quote"
+        aria-hidden="true">❝</span
+      >
+
+      <div class="sambutan-body-text">
+        {
+          paragraphs.map((p, i) => (
+            <p class="sambutan-paragraph" data-reveal={`sambutan-para-${i}`}>
+              {p}
+            </p>
+          ))
+        }
+      </div>
+
+      <span
+        class="sambutan-quote-mark sambutan-quote-close"
+        data-reveal="sambutan-quote"
+        aria-hidden="true">❞</span
+      >
+    </div>
+
+    {/* ── Bottom ornamental flourish ─────────────────────────── */}
+    <div class="sambutan-ornament-bottom" data-reveal="sambutan-ornament-bottom" aria-hidden="true">
+      <svg
+        class="sambutan-flourish"
+        viewBox="0 0 200 30"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M100 15 C85 25, 60 25, 40 15 S10 5, 0 15"
+          stroke="url(#gold-grad-l2)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <path
+          d="M100 15 C115 25, 140 25, 160 15 S190 5, 200 15"
+          stroke="url(#gold-grad-r2)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="100" cy="15" r="2" fill="#c8a84e" opacity="0.6"></circle>
+        <defs>
+          <linearGradient id="gold-grad-l2" x1="200" y1="15" x2="0" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+          <linearGradient id="gold-grad-r2" x1="0" y1="15" x2="200" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { setupSambutanReveal } from "@utils/sambutan";
+
+  const section = document.getElementById("sambutan")!;
+  const revealCleanup = setupSambutanReveal(section);
+
+  document.addEventListener("astro:before-swap", () => {
+    revealCleanup();
+  });
+</script>
+
+<style>
+  /* ===== Kata Sambutan Section ===== */
+  .sambutan-section {
+    position: relative;
+    z-index: 60;
+    background: var(--color-navy);
+    padding: 6rem 1.5rem 7rem;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Background layers ─────────────────────────────────── */
+  .sambutan-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .sambutan-bg-gradient-1 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 80% 50% at 50% 0%,
+      rgba(200, 168, 78, 0.08) 0%,
+      transparent 60%
+    );
+  }
+
+  .sambutan-bg-gradient-2 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 40% at 20% 80%,
+      rgba(74, 124, 89, 0.06) 0%,
+      transparent 60%
+    );
+  }
+
+  .sambutan-bg-gradient-3 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 50% 60% at 85% 40%,
+      rgba(200, 168, 78, 0.04) 0%,
+      transparent 50%
+    );
+    animation: sambutan-bg-shift 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes sambutan-bg-shift {
+    0% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  .sambutan-bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image:
+      radial-gradient(circle at 20% 30%, var(--color-gold) 0.5px, transparent 0.5px),
+      radial-gradient(circle at 80% 70%, var(--color-gold) 0.5px, transparent 0.5px);
+    background-size:
+      40px 40px,
+      55px 55px;
+  }
+
+  /* ── Floating particles ────────────────────────────────── */
+  .sambutan-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .sambutan-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--color-gold);
+    opacity: 0;
+    animation: sambutan-float linear infinite;
+  }
+
+  .sambutan-particle-1 {
+    width: 3px;
+    height: 3px;
+    left: 10%;
+    top: 15%;
+    animation-duration: 8s;
+    animation-delay: 0s;
+  }
+  .sambutan-particle-2 {
+    width: 2px;
+    height: 2px;
+    left: 25%;
+    top: 70%;
+    animation-duration: 10s;
+    animation-delay: 1.5s;
+  }
+  .sambutan-particle-3 {
+    width: 4px;
+    height: 4px;
+    left: 75%;
+    top: 20%;
+    animation-duration: 7s;
+    animation-delay: 0.8s;
+  }
+  .sambutan-particle-4 {
+    width: 2px;
+    height: 2px;
+    left: 85%;
+    top: 60%;
+    animation-duration: 9s;
+    animation-delay: 2.2s;
+  }
+  .sambutan-particle-5 {
+    width: 3px;
+    height: 3px;
+    left: 50%;
+    top: 85%;
+    animation-duration: 11s;
+    animation-delay: 3s;
+  }
+  .sambutan-particle-6 {
+    width: 2px;
+    height: 2px;
+    left: 15%;
+    top: 45%;
+    animation-duration: 8.5s;
+    animation-delay: 4s;
+  }
+  .sambutan-particle-7 {
+    width: 3px;
+    height: 3px;
+    left: 65%;
+    top: 10%;
+    animation-duration: 9.5s;
+    animation-delay: 1s;
+  }
+  .sambutan-particle-8 {
+    width: 2px;
+    height: 2px;
+    left: 40%;
+    top: 35%;
+    animation-duration: 7.5s;
+    animation-delay: 5s;
+  }
+
+  @keyframes sambutan-float {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(1);
+    }
+    15% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    85% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-80px) scale(0.5);
+    }
+  }
+
+  /* ── Side decorative lines ──────────────────────────────── */
+  .sambutan-side-decor {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1;
+    opacity: 0.15;
+  }
+
+  .sambutan-side-left {
+    left: 1.5rem;
+  }
+
+  .sambutan-side-right {
+    right: 1.5rem;
+  }
+
+  .sambutan-side-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+  }
+
+  .sambutan-side-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-gold);
+  }
+
+  /* ── Container ─────────────────────────────────────────── */
+  .sambutan-container {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* ── Ornamental flourish ────────────────────────────────── */
+  .sambutan-ornament-top,
+  .sambutan-ornament-bottom {
+    width: 200px;
+    margin-bottom: 2rem;
+  }
+
+  .sambutan-ornament-bottom {
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+  }
+
+  .sambutan-flourish {
+    width: 100%;
+    height: auto;
+  }
+
+  /* ── Title ─────────────────────────────────────────────── */
+  .sambutan-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-heading);
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(
+      135deg,
+      var(--color-gold-light) 0%,
+      var(--color-gold) 40%,
+      var(--color-earth-sand) 70%,
+      var(--color-gold-light) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(200, 168, 78, 0.15));
+  }
+
+  .sambutan-title-star {
+    font-size: 0.4em;
+    -webkit-text-fill-color: var(--color-gold);
+    opacity: 0.6;
+    animation: sambutan-star-pulse 2.5s ease-in-out infinite;
+  }
+
+  .sambutan-title-star:last-child {
+    animation-delay: 1.25s;
+  }
+
+  @keyframes sambutan-star-pulse {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(0.8) rotate(0deg);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.2) rotate(15deg);
+    }
+  }
+
+  /* ── Author photo ──────────────────────────────────────── */
+  .sambutan-photo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .sambutan-photo-glow {
+    position: absolute;
+    top: -10px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 168, 78, 0.25) 0%, transparent 70%);
+    filter: blur(15px);
+    animation: sambutan-glow-pulse 3s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  @keyframes sambutan-glow-pulse {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+  }
+
+  .sambutan-photo-ring-outer {
+    position: absolute;
+    top: -12px;
+    width: 144px;
+    height: 144px;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 168, 78, 0.15);
+    animation: sambutan-ring-breathe 4s ease-in-out infinite;
+  }
+
+  .sambutan-photo-ring-inner {
+    position: absolute;
+    top: -6px;
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 168, 78, 0.1);
+    animation: sambutan-ring-breathe 4s ease-in-out infinite 1s;
+  }
+
+  @keyframes sambutan-ring-breathe {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.04);
+    }
+  }
+
+  .sambutan-photo-frame {
+    position: relative;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(
+      135deg,
+      var(--color-gold) 0%,
+      var(--color-earth-sand) 50%,
+      var(--color-gold-dark) 100%
+    );
+    box-shadow:
+      0 0 25px rgba(200, 168, 78, 0.2),
+      inset 0 0 15px rgba(200, 168, 78, 0.1);
+  }
+
+  .sambutan-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sambutan-author-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sambutan-author-name {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-earth-cream);
+    letter-spacing: 0.02em;
+  }
+
+  .sambutan-author-divider {
+    width: 24px;
+    height: 1px;
+    background: var(--color-gold);
+    opacity: 0.5;
+  }
+
+  .sambutan-author-role {
+    font-size: 0.8rem;
+    color: var(--color-gold);
+    opacity: 0.85;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ── Glass card ────────────────────────────────────────── */
+  .sambutan-glass-card {
+    position: relative;
+    padding: 2.5rem 2rem;
+    max-width: 620px;
+    width: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 168, 78, 0.04) 0%,
+      rgba(10, 31, 62, 0.4) 40%,
+      rgba(200, 168, 78, 0.03) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(200, 168, 78, 0.12);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .sambutan-glass-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 168, 78, 0.2) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(200, 168, 78, 0.15) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ── Corner ornaments ──────────────────────────────────── */
+  .sambutan-corner {
+    position: absolute;
+    z-index: 2;
+    opacity: 0.7;
+  }
+
+  .sambutan-corner-tl {
+    top: 6px;
+    left: 6px;
+  }
+
+  .sambutan-corner-tr {
+    top: 6px;
+    right: 6px;
+  }
+
+  .sambutan-corner-bl {
+    bottom: 6px;
+    left: 6px;
+  }
+
+  .sambutan-corner-br {
+    bottom: 6px;
+    right: 6px;
+  }
+
+  /* ── Quote marks ───────────────────────────────────────── */
+  .sambutan-quote-mark {
+    display: block;
+    font-size: 2.8rem;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold-dark));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.3;
+  }
+
+  .sambutan-quote-open {
+    margin-bottom: 0.75rem;
+  }
+
+  .sambutan-quote-close {
+    margin-top: 0.75rem;
+  }
+
+  /* ── Body text ─────────────────────────────────────────── */
+  .sambutan-body-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .sambutan-paragraph {
+    font-size: var(--text-body-sm);
+    line-height: 1.85;
+    color: rgba(245, 230, 200, 0.88);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .sambutan-paragraph:first-child {
+    font-style: normal;
+  }
+
+  .sambutan-paragraph:last-child {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--color-earth-cream);
+    margin-top: 0.5rem;
+    font-size: var(--text-body);
+  }
+
+  /* ── Responsive ────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .sambutan-section {
+      padding: 4rem 1rem 5rem;
+    }
+
+    .sambutan-title {
+      font-size: var(--text-heading-sm);
+    }
+
+    .sambutan-photo-frame {
+      width: 100px;
+      height: 100px;
+    }
+
+    .sambutan-photo-glow {
+      width: 120px;
+      height: 120px;
+    }
+
+    .sambutan-photo-ring-outer {
+      width: 124px;
+      height: 124px;
+    }
+
+    .sambutan-photo-ring-inner {
+      width: 112px;
+      height: 112px;
+    }
+
+    .sambutan-glass-card {
+      padding: 2rem 1.25rem;
+    }
+
+    .sambutan-paragraph {
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .sambutan-quote-mark {
+      font-size: 2.2rem;
+    }
+
+    .sambutan-side-decor {
+      display: none;
+    }
+
+    .sambutan-ornament-top,
+    .sambutan-ornament-bottom {
+      width: 140px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .sambutan-section {
+      padding: 7rem 2rem 8rem;
+    }
+
+    .sambutan-title {
+      font-size: var(--text-heading-lg);
+    }
+
+    .sambutan-photo-frame {
+      width: 140px;
+      height: 140px;
+    }
+
+    .sambutan-photo-glow {
+      width: 170px;
+      height: 170px;
+    }
+
+    .sambutan-photo-ring-outer {
+      width: 164px;
+      height: 164px;
+    }
+
+    .sambutan-photo-ring-inner {
+      width: 152px;
+      height: 152px;
+    }
+
+    .sambutan-paragraph {
+      font-size: var(--text-body);
+    }
+
+    .sambutan-glass-card {
+      padding: 3rem 2.5rem;
+    }
+  }
+</style>
