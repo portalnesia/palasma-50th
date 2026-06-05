@@ -85,16 +85,31 @@ const { hero } = CONTENT;
   const bg = section.querySelector<HTMLElement>(".hero-bg")!;
   const content = document.getElementById("hero-content")!;
 
-  const parallaxCleanup = setupHeroParallax(section, bg, content);
+  let parallaxCleanup: (() => void) | null = null;
+  let ctaCleanup: (() => void) | null = null;
+  let safetyTimeout: ReturnType<typeof setTimeout>;
 
   const cta = document.getElementById("hero-cta");
-  let ctaCleanup: (() => void) | null = null;
   if (cta instanceof HTMLAnchorElement) {
     ctaCleanup = bindHeroCta(cta, "event-details");
   }
 
+  /* Wait for splash pin spacer to exist before creating hero pin.
+     Without this, hero's ScrollTrigger may compute positions before
+     splash's pin spacer is in the DOM, causing inconsistent gaps. */
+  function initHero() {
+    clearTimeout(safetyTimeout);
+    parallaxCleanup = setupHeroParallax(section, bg, content);
+  }
+
+  // Safety fallback: if splash:gsap-ready never fires, init anyway
+  safetyTimeout = setTimeout(initHero, 1500);
+  window.addEventListener("splash:gsap-ready", initHero, { once: true });
+
   document.addEventListener("astro:before-swap", () => {
-    parallaxCleanup();
+    clearTimeout(safetyTimeout);
+    window.removeEventListener("splash:gsap-ready", initHero);
+    parallaxCleanup?.();
     ctaCleanup?.();
   });
 </script>
@@ -103,7 +118,7 @@ const { hero } = CONTENT;
   .hero-section {
     position: relative;
     z-index: 50;
-    height: 100dvh;
+    height: 100svh;
     width: 100%;
     overflow: hidden;
     display: flex;
@@ -366,7 +381,7 @@ const { hero } = CONTENT;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 10vh;
+    height: 10svh;
     display: flex;
     align-items: flex-end;
     justify-content: center;
