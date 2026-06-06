@@ -1,0 +1,889 @@
+---
+import { CONTENT } from "@config/content.ts";
+import { ASSETS } from "@config/assets.ts";
+
+const { twibbon } = CONTENT;
+const twibbonFrameUrl = ASSETS.twibbon.frame;
+---
+
+<section id="twibbon" class="twibbon-section">
+  {/* ── Background layers ──────────────────────────────────── */}
+  <div class="twibbon-bg" aria-hidden="true">
+    <div class="twibbon-bg-gradient-1"></div>
+    <div class="twibbon-bg-gradient-2"></div>
+    <div class="twibbon-bg-gradient-3"></div>
+    <div class="twibbon-bg-grain"></div>
+  </div>
+
+  {/* ── Floating gold particles ──────────────────────────────── */}
+  <div class="twibbon-particles" aria-hidden="true">
+    <span class="twibbon-particle twibbon-particle-1"></span>
+    <span class="twibbon-particle twibbon-particle-2"></span>
+    <span class="twibbon-particle twibbon-particle-3"></span>
+    <span class="twibbon-particle twibbon-particle-4"></span>
+    <span class="twibbon-particle twibbon-particle-5"></span>
+    <span class="twibbon-particle twibbon-particle-6"></span>
+  </div>
+
+  {/* ── Decorative side lines ─────────────────────────────────── */}
+  <div class="twibbon-side-decor twibbon-side-left" aria-hidden="true">
+    <div class="twibbon-side-line"></div>
+    <div class="twibbon-side-dot"></div>
+    <div class="twibbon-side-line"></div>
+  </div>
+  <div class="twibbon-side-decor twibbon-side-right" aria-hidden="true">
+    <div class="twibbon-side-line"></div>
+    <div class="twibbon-side-dot"></div>
+    <div class="twibbon-side-line"></div>
+  </div>
+
+  <div class="twibbon-container">
+    {/* ── Top ornamental flourish ──────────────────────────── */}
+    <div class="twibbon-ornament-top" data-reveal="twibbon-ornament-top" aria-hidden="true">
+      <svg
+        class="twibbon-flourish"
+        viewBox="0 0 200 30"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M100 15 C85 5, 60 5, 40 15 S10 25, 0 15"
+          stroke="url(#twibbon-gold-grad-l)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <path
+          d="M100 15 C115 5, 140 5, 160 15 S190 25, 200 15"
+          stroke="url(#twibbon-gold-grad-r)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
+        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
+        ></circle>
+        <defs>
+          <linearGradient id="twibbon-gold-grad-l" x1="200" y1="15" x2="0" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+          <linearGradient id="twibbon-gold-grad-r" x1="0" y1="15" x2="200" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    {/* ── Title ──────────────────────────────────────────────── */}
+    <h2 class="twibbon-title" data-reveal="twibbon-title">
+      <span class="twibbon-title-star" aria-hidden="true">✦</span>
+      <span class="twibbon-title-text">{twibbon.title}</span>
+      <span class="twibbon-title-star" aria-hidden="true">✦</span>
+    </h2>
+
+    {/* ── Subtitle ──────────────────────────────────────────── */}
+    <p class="twibbon-subtitle" data-reveal="twibbon-subtitle">
+      {twibbon.subtitle}
+    </p>
+
+    {/* ── Body / persuasive text ────────────────────────────── */}
+    <p class="twibbon-body" data-reveal="twibbon-body">
+      {twibbon.body}
+    </p>
+
+    {/* ── Upload card ────────────────────────────────────────── */}
+    <div class="twibbon-card" data-reveal="twibbon-card">
+      <div class="twibbon-glass-border" aria-hidden="true"></div>
+
+      {/* Corner ornaments */}
+      <svg
+        class="twibbon-corner twibbon-corner-tl"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 30 V8 C2 4 4 2 8 2 H30"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="2" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+      </svg>
+      <svg
+        class="twibbon-corner twibbon-corner-tr"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M30 30 V8 C30 4 28 2 24 2 H2"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="30" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+      </svg>
+      <svg
+        class="twibbon-corner twibbon-corner-bl"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 2 V24 C2 28 4 30 8 30 H30"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="2" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+      </svg>
+      <svg
+        class="twibbon-corner twibbon-corner-br"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M30 2 V24 C30 28 28 30 24 30 H2"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="30" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+      </svg>
+
+      {/* ── Upload / preview area ─────────────────────────── */}
+      <div class="twibbon-preview" id="twibbon-preview">
+        <div class="twibbon-preview-icon">
+          <svg
+            width="64"
+            height="64"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+        </div>
+        <p class="twibbon-preview-text">Pratinjau Twibbon</p>
+        <p class="twibbon-preview-hint">Ukuran: 1000×1000 px</p>
+
+        <label id="twibbon-upload-label" class="twibbon-upload-label" for="twibbon-file-input">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          {twibbon.ctaLabel}
+        </label>
+        <input
+          type="file"
+          id="twibbon-file-input"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          class="twibbon-file-input"
+          aria-label="Upload foto untuk twibbon"
+        />
+      </div>
+
+      {/* ── Croppie container (hidden initially) ─────────── */}
+      <div id="twibbon-croppie" class="twibbon-croppie"></div>
+
+      {/* ── Hidden canvas for frame compositing (1000×1000) ─ */}
+      <canvas
+        id="twibbon-canvas"
+        class="twibbon-canvas"
+        width="1000"
+        height="1000"
+        data-frame={twibbonFrameUrl}
+        aria-hidden="true"></canvas>
+
+      {/* ── Controls (hidden initially) ──────────────────── */}
+      <div id="twibbon-controls" class="twibbon-controls">
+        <button
+          id="twibbon-btn-download"
+          class="twibbon-btn twibbon-btn--primary"
+          type="button"
+          aria-label="Download twibbon"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          {twibbon.downloadLabel}
+        </button>
+        <button
+          id="twibbon-btn-reset"
+          class="twibbon-btn twibbon-btn--secondary"
+          type="button"
+          aria-label="Ulangi foto"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+          </svg>
+          {twibbon.resetLabel}
+        </button>
+      </div>
+
+      {/* ── Status message ─────────────────────────────────── */}
+      <p id="twibbon-status" class="twibbon-status twibbon-status--hidden" role="status"></p>
+
+      {/* ── Privacy notice ────────────────────────────────── */}
+      <div class="twibbon-privacy" aria-label="Privasi pengguna">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span
+          >Semua proses dilakukan di browser Anda. Tidak ada data yang dikirim ke server mana pun.</span
+        >
+      </div>
+    </div>
+
+    {/* ── Bottom ornamental flourish ─────────────────────── */}
+    <div class="twibbon-ornament-bottom" data-reveal="twibbon-ornament-bottom" aria-hidden="true">
+      <div class="twibbon-ornament-line"></div>
+      <span class="twibbon-ornament-diamond">◆</span>
+      <div class="twibbon-ornament-line"></div>
+    </div>
+  </div>
+
+  {/* ── Script ─────────────────────────────────────────────── */}
+  <script>
+    import { setupTwibbon } from "@utils/twibbon.ts";
+
+    const section = document.getElementById("twibbon");
+    if (section) {
+      setupTwibbon(section);
+    }
+  </script>
+
+  {
+    /* ── Frame overlay CSS + hidden canvas (must be global since Croppie creates DOM dynamically) ─ */
+  }
+  <style is:global>
+    /* Hidden canvas for compositing — never visible */
+    .twibbon-canvas {
+      display: none;
+    }
+
+    /* Transparent boundary background (like Croppie.tsx) */
+    #twibbon .cr-boundary {
+      background-image: url("/assets/images/transparent.jpg") !important;
+      background-size: cover !important;
+      background-position: center !important;
+    }
+
+    /* Twibbon frame overlay on top of the viewport (z-index: 5 per PRD) */
+    #twibbon .cr-viewport::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("/assets/images/twibbon.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 5;
+      pointer-events: none;
+    }
+  </style>
+</section>
+
+<style>
+  /* ── Section base ────────────────────────────────────────── */
+  .twibbon-section {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 6rem 1.5rem;
+    box-sizing: border-box;
+  }
+
+  /* ── Background layers ───────────────────────────────────── */
+  .twibbon-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(200, 168, 78, 0.06) 0%, transparent 70%),
+      linear-gradient(
+        175deg,
+        var(--color-navy-800, #111827) 0%,
+        var(--color-navy-700, #1e293b) 50%,
+        var(--color-navy, #0f172a) 100%
+      );
+  }
+
+  .twibbon-bg-gradient-1 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 80% 80% at 50% 50%,
+      rgba(200, 168, 78, 0.06) 0%,
+      transparent 70%
+    );
+  }
+
+  .twibbon-bg-gradient-2 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle 400px at 70% 30%,
+      rgba(74, 124, 89, 0.08) 0%,
+      transparent 100%
+    );
+  }
+
+  .twibbon-bg-gradient-3 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle 300px at 25% 65%,
+      rgba(139, 105, 20, 0.06) 0%,
+      transparent 100%
+    );
+  }
+
+  .twibbon-bg-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+    opacity: 0;
+    mix-blend-mode: overlay;
+  }
+
+  /* ── Floating gold particles ────────────────────────────── */
+  .twibbon-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .twibbon-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 168, 78, 0.8) 0%, rgba(200, 168, 78, 0) 70%);
+    animation: twibbon-float 8s ease-in-out infinite;
+  }
+
+  .twibbon-particle-1 {
+    top: 12%;
+    left: 15%;
+    animation-delay: 0s;
+    animation-duration: 7s;
+  }
+  .twibbon-particle-2 {
+    top: 25%;
+    right: 20%;
+    animation-delay: 1.2s;
+    animation-duration: 9s;
+  }
+  .twibbon-particle-3 {
+    bottom: 30%;
+    left: 10%;
+    animation-delay: 2.4s;
+    animation-duration: 6s;
+  }
+  .twibbon-particle-4 {
+    top: 60%;
+    right: 12%;
+    animation-delay: 0.8s;
+    animation-duration: 10s;
+  }
+  .twibbon-particle-5 {
+    bottom: 15%;
+    left: 40%;
+    animation-delay: 3.1s;
+    animation-duration: 8s;
+  }
+  .twibbon-particle-6 {
+    top: 45%;
+    left: 55%;
+    animation-delay: 1.8s;
+    animation-duration: 7.5s;
+  }
+
+  @keyframes twibbon-float {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 0.4;
+    }
+    50% {
+      transform: translateY(-20px) scale(1.3);
+      opacity: 0.9;
+    }
+  }
+
+  /* ── Side decorations ────────────────────────────────────── */
+  .twibbon-side-decor {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 1;
+  }
+
+  .twibbon-side-left {
+    left: 1.5rem;
+  }
+  .twibbon-side-right {
+    right: 1.5rem;
+  }
+
+  .twibbon-side-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, rgba(200, 168, 78, 0.3), transparent);
+  }
+
+  .twibbon-side-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(200, 168, 78, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    .twibbon-side-decor {
+      display: none;
+    }
+  }
+
+  /* ── Container ───────────────────────────────────────────── */
+  .twibbon-container {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  /* ── Ornamental flourish ─────────────────────────────────── */
+  .twibbon-ornament-top {
+    width: 200px;
+    height: 30px;
+  }
+
+  .twibbon-flourish {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Title ────────────────────────────────────────────────── */
+  .twibbon-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  .twibbon-title-text {
+    font-family: "Cinzel Decorative", "Playfair Display", serif;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 700;
+    color: #c8a84e;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 40px rgba(200, 168, 78, 0.3);
+  }
+
+  .twibbon-title-star {
+    color: #c8a84e;
+    font-size: 0.875rem;
+    opacity: 0.6;
+  }
+
+  /* ── Subtitle ─────────────────────────────────────────────── */
+  .twibbon-subtitle {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    margin: 0;
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  /* ── Body / persuasive text ──────────────────────────────── */
+  .twibbon-body {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    margin: 0;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  /* ── Upload card (glass morphism) ────────────────────────── */
+  .twibbon-card {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(200, 168, 78, 0.15);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    overflow: hidden;
+  }
+
+  .twibbon-glass-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    pointer-events: none;
+  }
+
+  /* ── Corner ornaments ────────────────────────────────────── */
+  .twibbon-corner {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.6;
+  }
+
+  .twibbon-corner-tl {
+    top: 4px;
+    left: 4px;
+  }
+  .twibbon-corner-tr {
+    top: 4px;
+    right: 4px;
+  }
+  .twibbon-corner-bl {
+    bottom: 4px;
+    left: 4px;
+  }
+  .twibbon-corner-br {
+    bottom: 4px;
+    right: 4px;
+  }
+
+  /* ── Preview area ────────────────────────────────────────── */
+  .twibbon-preview {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 320px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 2px dashed rgba(200, 168, 78, 0.25);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Twibbon frame as background preview behind the upload UI */
+  .twibbon-preview::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/assets/images/twibbon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .twibbon-preview-icon {
+    color: rgba(200, 168, 78, 0.3);
+    position: relative;
+    z-index: 1;
+  }
+
+  .twibbon-preview-text {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .twibbon-preview-hint {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.25);
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Upload label / button ──────────────────────────────── */
+  .twibbon-upload-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, rgba(200, 168, 78, 0.15), rgba(200, 168, 78, 0.08));
+    border: 1px solid rgba(200, 168, 78, 0.3);
+    border-radius: 8px;
+    color: #c8a84e;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .twibbon-upload-label:hover {
+    background: linear-gradient(135deg, rgba(200, 168, 78, 0.25), rgba(200, 168, 78, 0.12));
+    border-color: rgba(200, 168, 78, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(200, 168, 78, 0.2);
+  }
+
+  .twibbon-upload-label:active {
+    transform: translateY(0);
+  }
+
+  .twibbon-file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  /* ── Croppie container ───────────────────────────────────── */
+  .twibbon-croppie {
+    display: none;
+    width: 100%;
+    /* max-width: 320px; */
+  }
+
+  :global(.twibbon-croppie .cr-boundary) {
+    overflow: hidden;
+  }
+
+  :global(.twibbon-croppie .cr-viewport) {
+    border: 2px solid rgba(200, 168, 78, 1) !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ── Controls ────────────────────────────────────────────── */
+  .twibbon-controls {
+    display: none;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .twibbon-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 8px;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+  }
+
+  .twibbon-btn:focus-visible {
+    outline: 2px solid #c8a84e;
+    outline-offset: 2px;
+  }
+
+  .twibbon-btn--primary {
+    background: linear-gradient(135deg, #c8a84e, #a8893e);
+    color: #0f172a;
+    box-shadow: 0 4px 16px rgba(200, 168, 78, 0.3);
+  }
+
+  .twibbon-btn--primary:hover {
+    background: linear-gradient(135deg, #d4b65e, #b8994e);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(200, 168, 78, 0.4);
+  }
+
+  .twibbon-btn--primary:active {
+    transform: translateY(0);
+  }
+
+  .twibbon-btn--secondary {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .twibbon-btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+  }
+
+  .twibbon-btn--loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  /* ── Status message ──────────────────────────────────────── */
+  .twibbon-status {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .twibbon-status--hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .twibbon-status--error {
+    color: #f87171;
+    opacity: 1;
+  }
+
+  .twibbon-status--success {
+    color: #4ade80;
+    opacity: 1;
+  }
+
+  /* ── Privacy notice ──────────────────────────────────────── */
+  .twibbon-privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.72rem;
+    color: rgba(200, 168, 78, 0.45);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .twibbon-privacy svg {
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  /* ── Bottom ornament ─────────────────────────────────────── */
+  .twibbon-ornament-bottom {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .twibbon-ornament-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 168, 78, 0.4), transparent);
+  }
+
+  .twibbon-ornament-diamond {
+    color: rgba(200, 168, 78, 0.4);
+    font-size: 0.5rem;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .twibbon-section {
+      padding: 4rem 1rem;
+    }
+
+    .twibbon-card {
+      padding: 1.5rem 1rem;
+    }
+
+    .twibbon-preview {
+      max-width: 260px;
+    }
+  }
+</style>

@@ -17,12 +17,14 @@
   },
   "dependencies": {
     "astro": "^5.7.0",
+    "croppie": "^2.6.5",
     "gsap": "^3.12.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/vite": "^4.1.0",
+    "@types/croppie": "^2.6.4",
     "@types/gsap": "^3.0.0",
     "happy-dom": "^20.10.1",
     "playwright": "^1.60.0",

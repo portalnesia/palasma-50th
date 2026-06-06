@@ -30,6 +30,17 @@ export const CONTENT = {
     buttonDrive: "Upload ke Google Drive",
     buttonTutup: "Tutup",
   },
+  twibbon: {
+    title: "Twibbon 50th PALASMA",
+    subtitle: "Tunjukkan semangatmu sebagai bagian dari keluarga besar PALASMA",
+    body: "Rancang Twibbon Anda sendiri dan bagikan ke media sosial untuk merayakan momen bersejarah HUT ke-50 PALASMA bersama-sama.",
+    ctaLabel: "Pilih Foto",
+    downloadLabel: "Download",
+    zoomLabel: "Perbesar",
+    rotateLabel: "Putar",
+    resetLabel: "Ulangi",
+    shareLabel: "Bagikan",
+  },
   footer: {
     text: "© 2026 PALASMA. Semua hak dilindungi.",
     credit: "Dipersembahkan dengan penuh cinta oleh keluarga besar PALASMA",
