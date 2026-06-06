@@ -32,6 +32,11 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Generate version
+        run: |
+          bun run genversion
+          bun run scripts/version.ts ${{ github.sha }}
+
       - name: Astro check
         run: bunx --bun astro check
 

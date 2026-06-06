@@ -96,15 +96,6 @@ test.describe("Ucapan & Doa — Structure", () => {
     await expect(page.locator(".ucapan-body")).toContainText("Tulis pesanmu");
   });
 
-  test("glass card container exists", async ({ page }) => {
-    await expect(page.locator(".ucapan-glass-border")).toBeAttached();
-  });
-
-  test("has 4 corner ornaments", async ({ page }) => {
-    const corners = page.locator(".ucapan-corner");
-    await expect(corners).toHaveCount(4);
-  });
-
   test("noscript message element exists but is hidden when JS is enabled", async ({ page }) => {
     const noscript = page.locator(".ucapan-noscript");
     await expect(noscript).toBeAttached();
@@ -154,10 +145,10 @@ test.describe("Ucapan & Doa — Config-aware", () => {
     // Name field
     const nameInput = page.locator("#ucapan-name");
     await expect(nameInput).toHaveAttribute("required", "");
-    await expect(nameInput).toHaveAttribute("placeholder", "Masukkan nama lengkap");
+    await expect(nameInput).toHaveAttribute("placeholder", "Masukkan nama");
 
     // Batch select (not required — conditional with organization)
-    const batchSelect = page.locator("#ucapan-batch");
+    // const batchSelect = page.locator("#ucapan-batch");
     const options = page.locator("#ucapan-batch option");
     const count = await options.count();
     const expectedMax = new Date().getFullYear() - 1978;

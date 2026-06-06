@@ -9,6 +9,7 @@
       "@layouts/*": ["src/layouts/*"],
       "@utils/*": ["src/utils/*"],
       "@assets/*": ["public/assets/*"]
-    }
+    },
+    "types": ["@types/bun"]
   }
 }

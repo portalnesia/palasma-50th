@@ -1,7 +1,7 @@
 {
   "name": "palasma-50th",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -13,7 +13,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:full": "astro check && bun run format:check && bun run test && bun run test:e2e"
+    "test:full": "astro check && bun run format:check && bun run test && bun run test:e2e",
+    "genversion": "genversion --es6 src/utils/version.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.107.0",
@@ -25,8 +26,10 @@
     "@astrojs/check": "^0.9.9",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/vite": "^4.1.0",
+    "@types/bun": "^1.3.14",
     "@types/croppie": "^2.6.4",
     "@types/gsap": "^3.0.0",
+    "genversion": "^3.2.0",
     "happy-dom": "^20.10.1",
     "playwright": "^1.60.0",
     "prettier": "^3.4.0",

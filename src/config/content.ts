@@ -65,7 +65,7 @@ export const CONTENT = {
     supabaseUnconfigured: "Fitur ucapan belum tersedia. Silakan hubungi panitia.",
   },
   footer: {
-    text: "© 2026 PALASMA. Semua hak dilindungi.",
+    text: "© 2026 PALASMA",
     credit: "Dipersembahkan dengan penuh cinta oleh keluarga besar PALASMA",
   },
 };
