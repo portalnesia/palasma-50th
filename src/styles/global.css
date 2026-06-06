@@ -88,3 +88,91 @@ h6 {
   align-items: center;
   justify-content: center;
 }
+
+/* ===== Ucapan List Item (dynamically created via JS) ===== */
+.ucapan-item {
+  padding: 0.875rem 1rem;
+  background: rgba(10, 31, 62, 0.35);
+  border: 1px solid rgba(200, 168, 78, 0.08);
+  border-radius: 10px;
+  transition: border-color 0.2s;
+}
+
+.ucapan-item:hover {
+  border-color: rgba(200, 168, 78, 0.2);
+}
+
+.ucapan-item-head {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.5rem;
+}
+
+.ucapan-item-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-earth-moss), var(--color-earth-moss-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-earth-cream);
+  font-family: var(--font-heading);
+  flex-shrink: 0;
+  border: 1px solid rgba(200, 168, 78, 0.15);
+}
+
+.ucapan-item-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.ucapan-item-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-earth-cream);
+  font-family: var(--font-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ucapan-item-sub {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  opacity: 0.8;
+}
+
+.ucapan-item-date {
+  font-size: 0.65rem;
+  color: rgba(212, 184, 134, 0.35);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ucapan-item-message {
+  font-size: 0.875rem;
+  color: rgba(212, 184, 134, 0.8);
+  line-height: 1.55;
+  margin: 0;
+  word-break: break-word;
+}
+
+@keyframes ucapanItemSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

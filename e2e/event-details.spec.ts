@@ -22,10 +22,10 @@ test.describe("Event Details Section", () => {
   });
 
   test("countdown elements exist with correct data-unit", async ({ page }) => {
-    await expect(page.locator('#countdown-days')).toBeAttached();
-    await expect(page.locator('#countdown-hours')).toBeAttached();
-    await expect(page.locator('#countdown-minutes')).toBeAttached();
-    await expect(page.locator('#countdown-seconds')).toBeAttached();
+    await expect(page.locator("#countdown-days")).toBeAttached();
+    await expect(page.locator("#countdown-hours")).toBeAttached();
+    await expect(page.locator("#countdown-minutes")).toBeAttached();
+    await expect(page.locator("#countdown-seconds")).toBeAttached();
   });
 
   test("countdown values are numeric", async ({ page }) => {

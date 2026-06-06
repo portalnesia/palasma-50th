@@ -36,7 +36,11 @@ export function setupUcapanAnimations(section: HTMLElement) {
       const stars = section.querySelectorAll<HTMLElement>(".ucapan-title-star");
       stars.forEach((star, i) => {
         gsap.set(star, { opacity: 0, scale: 0, rotation: -180 });
-        tl.to(star, { opacity: 0.7, scale: 1, rotation: 0, ease: "back.out(2)", duration: 0.12 }, 0.15 + i * 0.04);
+        tl.to(
+          star,
+          { opacity: 0.7, scale: 1, rotation: 0, ease: "back.out(2)", duration: 0.12 },
+          0.15 + i * 0.04,
+        );
       });
 
       // Subtitle — fade up
@@ -103,11 +107,8 @@ export function setupUcapanAnimations(section: HTMLElement) {
   }
 
   window.addEventListener("splash:gsap-ready", init);
-  const safetyTimeout = setTimeout(init, 3000);
-  window.addEventListener("splash:gsap-ready", () => clearTimeout(safetyTimeout), { once: true });
 
   return () => {
-    clearTimeout(safetyTimeout);
     window.removeEventListener("splash:gsap-ready", init);
     cleanupFns.forEach((fn) => fn());
   };

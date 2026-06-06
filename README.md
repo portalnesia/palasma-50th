@@ -95,41 +95,45 @@ Fitur **Ucapan & Doa** memerlukan Supabase sebagai backend. Tanpa konfigurasi in
 2. Buat project baru dengan nama misalnya `palasma-50th`.
 3. Catat **Project URL** dan **anonon key** (bisa ditemukan di **Settings → API**).
 
-### Langkah 2: Buat Tabel `messages`
+### Langkah 2: Buat Tabel `plm_messages`
 
 Di Supabase Dashboard, buka **SQL Editor** dan jalankan query berikut:
 
 ```sql
-create table public.messages (
+create table public.plm_messages (
   id uuid default gen_random_uuid() primary key,
   name text not null,
   batch_year integer not null,
+  organization text null,
   message text not null,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
+-- Index: create index on created_at
+create index if not exists plm_messages_created_at_idx on public.plm_messages (created_at desc);
+
 -- Enable Row Level Security
-alter table public.messages enable row level security;
+alter table public.plm_messages enable row level security;
 
 -- Policy: allow public insert (untuk form ucapan)
 create policy "Allow public insert"
-  on public.messages for insert
+  on public.plm_messages for insert
   with check (true);
 
 -- Policy: allow public read (untuk gallery)
 create policy "Allow public read"
-  on public.messages for select
+  on public.plm_messages for select
   using (true);
 ```
 
 ### Langkah 3: Enable Realtime
 
 1. Di Supabase Dashboard, buka **Database → Replication**.
-2. Cari tabel `messages` dan aktifkan **Realtime**.
+2. Cari tabel `plm_messages` dan aktifkan **Realtime**.
 3. Atau jalankan SQL berikut di SQL Editor:
 
 ```sql
-alter publication supabase_realtime add table public.messages;
+alter publication supabase_realtime add table public.plm_messages;
 ```
 
 ### Langkah 4: Set Environment Variables
@@ -146,7 +150,7 @@ PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
 ### Langkah 5: Install Dependencies
 
 ```bash
-npm install @supabase/supabase-js
+bun add @supabase/supabase-js
 ```
 
 ### Verifikasi

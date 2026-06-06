@@ -13,7 +13,8 @@
 export interface Message {
   id: string;
   name: string;
-  batch_year: number;
+  batch_year: number | null;
+  organization: string | null;
   message: string;
   created_at: string;
 }
@@ -21,12 +22,11 @@ export interface Message {
 export interface ValidationErrors {
   name?: string;
   batch_year?: string;
+  organization?: string;
   message?: string;
 }
 
-export type InsertResult =
-  | { success: true; message: Message }
-  | { success: false; error: string };
+export type InsertResult = { success: true; message: Message } | { success: false; error: string };
 
 export type RealtimeMessageHandler = (message: Message) => void;
 
@@ -41,6 +41,7 @@ export const MAX_MESSAGE_LENGTH = 500;
 export function validateForm(
   name: string,
   batch_year: string,
+  organization: string,
   message: string,
 ): ValidationErrors {
   const errors: ValidationErrors = {};
@@ -51,15 +52,21 @@ export function validateForm(
     errors.name = "Nama terlalu panjang (maksimal 100 karakter)";
   }
 
-  if (!batch_year || batch_year.trim().length === 0) {
-    errors.batch_year = "Angkatan tidak boleh kosong";
-  } else {
+  const hasBatch = batch_year && batch_year.trim().length > 0;
+  const hasOrganisasi = organization && organization.trim().length > 0;
+
+  if (!hasBatch && !hasOrganisasi) {
+    errors.batch_year = "Angkatan atau organization harus diisi salah satu";
+    errors.organization = "Angkatan atau organization harus diisi salah satu";
+  } else if (hasBatch) {
     const batchNum = Number(batch_year.trim());
     const PALASMA_BASE_YEAR = 1978;
     const maxBatch = new Date().getFullYear() - PALASMA_BASE_YEAR;
     if (Number.isNaN(batchNum) || batchNum < 1 || batchNum > maxBatch) {
       errors.batch_year = `Angkatan harus antara 1 dan ${maxBatch}`;
     }
+  } else if (hasOrganisasi && organization.trim().length > 100) {
+    errors.organization = "Nama organization terlalu panjang (maksimal 100 karakter)";
   }
 
   if (!message || message.trim().length === 0) {
@@ -95,9 +102,7 @@ export async function createClient(): Promise<any> {
   const anonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
   if (!url || !anonKey) {
-    throw new Error(
-      "Supabase URL and ANON_KEY must be set in environment variables",
-    );
+    throw new Error("Supabase URL and ANON_KEY must be set in environment variables");
   }
 
   supabaseClient = createSupabaseClient(url, anonKey);
@@ -127,8 +132,8 @@ export async function fetchMessages(options: FetchOptions = {}): Promise<Message
   const { limit, offset } = options;
 
   let query = supabase
-    .from("messages")
-    .select("id, name, batch_year, message, created_at")
+    .from("plm_messages")
+    .select("id, name, batch_year, organization, message, created_at")
     .order("created_at", { ascending: false });
 
   if (limit !== undefined) query = query.limit(limit);
@@ -150,15 +155,24 @@ export async function fetchMessages(options: FetchOptions = {}): Promise<Message
 export async function insertMessage(
   name: string,
   batch_year: string,
+  organization: string,
   message: string,
 ): Promise<InsertResult> {
   const supabase = await createClient();
 
-  const { data, error } = await supabase
-    .from("messages")
-    .insert({ name: name.trim(), batch_year: Number(batch_year), message })
-    .select()
-    .single();
+  const payload: Record<string, unknown> = {
+    name: name.trim(),
+    message,
+  };
+
+  if (batch_year && batch_year.trim().length > 0) {
+    payload.batch_year = Number(batch_year);
+  }
+  if (organization && organization.trim().length > 0) {
+    payload.organization = organization.trim();
+  }
+
+  const { data, error } = await supabase.from("plm_messages").insert(payload).select().single();
 
   if (error) {
     console.error("Error inserting message:", error);
@@ -176,9 +190,7 @@ let realtimeSubscription: any = null;
  * Subscribe to new messages in real-time.
  * Calls handler when a new message is inserted.
  */
-export async function subscribeToMessages(
-  handler: RealtimeMessageHandler,
-): Promise<() => void> {
+export async function subscribeToMessages(handler: RealtimeMessageHandler): Promise<() => void> {
   const supabase = await createClient();
 
   // Avoid duplicate subscriptions
@@ -186,14 +198,14 @@ export async function subscribeToMessages(
     supabase.removeChannel(realtimeSubscription);
   }
 
-  const channel = supabase.channel("messages");
+  const channel = supabase.channel("plm_messages");
 
   channel.on(
     "postgres_changes",
     {
       event: "INSERT",
       schema: "public",
-      table: "messages",
+      table: "plm_messages",
     },
     (payload: any) => {
       handler(payload.new as Message);

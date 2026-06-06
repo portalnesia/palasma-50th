@@ -29,6 +29,40 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     <span class="sambutan-particle sambutan-particle-8"></span>
   </div>
 
+  {/* ── Confetti decorations (rise at end) ────────────────── */}
+  <div class="sambutan-confetti" aria-hidden="true">
+    <span class="confetti-piece conf-1" data-reveal="camp-c1"></span>
+    <span class="confetti-piece conf-2" data-reveal="camp-c2"></span>
+    <span class="confetti-piece conf-3" data-reveal="camp-c3"></span>
+    <span class="confetti-piece conf-4" data-reveal="camp-c4"></span>
+    <span class="confetti-piece conf-5" data-reveal="camp-c5"></span>
+    <span class="confetti-piece conf-6" data-reveal="camp-c6"></span>
+    <span class="confetti-piece conf-7" data-reveal="camp-c7"></span>
+    <span class="confetti-piece conf-8" data-reveal="camp-c8"></span>
+    <span class="confetti-piece conf-9" data-reveal="camp-c9"></span>
+    <span class="confetti-piece conf-10" data-reveal="camp-c10"></span>
+    <span class="confetti-piece conf-11" data-reveal="camp-c11"></span>
+    <span class="confetti-piece conf-12" data-reveal="camp-c12"></span>
+    <span class="confetti-piece conf-13" data-reveal="camp-c13"></span>
+    <span class="confetti-piece conf-14" data-reveal="camp-c14"></span>
+    <span class="confetti-piece conf-15" data-reveal="camp-c15"></span>
+    <span class="confetti-piece conf-16" data-reveal="camp-c16"></span>
+    <span class="confetti-piece conf-17" data-reveal="camp-c17"></span>
+    <span class="confetti-piece conf-18" data-reveal="camp-c18"></span>
+    <span class="confetti-piece conf-19" data-reveal="camp-c19"></span>
+    <span class="confetti-piece conf-20" data-reveal="camp-c20"></span>
+    <span class="confetti-piece conf-21" data-reveal="camp-c21"></span>
+    <span class="confetti-piece conf-22" data-reveal="camp-c22"></span>
+    <span class="confetti-piece conf-23" data-reveal="camp-c23"></span>
+    <span class="confetti-piece conf-24" data-reveal="camp-c24"></span>
+    <span class="confetti-piece conf-25" data-reveal="camp-c25"></span>
+    <span class="confetti-piece conf-26" data-reveal="camp-c26"></span>
+    <span class="confetti-piece conf-27" data-reveal="camp-c27"></span>
+    <span class="confetti-piece conf-28" data-reveal="camp-c28"></span>
+    <span class="confetti-piece conf-29" data-reveal="camp-c29"></span>
+    <span class="confetti-piece conf-30" data-reveal="camp-c30"></span>
+  </div>
+
   {/* ── Decorative side lines ─────────────────────────────────── */}
   <div class="sambutan-side-decor sambutan-side-left" aria-hidden="true">
     <div class="sambutan-side-line"></div>
@@ -163,8 +197,7 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     position: relative;
     z-index: 60;
     background: var(--color-navy);
-    padding: 6rem 1.5rem 7rem;
-    overflow: hidden;
+    padding: 6rem 1.5rem 12rem;
     min-height: 100dvh;
     display: flex;
     align-items: center;
@@ -251,32 +284,32 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
   }
 
   .sambutan-particle-1 {
-    width: 3px;
-    height: 3px;
+    width: 5px;
+    height: 5px;
     left: 10%;
     top: 15%;
     animation-duration: 8s;
     animation-delay: 0s;
   }
   .sambutan-particle-2 {
-    width: 2px;
-    height: 2px;
+    width: 4px;
+    height: 4px;
     left: 25%;
     top: 70%;
     animation-duration: 10s;
     animation-delay: 1.5s;
   }
   .sambutan-particle-3 {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     left: 75%;
     top: 20%;
     animation-duration: 7s;
     animation-delay: 0.8s;
   }
   .sambutan-particle-4 {
-    width: 2px;
-    height: 2px;
+    width: 7px;
+    height: 7px;
     left: 85%;
     top: 60%;
     animation-duration: 9s;
@@ -291,24 +324,24 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     animation-delay: 3s;
   }
   .sambutan-particle-6 {
-    width: 2px;
-    height: 2px;
+    width: 4px;
+    height: 4px;
     left: 15%;
     top: 45%;
     animation-duration: 8.5s;
     animation-delay: 4s;
   }
   .sambutan-particle-7 {
-    width: 3px;
-    height: 3px;
+    width: 6px;
+    height: 6px;
     left: 65%;
     top: 10%;
     animation-duration: 9.5s;
     animation-delay: 1s;
   }
   .sambutan-particle-8 {
-    width: 2px;
-    height: 2px;
+    width: 3px;
+    height: 3px;
     left: 40%;
     top: 35%;
     animation-duration: 7.5s;
@@ -688,10 +721,288 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     font-size: var(--text-body);
   }
 
+  /* ── Confetti decorations ──────────────────────────────── */
+  .sambutan-confetti {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+    overflow: hidden;
+  }
+
+  .confetti-piece {
+    position: absolute;
+    border-radius: 2px;
+  }
+
+  /* Rectangles */
+  .conf-1 {
+    width: 22px;
+    height: 10px;
+    background: var(--color-gold);
+    left: 4%;
+    bottom: 8%;
+    transform: rotate(25deg);
+  }
+  .conf-2 {
+    width: 18px;
+    height: 8px;
+    background: var(--color-earth-sand);
+    left: 10%;
+    bottom: 14%;
+    transform: rotate(-40deg);
+  }
+  .conf-3 {
+    width: 26px;
+    height: 11px;
+    background: var(--color-gold-light);
+    left: 16%;
+    bottom: 6%;
+    transform: rotate(55deg);
+  }
+  .conf-4 {
+    width: 14px;
+    height: 7px;
+    background: var(--color-earth-moss);
+    left: 22%;
+    bottom: 18%;
+    transform: rotate(-15deg);
+  }
+  .conf-5 {
+    width: 20px;
+    height: 9px;
+    background: var(--color-gold-dark);
+    left: 30%;
+    bottom: 10%;
+    transform: rotate(70deg);
+  }
+  .conf-6 {
+    width: 24px;
+    height: 10px;
+    background: var(--color-gold);
+    left: 38%;
+    bottom: 5%;
+    transform: rotate(-55deg);
+  }
+  .conf-7 {
+    width: 16px;
+    height: 8px;
+    background: var(--color-earth-sand);
+    left: 45%;
+    bottom: 15%;
+    transform: rotate(35deg);
+  }
+  .conf-8 {
+    width: 28px;
+    height: 12px;
+    background: var(--color-gold-light);
+    left: 52%;
+    bottom: 9%;
+    transform: rotate(-25deg);
+  }
+  .conf-9 {
+    width: 18px;
+    height: 8px;
+    background: var(--color-earth-moss);
+    left: 60%;
+    bottom: 20%;
+    transform: rotate(45deg);
+  }
+  .conf-10 {
+    width: 22px;
+    height: 10px;
+    background: var(--color-gold);
+    left: 68%;
+    bottom: 7%;
+    transform: rotate(-60deg);
+  }
+
+  /* Squares */
+  .conf-11 {
+    width: 14px;
+    height: 14px;
+    background: var(--color-gold-light);
+    left: 7%;
+    bottom: 22%;
+    transform: rotate(30deg);
+    border-radius: 2px;
+  }
+  .conf-12 {
+    width: 11px;
+    height: 11px;
+    background: var(--color-earth-sand);
+    left: 20%;
+    bottom: 28%;
+    transform: rotate(-50deg);
+    border-radius: 2px;
+  }
+  .conf-13 {
+    width: 16px;
+    height: 16px;
+    background: var(--color-gold);
+    left: 34%;
+    bottom: 24%;
+    transform: rotate(60deg);
+    border-radius: 2px;
+  }
+  .conf-14 {
+    width: 12px;
+    height: 12px;
+    background: var(--color-earth-moss);
+    left: 48%;
+    bottom: 30%;
+    transform: rotate(-35deg);
+    border-radius: 2px;
+  }
+  .conf-15 {
+    width: 15px;
+    height: 15px;
+    background: var(--color-gold-dark);
+    left: 55%;
+    bottom: 22%;
+    transform: rotate(20deg);
+    border-radius: 2px;
+  }
+  .conf-16 {
+    width: 13px;
+    height: 13px;
+    background: var(--color-gold-light);
+    left: 72%;
+    bottom: 26%;
+    transform: rotate(-45deg);
+    border-radius: 2px;
+  }
+  .conf-17 {
+    width: 17px;
+    height: 17px;
+    background: var(--color-earth-sand);
+    left: 82%;
+    bottom: 18%;
+    transform: rotate(40deg);
+    border-radius: 2px;
+  }
+  .conf-18 {
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    left: 90%;
+    bottom: 30%;
+    transform: rotate(-20deg);
+    border-radius: 2px;
+  }
+
+  /* Circles */
+  .conf-19 {
+    width: 16px;
+    height: 16px;
+    background: var(--color-gold);
+    left: 3%;
+    bottom: 35%;
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+  .conf-20 {
+    width: 12px;
+    height: 12px;
+    background: var(--color-earth-sand);
+    left: 15%;
+    bottom: 40%;
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+  .conf-21 {
+    width: 18px;
+    height: 18px;
+    background: var(--color-gold-light);
+    left: 27%;
+    bottom: 36%;
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+  .conf-22 {
+    width: 10px;
+    height: 10px;
+    background: var(--color-earth-moss);
+    left: 40%;
+    bottom: 42%;
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+  .conf-23 {
+    width: 14px;
+    height: 14px;
+    background: var(--color-gold-dark);
+    left: 50%;
+    bottom: 38%;
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+  .conf-24 {
+    width: 16px;
+    height: 16px;
+    background: var(--color-gold);
+    left: 63%;
+    bottom: 44%;
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+  .conf-25 {
+    width: 11px;
+    height: 11px;
+    background: var(--color-earth-sand);
+    left: 75%;
+    bottom: 35%;
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+  .conf-26 {
+    width: 15px;
+    height: 15px;
+    background: var(--color-gold-light);
+    left: 87%;
+    bottom: 40%;
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+
+  /* More rectangles — upper area */
+  .conf-27 {
+    width: 20px;
+    height: 9px;
+    background: var(--color-gold);
+    left: 12%;
+    bottom: 48%;
+    transform: rotate(-30deg);
+  }
+  .conf-28 {
+    width: 24px;
+    height: 10px;
+    background: var(--color-earth-sand);
+    left: 58%;
+    bottom: 50%;
+    transform: rotate(50deg);
+  }
+  .conf-29 {
+    width: 16px;
+    height: 7px;
+    background: var(--color-gold-light);
+    left: 78%;
+    bottom: 46%;
+    transform: rotate(-65deg);
+  }
+  .conf-30 {
+    width: 19px;
+    height: 9px;
+    background: var(--color-earth-moss);
+    left: 93%;
+    bottom: 52%;
+    transform: rotate(15deg);
+  }
+
   /* ── Responsive ────────────────────────────────────────── */
   @media (max-width: 640px) {
     .sambutan-section {
-      padding: 4rem 1rem 5rem;
+      padding: 4rem 1rem 10rem;
     }
 
     .sambutan-title {
@@ -743,7 +1054,7 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
 
   @media (min-width: 1024px) {
     .sambutan-section {
-      padding: 7rem 2rem 8rem;
+      padding: 7rem 2rem 14rem;
     }
 
     .sambutan-title {

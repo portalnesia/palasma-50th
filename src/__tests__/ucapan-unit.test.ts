@@ -1,10 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  validateForm,
-  hasErrors,
-  formatMessageDate,
-  truncateMessage,
-} from "@utils/ucapan";
+import { validateForm, hasErrors, formatMessageDate, truncateMessage } from "@utils/ucapan";
 
 // Compute dynamic maxBatch to match validation logic
 const PALASMA_BASE_YEAR = 1978;
@@ -13,92 +8,123 @@ const maxBatch = new Date().getFullYear() - PALASMA_BASE_YEAR;
 /* ── validateForm ─────────────────────────────────────────── */
 
 describe("validateForm()", () => {
-  it("returns no errors for valid input", () => {
-    const errors = validateForm("Budi Santoso", "25", "Semoga PALASMA jaya!");
+  it("returns no errors for valid input with batch_year", () => {
+    const errors = validateForm("Budi Santoso", "25", "", "Semoga PALASMA jaya!");
+    expect(errors).toEqual({});
+  });
+
+  it("returns no errors for valid input with organization", () => {
+    const errors = validateForm("Budi Santoso", "", "Himpunan Teknik", "Semoga PALASMA jaya!");
+    expect(errors).toEqual({});
+  });
+
+  it("returns no errors when both batch_year and organization provided", () => {
+    const errors = validateForm("Budi Santoso", "25", "Himpunan Teknik", "Semoga PALASMA jaya!");
     expect(errors).toEqual({});
   });
 
   it("requires name", () => {
-    const errors = validateForm("", "25", "Pesan");
+    const errors = validateForm("", "25", "", "Pesan");
     expect(errors.name).toBeDefined();
     expect(errors.name).toContain("kosong");
   });
 
   it("requires name with whitespace only", () => {
-    const errors = validateForm("   ", "25", "Pesan");
+    const errors = validateForm("   ", "25", "", "Pesan");
     expect(errors.name).toBeDefined();
   });
 
-  it("requires batch_year", () => {
-    const errors = validateForm("Budi", "", "Pesan");
+  it("requires batch_year or organization when both empty", () => {
+    const errors = validateForm("Budi", "", "", "Pesan");
     expect(errors.batch_year).toBeDefined();
-    expect(errors.batch_year).toContain("kosong");
+    expect(errors.organization).toBeDefined();
+  });
+
+  it("accepts when only batch_year provided", () => {
+    const errors = validateForm("Budi", "25", "", "Pesan");
+    expect(errors.batch_year).toBeUndefined();
+    expect(errors.organization).toBeUndefined();
+  });
+
+  it("accepts when only organization provided", () => {
+    const errors = validateForm("Budi", "", "Himpunan Teknik", "Pesan");
+    expect(errors.batch_year).toBeUndefined();
+    expect(errors.organization).toBeUndefined();
   });
 
   it("rejects batch_year out of range", () => {
-    const errors = validateForm("Budi", "0", "Pesan");
+    const errors = validateForm("Budi", "0", "", "Pesan");
     expect(errors.batch_year).toBeDefined();
     expect(errors.batch_year).toContain("1 dan");
-    const errors2 = validateForm("Budi", String(maxBatch + 1), "Pesan");
+    const errors2 = validateForm("Budi", String(maxBatch + 1), "", "Pesan");
     expect(errors2.batch_year).toBeDefined();
     expect(errors2.batch_year).toContain("1 dan");
   });
 
   it("accepts batch_year at boundary values", () => {
-    const errors1 = validateForm("Budi", "1", "Pesan");
+    const errors1 = validateForm("Budi", "1", "", "Pesan");
     expect(errors1.batch_year).toBeUndefined();
-    const errorsMax = validateForm("Budi", String(maxBatch), "Pesan");
+    const errorsMax = validateForm("Budi", String(maxBatch), "", "Pesan");
     expect(errorsMax.batch_year).toBeUndefined();
   });
 
+  it("rejects organization exceeding 100 characters", () => {
+    const longOrg = "a".repeat(101);
+    const errors = validateForm("Budi", "", longOrg, "Pesan");
+    expect(errors.organization).toBeDefined();
+    expect(errors.organization).toContain("100");
+  });
+
   it("requires message", () => {
-    const errors = validateForm("Budi", "25", "");
+    const errors = validateForm("Budi", "25", "", "");
     expect(errors.message).toBeDefined();
     expect(errors.message).toContain("kosong");
   });
 
   it("requires message with whitespace only", () => {
-    const errors = validateForm("Budi", "25", "   ");
+    const errors = validateForm("Budi", "25", "", "   ");
     expect(errors.message).toBeDefined();
   });
 
   it("rejects message exceeding 500 characters", () => {
     const longMessage = "a".repeat(501);
-    const errors = validateForm("Budi", "25", longMessage);
+    const errors = validateForm("Budi", "25", "", longMessage);
     expect(errors.message).toBeDefined();
     expect(errors.message).toContain("500");
   });
 
   it("accepts message at exactly 500 characters", () => {
     const exactMessage = "a".repeat(500);
-    const errors = validateForm("Budi", "25", exactMessage);
+    const errors = validateForm("Budi", "25", "", exactMessage);
     expect(errors.message).toBeUndefined();
   });
 
   it("rejects name exceeding 100 characters", () => {
     const longName = "a".repeat(101);
-    const errors = validateForm(longName, "25", "Pesan");
+    const errors = validateForm(longName, "25", "", "Pesan");
     expect(errors.name).toBeDefined();
     expect(errors.name).toContain("100");
   });
 
   it("accepts name at exactly 100 characters", () => {
     const exactName = "a".repeat(100);
-    const errors = validateForm(exactName, "25", "Pesan");
+    const errors = validateForm(exactName, "25", "", "Pesan");
     expect(errors.name).toBeUndefined();
   });
 
   it("returns multiple errors when all fields are empty", () => {
-    const errors = validateForm("", "", "");
+    const errors = validateForm("", "", "", "");
     expect(errors.name).toBeDefined();
     expect(errors.batch_year).toBeDefined();
+    expect(errors.organization).toBeDefined();
     expect(errors.message).toBeDefined();
   });
 
   it("only returns errors for empty fields", () => {
-    const errors = validateForm("Budi", "", "Pesan");
+    const errors = validateForm("Budi", "25", "", "Pesan");
     expect(errors.name).toBeUndefined();
-    expect(errors.batch_year).toBeDefined();
+    expect(errors.batch_year).toBeUndefined();
+    expect(errors.organization).toBeUndefined();
     expect(errors.message).toBeUndefined();
   });
 });
@@ -115,9 +141,7 @@ describe("hasErrors()", () => {
   });
 
   it("returns true when multiple errors exist", () => {
-    expect(
-      hasErrors({ name: "Required", message: "Required" }),
-    ).toBe(true);
+    expect(hasErrors({ name: "Required", message: "Required" })).toBe(true);
   });
 });
 

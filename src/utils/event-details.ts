@@ -202,6 +202,78 @@ export function setupEventDetailsReveal(section: HTMLElement): () => void {
           },
         });
       });
+
+      // ═══════════════════════════════════════════════════════
+      // ScrollTrigger 3: Pin + balloon rise animation
+      // Pins when section bottom hits viewport bottom —
+      // user has already scrolled through all content.
+      // Balloons rise from below viewport to center of screen.
+      // After pin release, balloons stay visible, normal scroll.
+      // ═══════════════════════════════════════════════════════
+
+      const balloons = section.querySelectorAll<HTMLElement>(".event-balloons .bday-balloon");
+
+      const balloonTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "bottom 105%",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          onLeave: () => {
+            gsap.set(balloons, { opacity: 1, x: 0 });
+          },
+        },
+      });
+
+      // Balloons rise from left/right sides into viewport, staggered
+      // Left-side balloons: 1,2,3,4,9,11  |  Right-side balloons: 5,6,7,8,10,12
+      const leftBalloons = [
+        balloons[0],
+        balloons[1],
+        balloons[2],
+        balloons[3],
+        balloons[8],
+        balloons[10],
+      ];
+      const rightBalloons = [
+        balloons[4],
+        balloons[5],
+        balloons[6],
+        balloons[7],
+        balloons[9],
+        balloons[11],
+      ];
+
+      leftBalloons.forEach((balloon, i) => {
+        balloonTl.fromTo(
+          balloon,
+          { opacity: 0, x: "-50vw" },
+          {
+            opacity: 1,
+            x: "0vw",
+            ease: "power2.out",
+            duration: 1.3,
+          },
+          i * 0.01,
+        );
+      });
+
+      rightBalloons.forEach((balloon, i) => {
+        balloonTl.fromTo(
+          balloon,
+          { opacity: 0, x: "50vw" },
+          {
+            opacity: 1,
+            x: "0vw",
+            ease: "power2.out",
+            duration: 1.3,
+          },
+          i * 0.01,
+        );
+      });
     });
 
     cleanupFns.push(() => ctx.revert());
@@ -210,12 +282,8 @@ export function setupEventDetailsReveal(section: HTMLElement): () => void {
 
   // Wait for splash pin spacer to exist before computing ScrollTrigger positions
   window.addEventListener("splash:gsap-ready", init);
-  // Safety fallback
-  // const safetyTimeout = setTimeout(init, 2000);
-  // window.addEventListener("splash:gsap-ready", () => clearTimeout(safetyTimeout), { once: true });
 
   return () => {
-    // clearTimeout(safetyTimeout);
     window.removeEventListener("splash:gsap-ready", init);
     cleanupFns.forEach((fn) => fn());
   };

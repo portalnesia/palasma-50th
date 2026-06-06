@@ -16,6 +16,13 @@ import "croppie/croppie.css";
 
   <KataSambutan />
 
+  {/* ── Section divider ──────────────────────────────────── */}
+  <div class="section-divider" aria-hidden="true">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-diamond"></div>
+    <div class="section-divider-line"></div>
+  </div>
+
   <EventDetails />
 
   <Twibbon />
@@ -24,3 +31,31 @@ import "croppie/croppie.css";
 
   <!-- Future sections: footer, etc. -->
 </DefaultLayout>
+
+<style>
+  /* ── Section divider ──────────────────────────────────── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 0;
+    background: var(--color-navy);
+  }
+
+  .section-divider-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    opacity: 0.35;
+  }
+
+  .section-divider-diamond {
+    width: 8px;
+    height: 8px;
+    background: var(--color-gold);
+    transform: rotate(45deg);
+    opacity: 0.5;
+    box-shadow: 0 0 12px rgba(200, 168, 78, 0.3);
+  }
+</style>

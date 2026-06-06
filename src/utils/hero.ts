@@ -224,12 +224,8 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
   }
   // Wait for splash pin spacer to exist before computing ScrollTrigger positions
   window.addEventListener("splash:gsap-ready", init);
-  // Safety fallback
-  // const safetyTimeout = setTimeout(init, 2000);
-  // window.addEventListener("splash:gsap-ready", () => clearTimeout(safetyTimeout), { once: true });
 
   return () => {
-    // clearTimeout(safetyTimeout);
     window.removeEventListener("splash:gsap-ready", init);
     cleanupFns.forEach((fn) => fn());
   };
