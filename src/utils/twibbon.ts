@@ -121,8 +121,6 @@ export function setupTwibbon(section: HTMLElement): () => void {
 
   async function setupUI() {
     const Croppie = (await import("croppie")).default;
-    // @ts-ignore — croppie.css has no type declarations
-    await import("croppie/croppie.css");
 
     // ── Gather DOM elements ──
     const fileInput = section.querySelector<HTMLInputElement>("#twibbon-file-input");
