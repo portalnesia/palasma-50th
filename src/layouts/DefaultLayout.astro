@@ -35,7 +35,7 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     {/* ── Persistent floating header ─────────────────────── */}
     <header class="site-header">
       <div class="site-header-inner">
-        <div class="site-header-left">
+        <button id="site-header-logo" class="site-header-left">
           <img
             src={ASSETS.logo["50th"]}
             alt="Logo PALASMA"
@@ -44,7 +44,7 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
             height="58"
             loading="eager"
           />
-        </div>
+        </button>
         <div class="site-header-right">
           <button
             id="music-toggle"
@@ -105,9 +105,15 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
       const iconOn = document.getElementById("music-icon-on") as HTMLElement;
       const iconOff = document.getElementById("music-icon-off") as HTMLElement;
       const musicToggle = document.getElementById("music-toggle") as HTMLElement;
+      const logoButton = document.getElementById("site-header-logo") as HTMLButtonElement;
       if (audio && iconOn && iconOff && musicToggle) {
         const music = setupMusicToggle(audio, iconOn, iconOff);
         musicToggle.addEventListener("click", () => music.toggle());
+      }
+      if (logoButton) {
+        logoButton.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
       }
     </script>
   </body>
@@ -135,6 +141,7 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
   .site-header-left {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 
   .site-header-logo {
@@ -159,6 +166,7 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     background: rgba(10, 31, 62, 0.6);
     backdrop-filter: blur(8px);
     color: var(--color-earth-cream);
+    cursor: pointer;
     transition:
       background 0.2s,
       border-color 0.2s;
