@@ -1,11 +1,12 @@
 ---
 import { CONTENT } from "@config/content.ts";
+import UcapanFormCard from "@components/molecules/UcapanFormCard.astro";
+import UcapanGallery from "@components/molecules/UcapanGallery.astro";
+import UcapanNoscriptCard from "@components/atoms/UcapanNoscriptCard.astro";
+import SideDecor from "@components/atoms/SideDecor.astro";
+import FloatingParticles from "@components/atoms/FloatingParticles.astro";
 
 const { ucapan } = CONTENT;
-
-// Supabase configuration — exposed to client via import.meta.env
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || "";
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || "";
 
 // Compute max batch (angkatan): current year minus 1978 (founding year), minus 2 skipped years
 const PALASMA_BASE_YEAR = 1978;
@@ -13,7 +14,7 @@ const currentYear = new Date().getFullYear();
 const maxBatch = currentYear - PALASMA_BASE_YEAR;
 ---
 
-<section id="ucapan-doa" class="ucapan-section">
+<section id="ucapan-doa" class="ucapan-section" data-load-more={ucapan.loadMoreLabel} data-loading={ucapan.loadingLabel}>
   {/* ── Background layers ──────────────────────────────────── */}
   <div class="ucapan-bg" aria-hidden="true">
     <div class="ucapan-bg-gradient-1"></div>
@@ -73,64 +74,13 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
   </div>
 
   {/* ── Floating gold particles ──────────────────────────────── */}
-  <div class="ucapan-particles" aria-hidden="true">
-    <span class="ucapan-particle ucapan-particle-1"></span>
-    <span class="ucapan-particle ucapan-particle-2"></span>
-    <span class="ucapan-particle ucapan-particle-3"></span>
-    <span class="ucapan-particle ucapan-particle-4"></span>
-    <span class="ucapan-particle ucapan-particle-5"></span>
-    <span class="ucapan-particle ucapan-particle-6"></span>
-  </div>
+  <FloatingParticles prefix="ucapan" />
 
   {/* ── Decorative side lines ─────────────────────────────────── */}
-  <div class="ucapan-side-decor ucapan-side-left" aria-hidden="true">
-    <div class="ucapan-side-line"></div>
-    <div class="ucapan-side-dot"></div>
-    <div class="ucapan-side-line"></div>
-  </div>
-  <div class="ucapan-side-decor ucapan-side-right" aria-hidden="true">
-    <div class="ucapan-side-line"></div>
-    <div class="ucapan-side-dot"></div>
-    <div class="ucapan-side-line"></div>
-  </div>
+  <SideDecor position="left" />
+  <SideDecor position="right" />
 
   <div class="ucapan-container">
-    {/* ── Top ornamental flourish ──────────────────────────── */}
-    <div class="ucapan-ornament-top" data-reveal="ucapan-ornament-top" aria-hidden="true">
-      <svg
-        class="ucapan-flourish"
-        viewBox="0 0 200 30"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M100 15 C85 5, 60 5, 40 15 S10 25, 0 15"
-          stroke="url(#ucapan-gold-grad-l)"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <path
-          d="M100 15 C115 5, 140 5, 160 15 S190 25, 200 15"
-          stroke="url(#ucapan-gold-grad-r)"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
-        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
-        ></circle>
-        <defs>
-          <linearGradient id="ucapan-gold-grad-l" x1="200" y1="15" x2="0" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
-          </linearGradient>
-          <linearGradient id="ucapan-gold-grad-r" x1="0" y1="15" x2="200" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-
     {/* ── Title ──────────────────────────────────────────────── */}
     <h2 class="ucapan-title" data-reveal="ucapan-title">
       <span class="ucapan-title-star" aria-hidden="true">✦</span>
@@ -143,154 +93,38 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
       {ucapan.subtitle}
     </p>
 
+    {/* ── Golden divider ──────────────────────────────────────── */}
+    <div class="ucapan-divider" data-reveal="ucapan-divider" aria-hidden="true">
+      <span class="ucapan-divider-line"></span>
+      <span class="ucapan-divider-diamond">◆</span>
+      <span class="ucapan-divider-line"></span>
+    </div>
+
     {/* ── Body / description ────────────────────────────────── */}
     <p class="ucapan-body" data-reveal="ucapan-body">
       {ucapan.body}
     </p>
 
-    {/* ── Form card ──────────────────────────────────────────── */}
-    <div class="ucapan-form-card js-required" data-reveal="ucapan-form-card" hidden>
-      <div class="ucapan-glass-border" aria-hidden="true"></div>
+    <UcapanFormCard
+      formName={ucapan.formName}
+      formNamePlaceholder={ucapan.formNamePlaceholder}
+      formBatch={ucapan.formBatch}
+      formBatchPlaceholder={ucapan.formBatchPlaceholder}
+      formMessage={ucapan.formMessage}
+      formMessagePlaceholder={ucapan.formMessagePlaceholder}
+      submitLabel={ucapan.submitLabel}
+      submittingLabel={ucapan.submittingLabel}
+      successMessage={ucapan.successMessage}
+      errorMessage={ucapan.errorMessage}
+      maxBatch={maxBatch}
+    />
 
-      {/* Corner ornaments */}
-      <svg class="ucapan-corner ucapan-corner-tl" viewBox="0 0 30 30" aria-hidden="true">
-        <path
-          d="M0 30 L0 5 Q0 0 5 0 L30 0"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-      </svg>
-      <svg class="ucapan-corner ucapan-corner-tr" viewBox="0 0 30 30" aria-hidden="true">
-        <path
-          d="M0 0 L25 0 Q30 0 30 5 L30 30"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-      </svg>
-      <svg class="ucapan-corner ucapan-corner-bl" viewBox="0 0 30 30" aria-hidden="true">
-        <path
-          d="M30 30 L5 30 Q0 30 0 25 L0 0"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-      </svg>
-      <svg class="ucapan-corner ucapan-corner-br" viewBox="0 0 30 30" aria-hidden="true">
-        <path
-          d="M0 30 L30 30 L30 5 Q30 0 25 0"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-      </svg>
-
-      <form class="ucapan-form" id="ucapan-form" novalidate>
-        {/* ── Nama field ────────────────────────────────────── */}
-        <div class="ucapan-field">
-          <label for="ucapan-name" class="ucapan-label">
-            {ucapan.formName}
-            <span class="ucapan-required">*</span>
-          </label>
-          <input
-            type="text"
-            id="ucapan-name"
-            name="name"
-            class="ucapan-input"
-            placeholder={ucapan.formNamePlaceholder}
-            required
-            maxlength={100}
-            autocomplete="name"
-          />
-          <span class="ucapan-error" id="ucapan-name-error"></span>
-        </div>
-
-        {/* ── Angkatan field ────────────────────────────────── */}
-        <div class="ucapan-field">
-          <label for="ucapan-batch" class="ucapan-label">
-            {ucapan.formBatch} (1-{maxBatch})
-            <span class="ucapan-required">*</span>
-          </label>
-          <select id="ucapan-batch" name="batch_year" class="ucapan-input ucapan-select" required>
-            <option value="" disabled selected>{ucapan.formBatchPlaceholder}</option>
-            {
-              Array.from({ length: maxBatch }, (_, i) => i + 1).map((opt) => (
-                <option value={opt}>{opt}</option>
-              ))
-            }
-          </select>
-          <span class="ucapan-error" id="ucapan-batch-error"></span>
-        </div>
-
-        {/* ── Pesan field ───────────────────────────────────── */}
-        <div class="ucapan-field">
-          <label for="ucapan-message" class="ucapan-label">
-            {ucapan.formMessage}
-            <span class="ucapan-required">*</span>
-          </label>
-          <textarea
-            id="ucapan-message"
-            name="message"
-            class="ucapan-input ucapan-textarea"
-            placeholder={ucapan.formMessagePlaceholder}
-            required
-            maxlength={500}
-            rows={5}></textarea>
-          <div class="ucapan-textarea-footer">
-            <span class="ucapan-char-count" id="ucapan-char-count">0/500</span>
-          </div>
-          <span class="ucapan-error" id="ucapan-message-error"></span>
-        </div>
-
-        {/* ── Submit button ─────────────────────────────────── */}
-        <button type="submit" id="ucapan-submit" class="ucapan-submit-btn touch-target">
-          <span class="ucapan-submit-label">{ucapan.submitLabel}</span>
-          <span class="ucapan-submit-loading" hidden>
-            <svg
-              class="ucapan-spinner"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-dasharray="31.4 31.4"
-                stroke-linecap="round"></circle>
-            </svg>
-            {ucapan.submittingLabel}
-          </span>
-        </button>
-
-        {/* ── Feedback messages ─────────────────────────────── */}
-        <div class="ucapan-feedback ucapan-feedback-success" id="ucapan-success" hidden>
-          {ucapan.successMessage}
-        </div>
-        <div class="ucapan-feedback ucapan-feedback-error" id="ucapan-error" hidden>
-          {ucapan.errorMessage}
-        </div>
-      </form>
-    </div>
-
-    {/* ── Gallery ─────────────────────────────────────────────── */}
-    <div class="ucapan-gallery-section js-required" data-reveal="ucapan-gallery" hidden>
-      <h3 class="ucapan-gallery-title">Ucapan dari Sahabat PALASMA</h3>
-      <div class="ucapan-gallery" id="ucapan-gallery">
-        <p class="ucapan-gallery-empty" id="ucapan-gallery-empty">
-          {ucapan.emptyGallery}
-        </p>
-      </div>
-      <div class="ucapan-load-more-wrapper" id="ucapan-load-more-wrapper" hidden>
-        <button type="button" id="ucapan-load-more" class="ucapan-load-more-btn touch-target">
-          {ucapan.loadMoreLabel}
-        </button>
-        <span class="ucapan-no-more" id="ucapan-no-more" hidden>{ucapan.noMoreMessages}</span>
-      </div>
-    </div>
+    <UcapanGallery
+      galleryTitle="Ucapan dari Sahabat PALASMA"
+      emptyGallery={ucapan.emptyGallery}
+      loadMoreLabel={ucapan.loadMoreLabel}
+      noMoreMessages={ucapan.noMoreMessages}
+    />
 
     {/* ── Supabase unconfigured state ────────────────────────── */}
     <div class="ucapan-unconfigured" id="ucapan-unconfigured" hidden>
@@ -311,196 +145,77 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     </div>
   </div>
 
-  {/* ── Noscript fallback ────────────────────────────────────── */}
-  <div class="ucapan-noscript js-fallback-only">
-    <div class="ucapan-noscript-card">
-      <svg
-        class="ucapan-noscript-icon"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M12 2L2 7l10 5 10-5-10-5z"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-        <path
-          d="M2 17l10 5 10-5"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-        <path
-          d="M2 12l10 5 10-5"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-      </svg>
-      <p>Form ucapan & doa membutuhkan JavaScript untuk berfungsi.</p>
-      <p class="ucapan-noscript-hint">
-        Silakan aktifkan JavaScript di browser Anda untuk mengirim ucapan.
-      </p>
-    </div>
-  </div>
+  <UcapanNoscriptCard />
 </section>
 
-<script
-  define:vars={{
-    supabaseUrl,
-    supabaseAnonKey,
-    loadMoreLabel: ucapan.loadMoreLabel,
-    loadingLabel: ucapan.loadingLabel,
-  }}
->
-  // ── Ucapan & Doa — Client-side logic ──────────────────────
-  (function () {
+<script>
+  import {
+    isConfigured,
+    validateForm,
+    hasErrors,
+    fetchMessages,
+    insertMessage,
+    subscribeToMessages,
+    formatMessageDate,
+    MAX_MESSAGE_LENGTH,
+  } from "@utils/ucapan.ts";
+
+  (async function () {
     "use strict";
 
-    // ── Show JS-only elements & hide noscript fallback ────
     const section = document.getElementById("ucapan-doa");
     if (section) section.classList.add("js-enabled");
 
-    // Show form card wrapper
-    const formCard = section?.querySelector(".ucapan-form-card.js-required");
+    const loadMoreLabel = section?.dataset.loadMore ?? "Muat Lebih Banyak";
+    const loadingLabel = section?.dataset.loading ?? "Memuat...";
+
+    // Show JS-only elements
+    const formCard = section?.querySelector(".ucapan-form-card.js-required") as HTMLElement | null;
     if (formCard) formCard.hidden = false;
 
-    // Show gallery section
-    const gallerySection = section?.querySelector(".ucapan-gallery-section.js-required");
+    const gallerySection = section?.querySelector(".ucapan-gallery-section.js-required") as HTMLElement | null;
     if (gallerySection) gallerySection.hidden = false;
 
-    // Hide noscript fallback
-    const noscriptEl = section?.querySelector(".js-fallback-only");
+    const noscriptEl = section?.querySelector(".js-fallback-only") as HTMLElement | null;
     if (noscriptEl) noscriptEl.style.display = "none";
 
-    // ── Configuration ───────────────────────────────────────
-    const SUPABASE_URL = supabaseUrl;
-    const SUPABASE_ANON_KEY = supabaseAnonKey;
-    const MAX_MESSAGE_LENGTH = 500;
-
-    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    // Check Supabase config
+    if (!isConfigured()) {
       console.warn("Supabase configuration missing. Ucapan feature disabled.");
-      // Hide form card and gallery, show unconfigured message
       if (formCard) formCard.hidden = true;
       if (gallerySection) gallerySection.hidden = true;
-      const unconfiguredEl = document.getElementById("ucapan-unconfigured");
+      const unconfiguredEl = document.getElementById("ucapan-unconfigured") as HTMLElement | null;
       if (unconfiguredEl) unconfiguredEl.hidden = false;
       return;
     }
 
-    // ── DOM refs ────────────────────────────────────────────
-    const nameInput = document.getElementById("ucapan-name");
-    const batchSelect = document.getElementById("ucapan-batch");
-    const messageTextarea = document.getElementById("ucapan-message");
-    const charCount = document.getElementById("ucapan-char-count");
-    const submitBtn = document.getElementById("ucapan-submit");
-    const submitLabel = submitBtn?.querySelector(".ucapan-submit-label");
-    const submitLoading = submitBtn?.querySelector(".ucapan-submit-loading");
-    const successEl = document.getElementById("ucapan-success");
-    const errorEl = document.getElementById("ucapan-error");
-    const gallery = document.getElementById("ucapan-gallery");
-    const galleryEmpty = document.getElementById("ucapan-gallery-empty");
-    const nameError = document.getElementById("ucapan-name-error");
-    const batchError = document.getElementById("ucapan-batch-error");
-    const messageError = document.getElementById("ucapan-message-error");
+    // DOM refs
+    const nameInput = document.getElementById("ucapan-name") as HTMLInputElement | null;
+    const batchSelect = document.getElementById("ucapan-batch") as HTMLSelectElement | null;
+    const messageTextarea = document.getElementById("ucapan-message") as HTMLTextAreaElement | null;
+    const charCount = document.getElementById("ucapan-char-count") as HTMLElement | null;
+    const submitBtn = document.getElementById("ucapan-submit") as HTMLButtonElement | null;
+    const submitLabel = submitBtn?.querySelector(".ucapan-submit-label") as HTMLElement | null;
+    const submitLoading = submitBtn?.querySelector(".ucapan-submit-loading") as HTMLElement | null;
+    const successEl = document.getElementById("ucapan-success") as HTMLElement | null;
+    const errorEl = document.getElementById("ucapan-error") as HTMLElement | null;
+    const gallery = document.getElementById("ucapan-gallery") as HTMLElement | null;
+    const galleryEmpty = document.getElementById("ucapan-gallery-empty") as HTMLElement | null;
+    const nameError = document.getElementById("ucapan-name-error") as HTMLElement | null;
+    const batchError = document.getElementById("ucapan-batch-error") as HTMLElement | null;
+    const messageError = document.getElementById("ucapan-message-error") as HTMLElement | null;
+    const loadMoreWrapper = document.getElementById("ucapan-load-more-wrapper") as HTMLElement | null;
+    const loadMoreBtn = document.getElementById("ucapan-load-more") as HTMLButtonElement | null;
+    const noMoreEl = document.getElementById("ucapan-no-more") as HTMLElement | null;
 
-    // ── Supabase client (minimal, no npm dependency) ────────
-    async function supabaseQuery(table, options = {}) {
-      const { select = "*", order, limit, offset, method = "GET", body } = options;
-      let url = `${SUPABASE_URL}/rest/v1/${table}?select=${select}`;
-      if (order) url += `&order=${order.column}.${order.ascending ? "asc" : "desc"}`;
-      if (limit) url += `&limit=${limit}`;
-      if (offset !== undefined) url += `&offset=${offset}`;
-
-      const headers = {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        "Content-Type": "application/json",
-        Prefer: body ? "return=representation" : undefined,
-      };
-      // Remove undefined headers
-      Object.keys(headers).forEach((k) => headers[k] === undefined && delete headers[k]);
-
-      const res = await fetch(url, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined,
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ message: res.statusText }));
-        throw new Error(err.message || "Request failed");
-      }
-
-      return res.json();
+    // ── Helpers ──
+    function escapeHtml(str: string): string {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
     }
 
-    // ── Validation ──────────────────────────────────────────
-    function validateForm() {
-      let valid = true;
-
-      // Reset errors
-      [nameError, batchError, messageError].forEach((el) => {
-        if (el) el.textContent = "";
-      });
-      [nameInput, batchSelect, messageTextarea].forEach((el) => {
-        if (el) el.classList.remove("ucapan-input-error");
-      });
-
-      if (!nameInput?.value?.trim()) {
-        if (nameError) nameError.textContent = "Nama tidak boleh kosong";
-        nameInput?.classList.add("ucapan-input-error");
-        valid = false;
-      }
-
-      if (!batchSelect?.value) {
-        if (batchError) batchError.textContent = "Angkatan tidak boleh kosong";
-        batchSelect?.classList.add("ucapan-input-error");
-        valid = false;
-      }
-
-      if (!messageTextarea?.value?.trim()) {
-        if (messageError) messageError.textContent = "Pesan tidak boleh kosong";
-        messageTextarea?.classList.add("ucapan-input-error");
-        valid = false;
-      } else if (messageTextarea.value.length > MAX_MESSAGE_LENGTH) {
-        if (messageError)
-          messageError.textContent = `Pesan terlalu panjang (maksimal ${MAX_MESSAGE_LENGTH} karakter)`;
-        messageTextarea?.classList.add("ucapan-input-error");
-        valid = false;
-      }
-
-      return valid;
-    }
-
-    // ── Character counter ───────────────────────────────────
-    function updateCharCount() {
-      const count = messageTextarea?.value?.length || 0;
-      if (charCount) charCount.textContent = `${count}/${MAX_MESSAGE_LENGTH}`;
-    }
-
-    // ── Show/hide feedback ──────────────────────────────────
-    function showFeedback(type) {
-      if (type === "success") {
-        if (successEl) successEl.hidden = false;
-        if (errorEl) errorEl.hidden = true;
-        setTimeout(() => {
-          if (successEl) successEl.hidden = true;
-        }, 5000);
-      } else {
-        if (errorEl) errorEl.hidden = false;
-        if (successEl) successEl.hidden = true;
-        setTimeout(() => {
-          if (errorEl) errorEl.hidden = true;
-        }, 5000);
-      }
-    }
-
-    // ── Render message card ─────────────────────────────────
-    function renderMessageCard(msg) {
+    function renderMessageCard(msg: { id: string; name: string; batch_year: number; message: string; created_at: string }): HTMLDivElement {
       const card = document.createElement("div");
       card.className = "ucapan-card";
       card.dataset.messageId = msg.id;
@@ -512,44 +227,56 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
         .toUpperCase()
         .slice(0, 2);
 
-      const date = new Date(msg.created_at);
-      const dateStr = date.toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-
       card.innerHTML = `
         <div class="ucapan-card-quote" aria-hidden="true">"</div>
         <div class="ucapan-card-avatar">${initials}</div>
         <div class="ucapan-card-name">${escapeHtml(msg.name)}</div>
-        <div class="ucapan-card-batch">${escapeHtml(msg.batch_year)}</div>
+        <div class="ucapan-card-batch">${escapeHtml(String(msg.batch_year))}</div>
         <p class="ucapan-card-message">${escapeHtml(msg.message)}</p>
-        <div class="ucapan-card-date">${dateStr}</div>
+        <div class="ucapan-card-date">${formatMessageDate(msg.created_at)}</div>
       `;
 
       return card;
     }
 
-    function escapeHtml(str) {
-      const div = document.createElement("div");
-      div.textContent = str;
-      return div.innerHTML;
+    function updateCharCount() {
+      const count = messageTextarea?.value?.length || 0;
+      if (charCount) charCount.textContent = `${count}/${MAX_MESSAGE_LENGTH}`;
     }
 
-    // ── Pagination state ──────────────────────────────────
+    function showFeedback(type: "success" | "error") {
+      if (type === "success") {
+        if (successEl) successEl.hidden = false;
+        if (errorEl) errorEl.hidden = true;
+        setTimeout(() => { if (successEl) successEl.hidden = true; }, 5000);
+      } else {
+        if (errorEl) errorEl.hidden = false;
+        if (successEl) successEl.hidden = true;
+        setTimeout(() => { if (errorEl) errorEl.hidden = true; }, 5000);
+      }
+    }
+
+    function resetFormErrors() {
+      [nameError, batchError, messageError].forEach((el) => { if (el) el.textContent = ""; });
+      [nameInput, batchSelect, messageTextarea].forEach((el) => {
+        if (el) el.classList.remove("ucapan-input-error");
+      });
+    }
+
+    function showFormError(field: "name" | "batch_year" | "message", message: string) {
+      const errorEl = field === "name" ? nameError : field === "batch_year" ? batchError : messageError;
+      const inputEl = field === "name" ? nameInput : field === "batch_year" ? batchSelect : messageTextarea;
+      if (errorEl) errorEl.textContent = message;
+      if (inputEl) inputEl.classList.add("ucapan-input-error");
+    }
+
+    // ── Pagination state ──
     const PAGE_SIZE = 10;
     let currentOffset = 0;
     let hasMore = true;
     let loadingMore = false;
 
-    const loadMoreWrapper = document.getElementById("ucapan-load-more-wrapper");
-    const loadMoreBtn = document.getElementById("ucapan-load-more");
-    const noMoreEl = document.getElementById("ucapan-no-more");
-
-    // ── Fetch & render existing messages (cursor pagination) ──
+    // ── Load messages ──
     async function loadMessages(reset = false) {
       if (loadingMore) return;
       loadingMore = true;
@@ -557,24 +284,15 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
       if (reset) {
         currentOffset = 0;
         hasMore = true;
-        // Clear gallery cards (keep empty state element)
         if (gallery) {
-          const cards = gallery.querySelectorAll(".ucapan-card");
-          cards.forEach((c) => c.remove());
+          gallery.querySelectorAll(".ucapan-card").forEach((c) => c.remove());
         }
       }
 
       try {
-        const messages = await supabaseQuery("messages", {
-          select: "id,name,batch_year,message,created_at",
-          order: { column: "created_at", ascending: false },
-          limit: PAGE_SIZE,
-          offset: currentOffset,
-        });
+        const messages = await fetchMessages({ limit: PAGE_SIZE, offset: currentOffset });
 
-        if (messages.length < PAGE_SIZE) {
-          hasMore = false;
-        }
+        if (messages.length < PAGE_SIZE) hasMore = false;
         currentOffset += messages.length;
 
         if (galleryEmpty && messages.length > 0) galleryEmpty.remove();
@@ -583,66 +301,72 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
           gallery?.appendChild(renderMessageCard(msg));
         });
 
-        // Update load more / no more visibility
         if (hasMore) {
           if (loadMoreWrapper) loadMoreWrapper.hidden = false;
           if (noMoreEl) noMoreEl.hidden = true;
         } else {
           if (loadMoreWrapper) loadMoreWrapper.hidden = true;
-          if (currentOffset > 0) {
-            if (noMoreEl) noMoreEl.hidden = false;
-          }
+          if (currentOffset > 0 && noMoreEl) noMoreEl.hidden = false;
         }
       } catch (err) {
         console.error("Error loading messages:", err);
-        // Show empty state on error
         if (galleryEmpty) {
           galleryEmpty.textContent = "Gagal memuat ucapan. Silakan muat ulang halaman.";
           galleryEmpty.style.display = "block";
         }
+      } finally {
+        loadingMore = false;
       }
     }
 
-    // ── Insert message ──────────────────────────────────────
+    // ── Submit message ──
     async function submitMessage() {
-      if (!validateForm()) return;
+      resetFormErrors();
+      const errors = validateForm(
+        nameInput?.value?.trim() ?? "",
+        batchSelect?.value ?? "",
+        messageTextarea?.value?.trim() ?? "",
+      );
 
-      const name = nameInput.value.trim();
-      const batch_year = batchSelect.value;
-      const message = messageTextarea.value.trim();
+      if (hasErrors(errors)) {
+        if (errors.name) showFormError("name", errors.name);
+        if (errors.batch_year) showFormError("batch_year", errors.batch_year);
+        if (errors.message) showFormError("message", errors.message);
+        return;
+      }
 
-      // Toggle loading state
+      const name = nameInput!.value.trim();
+      const batch_year = batchSelect!.value;
+      const message = messageTextarea!.value.trim();
+
       if (submitLabel) submitLabel.hidden = true;
       if (submitLoading) submitLoading.hidden = false;
       if (submitBtn) submitBtn.disabled = true;
 
       try {
-        const result = await supabaseQuery("messages", {
-          method: "POST",
-          body: { name, batch_year, message },
-        });
+        const result = await insertMessage(name, batch_year, message);
 
-        // Prepend new message to gallery (if not already added by realtime)
-        if (galleryEmpty) galleryEmpty.remove();
-        const existingCard = gallery?.querySelector(`[data-message-id="${result[0]?.id}"]`);
-        if (!existingCard && result[0]) {
-          const card = renderMessageCard(result[0]);
-          gallery?.prepend(card);
+        if (result.success) {
+          if (galleryEmpty) galleryEmpty.remove();
+          const existingCard = gallery?.querySelector(`[data-message-id="${result.message.id}"]`);
+          if (!existingCard) {
+            gallery?.prepend(renderMessageCard(result.message));
+          }
+
+          if (nameInput) nameInput.value = "";
+          if (batchSelect) batchSelect.value = "";
+          if (messageTextarea) messageTextarea.value = "";
+          updateCharCount();
+
+          currentOffset = 0;
+          hasMore = true;
+          if (loadMoreWrapper) loadMoreWrapper.hidden = false;
+          if (noMoreEl) noMoreEl.hidden = true;
+
+          showFeedback("success");
+        } else {
+          showFeedback("error");
         }
-
-        // Reset form
-        if (nameInput) nameInput.value = "";
-        if (batchSelect) batchSelect.value = "";
-        if (messageTextarea) messageTextarea.value = "";
-        updateCharCount();
-
-        // Reset pagination to show new message at top
-        currentOffset = 0;
-        hasMore = true;
-        if (loadMoreWrapper) loadMoreWrapper.hidden = false;
-        if (noMoreEl) noMoreEl.hidden = true;
-
-        showFeedback("success");
       } catch (err) {
         console.error("Error submitting message:", err);
         showFeedback("error");
@@ -653,179 +377,28 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
       }
     }
 
-    // ── Realtime subscription (Supabase Realtime via WebSocket)
-    let realtimeWs = null;
-    function subscribeRealtime() {
-      try {
-        const projectId = new URL(SUPABASE_URL).hostname.split(".")[0];
-        const wsUrl = `wss://${projectId}.supabase.co/realtime/v1/websocket?apikey=${SUPABASE_ANON_KEY}&vsn=1.0.0`;
+    // ── Realtime ──
+    let unsubscribeRealtime: (() => void) | null = null;
 
-        realtimeWs = new WebSocket(wsUrl);
-
-        realtimeWs.onopen = function () {
-          // Join the realtime channel for messages table
-          realtimeWs.send(
-            JSON.stringify({
-              topic: `realtime:public:messages`,
-              event: "phx_join",
-              payload: {
-                config: {
-                  broadcast: { self: false },
-                  presence: { key: "" },
-                  postgres_changes: [
-                    {
-                      event: "INSERT",
-                      schema: "public",
-                      table: "messages",
-                    },
-                  ],
-                },
-              },
-              ref: "1",
-            }),
-          );
-        };
-
-        realtimeWs.onmessage = function (event) {
-          try {
-            const data = JSON.parse(event.data);
-            if (data.event === "postgres_changes" && data.payload?.data?.type === "INSERT") {
-              const msg = data.payload.data.record;
-              // Remove empty state
-              if (galleryEmpty) galleryEmpty.remove();
-              // Prepend new message
-              const existingCard = gallery?.querySelector(`[data-message-id="${msg.id}"]`);
-              if (!existingCard) {
-                const card = renderMessageCard(msg);
-                card.style.animation = "ucapanCardSlideIn 0.4s ease-out";
-                gallery?.prepend(card);
-              }
-            }
-          } catch (_) {
-            // Ignore parse errors
-          }
-        };
-
-        realtimeWs.onerror = function () {
-          console.log("Realtime WebSocket error. Falling back to polling.");
-          startPolling();
-        };
-
-        realtimeWs.onclose = function () {
-          // Reconnect after delay
-          setTimeout(subscribeRealtime, 5000);
-        };
-      } catch (err) {
-        console.log("Realtime unavailable. Falling back to polling.");
-        startPolling();
-      }
-    }
-
-    // ── Polling fallback ────────────────────────────────────
-    let pollInterval = null;
-    let lastMessageId = null;
-    function startPolling() {
-      if (pollInterval) return;
-      pollInterval = setInterval(async () => {
-        try {
-          const messages = await supabaseQuery("messages", {
-            select: "id,name,batch_year,message,created_at",
-            order: { column: "created_at", ascending: false },
-            limit: 1,
-          });
-          if (messages[0] && messages[0].id !== lastMessageId) {
-            // Reload all messages (simple approach)
-            await loadMessages(true);
-          }
-          if (messages[0]) lastMessageId = messages[0].id;
-        } catch (_) {
-          // Silently retry
+    try {
+      unsubscribeRealtime = await subscribeToMessages((msg) => {
+        if (galleryEmpty) galleryEmpty.remove();
+        const existingCard = gallery?.querySelector(`[data-message-id="${msg.id}"]`);
+        if (!existingCard) {
+          const card = renderMessageCard(msg);
+          card.style.animation = "ucapanCardSlideIn 0.4s ease-out";
+          gallery?.prepend(card);
         }
-      }, 10000); // Poll every 10 seconds
+      });
+      window.addEventListener("beforeunload", () => unsubscribeRealtime?.());
+    } catch {
+      console.log("Realtime unavailable.");
     }
 
-    // ── GSAP scroll animations ──────────────────────────────
-    async function initAnimations() {
-      try {
-        const { gsap } = await import("gsap");
-        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Reveal animations for section elements
-        gsap.utils.toArray('[data-reveal^="ucapan-"]').forEach((el) => {
-          gsap.from(el, {
-            opacity: 0,
-            y: 40,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              once: true,
-            },
-          });
-        });
-
-        // Parallax on mountains
-        gsap.to(".ucapan-mountain-back", {
-          yPercent: -15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#ucapan-doa",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-
-        gsap.to(".ucapan-mountain-front", {
-          yPercent: -8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#ucapan-doa",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-
-        // Floating particles parallax
-        gsap.utils.toArray(".ucapan-particle").forEach((p, i) => {
-          gsap.to(p, {
-            y: -50 - i * 10,
-            ease: "none",
-            scrollTrigger: {
-              trigger: "#ucapan-doa",
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          });
-        });
-
-        // Card stagger reveal
-        ScrollTrigger.create({
-          trigger: "#ucapan-gallery",
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.from(".ucapan-card", {
-              opacity: 0,
-              y: 30,
-              scale: 0.95,
-              duration: 0.5,
-              stagger: 0.1,
-              ease: "power2.out",
-            });
-          },
-        });
-      } catch (err) {
-        console.log("GSAP not available, animations skipped.");
-      }
-    }
-
-    // ── Event listeners ─────────────────────────────────────
+    // ── Event listeners ──
     messageTextarea?.addEventListener("input", updateCharCount);
+
+    const form = document.getElementById("ucapan-form");
     form?.addEventListener("submit", (e) => {
       e.preventDefault();
       submitMessage();
@@ -840,15 +413,21 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
       loadMoreBtn.disabled = false;
     });
 
-    // ── Initialize ──────────────────────────────────────────
-    loadMessages();
-    subscribeRealtime();
-    initAnimations();
+    // ── Init ──
+    await loadMessages();
   })();
 </script>
 
+<script>
+  import { setupUcapanAnimations } from "@utils/ucapan-gsap.ts";
+
+  const section = document.getElementById("ucapan-doa") as HTMLElement;
+  if (section) {
+    setupUcapanAnimations(section);
+  }
+</script>
+
 <style>
-  /* ── Section base ────────────────────────────────────────── */
   .ucapan-section {
     position: relative;
     width: 100%;
@@ -860,7 +439,6 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     padding: var(--spacing-section-lg) 0;
   }
 
-  /* ── Background layers ───────────────────────────────────── */
   .ucapan-bg {
     position: absolute;
     inset: 0;
@@ -903,7 +481,6 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     background-size: 200px;
   }
 
-  /* ── Mountain silhouettes ────────────────────────────────── */
   .ucapan-mountains {
     position: absolute;
     bottom: 0;
@@ -922,7 +499,6 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     height: 100%;
   }
 
-  /* ── Pine tree silhouettes ───────────────────────────────── */
   .ucapan-trees {
     position: absolute;
     bottom: 0;
@@ -951,106 +527,8 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     height: 70px;
   }
 
-  /* ── Floating particles ──────────────────────────────────── */
-  .ucapan-particles {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    overflow: hidden;
-  }
+  /* SideDecor and FloatingParticles are handled by their own atom components */
 
-  .ucapan-particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: rgba(200, 168, 78, 0.5);
-    animation: ucapanParticleFloat 8s ease-in-out infinite;
-  }
-
-  .ucapan-particle-1 {
-    left: 10%;
-    top: 20%;
-    animation-delay: 0s;
-  }
-  .ucapan-particle-2 {
-    left: 25%;
-    top: 40%;
-    animation-delay: 1.2s;
-    width: 3px;
-    height: 3px;
-  }
-  .ucapan-particle-3 {
-    left: 50%;
-    top: 15%;
-    animation-delay: 2.5s;
-  }
-  .ucapan-particle-4 {
-    left: 70%;
-    top: 35%;
-    animation-delay: 0.8s;
-    width: 5px;
-    height: 5px;
-  }
-  .ucapan-particle-5 {
-    left: 85%;
-    top: 25%;
-    animation-delay: 3s;
-  }
-  .ucapan-particle-6 {
-    left: 40%;
-    top: 60%;
-    animation-delay: 1.8s;
-    width: 3px;
-    height: 3px;
-  }
-
-  @keyframes ucapanParticleFloat {
-    0%,
-    100% {
-      transform: translateY(0) scale(1);
-      opacity: 0.5;
-    }
-    50% {
-      transform: translateY(-20px) scale(1.2);
-      opacity: 0.8;
-    }
-  }
-
-  /* ── Side decorations ────────────────────────────────────── */
-  .ucapan-side-decor {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .ucapan-side-left {
-    left: 16px;
-  }
-  .ucapan-side-right {
-    right: 16px;
-  }
-
-  .ucapan-side-line {
-    width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, transparent, rgba(200, 168, 78, 0.3), transparent);
-  }
-
-  .ucapan-side-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(200, 168, 78, 0.5);
-  }
-
-  /* ── Container ───────────────────────────────────────────── */
   .ucapan-container {
     position: relative;
     z-index: 5;
@@ -1063,17 +541,6 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     align-items: center;
   }
 
-  /* ── Ornamental flourish ─────────────────────────────────── */
-  .ucapan-ornament-top {
-    margin-bottom: 1.5rem;
-  }
-
-  .ucapan-flourish {
-    width: 160px;
-    height: 24px;
-  }
-
-  /* ── Title ───────────────────────────────────────────────── */
   .ucapan-title {
     text-align: center;
     font-size: var(--text-heading-xl);
@@ -1085,6 +552,31 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     align-items: center;
     justify-content: center;
     gap: 12px;
+  }
+
+  .ucapan-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0.75rem 0;
+  }
+
+  .ucapan-divider-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 168, 78, 0.5), transparent);
+  }
+
+  .ucapan-divider-diamond {
+    color: var(--color-gold);
+    font-size: 0.5rem;
+    opacity: 0.6;
+  }
+
+  .ucapan-bottom-flourish {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
   }
 
   .ucapan-title-star {
@@ -1100,7 +592,6 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     background-clip: text;
   }
 
-  /* ── Subtitle ────────────────────────────────────────────── */
   .ucapan-subtitle {
     text-align: center;
     font-size: var(--text-body);
@@ -1109,7 +600,6 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     opacity: 0.9;
   }
 
-  /* ── Body ────────────────────────────────────────────────── */
   .ucapan-body {
     text-align: center;
     font-size: var(--text-body-sm);
@@ -1119,252 +609,6 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     line-height: 1.6;
   }
 
-  /* ── Form card ───────────────────────────────────────────── */
-  .ucapan-form-card {
-    position: relative;
-    width: 100%;
-    max-width: 600px;
-    background: rgba(10, 31, 62, 0.6);
-    border: 1px solid rgba(200, 168, 78, 0.15);
-    border-radius: 16px;
-    padding: 2rem;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    margin-bottom: 3rem;
-  }
-
-  .ucapan-glass-border {
-    position: absolute;
-    inset: -1px;
-    border-radius: 16px;
-    background: linear-gradient(
-      135deg,
-      rgba(200, 168, 78, 0.2),
-      transparent 40%,
-      transparent 60%,
-      rgba(200, 168, 78, 0.15)
-    );
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .ucapan-corner {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-  }
-
-  .ucapan-corner-tl {
-    top: -1px;
-    left: -1px;
-  }
-  .ucapan-corner-tr {
-    top: -1px;
-    right: -1px;
-  }
-  .ucapan-corner-bl {
-    bottom: -1px;
-    left: -1px;
-  }
-  .ucapan-corner-br {
-    bottom: -1px;
-    right: -1px;
-  }
-
-  /* ── Form ────────────────────────────────────────────────── */
-  .ucapan-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .ucapan-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .ucapan-label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-earth-sand);
-    letter-spacing: 0.02em;
-  }
-
-  .ucapan-required {
-    color: var(--color-gold);
-    margin-left: 2px;
-  }
-
-  .ucapan-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background: rgba(10, 31, 62, 0.5);
-    border: 1px solid rgba(200, 168, 78, 0.2);
-    border-radius: 10px;
-    color: var(--color-earth-cream);
-    font-family: var(--font-body);
-    font-size: var(--text-body-sm);
-    transition:
-      border-color 0.2s,
-      box-shadow 0.2s;
-    outline: none;
-  }
-
-  .ucapan-input:focus {
-    border-color: rgba(200, 168, 78, 0.5);
-    box-shadow: 0 0 0 3px rgba(200, 168, 78, 0.1);
-  }
-
-  .ucapan-input::placeholder {
-    color: rgba(212, 184, 134, 0.4);
-  }
-
-  .ucapan-input-error {
-    border-color: rgba(220, 80, 80, 0.6) !important;
-    box-shadow: 0 0 0 3px rgba(220, 80, 80, 0.1) !important;
-  }
-
-  .ucapan-select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%23c8a84e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-    cursor: pointer;
-  }
-
-  .ucapan-select option {
-    background: var(--color-navy);
-    color: var(--color-earth-cream);
-  }
-
-  .ucapan-textarea {
-    resize: vertical;
-    min-height: 120px;
-    line-height: 1.5;
-  }
-
-  .ucapan-textarea-footer {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .ucapan-char-count {
-    font-size: 0.75rem;
-    color: rgba(212, 184, 134, 0.5);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .ucapan-error {
-    font-size: 0.75rem;
-    color: #dc5050;
-    min-height: 1em;
-  }
-
-  /* ── Submit button ───────────────────────────────────────── */
-  .ucapan-submit-btn {
-    width: 100%;
-    padding: 0.875rem 2rem;
-    background: linear-gradient(135deg, var(--color-earth-moss), var(--color-earth-moss-dark));
-    border: 1px solid rgba(200, 168, 78, 0.3);
-    border-radius: var(--radius-btn);
-    color: var(--color-earth-cream);
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    min-height: 56px;
-  }
-
-  .ucapan-submit-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--color-earth-moss-light), var(--color-earth-moss));
-    border-color: rgba(200, 168, 78, 0.5);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(74, 124, 89, 0.3);
-  }
-
-  .ucapan-submit-btn:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  .ucapan-submit-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  .ucapan-spinner {
-    width: 18px;
-    height: 18px;
-    animation: ucapanSpin 1s linear infinite;
-  }
-
-  @keyframes ucapanSpin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  /* ── Feedback ────────────────────────────────────────────── */
-  .ucapan-feedback {
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    text-align: center;
-  }
-
-  .ucapan-feedback-success {
-    background: rgba(74, 124, 89, 0.2);
-    border: 1px solid rgba(74, 124, 89, 0.4);
-    color: #8bc49e;
-  }
-
-  .ucapan-feedback-error {
-    background: rgba(220, 80, 80, 0.15);
-    border: 1px solid rgba(220, 80, 80, 0.3);
-    color: #e88;
-  }
-
-  /* ── Gallery ─────────────────────────────────────────────── */
-  .ucapan-gallery-section {
-    width: 100%;
-    margin-top: 1rem;
-  }
-
-  .ucapan-gallery-title {
-    text-align: center;
-    font-size: var(--text-heading-sm);
-    font-family: var(--font-heading);
-    color: var(--color-earth-cream);
-    margin: 0 0 1.5rem;
-    font-weight: 600;
-  }
-
-  .ucapan-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
-    width: 100%;
-  }
-
-  .ucapan-gallery-empty {
-    grid-column: 1 / -1;
-    text-align: center;
-    color: rgba(212, 184, 134, 0.5);
-    font-style: italic;
-    padding: 2rem 1rem;
-  }
-
-  /* ── Message card ────────────────────────────────────────── */
   .ucapan-card {
     position: relative;
     background: rgba(10, 31, 62, 0.5);
@@ -1450,7 +694,6 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     font-variant-numeric: tabular-nums;
   }
 
-  /* ── Card slide-in animation ─────────────────────────────── */
   @keyframes ucapanCardSlideIn {
     from {
       opacity: 0;
@@ -1462,49 +705,10 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     }
   }
 
-  /* ── Noscript fallback ───────────────────────────────────── */
-  .ucapan-noscript {
-    position: relative;
-    z-index: 5;
-    text-align: center;
-    padding: 2rem;
-    color: var(--color-earth-sand);
-    width: 100%;
-    max-width: 600px;
-    margin: 2rem auto 0;
-  }
-
-  .ucapan-noscript-card {
-    background: rgba(10, 31, 62, 0.4);
-    border: 1px solid rgba(200, 168, 78, 0.15);
-    border-radius: 12px;
-    padding: 2rem 1.5rem;
-  }
-
-  .ucapan-noscript-icon {
-    width: 48px;
-    height: 48px;
-    color: var(--color-gold);
-    margin-bottom: 1rem;
-    opacity: 0.7;
-  }
-
-  .ucapan-noscript p {
-    margin: 0.5rem 0;
-    font-size: var(--text-body-sm);
-  }
-
-  .ucapan-noscript-hint {
-    font-size: 0.8rem !important;
-    opacity: 0.6;
-  }
-
-  /* ── JS-required elements (hidden by default, shown by JS) ── */
   .js-required[hidden] {
     display: none;
   }
 
-  /* Noscript fallback: hidden when JS is available */
   .js-fallback-only {
     display: block;
   }
@@ -1513,7 +717,6 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     display: none;
   }
 
-  /* ── Responsive ──────────────────────────────────────────── */
   @media (max-width: 768px) {
     .ucapan-section {
       padding: var(--spacing-section) 0;
@@ -1523,17 +726,34 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
       font-size: var(--text-heading-lg);
     }
 
-    .ucapan-form-card {
-      padding: 1.5rem;
-    }
-
-    .ucapan-gallery {
-      grid-template-columns: 1fr;
-    }
-
     .ucapan-trees-left,
     .ucapan-trees-right {
       display: none;
+    }
+
+    .ucapan-corner {
+      width: 28px;
+      height: 28px;
+    }
+
+    .ucapan-corner-tl {
+      top: 16px;
+      left: 16px;
+    }
+
+    .ucapan-corner-tr {
+      top: 16px;
+      right: 16px;
+    }
+
+    .ucapan-corner-bl {
+      bottom: 16px;
+      left: 16px;
+    }
+
+    .ucapan-corner-br {
+      bottom: 16px;
+      right: 16px;
     }
   }
 
@@ -1547,12 +767,7 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
       font-size: 0.9em;
     }
 
-    .ucapan-form-card {
-      padding: 1.25rem;
-      border-radius: 12px;
-    }
-
-    .ucapan-side-decor {
+    .ucapan-corner {
       display: none;
     }
   }

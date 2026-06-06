@@ -1,0 +1,43 @@
+---
+interface Props {
+  id?: string;
+  name?: string;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  maxlength?: number;
+  rows?: number;
+  errorId?: string;
+  charCountId?: string;
+}
+const {
+  id,
+  name = "message",
+  label,
+  placeholder,
+  required = false,
+  maxlength,
+  rows,
+  errorId,
+  charCountId,
+} = Astro.props;
+---
+
+<div class="ucapan-field">
+  <label for={id} class="ucapan-label">
+    {label}
+    {required && <span class="ucapan-required">*</span>}
+  </label>
+  <textarea
+    id={id}
+    name={name}
+    class="ucapan-input ucapan-textarea"
+    placeholder={placeholder}
+    required={required}
+    maxlength={maxlength}
+    rows={rows}></textarea>
+  <div class="ucapan-textarea-footer">
+    <span class="ucapan-char-count" id={charCountId}>0/{maxlength}</span>
+  </div>
+  <span class="ucapan-error" id={errorId}></span>
+</div>

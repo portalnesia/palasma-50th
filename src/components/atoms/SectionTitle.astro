@@ -1,0 +1,51 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<h2 class="event-title" data-reveal="event-title">
+  <span class="event-title-star" aria-hidden="true">✦</span>
+  <span class="event-title-text">{text}</span>
+  <span class="event-title-star" aria-hidden="true">✦</span>
+</h2>
+
+<style>
+  .event-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-earth-cream);
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 20px rgba(200, 168, 78, 0.15);
+  }
+
+  .event-title-star {
+    display: inline-block;
+    font-size: 0.75em;
+    color: var(--color-gold);
+    margin: 0 0.5rem;
+    vertical-align: middle;
+    animation: event-title-star-pulse 3s ease-in-out infinite;
+  }
+
+  .event-title-star:last-child {
+    animation-delay: 1.5s;
+  }
+
+  @keyframes event-title-star-pulse {
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+</style>

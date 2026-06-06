@@ -1,0 +1,39 @@
+---
+interface Props {
+  hidden?: boolean;
+}
+const { hidden = true } = Astro.props;
+---
+
+<div class="ucapan-form-card js-required" data-reveal="ucapan-form-card" hidden={hidden}>
+  <div class="ucapan-glass-border" aria-hidden="true"></div>
+  <svg class="ucapan-corner ucapan-corner-tl" viewBox="0 0 30 30" aria-hidden="true">
+    <path d="M0 30 L0 5 Q0 0 5 0 L30 0" stroke="#c8a84e" stroke-width="1" fill="none" opacity="0.5"
+    ></path>
+  </svg>
+  <svg class="ucapan-corner ucapan-corner-tr" viewBox="0 0 30 30" aria-hidden="true">
+    <path
+      d="M0 0 L25 0 Q30 0 30 5 L30 30"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+  </svg>
+  <svg class="ucapan-corner ucapan-corner-bl" viewBox="0 0 30 30" aria-hidden="true">
+    <path
+      d="M30 30 L5 30 Q0 30 0 25 L0 0"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+  </svg>
+  <svg class="ucapan-corner ucapan-corner-br" viewBox="0 0 30 30" aria-hidden="true">
+    <path
+      d="M0 30 L30 30 L30 5 Q30 0 25 0"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+  </svg>
+  <slot />
+</div>

@@ -1,0 +1,76 @@
+---
+---
+
+<div class="hero-sparkles" aria-hidden="true">
+  <span class="hero-sparkle hero-sparkle-1"></span>
+  <span class="hero-sparkle hero-sparkle-2"></span>
+  <span class="hero-sparkle hero-sparkle-3"></span>
+  <span class="hero-sparkle hero-sparkle-4"></span>
+  <span class="hero-sparkle hero-sparkle-5"></span>
+  <span class="hero-sparkle hero-sparkle-6"></span>
+</div>
+
+<style>
+  .hero-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--color-gold);
+    clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+    );
+  }
+
+  .hero-sparkle-1 {
+    width: 10px;
+    height: 10px;
+    left: 10%;
+    top: 20%;
+  }
+  .hero-sparkle-2 {
+    width: 6px;
+    height: 6px;
+    left: 22%;
+    top: 65%;
+  }
+  .hero-sparkle-3 {
+    width: 8px;
+    height: 8px;
+    left: 78%;
+    top: 18%;
+  }
+  .hero-sparkle-4 {
+    width: 7px;
+    height: 7px;
+    left: 85%;
+    top: 60%;
+  }
+  .hero-sparkle-5 {
+    width: 9px;
+    height: 9px;
+    left: 45%;
+    top: 82%;
+  }
+  .hero-sparkle-6 {
+    width: 6px;
+    height: 6px;
+    left: 55%;
+    top: 12%;
+  }
+</style>

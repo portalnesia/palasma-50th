@@ -13,7 +13,7 @@
 export interface Message {
   id: string;
   name: string;
-  batch_year: string;
+  batch_year: number;
   message: string;
   created_at: string;
 }
@@ -32,7 +32,7 @@ export type RealtimeMessageHandler = (message: Message) => void;
 
 /* ── Validation ─────────────────────────────────────────────── */
 
-const MAX_MESSAGE_LENGTH = 500;
+export const MAX_MESSAGE_LENGTH = 500;
 
 /**
  * Validate form fields.
@@ -86,11 +86,10 @@ let supabaseClient: any = null;
  * Initialize Supabase client from environment variables.
  * Uses PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_ANON_KEY.
  */
-export function createClient(): any {
+export async function createClient(): Promise<any> {
   if (supabaseClient) return supabaseClient;
 
-  // Dynamic import to avoid bundling in static build if not used
-  const { createClient: createSupabaseClient } = require("@supabase/supabase-js");
+  const { createClient: createSupabaseClient } = await import("@supabase/supabase-js");
 
   const url = import.meta.env.PUBLIC_SUPABASE_URL;
   const anonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
@@ -105,18 +104,37 @@ export function createClient(): any {
   return supabaseClient;
 }
 
+/**
+ * Check if Supabase is configured (URL and anon key exist).
+ */
+export function isConfigured(): boolean {
+  return !!(import.meta.env.PUBLIC_SUPABASE_URL && import.meta.env.PUBLIC_SUPABASE_ANON_KEY);
+}
+
 /* ── CRUD Operations ───────────────────────────────────────── */
 
-/**
- * Fetch all messages, ordered by newest first.
- */
-export async function fetchMessages(): Promise<Message[]> {
-  const supabase = createClient();
+export interface FetchOptions {
+  limit?: number;
+  offset?: number;
+}
 
-  const { data, error } = await supabase
+/**
+ * Fetch messages, ordered by newest first.
+ * Supports pagination via limit/offset.
+ */
+export async function fetchMessages(options: FetchOptions = {}): Promise<Message[]> {
+  const supabase = await createClient();
+  const { limit, offset } = options;
+
+  let query = supabase
     .from("messages")
     .select("id, name, batch_year, message, created_at")
     .order("created_at", { ascending: false });
+
+  if (limit !== undefined) query = query.limit(limit);
+  if (offset !== undefined) query = query.range(offset, offset + (limit ?? 10) - 1);
+
+  const { data, error } = await query;
 
   if (error) {
     console.error("Error fetching messages:", error);
@@ -134,11 +152,11 @@ export async function insertMessage(
   batch_year: string,
   message: string,
 ): Promise<InsertResult> {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("messages")
-    .insert({ name: name.trim(), batch_year: batch_year.trim(), message })
+    .insert({ name: name.trim(), batch_year: Number(batch_year), message })
     .select()
     .single();
 
@@ -158,10 +176,10 @@ let realtimeSubscription: any = null;
  * Subscribe to new messages in real-time.
  * Calls handler when a new message is inserted.
  */
-export function subscribeToMessages(
+export async function subscribeToMessages(
   handler: RealtimeMessageHandler,
-): () => void {
-  const supabase = createClient();
+): Promise<() => void> {
+  const supabase = await createClient();
 
   // Avoid duplicate subscriptions
   if (realtimeSubscription) {

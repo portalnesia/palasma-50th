@@ -1,0 +1,50 @@
+---
+
+---
+
+<div class="splash-ornament" aria-hidden="true">
+  <span class="splash-ornament-corner splash-ornament-tl"></span>
+  <span class="splash-ornament-corner splash-ornament-tr"></span>
+  <span class="splash-ornament-corner splash-ornament-bl"></span>
+  <span class="splash-ornament-corner splash-ornament-br"></span>
+</div>
+
+<style>
+  .splash-ornament {
+    position: absolute;
+    inset: 24px;
+    pointer-events: none;
+  }
+
+  .splash-ornament-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-color: rgba(200, 168, 78, 0.25);
+    border-style: solid;
+  }
+
+  .splash-ornament-tl {
+    top: 0;
+    left: 0;
+    border-width: 2px 0 0 2px;
+  }
+
+  .splash-ornament-tr {
+    top: 0;
+    right: 0;
+    border-width: 2px 2px 0 0;
+  }
+
+  .splash-ornament-bl {
+    bottom: 0;
+    left: 0;
+    border-width: 0 0 2px 2px;
+  }
+
+  .splash-ornament-br {
+    bottom: 0;
+    right: 0;
+    border-width: 0 2px 2px 0;
+  }
+</style>

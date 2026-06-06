@@ -1,0 +1,13 @@
+---
+interface Props {
+  id?: string;
+  type?: "success" | "error";
+  message: string;
+  hidden?: boolean;
+}
+const { id, type = "success", message, hidden = true } = Astro.props;
+---
+
+<div class:list={["ucapan-feedback", `ucapan-feedback-${type}`]} id={id} hidden={hidden}>
+  {message}
+</div>

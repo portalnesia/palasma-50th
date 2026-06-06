@@ -1,275 +1,59 @@
 ---
 import { EVENT } from "@config/site.ts";
 import { LINKS } from "@config/links.ts";
+import BackgroundLayers from "@components/atoms/BackgroundLayers.astro";
+import FloatingParticles from "@components/atoms/FloatingParticles.astro";
+import SideDecor from "@components/atoms/SideDecor.astro";
+import SectionTitle from "@components/atoms/SectionTitle.astro";
+import OrnamentFlourish from "@components/atoms/OrnamentFlourish.astro";
+import CountdownTimer from "@components/molecules/CountdownTimer.astro";
+import InfoCard from "@components/molecules/InfoCard.astro";
 ---
 
 <section id="event-details" class="event-section">
-  {/* ── Background layers ──────────────────────────────────── */}
-  <div class="event-bg" aria-hidden="true">
-    <div class="event-bg-gradient-1"></div>
-    <div class="event-bg-gradient-2"></div>
-    <div class="event-bg-gradient-3"></div>
-    <div class="event-bg-grain"></div>
-  </div>
+  <BackgroundLayers prefix="event" />
 
-  {/* ── Floating gold particles ──────────────────────────────── */}
-  <div class="event-particles" aria-hidden="true">
-    <span class="event-particle event-particle-1"></span>
-    <span class="event-particle event-particle-2"></span>
-    <span class="event-particle event-particle-3"></span>
-    <span class="event-particle event-particle-4"></span>
-    <span class="event-particle event-particle-5"></span>
-    <span class="event-particle event-particle-6"></span>
-    <span class="event-particle event-particle-7"></span>
-    <span class="event-particle event-particle-8"></span>
-  </div>
+  <FloatingParticles prefix="event" />
 
-  {/* ── Decorative side lines ─────────────────────────────────── */}
-  <div class="event-side-decor event-side-left" aria-hidden="true">
-    <div class="event-side-line"></div>
-    <div class="event-side-dot"></div>
-    <div class="event-side-line"></div>
-  </div>
-  <div class="event-side-decor event-side-right" aria-hidden="true">
-    <div class="event-side-line"></div>
-    <div class="event-side-dot"></div>
-    <div class="event-side-line"></div>
-  </div>
+  <SideDecor position="left" />
+  <SideDecor position="right" />
 
   <div class="event-container">
-    {/* ── Top ornamental flourish ──────────────────────────── */}
-    <div class="event-ornament-top" data-reveal="event-ornament-top" aria-hidden="true">
-      <svg
-        class="event-flourish"
-        viewBox="0 0 200 30"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M100 15 C85 5, 60 5, 40 15 S10 25, 0 15"
-          stroke="url(#event-gold-grad-l)"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <path
-          d="M100 15 C115 5, 140 5, 160 15 S190 25, 200 15"
-          stroke="url(#event-gold-grad-r)"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
-        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
-        ></circle>
-        <defs>
-          <linearGradient id="event-gold-grad-l" x1="200" y1="15" x2="0" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
-          </linearGradient>
-          <linearGradient id="event-gold-grad-r" x1="0" y1="15" x2="200" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
+    <OrnamentFlourish position="top" />
 
-    {/* ── Title ──────────────────────────────────────────────── */}
-    <h2 class="event-title" data-reveal="event-title">
-      <span class="event-title-star" aria-hidden="true">✦</span>
-      <span class="event-title-text">Info Acara</span>
-      <span class="event-title-star" aria-hidden="true">✦</span>
-    </h2>
+    <SectionTitle text="Info Acara" />
 
-    {/* ── Countdown ──────────────────────────────────────────── */}
-    <div class="event-countdown" data-reveal="event-countdown">
-      <div class="event-countdown-item" data-unit="days">
-        <span class="event-countdown-value" id="countdown-days">00</span>
-        <span class="event-countdown-label">Hari</span>
-      </div>
-      <span class="event-countdown-sep" aria-hidden="true">:</span>
-      <div class="event-countdown-item" data-unit="hours">
-        <span class="event-countdown-value" id="countdown-hours">00</span>
-        <span class="event-countdown-label">Jam</span>
-      </div>
-      <span class="event-countdown-sep" aria-hidden="true">:</span>
-      <div class="event-countdown-item" data-unit="minutes">
-        <span class="event-countdown-value" id="countdown-minutes">00</span>
-        <span class="event-countdown-label">Menit</span>
-      </div>
-      <span class="event-countdown-sep" aria-hidden="true">:</span>
-      <div class="event-countdown-item" data-unit="seconds">
-        <span class="event-countdown-value" id="countdown-seconds">00</span>
-        <span class="event-countdown-label">Detik</span>
-      </div>
-    </div>
+    <CountdownTimer />
 
-    {/* ── Info card (glass morphism) ──────────────────────────── */}
-    <div class="event-info-card" data-reveal="event-info-card">
-      <div class="event-glass-border" aria-hidden="true"></div>
+    <InfoCard
+      items={[
+        {
+          icon: "event",
+          label: "Acara",
+          value: EVENT.name,
+          dataReveal: "event-info-row-0",
+        },
+        {
+          icon: "date",
+          label: "Tanggal",
+          value: EVENT.dateLabel,
+          dataReveal: "event-info-row-1",
+        },
+        {
+          icon: "time",
+          label: "Waktu",
+          value: EVENT.time,
+          dataReveal: "event-info-row-2",
+        },
+        {
+          icon: "location",
+          label: "Lokasi",
+          value: EVENT.location,
+          dataReveal: "event-info-row-3",
+        },
+      ]}
+    />
 
-      {/* Corner ornaments */}
-      <svg
-        class="event-corner event-corner-tl"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M2 30 V8 C2 4 4 2 8 2 H30"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="2" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
-      </svg>
-      <svg
-        class="event-corner event-corner-tr"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M30 30 V8 C30 4 28 2 24 2 H2"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="30" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
-      </svg>
-      <svg
-        class="event-corner event-corner-bl"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M2 2 V24 C2 28 4 30 8 30 H30"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="2" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
-      </svg>
-      <svg
-        class="event-corner event-corner-br"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M30 2 V24 C30 28 28 30 24 30 H2"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="30" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
-      </svg>
-
-      <div class="event-info-rows">
-        <div class="event-info-row" data-reveal="event-info-row-0">
-          <span class="event-info-icon" aria-hidden="true">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <rect x="2" y="6" width="20" height="16" rx="2" stroke="#c8a84e"></rect>
-              <path d="M2 12h20" stroke="#c8a84e"></path>
-              <path d="M8 2v4" stroke="#c8a84e" stroke-linecap="round"></path>
-              <path d="M16 2v4" stroke="#c8a84e" stroke-linecap="round"></path>
-            </svg>
-          </span>
-          <div class="event-info-content">
-            <span class="event-info-label">Acara</span>
-            <span class="event-info-value">{EVENT.name}</span>
-          </div>
-        </div>
-        <div class="event-info-divider" role="separator" aria-hidden="true"></div>
-
-        <div class="event-info-row" data-reveal="event-info-row-1">
-          <span class="event-info-icon" aria-hidden="true">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <rect x="2" y="4" width="20" height="18" rx="2" stroke="#c8a84e"></rect>
-              <path d="M2 10h20" stroke="#c8a84e"></path>
-              <path d="M8 2v4" stroke="#c8a84e" stroke-linecap="round"></path>
-              <path d="M16 2v4" stroke="#c8a84e" stroke-linecap="round"></path>
-              <path
-                d="M8 15l2 2 4-4"
-                stroke="#c8a84e"
-                stroke-linecap="round"
-                stroke-linejoin="round"></path>
-            </svg>
-          </span>
-          <div class="event-info-content">
-            <span class="event-info-label">Tanggal</span>
-            <span class="event-info-value">{EVENT.dateLabel}</span>
-          </div>
-        </div>
-        <div class="event-info-divider" role="separator" aria-hidden="true"></div>
-
-        <div class="event-info-row" data-reveal="event-info-row-2">
-          <span class="event-info-icon" aria-hidden="true">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <circle cx="12" cy="12" r="10" stroke="#c8a84e"></circle>
-              <path d="M12 6v6l4 2" stroke="#c8a84e" stroke-linecap="round" stroke-linejoin="round"
-              ></path>
-            </svg>
-          </span>
-          <div class="event-info-content">
-            <span class="event-info-label">Waktu</span>
-            <span class="event-info-value">{EVENT.time}</span>
-          </div>
-        </div>
-        <div class="event-info-divider" role="separator" aria-hidden="true"></div>
-
-        <div class="event-info-row" data-reveal="event-info-row-3">
-          <span class="event-info-icon" aria-hidden="true">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="#c8a84e"></path>
-              <circle cx="12" cy="10" r="3" stroke="#c8a84e"></circle>
-            </svg>
-          </span>
-          <div class="event-info-content">
-            <span class="event-info-label">Lokasi</span>
-            <span class="event-info-value">{EVENT.location}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {/* ── Google Maps embed ──────────────────────────────────── */}
     <div class="event-maps-wrapper" data-reveal="event-maps">
       <div class="event-maps-container">
         <iframe
@@ -282,31 +66,7 @@ import { LINKS } from "@config/links.ts";
       </div>
     </div>
 
-    {/* ── Bottom ornamental flourish ─────────────────────────── */}
-    <div class="event-ornament-bottom" data-reveal="event-ornament-bottom" aria-hidden="true">
-      <svg
-        class="event-flourish"
-        viewBox="0 0 200 30"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M100 15 C85 25, 60 25, 40 15 S10 5, 0 15"
-          stroke="url(#event-gold-grad-l)"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <path
-          d="M100 15 C115 25, 140 25, 160 15 S190 5, 200 15"
-          stroke="url(#event-gold-grad-r)"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
-        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
-        ></circle>
-      </svg>
-    </div>
+    <OrnamentFlourish position="bottom" />
   </div>
 </section>
 
@@ -338,214 +98,14 @@ import { LINKS } from "@config/links.ts";
   /* ===== Event Details Section ===== */
   .event-section {
     position: relative;
-    z-index: 60;
-    background: var(--color-navy);
-    padding: 6rem 1.5rem 7rem;
-    overflow: hidden;
-    min-height: 100dvh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  /* ── Background layers ─────────────────────────────────── */
-  .event-bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .event-bg-gradient-1 {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      ellipse 70% 50% at 50% 30%,
-      rgba(200, 168, 78, 0.05) 0%,
-      transparent 60%
-    );
-  }
-
-  .event-bg-gradient-2 {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      ellipse 60% 40% at 20% 80%,
-      rgba(74, 124, 89, 0.06) 0%,
-      transparent 60%
-    );
-  }
-
-  .event-bg-gradient-3 {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      ellipse 50% 60% at 85% 40%,
-      rgba(200, 168, 78, 0.04) 0%,
-      transparent 50%
-    );
-    animation: event-bg-shift 12s ease-in-out infinite alternate;
-  }
-
-  @keyframes event-bg-shift {
-    0% {
-      opacity: 0.6;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-  }
-
-  .event-bg-grain {
-    position: absolute;
-    inset: 0;
-    opacity: 0.025;
-    background-image:
-      radial-gradient(circle at 20% 30%, var(--color-gold) 0.5px, transparent 0.5px),
-      radial-gradient(circle at 80% 70%, var(--color-gold) 0.5px, transparent 0.5px);
-    background-size:
-      40px 40px,
-      55px 55px;
-  }
-
-  /* ── Floating particles ────────────────────────────────── */
-  .event-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
+    padding: 6rem 1.5rem 6rem;
     overflow: hidden;
   }
 
-  .event-particle {
-    position: absolute;
-    border-radius: 50%;
-    background: var(--color-gold);
-    opacity: 0;
-    animation: event-float linear infinite;
-  }
-
-  .event-particle-1 {
-    width: 3px;
-    height: 3px;
-    left: 10%;
-    top: 15%;
-    animation-duration: 8s;
-    animation-delay: 0s;
-  }
-  .event-particle-2 {
-    width: 2px;
-    height: 2px;
-    left: 25%;
-    top: 70%;
-    animation-duration: 10s;
-    animation-delay: 1.5s;
-  }
-  .event-particle-3 {
-    width: 4px;
-    height: 4px;
-    left: 75%;
-    top: 20%;
-    animation-duration: 7s;
-    animation-delay: 0.8s;
-  }
-  .event-particle-4 {
-    width: 2px;
-    height: 2px;
-    left: 85%;
-    top: 60%;
-    animation-duration: 9s;
-    animation-delay: 2.2s;
-  }
-  .event-particle-5 {
-    width: 3px;
-    height: 3px;
-    left: 50%;
-    top: 85%;
-    animation-duration: 11s;
-    animation-delay: 3s;
-  }
-  .event-particle-6 {
-    width: 2px;
-    height: 2px;
-    left: 15%;
-    top: 45%;
-    animation-duration: 8.5s;
-    animation-delay: 4s;
-  }
-  .event-particle-7 {
-    width: 3px;
-    height: 3px;
-    left: 65%;
-    top: 10%;
-    animation-duration: 9.5s;
-    animation-delay: 1s;
-  }
-  .event-particle-8 {
-    width: 2px;
-    height: 2px;
-    left: 40%;
-    top: 35%;
-    animation-duration: 7.5s;
-    animation-delay: 5s;
-  }
-
-  @keyframes event-float {
-    0% {
-      opacity: 0;
-      transform: translateY(0) scale(1);
-    }
-    15% {
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 0.3;
-    }
-    85% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-80px) scale(0.5);
-    }
-  }
-
-  /* ── Side decorative lines ──────────────────────────────── */
-  .event-side-decor {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    z-index: 1;
-    opacity: 0.15;
-  }
-
-  .event-side-left {
-    left: 1.5rem;
-  }
-  .event-side-right {
-    right: 1.5rem;
-  }
-
-  .event-side-line {
-    width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
-  }
-
-  .event-side-dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--color-gold);
-  }
-
-  /* ── Container ─────────────────────────────────────────── */
   .event-container {
     position: relative;
     z-index: 2;
@@ -558,277 +118,6 @@ import { LINKS } from "@config/links.ts";
     text-align: center;
   }
 
-  /* ── Ornamental flourish ────────────────────────────────── */
-  .event-ornament-top,
-  .event-ornament-bottom {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .event-ornament-bottom {
-    margin-bottom: 0;
-    margin-top: 2.5rem;
-  }
-
-  .event-flourish {
-    width: clamp(120px, 30vw, 200px);
-    height: auto;
-  }
-
-  /* ── Title ──────────────────────────────────────────────── */
-  .event-title {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: clamp(1.5rem, 4vw, 2.2rem);
-    letter-spacing: 0.03em;
-    line-height: 1.2;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: linear-gradient(
-      135deg,
-      var(--color-gold-light) 0%,
-      var(--color-gold) 40%,
-      var(--color-earth-sand) 70%,
-      var(--color-gold-light) 100%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: none;
-    filter: drop-shadow(0 0 20px rgba(200, 168, 78, 0.15));
-    margin-bottom: 2.5rem;
-  }
-
-  .event-title-star {
-    font-size: 0.4em;
-    -webkit-text-fill-color: var(--color-gold);
-    opacity: 0.6;
-    animation: event-star-pulse 2.5s ease-in-out infinite;
-  }
-
-  .event-title-star:last-child {
-    animation-delay: 1.25s;
-  }
-
-  @keyframes event-star-pulse {
-    0%,
-    100% {
-      opacity: 0.4;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.9;
-      transform: scale(1.2);
-    }
-  }
-
-  /* ── Countdown ──────────────────────────────────────────── */
-  .event-countdown {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 2.5rem;
-    width: 100%;
-  }
-
-  .event-countdown-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    min-width: 60px;
-  }
-
-  .event-countdown-value {
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    line-height: 1;
-    letter-spacing: 0.05em;
-    background: linear-gradient(
-      180deg,
-      var(--color-gold-light) 0%,
-      var(--color-gold) 50%,
-      var(--color-gold-dark) 100%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 15px rgba(200, 168, 78, 0.2));
-    min-width: 2ch;
-    text-align: center;
-  }
-
-  .event-countdown-label {
-    font-family: var(--font-body);
-    font-size: clamp(0.65rem, 1.5vw, 0.8rem);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-earth-sand);
-    opacity: 0.7;
-  }
-
-  .event-countdown-sep {
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: var(--color-gold);
-    opacity: 0.4;
-    margin-top: -1.25rem;
-    animation: event-sep-pulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes event-sep-pulse {
-    0%,
-    100% {
-      opacity: 0.3;
-    }
-    50% {
-      opacity: 0.7;
-    }
-  }
-
-  /* ── Info card (glass morphism) ──────────────────────────── */
-  .event-info-card {
-    position: relative;
-    width: 100%;
-    max-width: 580px;
-    background: linear-gradient(
-      135deg,
-      rgba(200, 168, 78, 0.04) 0%,
-      rgba(10, 31, 62, 0.4) 40%,
-      rgba(10, 31, 62, 0.5) 60%,
-      rgba(200, 168, 78, 0.03) 100%
-    );
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(200, 168, 78, 0.12);
-    border-radius: 16px;
-    padding: 2rem 1.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .event-glass-border {
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(200, 168, 78, 0.2) 0%,
-      transparent 30%,
-      transparent 70%,
-      rgba(200, 168, 78, 0.15) 100%
-    );
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
-  /* ── Corner ornaments ──────────────────────────────────── */
-  .event-corner {
-    position: absolute;
-    z-index: 2;
-    opacity: 0.7;
-  }
-
-  .event-corner-tl {
-    top: 6px;
-    left: 6px;
-  }
-  .event-corner-tr {
-    top: 6px;
-    right: 6px;
-  }
-  .event-corner-bl {
-    bottom: 6px;
-    left: 6px;
-  }
-  .event-corner-br {
-    bottom: 6px;
-    right: 6px;
-  }
-
-  /* ── Info rows ──────────────────────────────────────────── */
-  .event-info-rows {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 1;
-  }
-
-  .event-info-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 0.75rem 0;
-    text-align: left;
-  }
-
-  .event-info-icon {
-    flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2px;
-  }
-
-  .event-info-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .event-info-content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .event-info-label {
-    font-family: var(--font-body);
-    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-gold);
-    opacity: 0.7;
-    font-weight: 600;
-  }
-
-  .event-info-value {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: clamp(0.95rem, 2vw, 1.15rem);
-    color: var(--color-earth-cream);
-    line-height: 1.4;
-  }
-
-  .event-info-divider {
-    height: 1px;
-    width: 100%;
-    background: linear-gradient(
-      to right,
-      transparent,
-      rgba(200, 168, 78, 0.2) 20%,
-      rgba(200, 168, 78, 0.2) 80%,
-      transparent
-    );
-  }
-
-  /* ── Google Maps wrapper ────────────────────────────────── */
   .event-maps-wrapper {
     width: 100%;
     max-width: 580px;
@@ -852,46 +141,15 @@ import { LINKS } from "@config/links.ts";
   }
 
   /* ── Responsive (mobile-first) ──────────────────────────── */
-
-  /* Tablet & below */
   @media (max-width: 768px) {
     .event-section {
       padding: 4rem 1.25rem 5rem;
     }
-
-    .event-info-card {
-      padding: 1.5rem 1.25rem;
-    }
-
-    .event-countdown {
-      gap: 0.35rem;
-    }
-
-    .event-countdown-item {
-      min-width: 50px;
-    }
-
-    .event-side-decor {
-      display: none;
-    }
   }
 
-  /* Small phones */
   @media (max-width: 400px) {
-    .event-countdown {
-      gap: 0.25rem;
-    }
-
-    .event-countdown-item {
-      min-width: 44px;
-    }
-
-    .event-info-card {
-      padding: 1.25rem 1rem;
-    }
-
-    .event-info-row {
-      gap: 0.75rem;
+    .event-section {
+      padding: 3rem 1rem 4rem;
     }
   }
 </style>

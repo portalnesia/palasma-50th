@@ -1,0 +1,235 @@
+---
+import QuoteMarks from "@components/atoms/QuoteMarks.astro";
+
+interface Props {
+  paragraphs: string[];
+}
+
+const { paragraphs } = Astro.props;
+---
+
+<div class="sambutan-glass-card" data-reveal="sambutan-card">
+  <div class="sambutan-glass-border" aria-hidden="true"></div>
+
+  {/* Corner ornaments */}
+  <svg
+    class="sambutan-corner sambutan-corner-tl"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M2 30 V8 C2 4 4 2 8 2 H30"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+    <circle cx="2" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+  </svg>
+  <svg
+    class="sambutan-corner sambutan-corner-tr"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M30 30 V8 C30 4 28 2 24 2 H2"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+    <circle cx="30" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+  </svg>
+  <svg
+    class="sambutan-corner sambutan-corner-bl"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M2 2 V24 C2 28 4 30 8 30 H30"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+    <circle cx="2" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+  </svg>
+  <svg
+    class="sambutan-corner sambutan-corner-br"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M30 2 V24 C30 28 28 30 24 30 H2"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+    <circle cx="30" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+  </svg>
+
+  <QuoteMarks prefix="sambutan">
+    <div class="sambutan-body-text">
+      {
+        paragraphs.map((p, i) => (
+          <p class="sambutan-paragraph" data-reveal={`sambutan-para-${i}`}>
+            {p}
+          </p>
+        ))
+      }
+    </div>
+  </QuoteMarks>
+</div>
+
+<style>
+  /* ── Glass card ────────────────────────────────────────── */
+  .sambutan-glass-card {
+    position: relative;
+    padding: 2.5rem 2rem;
+    max-width: 620px;
+    width: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 168, 78, 0.04) 0%,
+      rgba(10, 31, 62, 0.4) 40%,
+      rgba(200, 168, 78, 0.03) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(200, 168, 78, 0.12);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .sambutan-glass-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 168, 78, 0.2) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(200, 168, 78, 0.15) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ── Corner ornaments ──────────────────────────────────── */
+  .sambutan-corner {
+    position: absolute;
+    z-index: 2;
+    opacity: 0.7;
+  }
+
+  .sambutan-corner-tl {
+    top: 6px;
+    left: 6px;
+  }
+
+  .sambutan-corner-tr {
+    top: 6px;
+    right: 6px;
+  }
+
+  .sambutan-corner-bl {
+    bottom: 6px;
+    left: 6px;
+  }
+
+  .sambutan-corner-br {
+    bottom: 6px;
+    right: 6px;
+  }
+
+  /* ── Quote marks ───────────────────────────────────────── */
+  .sambutan-quote-mark {
+    display: block;
+    font-size: 2.8rem;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold-dark));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.3;
+  }
+
+  .sambutan-quote-open {
+    margin-bottom: 0.75rem;
+  }
+
+  .sambutan-quote-close {
+    margin-top: 0.75rem;
+  }
+
+  /* ── Body text ─────────────────────────────────────────── */
+  .sambutan-body-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .sambutan-paragraph {
+    font-size: var(--text-body-sm);
+    line-height: 1.85;
+    color: rgba(245, 230, 200, 0.88);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .sambutan-paragraph:first-child {
+    font-style: normal;
+  }
+
+  .sambutan-paragraph:last-child {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--color-earth-cream);
+    margin-top: 0.5rem;
+    font-size: var(--text-body);
+  }
+
+  /* ── Responsive ────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .sambutan-glass-card {
+      padding: 2rem 1.25rem;
+    }
+
+    .sambutan-paragraph {
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .sambutan-quote-mark {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .sambutan-paragraph {
+      font-size: var(--text-body);
+    }
+
+    .sambutan-glass-card {
+      padding: 3rem 2.5rem;
+    }
+  }
+</style>

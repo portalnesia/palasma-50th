@@ -1,0 +1,38 @@
+---
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  id?: string;
+  name?: string;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  errorId?: string;
+  options: Option[];
+  maxBatch?: number;
+}
+const {
+  id,
+  name = "batch_year",
+  label,
+  placeholder,
+  required = false,
+  errorId,
+  options,
+} = Astro.props;
+---
+
+<div class="ucapan-field">
+  <label for={id} class="ucapan-label">
+    {label}
+    {required && <span class="ucapan-required">*</span>}
+  </label>
+  <select id={id} name={name} class="ucapan-input ucapan-select" required={required}>
+    <option value="" disabled selected>{placeholder}</option>
+    {options.map((opt) => <option value={opt.value}>{opt.label}</option>)}
+  </select>
+  <span class="ucapan-error" id={errorId}></span>
+</div>

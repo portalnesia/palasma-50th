@@ -1,0 +1,92 @@
+---
+interface Props {
+  icon: "event" | "date" | "time" | "location";
+}
+
+const { icon } = Astro.props;
+---
+
+<span class="event-info-icon" aria-hidden="true">
+  {
+    icon === "event" && (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <rect x="2" y="6" width="20" height="16" rx="2" stroke="#c8a84e" />
+        <path d="M2 12h20" stroke="#c8a84e" />
+        <path d="M8 2v4" stroke="#c8a84e" stroke-linecap="round" />
+        <path d="M16 2v4" stroke="#c8a84e" stroke-linecap="round" />
+      </svg>
+    )
+  }
+  {
+    icon === "date" && (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <rect x="2" y="4" width="20" height="18" rx="2" stroke="#c8a84e" />
+        <path d="M2 10h20" stroke="#c8a84e" />
+        <path d="M8 2v4" stroke="#c8a84e" stroke-linecap="round" />
+        <path d="M16 2v4" stroke="#c8a84e" stroke-linecap="round" />
+        <path d="M8 15l2 2 4-4" stroke="#c8a84e" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    )
+  }
+  {
+    icon === "time" && (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <circle cx="12" cy="12" r="10" stroke="#c8a84e" />
+        <path d="M12 6v6l4 2" stroke="#c8a84e" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    )
+  }
+  {
+    icon === "location" && (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="#c8a84e" />
+        <circle cx="12" cy="10" r="3" stroke="#c8a84e" />
+      </svg>
+    )
+  }
+</span>
+
+<style>
+  .event-info-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .event-info-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+</style>

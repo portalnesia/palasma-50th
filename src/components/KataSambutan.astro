@@ -2,6 +2,7 @@
 import { CONTENT } from "@config/content.ts";
 import { ASSETS } from "@config/assets.ts";
 import { parseBodyParagraphs } from "@utils/sambutan.ts";
+import SambutanSpeechCard from "@components/molecules/SambutanSpeechCard.astro";
 
 const { sambutan } = CONTENT;
 const paragraphs = parseBodyParagraphs(sambutan.body);
@@ -107,97 +108,7 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     </div>
 
     {/* ── Glass card speech body ──────────────────────────────── */}
-    <div class="sambutan-glass-card" data-reveal="sambutan-card">
-      <div class="sambutan-glass-border" aria-hidden="true"></div>
-
-      {/* Corner ornaments */}
-      <svg
-        class="sambutan-corner sambutan-corner-tl"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M2 30 V8 C2 4 4 2 8 2 H30"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="2" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
-      </svg>
-      <svg
-        class="sambutan-corner sambutan-corner-tr"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M30 30 V8 C30 4 28 2 24 2 H2"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="30" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
-      </svg>
-      <svg
-        class="sambutan-corner sambutan-corner-bl"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M2 2 V24 C2 28 4 30 8 30 H30"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="2" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
-      </svg>
-      <svg
-        class="sambutan-corner sambutan-corner-br"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M30 2 V24 C30 28 28 30 24 30 H2"
-          stroke="#c8a84e"
-          stroke-width="1"
-          fill="none"
-          opacity="0.5"></path>
-        <circle cx="30" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
-      </svg>
-
-      <span
-        class="sambutan-quote-mark sambutan-quote-open"
-        data-reveal="sambutan-quote"
-        aria-hidden="true">❝</span
-      >
-
-      <div class="sambutan-body-text">
-        {
-          paragraphs.map((p, i) => (
-            <p class="sambutan-paragraph" data-reveal={`sambutan-para-${i}`}>
-              {p}
-            </p>
-          ))
-        }
-      </div>
-
-      <span
-        class="sambutan-quote-mark sambutan-quote-close"
-        data-reveal="sambutan-quote"
-        aria-hidden="true">❞</span
-      >
-    </div>
+    <SambutanSpeechCard paragraphs={paragraphs} />
 
     {/* ── Bottom ornamental flourish ─────────────────────────── */}
     <div class="sambutan-ornament-bottom" data-reveal="sambutan-ornament-bottom" aria-hidden="true">

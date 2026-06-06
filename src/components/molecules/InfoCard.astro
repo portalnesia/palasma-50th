@@ -1,0 +1,224 @@
+---
+import InfoIcon from "@components/atoms/InfoIcon.astro";
+
+interface RowData {
+  icon: "event" | "date" | "time" | "location";
+  label: string;
+  value: string;
+  dataReveal: string;
+}
+
+interface Props {
+  items: RowData[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="event-info-card" data-reveal="event-info-card">
+  <div class="event-glass-border" aria-hidden="true"></div>
+
+  <svg
+    class="event-corner event-corner-tl"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path d="M2 30 V8 C2 4 4 2 8 2 H30" stroke="#c8a84e" stroke-width="1" fill="none" opacity="0.5"
+    ></path>
+    <circle cx="2" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+  </svg>
+  <svg
+    class="event-corner event-corner-tr"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M30 30 V8 C30 4 28 2 24 2 H2"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+    <circle cx="30" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+  </svg>
+  <svg
+    class="event-corner event-corner-bl"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M2 2 V24 C2 28 4 30 8 30 H30"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+    <circle cx="2" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+  </svg>
+  <svg
+    class="event-corner event-corner-br"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M30 2 V24 C30 28 28 30 24 30 H2"
+      stroke="#c8a84e"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+    <circle cx="30" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+  </svg>
+
+  <div class="event-info-rows">
+    {
+      items.map((item, i) => (
+        <>
+          {i > 0 && <div class="event-info-divider" role="separator" aria-hidden="true" />}
+          <div class="event-info-row" data-reveal={item.dataReveal}>
+            <InfoIcon icon={item.icon} />
+            <div class="event-info-content">
+              <span class="event-info-label">{item.label}</span>
+              <span class="event-info-value">{item.value}</span>
+            </div>
+          </div>
+        </>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .event-info-card {
+    position: relative;
+    width: 100%;
+    max-width: 580px;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 168, 78, 0.04) 0%,
+      rgba(10, 31, 62, 0.4) 40%,
+      rgba(10, 31, 62, 0.5) 60%,
+      rgba(200, 168, 78, 0.03) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(200, 168, 78, 0.12);
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .event-glass-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 168, 78, 0.2) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(200, 168, 78, 0.15) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .event-corner {
+    position: absolute;
+    z-index: 2;
+    opacity: 0.7;
+  }
+
+  .event-corner-tl {
+    top: 6px;
+    left: 6px;
+  }
+  .event-corner-tr {
+    top: 6px;
+    right: 6px;
+  }
+  .event-corner-bl {
+    bottom: 6px;
+    left: 6px;
+  }
+  .event-corner-br {
+    bottom: 6px;
+    right: 6px;
+  }
+
+  .event-info-rows {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+  }
+
+  .event-info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    text-align: left;
+  }
+
+  .event-info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .event-info-label {
+    font-family: var(--font-body);
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    opacity: 0.7;
+    font-weight: 600;
+  }
+
+  .event-info-value {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--color-earth-cream);
+    line-height: 1.4;
+  }
+
+  .event-info-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(200, 168, 78, 0.2) 20%,
+      rgba(200, 168, 78, 0.2) 80%,
+      transparent
+    );
+  }
+
+  @media (max-width: 768px) {
+    .event-info-card {
+      padding: 1.5rem 1.25rem;
+    }
+  }
+</style>

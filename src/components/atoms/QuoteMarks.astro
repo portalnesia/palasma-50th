@@ -1,0 +1,43 @@
+---
+interface Props {
+  prefix?: string;
+}
+
+const { prefix = "sambutan" } = Astro.props;
+---
+
+<span
+  class:list={[`${prefix}-quote-mark`, `${prefix}-quote-open`]}
+  data-reveal={`${prefix}-quote`}
+  aria-hidden="true">❝</span
+>
+<slot />
+<span
+  class:list={[`${prefix}-quote-mark`, `${prefix}-quote-close`]}
+  data-reveal={`${prefix}-quote`}
+  aria-hidden="true">❞</span
+>
+
+<style>
+  .sambutan-quote-mark,
+  .ucapan-quote-mark {
+    display: block;
+    font-size: 2.8rem;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold-dark));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.3;
+  }
+
+  .sambutan-quote-open,
+  .ucapan-quote-open {
+    margin-bottom: 0.75rem;
+  }
+
+  .sambutan-quote-close,
+  .ucapan-quote-close {
+    margin-top: 0.75rem;
+  }
+</style>

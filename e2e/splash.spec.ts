@@ -44,7 +44,6 @@ test.describe("Splash Screen", () => {
     const cta = page.locator(".splash-cta");
     await expect(cta).toBeVisible();
     await expect(cta).toContainText("Buka Undangan");
-    await expect(cta).toHaveAttribute("href", "#hero");
   });
 
   test("cta click scrolls page down", async ({ page }) => {

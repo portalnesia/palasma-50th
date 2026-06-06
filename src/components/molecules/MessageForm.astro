@@ -1,0 +1,59 @@
+---
+import { CONTENT } from "@config/content.ts";
+import GlassCard from "../atoms/GlassCard.astro";
+import FormInput from "../atoms/FormInput.astro";
+import FormSelect from "../atoms/FormSelect.astro";
+import FormTextarea from "../atoms/FormTextarea.astro";
+import StatusMessage from "../atoms/StatusMessage.astro";
+import Button from "../atoms/Button.astro";
+
+interface Props {
+  maxBatch: number;
+}
+const { maxBatch } = Astro.props;
+const { ucapan } = CONTENT;
+---
+
+<GlassCard hidden>
+  <form class="ucapan-form" id="ucapan-form" novalidate>
+    <FormInput
+      id="ucapan-name"
+      label={ucapan.formName}
+      placeholder={ucapan.formNamePlaceholder}
+      required
+      maxlength={100}
+      autocomplete="name"
+      errorId="ucapan-name-error"
+    />
+
+    <FormSelect
+      id="ucapan-batch"
+      name="batch_year"
+      label={`${ucapan.formBatch} (1-${maxBatch})`}
+      placeholder={ucapan.formBatchPlaceholder}
+      required
+      errorId="ucapan-batch-error"
+      options={Array.from({ length: maxBatch }, (_, i) => ({
+        value: String(i + 1),
+        label: String(i + 1),
+      }))}
+    />
+
+    <FormTextarea
+      id="ucapan-message"
+      name="message"
+      label={ucapan.formMessage}
+      placeholder={ucapan.formMessagePlaceholder}
+      required
+      maxlength={500}
+      rows={5}
+      errorId="ucapan-message-error"
+      charCountId="ucapan-char-count"
+    />
+
+    <Button label={ucapan.submitLabel} loadingLabel={ucapan.submittingLabel} />
+
+    <StatusMessage id="ucapan-success" type="success" message={ucapan.successMessage} />
+    <StatusMessage id="ucapan-error" type="error" message={ucapan.errorMessage} />
+  </form>
+</GlassCard>

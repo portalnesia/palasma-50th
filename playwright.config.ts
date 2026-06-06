@@ -8,11 +8,21 @@ export default defineConfig({
     baseURL: "http://localhost:4321",
     headless: true,
   },
-  webServer: {
-    command: "bun run dev --host 0.0.0.0 --port 4321",
-    port: 4321,
-    reuseExistingServer: true,
-    timeout: 30_000,
-  },
+  projects: [
+    {
+      name: "no-supabase",
+    },
+    {
+      name: "with-supabase",
+    },
+  ],
+  webServer: [
+    {
+      command: "bun run dev --host 0.0.0.0 --port 4321",
+      port: 4321,
+      reuseExistingServer: true,
+      timeout: 30_000,
+    },
+  ],
   reporter: [["list"]],
 });

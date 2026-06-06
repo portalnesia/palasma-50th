@@ -1,0 +1,18 @@
+---
+import LoadingSpinner from "./LoadingSpinner.astro";
+
+interface Props {
+  id?: string;
+  label: string;
+  loadingLabel: string;
+}
+const { id = "ucapan-submit", label, loadingLabel } = Astro.props;
+---
+
+<button type="submit" id={id} class="ucapan-submit-btn touch-target">
+  <span class="ucapan-submit-label">{label}</span>
+  <span class="ucapan-submit-loading" hidden>
+    <LoadingSpinner class="ucapan-spinner" />
+    {loadingLabel}
+  </span>
+</button>

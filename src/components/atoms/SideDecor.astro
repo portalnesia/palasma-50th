@@ -1,0 +1,54 @@
+---
+interface Props {
+  position: "left" | "right";
+}
+
+const { position } = Astro.props;
+---
+
+<div class:list={["event-side-decor", `event-side-${position}`]} aria-hidden="true">
+  <div class="event-side-line"></div>
+  <div class="event-side-dot"></div>
+  <div class="event-side-line"></div>
+</div>
+
+<style>
+  .event-side-decor {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1;
+    opacity: 0.15;
+  }
+
+  .event-side-left {
+    left: 1.5rem;
+  }
+
+  .event-side-right {
+    right: 1.5rem;
+  }
+
+  .event-side-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+  }
+
+  .event-side-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-gold);
+  }
+
+  @media (max-width: 768px) {
+    .event-side-decor {
+      display: none;
+    }
+  }
+</style>

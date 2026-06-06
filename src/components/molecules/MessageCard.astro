@@ -1,0 +1,25 @@
+---
+interface Props {
+  name: string;
+  batchYear: string;
+  message: string;
+  date: string;
+}
+const { name, batchYear, message, date } = Astro.props;
+
+const initials = name
+  .split(" ")
+  .map((w) => w[0])
+  .join("")
+  .toUpperCase()
+  .slice(0, 2);
+---
+
+<div class="ucapan-card">
+  <div class="ucapan-card-quote" aria-hidden="true">"</div>
+  <div class="ucapan-card-avatar">{initials}</div>
+  <div class="ucapan-card-name">{name}</div>
+  <div class="ucapan-card-batch">{batchYear}</div>
+  <p class="ucapan-card-message">{message}</p>
+  <div class="ucapan-card-date">{date}</div>
+</div>

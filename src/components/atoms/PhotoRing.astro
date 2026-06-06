@@ -1,0 +1,185 @@
+---
+interface Props {
+  src?: string;
+  alt?: string;
+}
+
+const {
+  src = "/assets/images/logo-50.png",
+  alt = "Logo 50th Palasma",
+} = Astro.props;
+---
+
+<div class="sambutan-photo-wrapper" data-reveal="sambutan-photo">
+  <div class="sambutan-photo-glow" aria-hidden="true"></div>
+  <div class="sambutan-photo-ring-outer" aria-hidden="true"></div>
+  <div class="sambutan-photo-ring-inner" aria-hidden="true"></div>
+  <div class="sambutan-photo-frame">
+    <img src={src} alt={alt} class="sambutan-photo" loading="lazy" width="160" height="160" />
+  </div>
+  <div class="sambutan-author-info" data-reveal="sambutan-author">
+    <span class="sambutan-author-name"><slot name="author-name" /></span>
+    <span class="sambutan-author-divider" aria-hidden="true"></span>
+    <span class="sambutan-author-role"><slot name="author-role" /></span>
+  </div>
+</div>
+
+<style>
+  .sambutan-photo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .sambutan-photo-glow {
+    position: absolute;
+    top: -10px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 168, 78, 0.25) 0%, transparent 70%);
+    filter: blur(15px);
+    animation: sambutan-glow-pulse 3s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  @keyframes sambutan-glow-pulse {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+  }
+
+  .sambutan-photo-ring-outer {
+    position: absolute;
+    top: -12px;
+    width: 164px;
+    height: 164px;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 168, 78, 0.15);
+    animation: sambutan-ring-breathe 4s ease-in-out infinite;
+  }
+
+  .sambutan-photo-ring-inner {
+    position: absolute;
+    top: -2px;
+    width: 142px;
+    height: 142px;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 168, 78, 0.1);
+    animation: sambutan-ring-breathe 4s ease-in-out infinite 1s;
+  }
+
+  @keyframes sambutan-ring-breathe {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.04);
+    }
+  }
+
+  .sambutan-photo-frame {
+    position: relative;
+    z-index: 1;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    padding: 6px;
+  }
+
+  .sambutan-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sambutan-author-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sambutan-author-name {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-earth-cream);
+    letter-spacing: 0.02em;
+  }
+
+  .sambutan-author-divider {
+    width: 24px;
+    height: 1px;
+    background: var(--color-gold);
+    opacity: 0.5;
+  }
+
+  .sambutan-author-role {
+    font-size: 0.8rem;
+    color: var(--color-gold);
+    opacity: 0.85;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .sambutan-photo-frame {
+      width: 100px;
+      height: 100px;
+    }
+
+    .sambutan-photo-glow {
+      width: 120px;
+      height: 120px;
+    }
+
+    .sambutan-photo-ring-outer {
+      width: 124px;
+      height: 124px;
+    }
+
+    .sambutan-photo-ring-inner {
+      width: 112px;
+      height: 112px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .sambutan-photo-frame {
+      width: 160px;
+      height: 160px;
+    }
+
+    .sambutan-photo-glow {
+      width: 170px;
+      height: 170px;
+    }
+
+    .sambutan-photo-ring-outer {
+      width: 184px;
+      height: 184px;
+    }
+
+    .sambutan-photo-ring-inner {
+      width: 162px;
+      height: 162px;
+    }
+  }
+</style>

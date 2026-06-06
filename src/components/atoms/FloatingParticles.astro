@@ -1,0 +1,71 @@
+---
+interface Props {
+  prefix?: string;
+}
+
+const { prefix = "event" } = Astro.props;
+
+const particles = [
+  { size: 3, left: 10, top: 15, duration: 8, delay: 0 },
+  { size: 2, left: 25, top: 70, duration: 10, delay: 1.5 },
+  { size: 4, left: 75, top: 20, duration: 7, delay: 0.8 },
+  { size: 2, left: 85, top: 60, duration: 9, delay: 2.2 },
+  { size: 3, left: 50, top: 85, duration: 11, delay: 3 },
+  { size: 2, left: 15, top: 45, duration: 8.5, delay: 4 },
+  { size: 3, left: 65, top: 10, duration: 9.5, delay: 1 },
+  { size: 2, left: 40, top: 35, duration: 7.5, delay: 5 },
+];
+---
+
+<div class:list={[`${prefix}-particles`]} aria-hidden="true">
+  {
+    particles.map(({ size, left, top, duration, delay }, i) => (
+      <span
+        class:list={[`${prefix}-particle`, `${prefix}-particle-${i + 1}`]}
+        style={`left: ${left}%; top: ${top}%; width: ${size}px; height: ${size}px; animation-duration: ${duration}s; animation-delay: ${delay}s;`}
+      />
+    ))
+  }
+</div>
+
+<style>
+  .event-particles,
+  .sambutan-particles,
+  .ucapan-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .event-particle,
+  .sambutan-particle,
+  .ucapan-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--color-gold);
+    opacity: 0;
+    animation: fp-float linear infinite;
+  }
+
+  @keyframes fp-float {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(1);
+    }
+    15% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    85% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-80px) scale(0.5);
+    }
+  }
+</style>

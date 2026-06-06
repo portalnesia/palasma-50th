@@ -22,10 +22,10 @@ test.describe("Event Details Section", () => {
   });
 
   test("countdown elements exist with correct data-unit", async ({ page }) => {
-    await expect(page.locator('[data-unit="days"]')).toBeAttached();
-    await expect(page.locator('[data-unit="hours"]')).toBeAttached();
-    await expect(page.locator('[data-unit="minutes"]')).toBeAttached();
-    await expect(page.locator('[data-unit="seconds"]')).toBeAttached();
+    await expect(page.locator('#countdown-days')).toBeAttached();
+    await expect(page.locator('#countdown-hours')).toBeAttached();
+    await expect(page.locator('#countdown-minutes')).toBeAttached();
+    await expect(page.locator('#countdown-seconds')).toBeAttached();
   });
 
   test("countdown values are numeric", async ({ page }) => {
@@ -85,8 +85,10 @@ test.describe("Event Details Section", () => {
   });
 
   test("ornamental flourishes exist", async ({ page }) => {
-    await expect(page.locator(".event-ornament-bottom")).toBeAttached();
-    const flourishes = page.locator(".event-flourish");
+    const section = page.locator("#event-details");
+    await expect(section.locator('[data-reveal="event-ornament-top"]')).toBeAttached();
+    await expect(section.locator('[data-reveal="event-ornament-bottom"]')).toBeAttached();
+    const flourishes = section.locator(".event-flourish");
     await expect(flourishes).toHaveCount(2);
   });
 

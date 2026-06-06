@@ -1,0 +1,42 @@
+---
+interface Props {
+  id?: string;
+  type?: "text" | "email" | "tel" | "password" | "number" | "url" | "search" | "date";
+  placeholder?: string;
+  required?: boolean;
+  maxlength?: number;
+  autocomplete?: string;
+  errorId?: string;
+  name?: string;
+  label: string;
+}
+const {
+  id,
+  type = "text",
+  placeholder,
+  required = false,
+  maxlength,
+  autocomplete,
+  errorId,
+  name,
+  label,
+} = Astro.props;
+---
+
+<div class="ucapan-field">
+  <label for={id} class="ucapan-label">
+    {label}
+    {required && <span class="ucapan-required">*</span>}
+  </label>
+  <input
+    type={type}
+    id={id}
+    name={name}
+    class="ucapan-input"
+    placeholder={placeholder}
+    required={required}
+    maxlength={maxlength}
+    autocomplete={autocomplete}
+  />
+  <span class="ucapan-error" id={errorId}></span>
+</div>

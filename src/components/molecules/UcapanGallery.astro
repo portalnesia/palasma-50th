@@ -1,0 +1,62 @@
+---
+interface Props {
+  galleryTitle: string;
+  emptyGallery: string;
+  loadMoreLabel: string;
+  noMoreMessages: string;
+}
+
+const { galleryTitle, emptyGallery, loadMoreLabel, noMoreMessages } = Astro.props;
+---
+
+<div class="ucapan-gallery-section js-required" data-reveal="ucapan-gallery" hidden>
+  <h3 class="ucapan-gallery-title">{galleryTitle}</h3>
+  <div class="ucapan-gallery" id="ucapan-gallery">
+    <p class="ucapan-gallery-empty" id="ucapan-gallery-empty">
+      {emptyGallery}
+    </p>
+  </div>
+  <div class="ucapan-load-more-wrapper" id="ucapan-load-more-wrapper" hidden>
+    <button type="button" id="ucapan-load-more" class="ucapan-load-more-btn touch-target">
+      {loadMoreLabel}
+    </button>
+    <span class="ucapan-no-more" id="ucapan-no-more" hidden>{noMoreMessages}</span>
+  </div>
+</div>
+
+<style>
+  .ucapan-gallery-section {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .ucapan-gallery-title {
+    text-align: center;
+    font-size: var(--text-heading-sm);
+    font-family: var(--font-heading);
+    color: var(--color-earth-cream);
+    margin: 0 0 1.5rem;
+    font-weight: 600;
+  }
+
+  .ucapan-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  .ucapan-gallery-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: rgba(212, 184, 134, 0.5);
+    font-style: italic;
+    padding: 2rem 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .ucapan-gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

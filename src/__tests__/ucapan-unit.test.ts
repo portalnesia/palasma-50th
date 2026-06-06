@@ -128,8 +128,8 @@ describe("formatMessageDate()", () => {
     const result = formatMessageDate("2026-06-15T10:30:00Z");
     // Should contain year 2026
     expect(result).toContain("2026");
-    // Should contain time
-    expect(result).toMatch(/\d{2}:\d{2}/);
+    // Should contain time (Indonesian locale uses dot separator: HH.MM)
+    expect(result).toMatch(/\d{2}\.\d{2}/);
   });
 
   it("handles different date strings", () => {

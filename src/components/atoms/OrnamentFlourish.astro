@@ -1,0 +1,75 @@
+---
+interface Props {
+  position: "top" | "bottom";
+}
+
+const { position } = Astro.props;
+const isBottom = position === "bottom";
+---
+
+<div
+  class:list={["event-ornament", `event-ornament-${position}`]}
+  data-reveal={isBottom ? "event-ornament-bottom" : "event-ornament-top"}
+  aria-hidden="true"
+>
+  <svg class="event-flourish" viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d={isBottom
+        ? "M100 15 C85 25, 60 25, 40 15 S10 5, 0 15"
+        : "M100 15 C85 5, 60 5, 40 15 S10 25, 0 15"}
+      stroke="url(#event-gold-grad-l)"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+    <path
+      d={isBottom
+        ? "M100 15 C115 25, 140 25, 160 15 S190 5, 200 15"
+        : "M100 15 C115 5, 140 5, 160 15 S190 25, 200 15"}
+      stroke="url(#event-gold-grad-r)"
+      stroke-width="1"
+      fill="none"
+      opacity="0.5"></path>
+    <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
+    <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
+    ></circle>
+    <defs>
+      <linearGradient id="event-gold-grad-l" x1="200" y1="15" x2="0" y2="15">
+        <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+        <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+      </linearGradient>
+      <linearGradient id="event-gold-grad-r" x1="0" y1="15" x2="200" y2="15">
+        <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+        <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
+
+<style>
+  .event-ornament {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
+
+  .event-flourish {
+    width: 200px;
+    height: 30px;
+  }
+
+  .event-ornament-top {
+    margin-bottom: 1.5rem;
+  }
+
+  .event-ornament-bottom {
+    margin-top: 2.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .event-flourish {
+      width: 160px;
+      height: 24px;
+    }
+  }
+</style>
