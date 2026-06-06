@@ -1,0 +1,1559 @@
+---
+import { CONTENT } from "@config/content.ts";
+
+const { ucapan } = CONTENT;
+
+// Supabase configuration — exposed to client via import.meta.env
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || "";
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || "";
+
+// Compute max batch (angkatan): current year minus 1978 (founding year), minus 2 skipped years
+const PALASMA_BASE_YEAR = 1978;
+const currentYear = new Date().getFullYear();
+const maxBatch = currentYear - PALASMA_BASE_YEAR;
+---
+
+<section id="ucapan-doa" class="ucapan-section">
+  {/* ── Background layers ──────────────────────────────────── */}
+  <div class="ucapan-bg" aria-hidden="true">
+    <div class="ucapan-bg-gradient-1"></div>
+    <div class="ucapan-bg-gradient-2"></div>
+    <div class="ucapan-bg-gradient-3"></div>
+    <div class="ucapan-bg-grain"></div>
+  </div>
+
+  {/* ── Mountain silhouettes (bottom) ──────────────────────── */}
+  <div class="ucapan-mountains" aria-hidden="true">
+    <svg
+      class="ucapan-mountain ucapan-mountain-back"
+      viewBox="0 0 1440 200"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 200 L0 120 L120 80 L240 110 L360 50 L480 90 L600 30 L720 70 L840 20 L960 60 L1080 40 L1200 80 L1320 60 L1440 100 L1440 200 Z"
+        fill="rgba(42, 75, 58, 0.25)"></path>
+    </svg>
+    <svg
+      class="ucapan-mountain ucapan-mountain-front"
+      viewBox="0 0 1440 200"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 200 L0 140 L180 100 L360 130 L540 80 L720 120 L900 70 L1080 110 L1260 90 L1440 130 L1440 200 Z"
+        fill="rgba(58, 102, 71, 0.2)"></path>
+    </svg>
+  </div>
+
+  {/* ── Pine tree silhouettes (sides) ──────────────────────── */}
+  <div class="ucapan-trees ucapan-trees-left" aria-hidden="true">
+    <svg viewBox="0 0 60 120" xmlns="http://www.w3.org/2000/svg" class="ucapan-tree">
+      <path
+        d="M30 0 L10 45 L18 45 L5 80 L15 80 L0 120 L60 120 L45 80 L55 80 L42 45 L50 45 Z"
+        fill="rgba(58, 102, 71, 0.15)"></path>
+    </svg>
+    <svg viewBox="0 0 60 120" xmlns="http://www.w3.org/2000/svg" class="ucapan-tree ucapan-tree-sm">
+      <path
+        d="M30 0 L12 40 L19 40 L7 75 L16 75 L2 110 L58 110 L44 75 L53 75 L41 40 L48 40 Z"
+        fill="rgba(42, 75, 58, 0.12)"></path>
+    </svg>
+  </div>
+  <div class="ucapan-trees ucapan-trees-right" aria-hidden="true">
+    <svg viewBox="0 0 60 120" xmlns="http://www.w3.org/2000/svg" class="ucapan-tree">
+      <path
+        d="M30 0 L10 45 L18 45 L5 80 L15 80 L0 120 L60 120 L45 80 L55 80 L42 45 L50 45 Z"
+        fill="rgba(58, 102, 71, 0.15)"></path>
+    </svg>
+    <svg viewBox="0 0 60 120" xmlns="http://www.w3.org/2000/svg" class="ucapan-tree ucapan-tree-sm">
+      <path
+        d="M30 0 L12 40 L19 40 L7 75 L16 75 L2 110 L58 110 L44 75 L53 75 L41 40 L48 40 Z"
+        fill="rgba(74, 124, 89, 0.12)"></path>
+    </svg>
+  </div>
+
+  {/* ── Floating gold particles ──────────────────────────────── */}
+  <div class="ucapan-particles" aria-hidden="true">
+    <span class="ucapan-particle ucapan-particle-1"></span>
+    <span class="ucapan-particle ucapan-particle-2"></span>
+    <span class="ucapan-particle ucapan-particle-3"></span>
+    <span class="ucapan-particle ucapan-particle-4"></span>
+    <span class="ucapan-particle ucapan-particle-5"></span>
+    <span class="ucapan-particle ucapan-particle-6"></span>
+  </div>
+
+  {/* ── Decorative side lines ─────────────────────────────────── */}
+  <div class="ucapan-side-decor ucapan-side-left" aria-hidden="true">
+    <div class="ucapan-side-line"></div>
+    <div class="ucapan-side-dot"></div>
+    <div class="ucapan-side-line"></div>
+  </div>
+  <div class="ucapan-side-decor ucapan-side-right" aria-hidden="true">
+    <div class="ucapan-side-line"></div>
+    <div class="ucapan-side-dot"></div>
+    <div class="ucapan-side-line"></div>
+  </div>
+
+  <div class="ucapan-container">
+    {/* ── Top ornamental flourish ──────────────────────────── */}
+    <div class="ucapan-ornament-top" data-reveal="ucapan-ornament-top" aria-hidden="true">
+      <svg
+        class="ucapan-flourish"
+        viewBox="0 0 200 30"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M100 15 C85 5, 60 5, 40 15 S10 25, 0 15"
+          stroke="url(#ucapan-gold-grad-l)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <path
+          d="M100 15 C115 5, 140 5, 160 15 S190 25, 200 15"
+          stroke="url(#ucapan-gold-grad-r)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
+        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
+        ></circle>
+        <defs>
+          <linearGradient id="ucapan-gold-grad-l" x1="200" y1="15" x2="0" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+          <linearGradient id="ucapan-gold-grad-r" x1="0" y1="15" x2="200" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    {/* ── Title ──────────────────────────────────────────────── */}
+    <h2 class="ucapan-title" data-reveal="ucapan-title">
+      <span class="ucapan-title-star" aria-hidden="true">✦</span>
+      <span class="ucapan-title-text">{ucapan.title}</span>
+      <span class="ucapan-title-star" aria-hidden="true">✦</span>
+    </h2>
+
+    {/* ── Subtitle ──────────────────────────────────────────── */}
+    <p class="ucapan-subtitle" data-reveal="ucapan-subtitle">
+      {ucapan.subtitle}
+    </p>
+
+    {/* ── Body / description ────────────────────────────────── */}
+    <p class="ucapan-body" data-reveal="ucapan-body">
+      {ucapan.body}
+    </p>
+
+    {/* ── Form card ──────────────────────────────────────────── */}
+    <div class="ucapan-form-card js-required" data-reveal="ucapan-form-card" hidden>
+      <div class="ucapan-glass-border" aria-hidden="true"></div>
+
+      {/* Corner ornaments */}
+      <svg class="ucapan-corner ucapan-corner-tl" viewBox="0 0 30 30" aria-hidden="true">
+        <path
+          d="M0 30 L0 5 Q0 0 5 0 L30 0"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+      </svg>
+      <svg class="ucapan-corner ucapan-corner-tr" viewBox="0 0 30 30" aria-hidden="true">
+        <path
+          d="M0 0 L25 0 Q30 0 30 5 L30 30"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+      </svg>
+      <svg class="ucapan-corner ucapan-corner-bl" viewBox="0 0 30 30" aria-hidden="true">
+        <path
+          d="M30 30 L5 30 Q0 30 0 25 L0 0"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+      </svg>
+      <svg class="ucapan-corner ucapan-corner-br" viewBox="0 0 30 30" aria-hidden="true">
+        <path
+          d="M0 30 L30 30 L30 5 Q30 0 25 0"
+          stroke="#c8a84e"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+      </svg>
+
+      <form class="ucapan-form" id="ucapan-form" novalidate>
+        {/* ── Nama field ────────────────────────────────────── */}
+        <div class="ucapan-field">
+          <label for="ucapan-name" class="ucapan-label">
+            {ucapan.formName}
+            <span class="ucapan-required">*</span>
+          </label>
+          <input
+            type="text"
+            id="ucapan-name"
+            name="name"
+            class="ucapan-input"
+            placeholder={ucapan.formNamePlaceholder}
+            required
+            maxlength={100}
+            autocomplete="name"
+          />
+          <span class="ucapan-error" id="ucapan-name-error"></span>
+        </div>
+
+        {/* ── Angkatan field ────────────────────────────────── */}
+        <div class="ucapan-field">
+          <label for="ucapan-batch" class="ucapan-label">
+            {ucapan.formBatch} (1-{maxBatch})
+            <span class="ucapan-required">*</span>
+          </label>
+          <select id="ucapan-batch" name="batch_year" class="ucapan-input ucapan-select" required>
+            <option value="" disabled selected>{ucapan.formBatchPlaceholder}</option>
+            {
+              Array.from({ length: maxBatch }, (_, i) => i + 1).map((opt) => (
+                <option value={opt}>{opt}</option>
+              ))
+            }
+          </select>
+          <span class="ucapan-error" id="ucapan-batch-error"></span>
+        </div>
+
+        {/* ── Pesan field ───────────────────────────────────── */}
+        <div class="ucapan-field">
+          <label for="ucapan-message" class="ucapan-label">
+            {ucapan.formMessage}
+            <span class="ucapan-required">*</span>
+          </label>
+          <textarea
+            id="ucapan-message"
+            name="message"
+            class="ucapan-input ucapan-textarea"
+            placeholder={ucapan.formMessagePlaceholder}
+            required
+            maxlength={500}
+            rows={5}></textarea>
+          <div class="ucapan-textarea-footer">
+            <span class="ucapan-char-count" id="ucapan-char-count">0/500</span>
+          </div>
+          <span class="ucapan-error" id="ucapan-message-error"></span>
+        </div>
+
+        {/* ── Submit button ─────────────────────────────────── */}
+        <button type="submit" id="ucapan-submit" class="ucapan-submit-btn touch-target">
+          <span class="ucapan-submit-label">{ucapan.submitLabel}</span>
+          <span class="ucapan-submit-loading" hidden>
+            <svg
+              class="ucapan-spinner"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-dasharray="31.4 31.4"
+                stroke-linecap="round"></circle>
+            </svg>
+            {ucapan.submittingLabel}
+          </span>
+        </button>
+
+        {/* ── Feedback messages ─────────────────────────────── */}
+        <div class="ucapan-feedback ucapan-feedback-success" id="ucapan-success" hidden>
+          {ucapan.successMessage}
+        </div>
+        <div class="ucapan-feedback ucapan-feedback-error" id="ucapan-error" hidden>
+          {ucapan.errorMessage}
+        </div>
+      </form>
+    </div>
+
+    {/* ── Gallery ─────────────────────────────────────────────── */}
+    <div class="ucapan-gallery-section js-required" data-reveal="ucapan-gallery" hidden>
+      <h3 class="ucapan-gallery-title">Ucapan dari Sahabat PALASMA</h3>
+      <div class="ucapan-gallery" id="ucapan-gallery">
+        <p class="ucapan-gallery-empty" id="ucapan-gallery-empty">
+          {ucapan.emptyGallery}
+        </p>
+      </div>
+      <div class="ucapan-load-more-wrapper" id="ucapan-load-more-wrapper" hidden>
+        <button type="button" id="ucapan-load-more" class="ucapan-load-more-btn touch-target">
+          {ucapan.loadMoreLabel}
+        </button>
+        <span class="ucapan-no-more" id="ucapan-no-more" hidden>{ucapan.noMoreMessages}</span>
+      </div>
+    </div>
+
+    {/* ── Supabase unconfigured state ────────────────────────── */}
+    <div class="ucapan-unconfigured" id="ucapan-unconfigured" hidden>
+      <div class="ucapan-unconfigured-card">
+        <svg
+          class="ucapan-unconfigured-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"></circle>
+          <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          ></path>
+        </svg>
+        <p>{ucapan.supabaseUnconfigured}</p>
+      </div>
+    </div>
+  </div>
+
+  {/* ── Noscript fallback ────────────────────────────────────── */}
+  <div class="ucapan-noscript js-fallback-only">
+    <div class="ucapan-noscript-card">
+      <svg
+        class="ucapan-noscript-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 2L2 7l10 5 10-5-10-5z"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <path
+          d="M2 17l10 5 10-5"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <path
+          d="M2 12l10 5 10-5"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+      <p>Form ucapan & doa membutuhkan JavaScript untuk berfungsi.</p>
+      <p class="ucapan-noscript-hint">
+        Silakan aktifkan JavaScript di browser Anda untuk mengirim ucapan.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script
+  define:vars={{
+    supabaseUrl,
+    supabaseAnonKey,
+    loadMoreLabel: ucapan.loadMoreLabel,
+    loadingLabel: ucapan.loadingLabel,
+  }}
+>
+  // ── Ucapan & Doa — Client-side logic ──────────────────────
+  (function () {
+    "use strict";
+
+    // ── Show JS-only elements & hide noscript fallback ────
+    const section = document.getElementById("ucapan-doa");
+    if (section) section.classList.add("js-enabled");
+
+    // Show form card wrapper
+    const formCard = section?.querySelector(".ucapan-form-card.js-required");
+    if (formCard) formCard.hidden = false;
+
+    // Show gallery section
+    const gallerySection = section?.querySelector(".ucapan-gallery-section.js-required");
+    if (gallerySection) gallerySection.hidden = false;
+
+    // Hide noscript fallback
+    const noscriptEl = section?.querySelector(".js-fallback-only");
+    if (noscriptEl) noscriptEl.style.display = "none";
+
+    // ── Configuration ───────────────────────────────────────
+    const SUPABASE_URL = supabaseUrl;
+    const SUPABASE_ANON_KEY = supabaseAnonKey;
+    const MAX_MESSAGE_LENGTH = 500;
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.warn("Supabase configuration missing. Ucapan feature disabled.");
+      // Hide form card and gallery, show unconfigured message
+      if (formCard) formCard.hidden = true;
+      if (gallerySection) gallerySection.hidden = true;
+      const unconfiguredEl = document.getElementById("ucapan-unconfigured");
+      if (unconfiguredEl) unconfiguredEl.hidden = false;
+      return;
+    }
+
+    // ── DOM refs ────────────────────────────────────────────
+    const nameInput = document.getElementById("ucapan-name");
+    const batchSelect = document.getElementById("ucapan-batch");
+    const messageTextarea = document.getElementById("ucapan-message");
+    const charCount = document.getElementById("ucapan-char-count");
+    const submitBtn = document.getElementById("ucapan-submit");
+    const submitLabel = submitBtn?.querySelector(".ucapan-submit-label");
+    const submitLoading = submitBtn?.querySelector(".ucapan-submit-loading");
+    const successEl = document.getElementById("ucapan-success");
+    const errorEl = document.getElementById("ucapan-error");
+    const gallery = document.getElementById("ucapan-gallery");
+    const galleryEmpty = document.getElementById("ucapan-gallery-empty");
+    const nameError = document.getElementById("ucapan-name-error");
+    const batchError = document.getElementById("ucapan-batch-error");
+    const messageError = document.getElementById("ucapan-message-error");
+
+    // ── Supabase client (minimal, no npm dependency) ────────
+    async function supabaseQuery(table, options = {}) {
+      const { select = "*", order, limit, offset, method = "GET", body } = options;
+      let url = `${SUPABASE_URL}/rest/v1/${table}?select=${select}`;
+      if (order) url += `&order=${order.column}.${order.ascending ? "asc" : "desc"}`;
+      if (limit) url += `&limit=${limit}`;
+      if (offset !== undefined) url += `&offset=${offset}`;
+
+      const headers = {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: body ? "return=representation" : undefined,
+      };
+      // Remove undefined headers
+      Object.keys(headers).forEach((k) => headers[k] === undefined && delete headers[k]);
+
+      const res = await fetch(url, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : undefined,
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ message: res.statusText }));
+        throw new Error(err.message || "Request failed");
+      }
+
+      return res.json();
+    }
+
+    // ── Validation ──────────────────────────────────────────
+    function validateForm() {
+      let valid = true;
+
+      // Reset errors
+      [nameError, batchError, messageError].forEach((el) => {
+        if (el) el.textContent = "";
+      });
+      [nameInput, batchSelect, messageTextarea].forEach((el) => {
+        if (el) el.classList.remove("ucapan-input-error");
+      });
+
+      if (!nameInput?.value?.trim()) {
+        if (nameError) nameError.textContent = "Nama tidak boleh kosong";
+        nameInput?.classList.add("ucapan-input-error");
+        valid = false;
+      }
+
+      if (!batchSelect?.value) {
+        if (batchError) batchError.textContent = "Angkatan tidak boleh kosong";
+        batchSelect?.classList.add("ucapan-input-error");
+        valid = false;
+      }
+
+      if (!messageTextarea?.value?.trim()) {
+        if (messageError) messageError.textContent = "Pesan tidak boleh kosong";
+        messageTextarea?.classList.add("ucapan-input-error");
+        valid = false;
+      } else if (messageTextarea.value.length > MAX_MESSAGE_LENGTH) {
+        if (messageError)
+          messageError.textContent = `Pesan terlalu panjang (maksimal ${MAX_MESSAGE_LENGTH} karakter)`;
+        messageTextarea?.classList.add("ucapan-input-error");
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    // ── Character counter ───────────────────────────────────
+    function updateCharCount() {
+      const count = messageTextarea?.value?.length || 0;
+      if (charCount) charCount.textContent = `${count}/${MAX_MESSAGE_LENGTH}`;
+    }
+
+    // ── Show/hide feedback ──────────────────────────────────
+    function showFeedback(type) {
+      if (type === "success") {
+        if (successEl) successEl.hidden = false;
+        if (errorEl) errorEl.hidden = true;
+        setTimeout(() => {
+          if (successEl) successEl.hidden = true;
+        }, 5000);
+      } else {
+        if (errorEl) errorEl.hidden = false;
+        if (successEl) successEl.hidden = true;
+        setTimeout(() => {
+          if (errorEl) errorEl.hidden = true;
+        }, 5000);
+      }
+    }
+
+    // ── Render message card ─────────────────────────────────
+    function renderMessageCard(msg) {
+      const card = document.createElement("div");
+      card.className = "ucapan-card";
+      card.dataset.messageId = msg.id;
+
+      const initials = msg.name
+        .split(" ")
+        .map((w) => w[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2);
+
+      const date = new Date(msg.created_at);
+      const dateStr = date.toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      card.innerHTML = `
+        <div class="ucapan-card-quote" aria-hidden="true">"</div>
+        <div class="ucapan-card-avatar">${initials}</div>
+        <div class="ucapan-card-name">${escapeHtml(msg.name)}</div>
+        <div class="ucapan-card-batch">${escapeHtml(msg.batch_year)}</div>
+        <p class="ucapan-card-message">${escapeHtml(msg.message)}</p>
+        <div class="ucapan-card-date">${dateStr}</div>
+      `;
+
+      return card;
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ── Pagination state ──────────────────────────────────
+    const PAGE_SIZE = 10;
+    let currentOffset = 0;
+    let hasMore = true;
+    let loadingMore = false;
+
+    const loadMoreWrapper = document.getElementById("ucapan-load-more-wrapper");
+    const loadMoreBtn = document.getElementById("ucapan-load-more");
+    const noMoreEl = document.getElementById("ucapan-no-more");
+
+    // ── Fetch & render existing messages (cursor pagination) ──
+    async function loadMessages(reset = false) {
+      if (loadingMore) return;
+      loadingMore = true;
+
+      if (reset) {
+        currentOffset = 0;
+        hasMore = true;
+        // Clear gallery cards (keep empty state element)
+        if (gallery) {
+          const cards = gallery.querySelectorAll(".ucapan-card");
+          cards.forEach((c) => c.remove());
+        }
+      }
+
+      try {
+        const messages = await supabaseQuery("messages", {
+          select: "id,name,batch_year,message,created_at",
+          order: { column: "created_at", ascending: false },
+          limit: PAGE_SIZE,
+          offset: currentOffset,
+        });
+
+        if (messages.length < PAGE_SIZE) {
+          hasMore = false;
+        }
+        currentOffset += messages.length;
+
+        if (galleryEmpty && messages.length > 0) galleryEmpty.remove();
+
+        messages.forEach((msg) => {
+          gallery?.appendChild(renderMessageCard(msg));
+        });
+
+        // Update load more / no more visibility
+        if (hasMore) {
+          if (loadMoreWrapper) loadMoreWrapper.hidden = false;
+          if (noMoreEl) noMoreEl.hidden = true;
+        } else {
+          if (loadMoreWrapper) loadMoreWrapper.hidden = true;
+          if (currentOffset > 0) {
+            if (noMoreEl) noMoreEl.hidden = false;
+          }
+        }
+      } catch (err) {
+        console.error("Error loading messages:", err);
+        // Show empty state on error
+        if (galleryEmpty) {
+          galleryEmpty.textContent = "Gagal memuat ucapan. Silakan muat ulang halaman.";
+          galleryEmpty.style.display = "block";
+        }
+      }
+    }
+
+    // ── Insert message ──────────────────────────────────────
+    async function submitMessage() {
+      if (!validateForm()) return;
+
+      const name = nameInput.value.trim();
+      const batch_year = batchSelect.value;
+      const message = messageTextarea.value.trim();
+
+      // Toggle loading state
+      if (submitLabel) submitLabel.hidden = true;
+      if (submitLoading) submitLoading.hidden = false;
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const result = await supabaseQuery("messages", {
+          method: "POST",
+          body: { name, batch_year, message },
+        });
+
+        // Prepend new message to gallery (if not already added by realtime)
+        if (galleryEmpty) galleryEmpty.remove();
+        const existingCard = gallery?.querySelector(`[data-message-id="${result[0]?.id}"]`);
+        if (!existingCard && result[0]) {
+          const card = renderMessageCard(result[0]);
+          gallery?.prepend(card);
+        }
+
+        // Reset form
+        if (nameInput) nameInput.value = "";
+        if (batchSelect) batchSelect.value = "";
+        if (messageTextarea) messageTextarea.value = "";
+        updateCharCount();
+
+        // Reset pagination to show new message at top
+        currentOffset = 0;
+        hasMore = true;
+        if (loadMoreWrapper) loadMoreWrapper.hidden = false;
+        if (noMoreEl) noMoreEl.hidden = true;
+
+        showFeedback("success");
+      } catch (err) {
+        console.error("Error submitting message:", err);
+        showFeedback("error");
+      } finally {
+        if (submitLabel) submitLabel.hidden = false;
+        if (submitLoading) submitLoading.hidden = true;
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    }
+
+    // ── Realtime subscription (Supabase Realtime via WebSocket)
+    let realtimeWs = null;
+    function subscribeRealtime() {
+      try {
+        const projectId = new URL(SUPABASE_URL).hostname.split(".")[0];
+        const wsUrl = `wss://${projectId}.supabase.co/realtime/v1/websocket?apikey=${SUPABASE_ANON_KEY}&vsn=1.0.0`;
+
+        realtimeWs = new WebSocket(wsUrl);
+
+        realtimeWs.onopen = function () {
+          // Join the realtime channel for messages table
+          realtimeWs.send(
+            JSON.stringify({
+              topic: `realtime:public:messages`,
+              event: "phx_join",
+              payload: {
+                config: {
+                  broadcast: { self: false },
+                  presence: { key: "" },
+                  postgres_changes: [
+                    {
+                      event: "INSERT",
+                      schema: "public",
+                      table: "messages",
+                    },
+                  ],
+                },
+              },
+              ref: "1",
+            }),
+          );
+        };
+
+        realtimeWs.onmessage = function (event) {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.event === "postgres_changes" && data.payload?.data?.type === "INSERT") {
+              const msg = data.payload.data.record;
+              // Remove empty state
+              if (galleryEmpty) galleryEmpty.remove();
+              // Prepend new message
+              const existingCard = gallery?.querySelector(`[data-message-id="${msg.id}"]`);
+              if (!existingCard) {
+                const card = renderMessageCard(msg);
+                card.style.animation = "ucapanCardSlideIn 0.4s ease-out";
+                gallery?.prepend(card);
+              }
+            }
+          } catch (_) {
+            // Ignore parse errors
+          }
+        };
+
+        realtimeWs.onerror = function () {
+          console.log("Realtime WebSocket error. Falling back to polling.");
+          startPolling();
+        };
+
+        realtimeWs.onclose = function () {
+          // Reconnect after delay
+          setTimeout(subscribeRealtime, 5000);
+        };
+      } catch (err) {
+        console.log("Realtime unavailable. Falling back to polling.");
+        startPolling();
+      }
+    }
+
+    // ── Polling fallback ────────────────────────────────────
+    let pollInterval = null;
+    let lastMessageId = null;
+    function startPolling() {
+      if (pollInterval) return;
+      pollInterval = setInterval(async () => {
+        try {
+          const messages = await supabaseQuery("messages", {
+            select: "id,name,batch_year,message,created_at",
+            order: { column: "created_at", ascending: false },
+            limit: 1,
+          });
+          if (messages[0] && messages[0].id !== lastMessageId) {
+            // Reload all messages (simple approach)
+            await loadMessages(true);
+          }
+          if (messages[0]) lastMessageId = messages[0].id;
+        } catch (_) {
+          // Silently retry
+        }
+      }, 10000); // Poll every 10 seconds
+    }
+
+    // ── GSAP scroll animations ──────────────────────────────
+    async function initAnimations() {
+      try {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Reveal animations for section elements
+        gsap.utils.toArray('[data-reveal^="ucapan-"]').forEach((el) => {
+          gsap.from(el, {
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+          });
+        });
+
+        // Parallax on mountains
+        gsap.to(".ucapan-mountain-back", {
+          yPercent: -15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#ucapan-doa",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        gsap.to(".ucapan-mountain-front", {
+          yPercent: -8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#ucapan-doa",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        // Floating particles parallax
+        gsap.utils.toArray(".ucapan-particle").forEach((p, i) => {
+          gsap.to(p, {
+            y: -50 - i * 10,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#ucapan-doa",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        });
+
+        // Card stagger reveal
+        ScrollTrigger.create({
+          trigger: "#ucapan-gallery",
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            gsap.from(".ucapan-card", {
+              opacity: 0,
+              y: 30,
+              scale: 0.95,
+              duration: 0.5,
+              stagger: 0.1,
+              ease: "power2.out",
+            });
+          },
+        });
+      } catch (err) {
+        console.log("GSAP not available, animations skipped.");
+      }
+    }
+
+    // ── Event listeners ─────────────────────────────────────
+    messageTextarea?.addEventListener("input", updateCharCount);
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      submitMessage();
+    });
+
+    loadMoreBtn?.addEventListener("click", async () => {
+      if (loadingMore || !hasMore) return;
+      loadMoreBtn.textContent = loadingLabel + "...";
+      loadMoreBtn.disabled = true;
+      await loadMessages();
+      loadMoreBtn.textContent = loadMoreLabel;
+      loadMoreBtn.disabled = false;
+    });
+
+    // ── Initialize ──────────────────────────────────────────
+    loadMessages();
+    subscribeRealtime();
+    initAnimations();
+  })();
+</script>
+
+<style>
+  /* ── Section base ────────────────────────────────────────── */
+  .ucapan-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    padding: var(--spacing-section-lg) 0;
+  }
+
+  /* ── Background layers ───────────────────────────────────── */
+  .ucapan-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .ucapan-bg-gradient-1 {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 30%, rgba(74, 124, 89, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(58, 102, 71, 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 70%, rgba(200, 168, 78, 0.05) 0%, transparent 50%);
+  }
+
+  .ucapan-bg-gradient-2 {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      170deg,
+      transparent 0%,
+      rgba(10, 31, 62, 0.3) 40%,
+      rgba(42, 75, 58, 0.15) 70%,
+      transparent 100%
+    );
+  }
+
+  .ucapan-bg-gradient-3 {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(10, 31, 62, 0.2) 100%);
+  }
+
+  .ucapan-bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px;
+  }
+
+  /* ── Mountain silhouettes ────────────────────────────────── */
+  .ucapan-mountains {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .ucapan-mountain {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Pine tree silhouettes ───────────────────────────────── */
+  .ucapan-trees {
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .ucapan-trees-left {
+    left: 20px;
+  }
+
+  .ucapan-trees-right {
+    right: 20px;
+  }
+
+  .ucapan-tree {
+    width: 50px;
+    height: 100px;
+  }
+
+  .ucapan-tree-sm {
+    width: 35px;
+    height: 70px;
+  }
+
+  /* ── Floating particles ──────────────────────────────────── */
+  .ucapan-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .ucapan-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(200, 168, 78, 0.5);
+    animation: ucapanParticleFloat 8s ease-in-out infinite;
+  }
+
+  .ucapan-particle-1 {
+    left: 10%;
+    top: 20%;
+    animation-delay: 0s;
+  }
+  .ucapan-particle-2 {
+    left: 25%;
+    top: 40%;
+    animation-delay: 1.2s;
+    width: 3px;
+    height: 3px;
+  }
+  .ucapan-particle-3 {
+    left: 50%;
+    top: 15%;
+    animation-delay: 2.5s;
+  }
+  .ucapan-particle-4 {
+    left: 70%;
+    top: 35%;
+    animation-delay: 0.8s;
+    width: 5px;
+    height: 5px;
+  }
+  .ucapan-particle-5 {
+    left: 85%;
+    top: 25%;
+    animation-delay: 3s;
+  }
+  .ucapan-particle-6 {
+    left: 40%;
+    top: 60%;
+    animation-delay: 1.8s;
+    width: 3px;
+    height: 3px;
+  }
+
+  @keyframes ucapanParticleFloat {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateY(-20px) scale(1.2);
+      opacity: 0.8;
+    }
+  }
+
+  /* ── Side decorations ────────────────────────────────────── */
+  .ucapan-side-decor {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ucapan-side-left {
+    left: 16px;
+  }
+  .ucapan-side-right {
+    right: 16px;
+  }
+
+  .ucapan-side-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, rgba(200, 168, 78, 0.3), transparent);
+  }
+
+  .ucapan-side-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(200, 168, 78, 0.5);
+  }
+
+  /* ── Container ───────────────────────────────────────────── */
+  .ucapan-container {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── Ornamental flourish ─────────────────────────────────── */
+  .ucapan-ornament-top {
+    margin-bottom: 1.5rem;
+  }
+
+  .ucapan-flourish {
+    width: 160px;
+    height: 24px;
+  }
+
+  /* ── Title ───────────────────────────────────────────────── */
+  .ucapan-title {
+    text-align: center;
+    font-size: var(--text-heading-xl);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-earth-cream);
+    margin: 0 0 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .ucapan-title-star {
+    color: var(--color-gold);
+    font-size: 1.2em;
+    opacity: 0.7;
+  }
+
+  .ucapan-title-text {
+    background: linear-gradient(135deg, var(--color-earth-cream), var(--color-gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Subtitle ────────────────────────────────────────────── */
+  .ucapan-subtitle {
+    text-align: center;
+    font-size: var(--text-body);
+    color: var(--color-earth-sand);
+    margin: 0 0 0.5rem;
+    opacity: 0.9;
+  }
+
+  /* ── Body ────────────────────────────────────────────────── */
+  .ucapan-body {
+    text-align: center;
+    font-size: var(--text-body-sm);
+    color: rgba(212, 184, 134, 0.8);
+    max-width: 600px;
+    margin: 0 0 2.5rem;
+    line-height: 1.6;
+  }
+
+  /* ── Form card ───────────────────────────────────────────── */
+  .ucapan-form-card {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    background: rgba(10, 31, 62, 0.6);
+    border: 1px solid rgba(200, 168, 78, 0.15);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin-bottom: 3rem;
+  }
+
+  .ucapan-glass-border {
+    position: absolute;
+    inset: -1px;
+    border-radius: 16px;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 168, 78, 0.2),
+      transparent 40%,
+      transparent 60%,
+      rgba(200, 168, 78, 0.15)
+    );
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .ucapan-corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+  }
+
+  .ucapan-corner-tl {
+    top: -1px;
+    left: -1px;
+  }
+  .ucapan-corner-tr {
+    top: -1px;
+    right: -1px;
+  }
+  .ucapan-corner-bl {
+    bottom: -1px;
+    left: -1px;
+  }
+  .ucapan-corner-br {
+    bottom: -1px;
+    right: -1px;
+  }
+
+  /* ── Form ────────────────────────────────────────────────── */
+  .ucapan-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ucapan-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .ucapan-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-earth-sand);
+    letter-spacing: 0.02em;
+  }
+
+  .ucapan-required {
+    color: var(--color-gold);
+    margin-left: 2px;
+  }
+
+  .ucapan-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(10, 31, 62, 0.5);
+    border: 1px solid rgba(200, 168, 78, 0.2);
+    border-radius: 10px;
+    color: var(--color-earth-cream);
+    font-family: var(--font-body);
+    font-size: var(--text-body-sm);
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+    outline: none;
+  }
+
+  .ucapan-input:focus {
+    border-color: rgba(200, 168, 78, 0.5);
+    box-shadow: 0 0 0 3px rgba(200, 168, 78, 0.1);
+  }
+
+  .ucapan-input::placeholder {
+    color: rgba(212, 184, 134, 0.4);
+  }
+
+  .ucapan-input-error {
+    border-color: rgba(220, 80, 80, 0.6) !important;
+    box-shadow: 0 0 0 3px rgba(220, 80, 80, 0.1) !important;
+  }
+
+  .ucapan-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%23c8a84e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  .ucapan-select option {
+    background: var(--color-navy);
+    color: var(--color-earth-cream);
+  }
+
+  .ucapan-textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.5;
+  }
+
+  .ucapan-textarea-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .ucapan-char-count {
+    font-size: 0.75rem;
+    color: rgba(212, 184, 134, 0.5);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ucapan-error {
+    font-size: 0.75rem;
+    color: #dc5050;
+    min-height: 1em;
+  }
+
+  /* ── Submit button ───────────────────────────────────────── */
+  .ucapan-submit-btn {
+    width: 100%;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(135deg, var(--color-earth-moss), var(--color-earth-moss-dark));
+    border: 1px solid rgba(200, 168, 78, 0.3);
+    border-radius: var(--radius-btn);
+    color: var(--color-earth-cream);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 56px;
+  }
+
+  .ucapan-submit-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--color-earth-moss-light), var(--color-earth-moss));
+    border-color: rgba(200, 168, 78, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(74, 124, 89, 0.3);
+  }
+
+  .ucapan-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .ucapan-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .ucapan-spinner {
+    width: 18px;
+    height: 18px;
+    animation: ucapanSpin 1s linear infinite;
+  }
+
+  @keyframes ucapanSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ── Feedback ────────────────────────────────────────────── */
+  .ucapan-feedback {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .ucapan-feedback-success {
+    background: rgba(74, 124, 89, 0.2);
+    border: 1px solid rgba(74, 124, 89, 0.4);
+    color: #8bc49e;
+  }
+
+  .ucapan-feedback-error {
+    background: rgba(220, 80, 80, 0.15);
+    border: 1px solid rgba(220, 80, 80, 0.3);
+    color: #e88;
+  }
+
+  /* ── Gallery ─────────────────────────────────────────────── */
+  .ucapan-gallery-section {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .ucapan-gallery-title {
+    text-align: center;
+    font-size: var(--text-heading-sm);
+    font-family: var(--font-heading);
+    color: var(--color-earth-cream);
+    margin: 0 0 1.5rem;
+    font-weight: 600;
+  }
+
+  .ucapan-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  .ucapan-gallery-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: rgba(212, 184, 134, 0.5);
+    font-style: italic;
+    padding: 2rem 1rem;
+  }
+
+  /* ── Message card ────────────────────────────────────────── */
+  .ucapan-card {
+    position: relative;
+    background: rgba(10, 31, 62, 0.5);
+    border: 1px solid rgba(200, 168, 78, 0.12);
+    border-radius: 12px;
+    padding: 1.5rem 1.25rem 1.25rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition:
+      border-color 0.25s,
+      transform 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow: hidden;
+  }
+
+  .ucapan-card:hover {
+    border-color: rgba(200, 168, 78, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .ucapan-card-quote {
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    font-size: 4rem;
+    font-family: Georgia, serif;
+    color: rgba(200, 168, 78, 0.12);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .ucapan-card-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-earth-moss), var(--color-earth-moss-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-earth-cream);
+    font-family: var(--font-heading);
+    flex-shrink: 0;
+    border: 1px solid rgba(200, 168, 78, 0.2);
+  }
+
+  .ucapan-card-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-earth-cream);
+    font-family: var(--font-heading);
+  }
+
+  .ucapan-card-batch {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    background: rgba(200, 168, 78, 0.1);
+    border: 1px solid rgba(200, 168, 78, 0.2);
+    border-radius: 20px;
+    padding: 2px 10px;
+    width: fit-content;
+    letter-spacing: 0.03em;
+  }
+
+  .ucapan-card-message {
+    font-size: var(--text-body-sm);
+    color: rgba(212, 184, 134, 0.85);
+    line-height: 1.6;
+    margin: 0;
+    word-break: break-word;
+  }
+
+  .ucapan-card-date {
+    font-size: 0.7rem;
+    color: rgba(212, 184, 134, 0.4);
+    margin-top: 0.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Card slide-in animation ─────────────────────────────── */
+  @keyframes ucapanCardSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* ── Noscript fallback ───────────────────────────────────── */
+  .ucapan-noscript {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-earth-sand);
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto 0;
+  }
+
+  .ucapan-noscript-card {
+    background: rgba(10, 31, 62, 0.4);
+    border: 1px solid rgba(200, 168, 78, 0.15);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+  }
+
+  .ucapan-noscript-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  .ucapan-noscript p {
+    margin: 0.5rem 0;
+    font-size: var(--text-body-sm);
+  }
+
+  .ucapan-noscript-hint {
+    font-size: 0.8rem !important;
+    opacity: 0.6;
+  }
+
+  /* ── JS-required elements (hidden by default, shown by JS) ── */
+  .js-required[hidden] {
+    display: none;
+  }
+
+  /* Noscript fallback: hidden when JS is available */
+  .js-fallback-only {
+    display: block;
+  }
+
+  .js-enabled .js-fallback-only {
+    display: none;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .ucapan-section {
+      padding: var(--spacing-section) 0;
+    }
+
+    .ucapan-title {
+      font-size: var(--text-heading-lg);
+    }
+
+    .ucapan-form-card {
+      padding: 1.5rem;
+    }
+
+    .ucapan-gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .ucapan-trees-left,
+    .ucapan-trees-right {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ucapan-title {
+      font-size: var(--text-heading);
+      gap: 8px;
+    }
+
+    .ucapan-title-star {
+      font-size: 0.9em;
+    }
+
+    .ucapan-form-card {
+      padding: 1.25rem;
+      border-radius: 12px;
+    }
+
+    .ucapan-side-decor {
+      display: none;
+    }
+  }
+</style>

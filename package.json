@@ -16,6 +16,7 @@
     "test:full": "astro check && bun run format:check && bun run test && bun run test:e2e"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.107.0",
     "astro": "^5.7.0",
     "croppie": "^2.6.5",
     "gsap": "^3.12.5"

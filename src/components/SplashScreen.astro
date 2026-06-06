@@ -178,7 +178,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
       <div data-splash="tagline" class="splash-tagline">Yang Terhormat</div>
       <div data-splash="name" class="splash-recipient">{recipientName}</div>
     </div>
-    <a href="#hero" data-splash="cta" class="splash-cta touch-target">
+    <button data-splash="cta" class="splash-cta touch-target">
       {splash.buttonLabel}
       <svg
         class="splash-cta-icon"
@@ -194,7 +194,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <polyline points="19 12 12 19 5 12"></polyline>
       </svg>
-    </a>
+    </button>
   </div>
 </section>
 
