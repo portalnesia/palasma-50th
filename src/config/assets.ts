@@ -4,8 +4,8 @@ export const ASSETS = {
     "50th": "/assets/images/logo-50.png",
   },
   twibbon: {
-    frame: "/assets/images/twibbon-frame.png",
-    overlay: "/assets/images/twibbon-overlay.png",
+    frame: "/assets/images/twibbon.png",
+    bg_edit: "/assets/images/transparent.jpg",
   },
   gallery: [
     "/assets/images/gallery/photo-1.jpg",

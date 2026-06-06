@@ -965,7 +965,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=280%",
+          end: "+=150%",
           pin: true,
           pinSpacing: true,
           scrub: 1,
@@ -1139,47 +1139,46 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
         );
       });
 
-      // ── Phase 4: Birthday decorations float up out of viewport (0.30 → 0.75) ──
-      // Phase2 ended with decorations visible inside viewport.
-      // Now float them far up until overflow:hidden clips them out.
+      // ── Phase 4: Birthday decorations — quick nudge up, then ride with scroll ──
+      // Small upward kick so they detach from content, overflow:hidden clips the rest.
 
       if (bdayCake) {
-        tl.to(bdayCake, { y: -700, ease: "power1.in", duration: 0.45 }, 0.3);
+        tl.to(bdayCake, { y: -80, ease: "power2.out", duration: 0.08 }, 0.3);
       }
 
       bdayBalloons.forEach((balloon, i) => {
         tl.to(
           balloon,
           {
-            y: -600 - i * 20,
+            y: -80 - i * 8,
             rotation: 10 - i * 5,
-            ease: "power1.in",
-            duration: 0.4 + i * 0.015,
+            ease: "power2.out",
+            duration: 0.08,
           },
-          0.31 + i * 0.01,
+          0.3 + i * 0.004,
         );
       });
 
       if (bdayHat) {
-        tl.to(bdayHat, { y: -550, rotation: 25, ease: "power1.in", duration: 0.42 }, 0.32);
+        tl.to(bdayHat, { y: -80, rotation: 25, ease: "power2.out", duration: 0.08 }, 0.31);
       }
 
       if (bdayGift) {
-        tl.to(bdayGift, { y: -550, ease: "power1.in", duration: 0.4 }, 0.33);
+        tl.to(bdayGift, { y: -80, ease: "power2.out", duration: 0.08 }, 0.31);
       }
 
       bdayConfetti.forEach((piece, i) => {
-        const xDrift = Math.random() * 30 - 15;
+        const xDrift = Math.random() * 20 - 10;
         tl.to(
           piece,
           {
-            y: -500 - Math.random() * 100,
+            y: -60 - Math.random() * 40,
             x: xDrift,
-            rotation: "+=720",
-            ease: "power1.in",
-            duration: 0.38,
+            rotation: "+=180",
+            ease: "power2.out",
+            duration: 0.07,
           },
-          0.34 + i * 0.008,
+          0.31 + i * 0.003,
         );
       });
     });

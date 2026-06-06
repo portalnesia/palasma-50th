@@ -8,8 +8,6 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
 
     document.body.classList.add("js-ready");
 
-    const skipIntro = document.body.hasAttribute("data-skip-hero-intro");
-
     const ctx = gsap.context(() => {
       const pinLength = "+=100%";
 
@@ -27,8 +25,8 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
       const sparkles = section.querySelectorAll<HTMLElement>(".hero-sparkle");
       // Confetti
       const confetti = section.querySelectorAll<HTMLElement>(".hero-confetti-piece");
-      // Nature leaves
-      const leaves = section.querySelectorAll<HTMLElement>(".hero-leaf");
+      // Mountain image
+      const mountain = section.querySelector<HTMLElement>(".hero-mountain");
 
       // ── Single pinned timeline ──
       const heroTl = gsap.timeline({
@@ -41,20 +39,6 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
           scrub: 1,
         },
       });
-
-      if (skipIntro) {
-        // When CTA clicked: make EVERYTHING fully visible immediately
-        heroTl.set(
-          [badge, titleFirst, titleSecond, titleThird, overlay, grain].filter(Boolean),
-          { opacity: 1, y: 0, scale: 1 },
-          0,
-        );
-        bokehOrbs.forEach((o) => heroTl.set(o, { opacity: 1, scale: 1 }, 0));
-        sparkles.forEach((s) => heroTl.set(s, { opacity: 0.8, scale: 1 }, 0));
-        confetti.forEach((c) => heroTl.set(c, { opacity: 0.8, scale: 1 }, 0));
-        leaves.forEach((l) => heroTl.set(l, { opacity: 0 }, 0));
-        return;
-      }
 
       // ═══════════════════════════════════════════════════════
       // Phase 1 (0 → 0.15): Content fades in
@@ -147,54 +131,44 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
       });
 
       // ═══════════════════════════════════════════════════════
-      // Phase 2 (0.15 → 0.35): Nature leaves appear while content STILL visible
+      // Phase 2 (0.15 → 0.35): Mountain silhouettes rise from bottom
       // ═══════════════════════════════════════════════════════
 
-      leaves.forEach((leaf, i) => {
-        const driftX = (Math.random() - 0.5) * 60;
-        const rot = -30 + Math.random() * 60;
+      if (mountain) {
         heroTl.fromTo(
-          leaf,
-          { y: 60 + Math.random() * 40, x: driftX, opacity: 0, rotation: rot, scale: 0.5 },
-          {
-            y: -80 - Math.random() * 40,
-            x: driftX * 0.2,
-            opacity: 0.85,
-            rotation: rot * 0.2,
-            scale: 1,
-            ease: "power1.inOut",
-            duration: 0.3,
-          },
-          0.15 + i * 0.012,
+          mountain,
+          { opacity: 0, y: 200 },
+          { opacity: 0.5, y: 0, ease: "power2.out", duration: 0.35 },
+          0.3,
         );
-      });
+      }
 
       // ═══════════════════════════════════════════════════════
-      // Phase 3 (0.35 → 0.80): HOLD — both content + leaves fully visible
+      // Phase 3 (0.65 → 0.95): HOLD — both content + mountains fully visible
       // ═══════════════════════════════════════════════════════
-      // Long pause so user clearly sees decorations before text fades.
+      // Long pause so user clearly sees mountains before text fades.
 
       // ═══════════════════════════════════════════════════════
-      // Phase 4 (0.80 → 0.95): Content fades out — leaves still visible
+      // Phase 4 (0.95 → 1.0): Content fades out — mountains still visible
       // ═══════════════════════════════════════════════════════
 
       if (badge) {
-        heroTl.to(badge, { opacity: 0, y: -15, ease: "power2.in", duration: 0.15 }, 0.8);
+        heroTl.to(badge, { opacity: 0, y: -15, ease: "power2.in", duration: 0.1 }, 0.95);
       }
 
       if (titleFirst) {
-        heroTl.to(titleFirst, { opacity: 0, y: -25, ease: "power2.in", duration: 0.15 }, 0.83);
+        heroTl.to(titleFirst, { opacity: 0, y: -25, ease: "power2.in", duration: 0.1 }, 0.955);
       }
 
       if (titleSecond) {
-        heroTl.to(titleSecond, { opacity: 0, y: -20, ease: "power2.in", duration: 0.15 }, 0.86);
+        heroTl.to(titleSecond, { opacity: 0, y: -20, ease: "power2.in", duration: 0.1 }, 0.96);
       }
 
       if (titleThird) {
-        heroTl.to(titleThird, { opacity: 0, y: -20, ease: "power2.in", duration: 0.15 }, 0.89);
+        heroTl.to(titleThird, { opacity: 0, y: -20, ease: "power2.in", duration: 0.1 }, 0.965);
       }
 
-      // Original splash decorations fade out
+      // Splash decorations fade out
       confetti.forEach((piece, i) => {
         heroTl.to(
           piece,
@@ -203,9 +177,9 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
             y: 50 + Math.random() * 60,
             rotation: "+=360",
             ease: "power2.in",
-            duration: 0.12,
+            duration: 0.08,
           },
-          0.82 + i * 0.006,
+          0.95 + i * 0.004,
         );
       });
 
@@ -216,9 +190,9 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
             opacity: 0,
             scale: 0,
             ease: "power2.in",
-            duration: 0.06,
+            duration: 0.05,
           },
-          0.84,
+          0.955,
         );
       });
 
@@ -230,37 +204,20 @@ export function setupHeroParallax(section: HTMLElement, bg: HTMLElement, content
             y: -30 - Math.random() * 40,
             scale: 0.5,
             ease: "power2.in",
-            duration: 0.12,
+            duration: 0.08,
           },
-          0.86 + i * 0.008,
+          0.955 + i * 0.004,
         );
       });
 
       // Overlay/grain fade in
       if (overlay) {
-        heroTl.to(overlay, { opacity: 1, ease: "none", duration: 0.2 }, 0.9);
+        heroTl.to(overlay, { opacity: 1, ease: "none", duration: 0.1 }, 0.96);
       }
 
       if (grain) {
-        heroTl.to(grain, { opacity: 1, ease: "none", duration: 0.2 }, 0.9);
+        heroTl.to(grain, { opacity: 1, ease: "none", duration: 0.1 }, 0.96);
       }
-
-      // ═══════════════════════════════════════════════════════
-      // Phase 5 (0.92 → 1.0): Leaves float up out of viewport
-      // ═══════════════════════════════════════════════════════
-
-      leaves.forEach((leaf, i) => {
-        heroTl.to(
-          leaf,
-          {
-            y: -700 - Math.random() * 100,
-            rotation: -15 + Math.random() * 30,
-            ease: "power1.inOut",
-            duration: 0.3,
-          },
-          0.92 + i * 0.008,
-        );
-      });
     });
     cleanupFns.push(() => ctx.revert());
     await refreshScrollTrigger();
