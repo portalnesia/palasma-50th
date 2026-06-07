@@ -12,11 +12,17 @@ const { ucapan } = CONTENT;
 const PALASMA_BASE_YEAR = 1978;
 const currentYear = new Date().getFullYear();
 const maxBatch = currentYear - PALASMA_BASE_YEAR;
+
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
 ---
 
 <section id="ucapan-doa" class="ucapan-section">
   {/* ── Background layers ──────────────────────────────────── */}
-  <div class="ucapan-bg" aria-hidden="true">
+  <div class:list={["ucapan-bg", { "has-bg-image": useBg }]} aria-hidden="true">
     <div class="ucapan-bg-gradient-1"></div>
     <div class="ucapan-bg-gradient-2"></div>
     <div class="ucapan-bg-gradient-3"></div>
@@ -271,8 +277,7 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
 
       const batchLabel = msg.batch_year ? `PLM Angkatan ${msg.batch_year}` : "";
       const orgLabel = msg.organization ?? "";
-      const subtitle =
-        batchLabel && orgLabel ? `${batchLabel} · ${orgLabel}` : batchLabel || orgLabel || "";
+      const subtitle = batchLabel || orgLabel || "";
 
       li.innerHTML = `
         <div class="ucapan-item-head">
@@ -526,6 +531,12 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     position: absolute;
     inset: 0;
     z-index: 0;
+  }
+
+  .ucapan-bg.has-bg-image {
+    background:
+      linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
+      url("/assets/images/bg/7.jpeg") center/cover no-repeat fixed;
   }
 
   .ucapan-bg-gradient-1 {

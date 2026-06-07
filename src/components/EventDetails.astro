@@ -8,9 +8,15 @@ import SectionTitle from "@components/atoms/SectionTitle.astro";
 import OrnamentFlourish from "@components/atoms/OrnamentFlourish.astro";
 import CountdownTimer from "@components/molecules/CountdownTimer.astro";
 import InfoCard from "@components/molecules/InfoCard.astro";
+
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
 ---
 
-<section id="event-details" class="event-section">
+<section id="event-details" class:list={["event-section", { "has-bg-image": useBg }]}>
   <BackgroundLayers />
 
   {/* ── Balloon decorations (bday-balloon style) ───────── */}
@@ -158,6 +164,12 @@ import InfoCard from "@components/molecules/InfoCard.astro";
     overflow: hidden;
     /* Deep Forest Green gradient for highly distinct section transition */
     background: linear-gradient(180deg, #0a1f3e 0%, #020c05 100%);
+  }
+
+  .event-section.has-bg-image {
+    background:
+      linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
+      url("/assets/images/bg/4.jpeg") center/cover no-repeat;
   }
 
   /* ── Balloon decorations (bday-balloon style) ─────────── */

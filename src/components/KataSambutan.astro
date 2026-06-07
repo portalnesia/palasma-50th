@@ -4,11 +4,16 @@ import { ASSETS } from "@config/assets.ts";
 import { parseBodyParagraphs } from "@utils/sambutan.ts";
 import SambutanSpeechCard from "@components/molecules/SambutanSpeechCard.astro";
 
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
 const { sambutan } = CONTENT;
 const paragraphs = parseBodyParagraphs(sambutan.body);
 ---
 
-<section id="sambutan" class="sambutan-section">
+<section id="sambutan" class:list={["sambutan-section", { "has-bg-image": useBg }]}>
   {/* ── Background layers ──────────────────────────────────── */}
   <div class="sambutan-bg" aria-hidden="true">
     <div class="sambutan-bg-gradient-1"></div>
@@ -202,6 +207,12 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .sambutan-section.has-bg-image {
+    background:
+      linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
+      url("/assets/images/bg/3.jpeg") center/cover no-repeat fixed;
   }
 
   /* ── Background layers ─────────────────────────────────── */

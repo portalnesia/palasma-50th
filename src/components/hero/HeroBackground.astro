@@ -1,8 +1,12 @@
 ---
+interface Props {
+  useBg?: boolean;
+}
 
+const { useBg = false } = Astro.props;
 ---
 
-<div class="hero-bg" aria-hidden="true">
+<div class:list={["hero-bg", { "has-bg-image": useBg }]} aria-hidden="true">
   <div class="hero-bg-gradient-1"></div>
   <div class="hero-bg-gradient-2"></div>
   <div class="hero-bg-gradient-3"></div>
@@ -23,6 +27,18 @@
         var(--color-navy-700) 50%,
         var(--color-navy) 100%
       );
+  }
+
+  .hero-bg.has-bg-image {
+    background:
+      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(200, 168, 78, 0.06) 0%, transparent 70%),
+      linear-gradient(
+        175deg,
+        rgba(5, 16, 35, 0.55) 0%,
+        rgba(6, 21, 44, 0.55) 50%,
+        rgba(10, 31, 62, 0.55) 100%
+      ),
+      url("/assets/images/bg/2.jpeg") center/cover no-repeat fixed;
   }
 
   .hero-bg-gradient-1 {
