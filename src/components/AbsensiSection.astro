@@ -1,0 +1,659 @@
+---
+import { CONTENT } from "@config/content.ts";
+import { LINKS } from "@config/links.ts";
+
+const { absensi } = CONTENT;
+---
+
+<section id="absensi" class="absensi-section">
+  {/* ── Background layers (Distinct moss-green and gold glow) ─ */}
+  <div class="absensi-bg" aria-hidden="true">
+    <div class="absensi-bg-gradient-1"></div>
+    <div class="absensi-bg-gradient-2"></div>
+    <div class="absensi-bg-grain"></div>
+  </div>
+
+  {/* ── Floating gold particles ──────────────────────────────── */}
+  <div class="absensi-particles" aria-hidden="true">
+    <span class="absensi-particle absensi-particle-1"></span>
+    <span class="absensi-particle absensi-particle-2"></span>
+    <span class="absensi-particle absensi-particle-3"></span>
+    <span class="absensi-particle absensi-particle-4"></span>
+    <span class="absensi-particle absensi-particle-5"></span>
+  </div>
+
+  {/* ── Mountain Silhouettes Outline (Premium Nature Decoration) ── */}
+  <div class="absensi-mountains" aria-hidden="true" data-reveal="absensi-decor">
+    <svg
+      viewBox="0 0 1440 220"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="absensi-mountain-svg"
+    >
+      <!-- Back mountains (moss green tint) -->
+      <path
+        d="M-50 220 L250 80 L600 170 L950 60 L1250 150 L1500 80 L1500 220 Z"
+        fill="rgba(74, 124, 89, 0.05)"
+        stroke="rgba(200, 168, 78, 0.08)"
+        stroke-width="1.2"></path>
+      <!-- Front mountains (gold tint) -->
+      <path
+        d="M-50 220 L150 130 L450 190 L780 110 L1100 170 L1500 120 L1500 220 Z"
+        fill="rgba(200, 168, 78, 0.03)"
+        stroke="rgba(200, 168, 78, 0.15)"
+        stroke-width="1.8"></path>
+      <!-- Small accent stars above peaks -->
+      <circle cx="250" cy="50" r="1.5" fill="#c8a84e" opacity="0.6"></circle>
+      <circle cx="950" cy="30" r="2" fill="#e0c86a" opacity="0.8"></circle>
+      <circle cx="780" cy="80" r="1" fill="#c8a84e" opacity="0.5"></circle>
+    </svg>
+  </div>
+
+  {/* ── Side decorations ────────────────────────────────────── */}
+  <div class="absensi-side-decor absensi-side-left" aria-hidden="true">
+    <div class="absensi-side-line"></div>
+    <div class="absensi-side-dot"></div>
+    <div class="absensi-side-line"></div>
+  </div>
+  <div class="absensi-side-decor absensi-side-right" aria-hidden="true">
+    <div class="absensi-side-line"></div>
+    <div class="absensi-side-dot"></div>
+    <div class="absensi-side-line"></div>
+  </div>
+
+  <div class="absensi-container">
+    {/* ── Top ornamental flourish ──────────────────────────── */}
+    <div class="absensi-ornament-top" data-reveal="absensi-decor" aria-hidden="true">
+      <svg
+        class="absensi-flourish"
+        viewBox="0 0 200 30"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M100 15 C85 5, 60 5, 40 15 S10 25, 0 15"
+          stroke="url(#gold-grad-abs-l)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <path
+          d="M100 15 C115 5, 140 5, 160 15 S190 25, 200 15"
+          stroke="url(#gold-grad-abs-r)"
+          stroke-width="1"
+          fill="none"
+          opacity="0.5"></path>
+        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
+        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
+        ></circle>
+        <defs>
+          <linearGradient id="gold-grad-abs-l" x1="200" y1="15" x2="0" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+          <linearGradient id="gold-grad-abs-r" x1="0" y1="15" x2="200" y2="15">
+            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    {/* ── Title ──────────────────────────────────────────────── */}
+    <h2 class="absensi-title" data-reveal="absensi-title">
+      <span class="absensi-title-star" aria-hidden="true">✦</span>
+      <span class="absensi-title-text">{absensi.title}</span>
+      <span class="absensi-title-star" aria-hidden="true">✦</span>
+    </h2>
+
+    {/* ── Glass card info ──────────────────────────────── */}
+    <div class="absensi-glass-card" data-reveal="absensi-body">
+      <div class="absensi-glass-border"></div>
+
+      {/* Corner Ornaments */}
+      <span class="absensi-corner absensi-corner-tl" aria-hidden="true">✦</span>
+      <span class="absensi-corner absensi-corner-tr" aria-hidden="true">✦</span>
+      <span class="absensi-corner absensi-corner-bl" aria-hidden="true">✦</span>
+      <span class="absensi-corner absensi-corner-br" aria-hidden="true">✦</span>
+
+      <h3 class="absensi-subtitle">{absensi.subtitle}</h3>
+      <p class="absensi-body-paragraph">{absensi.body}</p>
+
+      {/* ── Button to Google Form ──────────────────────────────── */}
+      <div class="absensi-btn-wrapper" data-reveal="absensi-btn">
+        <a
+          id="absensi-form-link"
+          href={LINKS.googleForm}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="absensi-btn touch-target"
+        >
+          <span class="absensi-btn-glow"></span>
+          <span class="absensi-btn-text">{absensi.ctaLabel}</span>
+          <svg
+            class="absensi-btn-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* ── Floating CTA Button ──────────────────────────────────── */}
+<button
+  id="absensi-floating-cta"
+  class="absensi-floating-cta touch-target"
+  aria-label={absensi.floatingLabel}
+>
+  <span class="floating-cta-glow"></span>
+  <span class="floating-cta-inner">
+    <span class="floating-cta-icon" aria-hidden="true">📝</span>
+    <span class="floating-cta-text">{absensi.floatingLabel}</span>
+  </span>
+</button>
+
+<script>
+  import { setupAbsensiSection, buildGoogleFormUrl } from "@utils/absensi";
+  import { getRecipientName } from "@utils/splash";
+
+  // Prefill Google Form URL dynamically on client side
+  const linkEl = document.getElementById("absensi-form-link") as HTMLAnchorElement;
+  if (linkEl) {
+    const originalUrl = linkEl.href;
+    const name = getRecipientName(window.location.search);
+    if (name) {
+      linkEl.href = buildGoogleFormUrl(originalUrl, name);
+    }
+  }
+
+  const section = document.getElementById("absensi")!;
+  const floatingBtn = document.getElementById("absensi-floating-cta")!;
+
+  const revealCleanup = setupAbsensiSection(section, floatingBtn);
+
+  document.addEventListener("astro:before-swap", () => {
+    revealCleanup();
+  });
+</script>
+
+<style>
+  .absensi-section {
+    position: relative;
+    z-index: 60;
+    /* Transition from slate twilight to warm earth bronze */
+    background: linear-gradient(180deg, #031424 0%, #150e05 100%);
+    padding: 8rem 1.5rem 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* ── Background layers (Distinct moss-green and gold glow) ── */
+  .absensi-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .absensi-bg-gradient-1 {
+    position: absolute;
+    inset: 0;
+    /* Moss green at top left */
+    background: radial-gradient(
+      ellipse 75% 50% at 20% 10%,
+      rgba(74, 124, 89, 0.09) 0%,
+      transparent 60%
+    );
+  }
+
+  .absensi-bg-gradient-2 {
+    position: absolute;
+    inset: 0;
+    /* Soft gold at bottom center */
+    background: radial-gradient(
+      ellipse 70% 50% at 50% 90%,
+      rgba(200, 168, 78, 0.07) 0%,
+      transparent 60%
+    );
+  }
+
+  .absensi-bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image:
+      radial-gradient(circle at 15% 25%, var(--color-gold) 0.5px, transparent 0.5px),
+      radial-gradient(circle at 85% 75%, var(--color-gold) 0.5px, transparent 0.5px);
+    background-size: 55px 55px;
+  }
+
+  /* ── Mountain silhouttes ───────────────────────────────── */
+  .absensi-mountains {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.65;
+  }
+
+  .absensi-mountain-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ── Floating particles ────────────────────────────────── */
+  .absensi-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .absensi-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--color-gold);
+    opacity: 0;
+    animation: absensi-float linear infinite;
+  }
+
+  .absensi-particle-1 {
+    width: 4px;
+    height: 4px;
+    left: 15%;
+    top: 60%;
+    animation-duration: 9s;
+    animation-delay: 0.5s;
+  }
+  .absensi-particle-2 {
+    width: 6px;
+    height: 6px;
+    left: 28%;
+    top: 75%;
+    animation-duration: 11s;
+    animation-delay: 2s;
+  }
+  .absensi-particle-3 {
+    width: 3px;
+    height: 3px;
+    left: 72%;
+    top: 65%;
+    animation-duration: 8s;
+    animation-delay: 1.2s;
+  }
+  .absensi-particle-4 {
+    width: 5px;
+    height: 5px;
+    left: 82%;
+    top: 40%;
+    animation-duration: 10s;
+    animation-delay: 0.2s;
+  }
+  .absensi-particle-5 {
+    width: 4px;
+    height: 4px;
+    left: 48%;
+    top: 80%;
+    animation-duration: 12s;
+    animation-delay: 3s;
+  }
+
+  @keyframes absensi-float {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0.8);
+    }
+    15% {
+      opacity: 0.4;
+    }
+    85% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100px) scale(0.5);
+    }
+  }
+
+  /* ── Side decorations ──────────────────────────────────── */
+  .absensi-side-decor {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 2;
+    opacity: 0.18;
+  }
+
+  .absensi-side-left {
+    left: 1.5rem;
+  }
+
+  .absensi-side-right {
+    right: 1.5rem;
+  }
+
+  .absensi-side-line {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--color-gold), transparent);
+  }
+
+  .absensi-side-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-gold);
+  }
+
+  /* ── Container ─────────────────────────────────────────── */
+  .absensi-container {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .absensi-ornament-top {
+    width: 200px;
+    margin-bottom: 2rem;
+  }
+
+  .absensi-flourish {
+    width: 100%;
+    height: auto;
+  }
+
+  /* ── Title ─────────────────────────────────────────────── */
+  .absensi-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-heading);
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(
+      135deg,
+      var(--color-gold-light) 0%,
+      var(--color-gold) 40%,
+      var(--color-earth-sand) 70%,
+      var(--color-gold-light) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px rgba(200, 168, 78, 0.15));
+  }
+
+  .absensi-title-star {
+    font-size: 0.4em;
+    -webkit-text-fill-color: var(--color-gold);
+    opacity: 0.6;
+  }
+
+  /* ── Glass card ────────────────────────────────────────── */
+  .absensi-glass-card {
+    position: relative;
+    padding: 3.5rem 3rem;
+    width: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 168, 78, 0.04) 0%,
+      rgba(10, 31, 62, 0.45) 40%,
+      rgba(200, 168, 78, 0.03) 100%
+    );
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(200, 168, 78, 0.15);
+    border-radius: 20px;
+    box-shadow:
+      0 10px 40px rgba(0, 0, 0, 0.3),
+      inset 0 0 20px rgba(200, 168, 78, 0.05);
+  }
+
+  .absensi-glass-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(200, 168, 78, 0.25) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(200, 168, 78, 0.2) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Corner Ornaments */
+  .absensi-corner {
+    position: absolute;
+    font-size: 0.65rem;
+    color: var(--color-gold);
+    opacity: 0.35;
+  }
+
+  .absensi-corner-tl {
+    top: 12px;
+    left: 14px;
+  }
+  .absensi-corner-tr {
+    top: 12px;
+    right: 14px;
+  }
+  .absensi-corner-bl {
+    bottom: 12px;
+    left: 14px;
+  }
+  .absensi-corner-br {
+    bottom: 12px;
+    right: 14px;
+  }
+
+  .absensi-subtitle {
+    font-size: var(--text-heading-sm);
+    color: var(--color-gold);
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-family: var(--font-heading);
+  }
+
+  .absensi-body-paragraph {
+    font-size: var(--text-body-sm);
+    line-height: 1.85;
+    color: rgba(245, 230, 200, 0.9);
+    margin-bottom: 2.5rem;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  /* ── Button styling ────────────────────────────────────── */
+  .absensi-btn-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .absensi-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.95rem 2.2rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+    color: var(--color-navy);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: var(--radius-btn);
+    box-shadow: 0 4px 18px rgba(200, 168, 78, 0.3);
+    text-decoration: none;
+    transition:
+      transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      box-shadow 0.3s;
+    overflow: hidden;
+  }
+
+  .absensi-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(200, 168, 78, 0.45);
+  }
+
+  .absensi-btn:active {
+    transform: translateY(1px);
+  }
+
+  .absensi-btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.35) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    transition: 0.75s;
+  }
+
+  .absensi-btn:hover .absensi-btn-glow {
+    animation: shine 1.5s infinite;
+  }
+
+  @keyframes shine {
+    100% {
+      left: 150%;
+    }
+  }
+
+  .absensi-btn-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: transform 0.3s;
+  }
+
+  .absensi-btn:hover .absensi-btn-icon {
+    transform: translate(2px, -2px);
+  }
+
+  /* ── Floating CTA Button ──────────────────────────────────── */
+  .absensi-floating-cta {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 900;
+    background: linear-gradient(135deg, var(--color-navy-600) 0%, var(--color-navy-800) 100%);
+    border: 1px solid var(--color-gold);
+    color: var(--color-earth-cream);
+    border-radius: 30px;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition:
+      transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      box-shadow 0.3s;
+  }
+
+  .absensi-floating-cta:hover {
+    transform: scale(1.05) translateY(-2px);
+    border-color: var(--color-gold-light);
+    box-shadow:
+      0 6px 25px rgba(200, 168, 78, 0.2),
+      0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .absensi-floating-cta:active {
+    transform: scale(0.98) translateY(1px);
+  }
+
+  .floating-cta-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .floating-cta-icon {
+    font-size: 1.1rem;
+  }
+
+  .floating-cta-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(200, 168, 78, 0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .absensi-floating-cta:hover .floating-cta-glow {
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .absensi-section {
+      padding: 5rem 1rem 7rem;
+    }
+    .absensi-glass-card {
+      padding: 2.5rem 1.5rem;
+    }
+    .absensi-body-paragraph {
+      margin-bottom: 2rem;
+    }
+    .absensi-floating-cta {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.85rem;
+    }
+    .absensi-mountains {
+      opacity: 0.5;
+      bottom: -5px;
+    }
+  }
+</style>

@@ -652,6 +652,9 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
     await new Promise<void>((r) => setTimeout(r, 50));
     await refreshScrollTrigger();
 
+    // Set global flag to avoid race conditions for deferred scripts
+    (window as any).splashGsapReady = true;
+
     // Signal downstream sections that splash GSAP is ready
     window.dispatchEvent(new Event("splash:gsap-ready"));
 
