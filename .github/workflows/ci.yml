@@ -62,7 +62,7 @@ jobs:
           bun run scripts/version.ts ${{ github.sha }}
 
       - name: E2E testing (no Supabase)
-        run: bun run test:e2e --project=no-supabase
+        run: bun run test:e2e
 
   e2e-with-supabase:
     runs-on: ubuntu-latest
@@ -90,4 +90,4 @@ jobs:
           bun run scripts/version.ts ${{ github.sha }}
 
       - name: E2E testing (with Supabase)
-        run: bun run test:e2e --project=with-supabase
+        run: bun run test:e2e

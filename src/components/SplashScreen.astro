@@ -55,7 +55,24 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
       <div data-splash="tagline" class="splash-tagline">Yang Terhormat</div>
       <div data-splash="name" class="splash-recipient">{recipientName}</div>
     </div>
-    <button data-splash="cta" class="splash-cta touch-target">
+    <div data-splash="scroll-hint" class="splash-scroll-hint">
+      <span>Buka undangan</span>
+      <svg
+        class="splash-scroll-arrow"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <polyline points="19 12 12 19 5 12"></polyline>
+      </svg>
+    </div>
+    <!-- <button data-splash="cta" class="splash-cta touch-target">
       {splash.buttonLabel}
       <svg
         class="splash-cta-icon"
@@ -71,7 +88,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <polyline points="19 12 12 19 5 12"></polyline>
       </svg>
-    </button>
+    </button> -->
   </div>
 </section>
 
@@ -269,7 +286,37 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
     /* margin-top: 1rem; */
   }
 
-  .splash-cta {
+  /* ── Scroll hint ─────────────────────────────────────────── */
+  .splash-scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1.5rem;
+    color: var(--color-earth-sand);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  .splash-scroll-arrow {
+    width: 18px;
+    height: 18px;
+    animation: bounce-down 1.5s ease-in-out infinite;
+  }
+
+  @keyframes bounce-down {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(5px);
+    }
+  }
+
+  /* .splash-cta {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -316,7 +363,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
     50% {
       transform: translateY(4px);
     }
-  }
+  } */
 
   @media (max-width: 640px) {
     .splash-emblem {
@@ -328,7 +375,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
 
 <script>
   import { initGSAP, refreshScrollTrigger } from "@utils/gsap.ts";
-  import { bindCtaScroll, getRecipientName } from "@utils/splash";
+  import { getRecipientName } from "@utils/splash";
 
   /* ── Client-side recipient name from query param ──────── */
   const urlRecipient = getRecipientName(window.location.search);
@@ -353,6 +400,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
       const palasma = section.querySelector('[data-splash="palasma"]');
       const tagline = section.querySelector('[data-splash="tagline"]');
       const name = section.querySelector('[data-splash="name"]');
+      const scrollHint = section.querySelector('[data-splash="scroll-hint"]');
       const cta = section.querySelector('[data-splash="cta"]');
       const glow = section.querySelector<HTMLElement>(".splash-glow");
       const ornament = section.querySelector<HTMLElement>(".splash-ornament");
@@ -466,6 +514,10 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
       });
 
       // ── Phase 3: Text + original decorations fade out (0.20 → 0.30) ──
+
+      if (scrollHint) {
+        tl.to(scrollHint, { opacity: 0, y: -10, ease: "power2.in", duration: 0.06 }, 0.19);
+      }
 
       if (cta) {
         tl.to(cta, { opacity: 0, y: -20, ease: "power2.in", duration: 0.08 }, 0.2);
@@ -604,9 +656,9 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
     window.dispatchEvent(new Event("splash:gsap-ready"));
 
     /* ── CTA scroll → hero visible immediately ─────────────── */
-    const ctaBtn = section.querySelector('[data-splash="cta"]') as HTMLElement;
-    if (ctaBtn) {
-      bindCtaScroll(gsap, ctaBtn, "hero");
-    }
+    //  const ctaBtn = section.querySelector('[data-splash="cta"]') as HTMLElement;
+    // if (ctaBtn) {
+    //   bindCtaScroll(gsap, ctaBtn, "hero");
+    // }
   }
 </script>
