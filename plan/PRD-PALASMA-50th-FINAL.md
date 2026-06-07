@@ -30,7 +30,7 @@
 
 ### 1.1 Latar Belakang
 
-PALASMA (Pecinta Alam SMAN 1 Mataram) genap berusia 50 tahun pada tahun 2026 — sebuah pencapaian **Golden Anniversary** yang patut dirayakan secara besar. Berdiri sejak tahun 1976, organisasi ini telah melewati setengah abad dengan ribuan anggota dari berbagai angkatan, mulai dari alumni senior era 70-an hingga anggota aktif saat ini.
+PALASMA (Pencinta Alam SMAN 1 Mataram) genap berusia 50 tahun pada tahun 2026 — sebuah pencapaian **Golden Anniversary** yang patut dirayakan secara besar. Berdiri sejak tahun 1976, organisasi ini telah melewati setengah abad dengan ribuan anggota dari berbagai angkatan, mulai dari alumni senior era 70-an hingga anggota aktif saat ini.
 
 ### 1.2 Tujuan Produk
 
