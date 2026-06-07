@@ -160,20 +160,19 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
     overflow: hidden;
     padding: 6rem 1.5rem;
     box-sizing: border-box;
+    /* Transition from deep forest green to deep slate twilight */
+    background: linear-gradient(180deg, #020c05 0%, #031424 100%);
   }
 
   .twibbon-bg {
     position: absolute;
     inset: 0;
     z-index: 0;
-    background:
-      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(200, 168, 78, 0.06) 0%, transparent 70%),
-      linear-gradient(
-        175deg,
-        var(--color-navy-800, #111827) 0%,
-        var(--color-navy-700, #1e293b) 50%,
-        var(--color-navy, #0f172a) 100%
-      );
+    background: radial-gradient(
+      ellipse 80% 80% at 50% 30%,
+      rgba(110, 143, 191, 0.09) 0%,
+      transparent 70%
+    );
   }
 
   .twibbon-bg-gradient-1 {

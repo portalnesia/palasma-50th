@@ -17,6 +17,13 @@ export const CONTENT = {
     ctaHadir: "Ya, Saya Hadir",
     ctaAbsen: "Maaf, Saya Absen",
   },
+  absensi: {
+    title: "Pendataan & Absensi",
+    subtitle: "Reuni Akbar 50 Tahun PALASMA",
+    body: "Dalam rangka menyambut setengah abad PALASMA, kami memohon kesediaan seluruh keluarga besar PALASMA — baik yang berkesempatan hadir secara langsung maupun tidak — untuk mengisi formulir absensi.",
+    ctaLabel: "Isi Formulir",
+    floatingLabel: "Isi Formulir",
+  },
   sambutan: {
     title: "Kata Sambutan",
     body: "Assalamualaikum warahmatullahi wabarakatuh,\n\nPuji syukur ke hadirat Tuhan Yang Maha Esa, karena atas berkat dan rahmat-Nya kita dapat berkumpul kembali dalam acara Reuni Akbar HUT ke-50 PALASMA.\n\nSetengah abad sudah PALASMA berdiri, menemani perjalanan para pencinta alam dari berbagai angkatan. Melalui momen ini, kami mengajak seluruh keluarga besar PALASMA untuk bernostalgia, melepas rindu, dan merayakan pencapaian bersama.\n\nMari kita sambut hangat hari bahagia ini dengan penuh sukacita.\n\nWassalamualaikum warahmatullahi wabarakatuh,\n\nPanitia HUT ke-50 PALASMA",

@@ -518,6 +518,8 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     align-items: center;
     overflow: hidden;
     padding: var(--spacing-section-lg) 0;
+    /* Transition from warm earth bronze to starry deep navy-black */
+    background: linear-gradient(180deg, #150e05 0%, #030b1a 100%);
   }
 
   .ucapan-bg {
@@ -530,9 +532,9 @@ const maxBatch = currentYear - PALASMA_BASE_YEAR;
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 70% 60% at 50% 30%, rgba(74, 124, 89, 0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(58, 102, 71, 0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 40% at 80% 70%, rgba(200, 168, 78, 0.05) 0%, transparent 50%);
+      radial-gradient(ellipse 70% 60% at 50% 10%, rgba(10, 31, 62, 0.5) 0%, transparent 80%),
+      radial-gradient(ellipse 50% 50% at 85% 25%, rgba(200, 168, 78, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 45% 45% at 15% 75%, rgba(74, 124, 89, 0.06) 0%, transparent 60%);
   }
 
   .ucapan-bg-gradient-2 {
