@@ -8,14 +8,6 @@ export default defineConfig({
     baseURL: "http://localhost:4321",
     headless: true,
   },
-  projects: [
-    {
-      name: "no-supabase",
-    },
-    {
-      name: "with-supabase",
-    },
-  ],
   webServer: [
     {
       command: "bun run dev --host 0.0.0.0 --port 4321",

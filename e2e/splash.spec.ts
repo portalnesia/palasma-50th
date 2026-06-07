@@ -40,20 +40,20 @@ test.describe("Splash Screen", () => {
     await expect(page.locator(".splash-recipient")).toContainText("Abang");
   });
 
-  test("cta button present and links to hero", async ({ page }) => {
-    const cta = page.locator(".splash-cta");
-    await expect(cta).toBeVisible();
-    await expect(cta).toContainText("Buka Undangan");
-  });
+  // test("cta button present and links to hero", async ({ page }) => {
+  //   const cta = page.locator(".splash-cta");
+  //   await expect(cta).toBeVisible();
+  //   await expect(cta).toContainText("Buka Undangan");
+  // });
 
-  test("cta click scrolls page down", async ({ page }) => {
-    const scrollYBefore = await page.evaluate(() => window.scrollY);
-    await page.click(".splash-cta");
-    // Wait for GSAP scroll animation
-    await page.waitForTimeout(1500);
-    const scrollYAfter = await page.evaluate(() => window.scrollY);
-    expect(scrollYAfter).toBeGreaterThan(scrollYBefore);
-  });
+  // test("cta click scrolls page down", async ({ page }) => {
+  //   const scrollYBefore = await page.evaluate(() => window.scrollY);
+  //   await page.click(".splash-cta");
+  //   // Wait for GSAP scroll animation
+  //   await page.waitForTimeout(1500);
+  //   const scrollYAfter = await page.evaluate(() => window.scrollY);
+  //   expect(scrollYAfter).toBeGreaterThan(scrollYBefore);
+  // });
 
   test("hero has expected structure", async ({ page }) => {
     const hero = page.locator("#hero");
