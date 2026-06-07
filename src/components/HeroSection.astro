@@ -7,11 +7,16 @@ import HeroConfetti from "./hero/HeroConfetti.astro";
 import HeroContent from "./hero/HeroContent.astro";
 import HeroMountains from "./hero/HeroMountains.astro";
 
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
 const { hero } = CONTENT;
 ---
 
 <section id="hero" class="hero-section">
-  <HeroBackground />
+  <HeroBackground useBg={useBg} />
   <HeroBokehOrbs />
   <HeroSparkles />
   <HeroConfetti />

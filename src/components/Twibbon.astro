@@ -3,11 +3,16 @@ import { CONTENT } from "@config/content.ts";
 import { ASSETS } from "@config/assets.ts";
 import TwibbonUploadCard from "@components/molecules/TwibbonUploadCard.astro";
 
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
 const { twibbon } = CONTENT;
 const twibbonFrameUrl = ASSETS.twibbon.frame;
 ---
 
-<section id="twibbon" class="twibbon-section">
+<section id="twibbon" class:list={["twibbon-section", { "has-bg-image": useBg }]}>
   {/* ── Background layers ──────────────────────────────────── */}
   <div class="twibbon-bg" aria-hidden="true">
     <div class="twibbon-bg-gradient-1"></div>
@@ -151,7 +156,6 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
 <style>
   .twibbon-section {
     position: relative;
-    width: 100%;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
@@ -162,6 +166,18 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
     box-sizing: border-box;
     /* Transition from deep forest green to deep slate twilight */
     background: linear-gradient(180deg, #020c05 0%, #031424 100%);
+  }
+
+  .twibbon-section.has-bg-image {
+    background:
+      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(200, 168, 78, 0.06) 0%, transparent 70%),
+      linear-gradient(
+        175deg,
+        rgba(5, 16, 35, 0.55) 0%,
+        rgba(6, 21, 44, 0.55) 50%,
+        rgba(10, 31, 62, 0.55) 100%
+      ),
+      url("/assets/images/bg/5.jpeg") center/cover no-repeat fixed;
   }
 
   .twibbon-bg {

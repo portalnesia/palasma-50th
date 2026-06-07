@@ -2,10 +2,15 @@
 import { CONTENT } from "@config/content.ts";
 import { LINKS } from "@config/links.ts";
 
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
 const { absensi } = CONTENT;
 ---
 
-<section id="absensi" class="absensi-section">
+<section id="absensi" class:list={["absensi-section", { "has-bg-image": useBg }]}>
   {/* ── Background layers (Distinct moss-green and gold glow) ─ */}
   <div class="absensi-bg" aria-hidden="true">
     <div class="absensi-bg-gradient-1"></div>
@@ -196,6 +201,12 @@ const { absensi } = CONTENT;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+  }
+
+  .absensi-section.has-bg-image {
+    background:
+      linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
+      url("/assets/images/bg/6.jpeg") center/cover no-repeat fixed;
   }
 
   /* ── Background layers (Distinct moss-green and gold glow) ── */
