@@ -73,9 +73,9 @@ test.describe("Hero Section", () => {
     await expect(line1).toContainText("Reuni Akbar");
   });
 
-  test("second tagline line contains 'PECINTA ALAM'", async ({ page }) => {
+  test("second tagline line contains 'PENCINTA ALAM'", async ({ page }) => {
     const line2 = page.locator("[data-hero='title-line-2']");
-    await expect(line2).toContainText("PECINTA ALAM");
+    await expect(line2).toContainText("PENCINTA ALAM");
   });
 
   test("subtitle line exists with descriptive text", async ({ page }) => {

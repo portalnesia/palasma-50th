@@ -8,7 +8,7 @@ export const CONTENT = {
   },
   hero: {
     welcome: "Selamat Datang",
-    tagline: "Reuni Akbar\nPECINTA ALAM SMAN 1 MATARAM",
+    tagline: "Reuni Akbar\nPENCINTA ALAM SMAN 1 MATARAM",
     subtitle: "Setengah abad perjalanan, kenangan, dan persaudaraan yang tak pernah pudar.",
     ctaLabel: "Lihat Detail Acara",
     ctaTarget: "event-details",
@@ -19,7 +19,7 @@ export const CONTENT = {
   },
   sambutan: {
     title: "Kata Sambutan",
-    body: "Assalamualaikum warahmatullahi wabarakatuh,\n\nPuji syukur ke hadirat Tuhan Yang Maha Esa, karena atas berkat dan rahmat-Nya kita dapat berkumpul kembali dalam acara Reuni Akbar HUT ke-50 PALASMA.\n\nSetengah abad sudah PALASMA berdiri, menemani perjalanan para pecinta alam dari berbagai angkatan. Melalui momen ini, kami mengajak seluruh keluarga besar PALASMA untuk bernostalgia, melepas rindu, dan merayakan pencapaian bersama.\n\nMari kita sambut hangat hari bahagia ini dengan penuh sukacita.\n\nWassalamualaikum warahmatullahi wabarakatuh,\n\nPanitia HUT ke-50 PALASMA",
+    body: "Assalamualaikum warahmatullahi wabarakatuh,\n\nPuji syukur ke hadirat Tuhan Yang Maha Esa, karena atas berkat dan rahmat-Nya kita dapat berkumpul kembali dalam acara Reuni Akbar HUT ke-50 PALASMA.\n\nSetengah abad sudah PALASMA berdiri, menemani perjalanan para pencinta alam dari berbagai angkatan. Melalui momen ini, kami mengajak seluruh keluarga besar PALASMA untuk bernostalgia, melepas rindu, dan merayakan pencapaian bersama.\n\nMari kita sambut hangat hari bahagia ini dengan penuh sukacita.\n\nWassalamualaikum warahmatullahi wabarakatuh,\n\nPanitia HUT ke-50 PALASMA",
     author: "Panitia",
     authorRole: "HUT ke-50 PALASMA",
   },
@@ -50,7 +50,7 @@ export const CONTENT = {
     formBatch: "Angkatan",
     formBatchPlaceholder: "Contoh: 25",
     formOrganization: "Asal Organisasi / Komunitas",
-    formOrganizationPlaceholder: "Contoh: Pecinta Alam NTB",
+    formOrganizationPlaceholder: "Contoh: Pencinta Alam NTB",
     formOrganizationHint: "Isi jika bukan anggota PALASMA",
     formBatchHint: "Isi jika anggota PALASMA",
     formMessage: "Pesan / Ucapan / Doa",
