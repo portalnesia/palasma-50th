@@ -9,21 +9,25 @@ const { welcome, tagline, subtitle } = Astro.props;
 ---
 
 <div class="hero-content" id="hero-content">
-  <span data-hero="badge" data-reveal="hero-badge" class="hero-badge">{welcome}</span>
+  <span data-hero="badge" class="hero-badge reveal-on-scroll reveal-fade-up">{welcome}</span>
 
   <h1 class="hero-title">
     {
       tagline.split("\n").map((line, index) => (
         <span
-          data-reveal={`hero-title-line-${index + 1}`}
           data-hero={`title-line-${index + 1}`}
-          class={`hero-title-line hero-title-line-1`}
+          class="hero-title-line hero-title-line-1 reveal-on-scroll reveal-fade-up"
+          style={`transition-delay: ${100 + index * 100}ms;`}
         >
           {line}
         </span>
       ))
     }
-    <span data-hero="title-line-3" class="hero-title-line hero-title-line-2">{subtitle}</span>
+    <span
+      data-hero="title-line-3"
+      class="hero-title-line hero-title-line-2 reveal-on-scroll reveal-fade-up"
+      style={`transition-delay: 300ms;`}>{subtitle}</span
+    >
   </h1>
 </div>
 
@@ -37,11 +41,6 @@ const { welcome, tagline, subtitle } = Astro.props;
     gap: 1.25rem;
     padding: 2rem;
     text-align: center;
-  }
-
-  .js-ready .hero-content > * {
-    animation: none;
-    opacity: 0;
   }
 
   .hero-badge {

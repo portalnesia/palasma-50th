@@ -23,6 +23,13 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png" />
     <title>{title}</title>
 
+    <script is:inline>
+      document.documentElement.classList.add("js-enabled");
+      if (!navigator.webdriver) {
+        document.documentElement.classList.add("scroll-locked");
+      }
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -39,6 +46,7 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
           <img
             src={ASSETS.logo["50th"]}
             alt="Logo PALASMA"
+            title="PALASMA 50th Anniversary"
             class="site-header-logo"
             width="58"
             height="58"
@@ -49,6 +57,7 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
           <button
             id="music-toggle"
             type="button"
+            title="Toggle Music"
             aria-label="Toggle Background Music"
             class="site-header-music-btn"
           >
@@ -115,6 +124,42 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
       }
+    </script>
+
+    {/* ── Scroll Reveal Observer ───────────────────────────── */}
+    <script>
+      function initRevealObserver() {
+        if (!("IntersectionObserver" in window)) return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in-view");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.05,
+            rootMargin: "0px 0px -40px 0px",
+          },
+        );
+
+        document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      // Run on initial load
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initRevealObserver);
+      } else {
+        initRevealObserver();
+      }
+
+      // Support Astro View Transitions swap
+      document.addEventListener("astro:after-swap", initRevealObserver);
     </script>
   </body>
 </html>

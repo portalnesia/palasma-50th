@@ -1,10 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { getRecipientName, setupMusicToggle, bindCtaScroll } from "@utils/splash";
 
-function mockGsap() {
-  return { to: vi.fn() };
-}
-
 describe("getRecipientName()", () => {
   it("extracts ?to= from search string", () => {
     expect(getRecipientName("?to=Abang")).toBe("Abang");
@@ -75,36 +71,33 @@ describe("bindCtaScroll()", () => {
       <button id="splash-cta">Buka Undangan</button>
       <div id="main-content" style="height: 2000px;"></div>
     `;
+    window.HTMLElement.prototype.scrollIntoView = vi.fn();
   });
 
   it("returns a cleanup function", () => {
-    const gsap = mockGsap();
     const btn = document.getElementById("splash-cta")!;
-    const cleanup = bindCtaScroll(gsap as any, btn, "main-content");
+    const cleanup = bindCtaScroll(btn, "main-content");
     expect(typeof cleanup).toBe("function");
     cleanup();
   });
 
   it("does not throw when target exists", () => {
-    const gsap = mockGsap();
     const btn = document.getElementById("splash-cta")!;
-    expect(() => bindCtaScroll(gsap as any, btn, "main-content")).not.toThrow();
+    expect(() => bindCtaScroll(btn, "main-content")).not.toThrow();
   });
 
   it("does nothing if target element missing", () => {
-    const gsap = mockGsap();
     const btn = document.getElementById("splash-cta")!;
-    const cleanup = bindCtaScroll(gsap as any, btn, "nonexistent");
+    const cleanup = bindCtaScroll(btn, "nonexistent");
     btn.click();
     cleanup();
   });
 
   it("cleanup removes the event listener", () => {
-    const gsap = mockGsap();
     const btn = document.getElementById("splash-cta")!;
     let callCount = 0;
 
-    const cleanup = bindCtaScroll(gsap as any, btn, "main-content");
+    const cleanup = bindCtaScroll(btn, "main-content");
     btn.click();
     callCount++;
 

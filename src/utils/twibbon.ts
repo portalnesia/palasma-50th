@@ -8,8 +8,6 @@
  *  - Download → canvas composite then toDataURL()
  */
 
-import { initGSAP, refreshScrollTrigger } from "./gsap";
-
 /* ── Pure functions ───────────────────────────────────────── */
 
 /**
@@ -299,103 +297,21 @@ export function setupTwibbon(section: HTMLElement): () => void {
     // initCroppie();
   }
 
-  // ── GSAP scroll reveal (scrub-based) ──
-  async function setupScrollReveal() {
-    const { gsap } = await initGSAP();
-
-    const ctx = gsap.context(() => {
-      const twibbonTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top 90%",
-          end: "center center",
-          scrub: 1.5,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      const ornamentTop = section.querySelector<HTMLElement>(
-        '[data-reveal="twibbon-ornament-top"]',
-      );
-      if (ornamentTop) {
-        gsap.set(ornamentTop, { opacity: 0, scale: 0.7, y: -30 });
-        twibbonTl.to(
-          ornamentTop,
-          { opacity: 1, scale: 1, y: 0, ease: "power3.out", duration: 0.15 },
-          0,
-        );
-      }
-
-      const title = section.querySelector<HTMLElement>('[data-reveal="twibbon-title"]');
-      if (title) {
-        gsap.set(title, { opacity: 0, y: 50 });
-        twibbonTl.to(title, { opacity: 1, y: 0, ease: "power3.out", duration: 0.2 }, 0.05);
-      }
-
-      const subtitle = section.querySelector<HTMLElement>('[data-reveal="twibbon-subtitle"]');
-      if (subtitle) {
-        gsap.set(subtitle, { opacity: 0, y: 30 });
-        twibbonTl.to(subtitle, { opacity: 1, y: 0, ease: "power3.out", duration: 0.15 }, 0.1);
-      }
-
-      const body = section.querySelector<HTMLElement>('[data-reveal="twibbon-body"]');
-      if (body) {
-        gsap.set(body, { opacity: 0, y: 25 });
-        twibbonTl.to(body, { opacity: 1, y: 0, ease: "power2.out", duration: 0.15 }, 0.15);
-      }
-
-      const card = section.querySelector<HTMLElement>('[data-reveal="twibbon-card"]');
-      if (card) {
-        gsap.set(card, { opacity: 0, y: 60, scale: 0.96 });
-        twibbonTl.to(
-          card,
-          { opacity: 1, y: 0, scale: 1, ease: "power3.out", duration: 0.25 },
-          0.25,
-        );
-      }
-
-      const ornamentBottom = section.querySelector<HTMLElement>(
-        '[data-reveal="twibbon-ornament-bottom"]',
-      );
-      if (ornamentBottom) {
-        gsap.set(ornamentBottom, { opacity: 0, scale: 0.7, y: 25 });
-        twibbonTl.to(
-          ornamentBottom,
-          { opacity: 1, scale: 1, y: 0, ease: "back.out(1.5)", duration: 0.12 },
-          0.4,
-        );
-      }
-
-      const bgGradients = section.querySelectorAll<HTMLElement>(
-        ".twibbon-bg-gradient-1, .twibbon-bg-gradient-2, .twibbon-bg-gradient-3",
-      );
-      bgGradients.forEach((grad, i) => {
-        gsap.to(grad, {
-          y: `${(i + 1) * -15}`,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      });
-    });
-
-    cleanupFns.push(() => ctx.revert());
-    await refreshScrollTrigger();
-  }
-
   async function init() {
     await setupUI();
-    await setupScrollReveal();
+    // Add js-enabled class to activate reveal styles
+    section.classList.add("js-enabled");
   }
 
-  window.addEventListener("splash:gsap-ready", init);
+  // If page was already loaded or GSAP/splash event isn't needed, run it immediately or on DOMContentLoaded
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 
   return () => {
-    window.removeEventListener("splash:gsap-ready", init);
+    document.removeEventListener("DOMContentLoaded", init);
     cleanupFns.forEach((fn) => fn());
   };
 }

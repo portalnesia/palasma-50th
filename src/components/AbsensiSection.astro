@@ -1,6 +1,7 @@
 ---
 import { CONTENT } from "@config/content.ts";
 import { LINKS } from "@config/links.ts";
+import FloatingParticles from "@components/atoms/FloatingParticles.astro";
 
 interface Props {
   useBg?: boolean;
@@ -19,13 +20,7 @@ const { absensi } = CONTENT;
   </div>
 
   {/* ── Floating gold particles ──────────────────────────────── */}
-  <div class="absensi-particles" aria-hidden="true">
-    <span class="absensi-particle absensi-particle-1"></span>
-    <span class="absensi-particle absensi-particle-2"></span>
-    <span class="absensi-particle absensi-particle-3"></span>
-    <span class="absensi-particle absensi-particle-4"></span>
-    <span class="absensi-particle absensi-particle-5"></span>
-  </div>
+  <FloatingParticles prefix="absensi" />
 
   {/* ── Mountain Silhouettes Outline (Premium Nature Decoration) ── */}
   <div class="absensi-mountains" aria-hidden="true" data-reveal="absensi-decor">
@@ -68,7 +63,7 @@ const { absensi } = CONTENT;
 
   <div class="absensi-container">
     {/* ── Top ornamental flourish ──────────────────────────── */}
-    <div class="absensi-ornament-top" data-reveal="absensi-decor" aria-hidden="true">
+    <div class="absensi-ornament-top reveal-on-scroll reveal-fade-down" aria-hidden="true">
       <svg
         class="absensi-flourish"
         viewBox="0 0 200 30"
@@ -104,14 +99,17 @@ const { absensi } = CONTENT;
     </div>
 
     {/* ── Title ──────────────────────────────────────────────── */}
-    <h2 class="absensi-title" data-reveal="absensi-title">
+    <h2 class="absensi-title reveal-on-scroll reveal-fade-up">
       <span class="absensi-title-star" aria-hidden="true">✦</span>
       <span class="absensi-title-text">{absensi.title}</span>
       <span class="absensi-title-star" aria-hidden="true">✦</span>
     </h2>
 
     {/* ── Glass card info ──────────────────────────────── */}
-    <div class="absensi-glass-card" data-reveal="absensi-body">
+    <div
+      class="absensi-glass-card reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 100ms;"
+    >
       <div class="absensi-glass-border"></div>
 
       {/* Corner Ornaments */}
@@ -124,7 +122,10 @@ const { absensi } = CONTENT;
       <p class="absensi-body-paragraph">{absensi.body}</p>
 
       {/* ── Button to Google Form ──────────────────────────────── */}
-      <div class="absensi-btn-wrapper" data-reveal="absensi-btn">
+      <div
+        class="absensi-btn-wrapper reveal-on-scroll reveal-fade-up"
+        style="transition-delay: 200ms;"
+      >
         <a
           id="absensi-form-link"
           href={LINKS.googleForm}
@@ -194,8 +195,7 @@ const { absensi } = CONTENT;
   .absensi-section {
     position: relative;
     z-index: 60;
-    min-height: 100dvh;
-    min-height: -webkit-fill-available;
+    min-height: 110dvh;
     /* Transition from slate twilight to warm earth bronze */
     background: linear-gradient(180deg, #031424 0%, #150e05 100%);
     padding: 8rem 1.5rem 10rem;
@@ -267,81 +267,6 @@ const { absensi } = CONTENT;
     width: 100%;
     height: auto;
     display: block;
-  }
-
-  /* ── Floating particles ────────────────────────────────── */
-  .absensi-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-  }
-
-  .absensi-particle {
-    position: absolute;
-    border-radius: 50%;
-    background: var(--color-gold);
-    opacity: 0;
-    animation: absensi-float linear infinite;
-  }
-
-  .absensi-particle-1 {
-    width: 4px;
-    height: 4px;
-    left: 15%;
-    top: 60%;
-    animation-duration: 9s;
-    animation-delay: 0.5s;
-  }
-  .absensi-particle-2 {
-    width: 6px;
-    height: 6px;
-    left: 28%;
-    top: 75%;
-    animation-duration: 11s;
-    animation-delay: 2s;
-  }
-  .absensi-particle-3 {
-    width: 3px;
-    height: 3px;
-    left: 72%;
-    top: 65%;
-    animation-duration: 8s;
-    animation-delay: 1.2s;
-  }
-  .absensi-particle-4 {
-    width: 5px;
-    height: 5px;
-    left: 82%;
-    top: 40%;
-    animation-duration: 10s;
-    animation-delay: 0.2s;
-  }
-  .absensi-particle-5 {
-    width: 4px;
-    height: 4px;
-    left: 48%;
-    top: 80%;
-    animation-duration: 12s;
-    animation-delay: 3s;
-  }
-
-  @keyframes absensi-float {
-    0% {
-      opacity: 0;
-      transform: translateY(0) scale(0.8);
-    }
-    15% {
-      opacity: 0.4;
-    }
-    85% {
-      opacity: 0.4;
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-100px) scale(0.5);
-    }
   }
 
   /* ── Side decorations ──────────────────────────────────── */

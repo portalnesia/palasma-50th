@@ -2,6 +2,7 @@
 import { CONTENT } from "@config/content.ts";
 import { ASSETS } from "@config/assets.ts";
 import TwibbonUploadCard from "@components/molecules/TwibbonUploadCard.astro";
+import FloatingParticles from "@components/atoms/FloatingParticles.astro";
 
 interface Props {
   useBg?: boolean;
@@ -22,14 +23,7 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
   </div>
 
   {/* ── Floating gold particles ──────────────────────────────── */}
-  <div class="twibbon-particles" aria-hidden="true">
-    <span class="twibbon-particle twibbon-particle-1"></span>
-    <span class="twibbon-particle twibbon-particle-2"></span>
-    <span class="twibbon-particle twibbon-particle-3"></span>
-    <span class="twibbon-particle twibbon-particle-4"></span>
-    <span class="twibbon-particle twibbon-particle-5"></span>
-    <span class="twibbon-particle twibbon-particle-6"></span>
-  </div>
+  <FloatingParticles prefix="twibbon" />
 
   {/* ── Decorative side lines ─────────────────────────────────── */}
   <div class="twibbon-side-decor twibbon-side-left" aria-hidden="true">
@@ -45,7 +39,7 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
 
   <div class="twibbon-container">
     {/* ── Top ornamental flourish ──────────────────────────── */}
-    <div class="twibbon-ornament-top" data-reveal="twibbon-ornament-top" aria-hidden="true">
+    <div class="twibbon-ornament-top reveal-on-scroll reveal-fade-down" aria-hidden="true">
       <svg
         class="twibbon-flourish"
         viewBox="0 0 200 30"
@@ -81,31 +75,40 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
     </div>
 
     {/* ── Title ──────────────────────────────────────────────── */}
-    <h2 class="twibbon-title" data-reveal="twibbon-title">
+    <h2 class="twibbon-title reveal-on-scroll reveal-fade-up">
       <span class="twibbon-title-star" aria-hidden="true">✦</span>
       <span class="twibbon-title-text">{twibbon.title}</span>
       <span class="twibbon-title-star" aria-hidden="true">✦</span>
     </h2>
 
     {/* ── Subtitle ──────────────────────────────────────────── */}
-    <p class="twibbon-subtitle" data-reveal="twibbon-subtitle">
+    <p class="twibbon-subtitle reveal-on-scroll reveal-fade-up" style="transition-delay: 100ms;">
       {twibbon.subtitle}
     </p>
 
     {/* ── Body / persuasive text ────────────────────────────── */}
-    <p class="twibbon-body" data-reveal="twibbon-body">
+    <p class="twibbon-body reveal-on-scroll reveal-fade-up" style="transition-delay: 200ms;">
       {twibbon.body}
     </p>
 
-    <TwibbonUploadCard
-      ctaLabel={twibbon.ctaLabel}
-      downloadLabel={twibbon.downloadLabel}
-      resetLabel={twibbon.resetLabel}
-      frameUrl={twibbonFrameUrl}
-    />
+    <div
+      class="w-full flex justify-center reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 300ms;"
+    >
+      <TwibbonUploadCard
+        ctaLabel={twibbon.ctaLabel}
+        downloadLabel={twibbon.downloadLabel}
+        resetLabel={twibbon.resetLabel}
+        frameUrl={twibbonFrameUrl}
+      />
+    </div>
 
     {/* ── Bottom ornamental flourish ─────────────────────── */}
-    <div class="twibbon-ornament-bottom" data-reveal="twibbon-ornament-bottom" aria-hidden="true">
+    <div
+      class="twibbon-ornament-bottom reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 400ms;"
+      aria-hidden="true"
+    >
       <div class="twibbon-ornament-line"></div>
       <span class="twibbon-ornament-diamond">◆</span>
       <div class="twibbon-ornament-line"></div>
@@ -157,7 +160,6 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
   .twibbon-section {
     position: relative;
     min-height: 100dvh;
-    min-height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -230,71 +232,6 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
     background-size: 256px 256px;
     opacity: 0;
     mix-blend-mode: overlay;
-  }
-
-  .twibbon-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .twibbon-particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(200, 168, 78, 0.8) 0%, rgba(200, 168, 78, 0) 70%);
-    animation: twibbon-float 8s ease-in-out infinite;
-  }
-
-  .twibbon-particle-1 {
-    top: 12%;
-    left: 15%;
-    animation-delay: 0s;
-    animation-duration: 7s;
-  }
-  .twibbon-particle-2 {
-    top: 25%;
-    right: 20%;
-    animation-delay: 1.2s;
-    animation-duration: 9s;
-  }
-  .twibbon-particle-3 {
-    bottom: 30%;
-    left: 10%;
-    animation-delay: 2.4s;
-    animation-duration: 6s;
-  }
-  .twibbon-particle-4 {
-    top: 60%;
-    right: 12%;
-    animation-delay: 0.8s;
-    animation-duration: 10s;
-  }
-  .twibbon-particle-5 {
-    bottom: 15%;
-    left: 40%;
-    animation-delay: 3.1s;
-    animation-duration: 8s;
-  }
-  .twibbon-particle-6 {
-    top: 45%;
-    left: 55%;
-    animation-delay: 1.8s;
-    animation-duration: 7.5s;
-  }
-
-  @keyframes twibbon-float {
-    0%,
-    100% {
-      transform: translateY(0) scale(1);
-      opacity: 0.4;
-    }
-    50% {
-      transform: translateY(-20px) scale(1.3);
-      opacity: 0.9;
-    }
   }
 
   .twibbon-side-decor {

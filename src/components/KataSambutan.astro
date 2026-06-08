@@ -34,40 +34,6 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     <span class="sambutan-particle sambutan-particle-8"></span>
   </div>
 
-  {/* ── Confetti decorations (rise at end) ────────────────── */}
-  <div class="sambutan-confetti" aria-hidden="true">
-    <span class="confetti-piece conf-1" data-reveal="camp-c1"></span>
-    <span class="confetti-piece conf-2" data-reveal="camp-c2"></span>
-    <span class="confetti-piece conf-3" data-reveal="camp-c3"></span>
-    <span class="confetti-piece conf-4" data-reveal="camp-c4"></span>
-    <span class="confetti-piece conf-5" data-reveal="camp-c5"></span>
-    <span class="confetti-piece conf-6" data-reveal="camp-c6"></span>
-    <span class="confetti-piece conf-7" data-reveal="camp-c7"></span>
-    <span class="confetti-piece conf-8" data-reveal="camp-c8"></span>
-    <span class="confetti-piece conf-9" data-reveal="camp-c9"></span>
-    <span class="confetti-piece conf-10" data-reveal="camp-c10"></span>
-    <span class="confetti-piece conf-11" data-reveal="camp-c11"></span>
-    <span class="confetti-piece conf-12" data-reveal="camp-c12"></span>
-    <span class="confetti-piece conf-13" data-reveal="camp-c13"></span>
-    <span class="confetti-piece conf-14" data-reveal="camp-c14"></span>
-    <span class="confetti-piece conf-15" data-reveal="camp-c15"></span>
-    <span class="confetti-piece conf-16" data-reveal="camp-c16"></span>
-    <span class="confetti-piece conf-17" data-reveal="camp-c17"></span>
-    <span class="confetti-piece conf-18" data-reveal="camp-c18"></span>
-    <span class="confetti-piece conf-19" data-reveal="camp-c19"></span>
-    <span class="confetti-piece conf-20" data-reveal="camp-c20"></span>
-    <span class="confetti-piece conf-21" data-reveal="camp-c21"></span>
-    <span class="confetti-piece conf-22" data-reveal="camp-c22"></span>
-    <span class="confetti-piece conf-23" data-reveal="camp-c23"></span>
-    <span class="confetti-piece conf-24" data-reveal="camp-c24"></span>
-    <span class="confetti-piece conf-25" data-reveal="camp-c25"></span>
-    <span class="confetti-piece conf-26" data-reveal="camp-c26"></span>
-    <span class="confetti-piece conf-27" data-reveal="camp-c27"></span>
-    <span class="confetti-piece conf-28" data-reveal="camp-c28"></span>
-    <span class="confetti-piece conf-29" data-reveal="camp-c29"></span>
-    <span class="confetti-piece conf-30" data-reveal="camp-c30"></span>
-  </div>
-
   {/* ── Decorative side lines ─────────────────────────────────── */}
   <div class="sambutan-side-decor sambutan-side-left" aria-hidden="true">
     <div class="sambutan-side-line"></div>
@@ -82,7 +48,7 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
 
   <div class="sambutan-container">
     {/* ── Top ornamental flourish ──────────────────────────── */}
-    <div class="sambutan-ornament-top" data-reveal="sambutan-ornament-top" aria-hidden="true">
+    <div class="sambutan-ornament-top reveal-on-scroll reveal-fade-down" aria-hidden="true">
       <svg
         class="sambutan-flourish"
         viewBox="0 0 200 30"
@@ -118,14 +84,17 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     </div>
 
     {/* ── Title ──────────────────────────────────────────────── */}
-    <h2 class="sambutan-title" data-reveal="sambutan-title">
+    <h2 class="sambutan-title reveal-on-scroll reveal-fade-up">
       <span class="sambutan-title-star" aria-hidden="true">✦</span>
       <span class="sambutan-title-text">{sambutan.title}</span>
       <span class="sambutan-title-star" aria-hidden="true">✦</span>
     </h2>
 
     {/* ── Author photo with glow ─────────────────────────────── */}
-    <div class="sambutan-photo-wrapper" data-reveal="sambutan-photo">
+    <div
+      class="sambutan-photo-wrapper reveal-on-scroll reveal-scale-in"
+      style="transition-delay: 100ms;"
+    >
       <div class="sambutan-photo-glow" aria-hidden="true"></div>
       <div class="sambutan-photo-ring-outer" aria-hidden="true"></div>
       <div class="sambutan-photo-ring-inner" aria-hidden="true"></div>
@@ -139,7 +108,10 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
           height="160"
         />
       </div>
-      <div class="sambutan-author-info" data-reveal="sambutan-author">
+      <div
+        class="sambutan-author-info reveal-on-scroll reveal-fade-up"
+        style="transition-delay: 150ms;"
+      >
         <span class="sambutan-author-name">{sambutan.author}</span>
         <span class="sambutan-author-divider" aria-hidden="true"></span>
         <span class="sambutan-author-role">{sambutan.authorRole}</span>
@@ -150,7 +122,11 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     <SambutanSpeechCard paragraphs={paragraphs} />
 
     {/* ── Bottom ornamental flourish ─────────────────────────── */}
-    <div class="sambutan-ornament-bottom" data-reveal="sambutan-ornament-bottom" aria-hidden="true">
+    <div
+      class="sambutan-ornament-bottom reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 500ms;"
+      aria-hidden="true"
+    >
       <svg
         class="sambutan-flourish"
         viewBox="0 0 200 30"
@@ -185,17 +161,6 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
   </div>
 </section>
 
-<script>
-  import { setupSambutanReveal } from "@utils/sambutan";
-
-  const section = document.getElementById("sambutan")!;
-  const revealCleanup = setupSambutanReveal(section);
-
-  document.addEventListener("astro:before-swap", () => {
-    revealCleanup();
-  });
-</script>
-
 <style>
   /* ===== Kata Sambutan Section ===== */
   .sambutan-section {
@@ -204,7 +169,6 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     background: var(--color-navy);
     padding: 6rem 1.5rem 12rem;
     min-height: 100dvh;
-    min-height: -webkit-fill-available;
     display: flex;
     align-items: center;
     justify-content: center;

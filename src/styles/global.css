@@ -58,6 +58,15 @@ body {
   overflow-x: hidden;
 }
 
+/* Scroll lock utility */
+html.scroll-locked,
+html.scroll-locked body {
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  touch-action: none !important;
+}
+
 h1,
 h2,
 h3,
@@ -72,6 +81,39 @@ h6 {
 .section-gap {
   padding-top: var(--spacing-section);
   padding-bottom: var(--spacing-section);
+}
+
+/* CSS Viewport Reveal Transitions (Ultra-performant, zero-dependency) */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-on-scroll.reveal-fade-down {
+  transform: translateY(-24px);
+}
+
+.reveal-on-scroll.reveal-fade-up {
+  transform: translateY(24px);
+}
+
+.reveal-on-scroll.reveal-scale-in {
+  transform: scale(0.96) translateY(10px);
+}
+
+.reveal-on-scroll.in-view {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+/* Fallback: content fully visible if JS is disabled */
+html:not(.js-enabled) .reveal-on-scroll {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 /* GSAP fallback: content visible without JS */

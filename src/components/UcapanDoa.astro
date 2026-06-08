@@ -88,53 +88,64 @@ const { useBg = false } = Astro.props;
 
   <div class="ucapan-container">
     {/* ── Title ──────────────────────────────────────────────── */}
-    <h2 class="ucapan-title" data-reveal="ucapan-title">
+    <h2 class="ucapan-title reveal-on-scroll reveal-fade-up">
       <span class="ucapan-title-star" aria-hidden="true">✦</span>
       <span class="ucapan-title-text">{ucapan.title}</span>
       <span class="ucapan-title-star" aria-hidden="true">✦</span>
     </h2>
 
     {/* ── Subtitle ──────────────────────────────────────────── */}
-    <p class="ucapan-subtitle" data-reveal="ucapan-subtitle">
+    <p class="ucapan-subtitle reveal-on-scroll reveal-fade-up" style="transition-delay: 100ms;">
       {ucapan.subtitle}
     </p>
 
     {/* ── Golden divider ──────────────────────────────────────── */}
-    <div class="ucapan-divider" data-reveal="ucapan-divider" aria-hidden="true">
+    <div
+      class="ucapan-divider reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 150ms;"
+      aria-hidden="true"
+    >
       <span class="ucapan-divider-line"></span>
       <span class="ucapan-divider-diamond">◆</span>
       <span class="ucapan-divider-line"></span>
     </div>
 
     {/* ── Body / description ────────────────────────────────── */}
-    <p class="ucapan-body" data-reveal="ucapan-body">
+    <p class="ucapan-body reveal-on-scroll reveal-fade-up" style="transition-delay: 200ms;">
       {ucapan.body}
     </p>
 
-    <UcapanFormCard
-      formName={ucapan.formName}
-      formNamePlaceholder={ucapan.formNamePlaceholder}
-      formBatch={ucapan.formBatch}
-      formBatchPlaceholder={ucapan.formBatchPlaceholder}
-      formBatchHint={ucapan.formBatchHint}
-      formOrganization={ucapan.formOrganization}
-      formOrganizationPlaceholder={ucapan.formOrganizationPlaceholder}
-      formOrganizationHint={ucapan.formOrganizationHint}
-      formMessage={ucapan.formMessage}
-      formMessagePlaceholder={ucapan.formMessagePlaceholder}
-      submitLabel={ucapan.submitLabel}
-      submittingLabel={ucapan.submittingLabel}
-      successMessage={ucapan.successMessage}
-      errorMessage={ucapan.errorMessage}
-      maxBatch={maxBatch}
-    />
+    <div
+      class="w-full flex justify-center reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 300ms;"
+    >
+      <UcapanFormCard
+        formName={ucapan.formName}
+        formNamePlaceholder={ucapan.formNamePlaceholder}
+        formBatch={ucapan.formBatch}
+        formBatchPlaceholder={ucapan.formBatchPlaceholder}
+        formBatchHint={ucapan.formBatchHint}
+        formOrganization={ucapan.formOrganization}
+        formOrganizationPlaceholder={ucapan.formOrganizationPlaceholder}
+        formOrganizationHint={ucapan.formOrganizationHint}
+        formMessage={ucapan.formMessage}
+        formMessagePlaceholder={ucapan.formMessagePlaceholder}
+        submitLabel={ucapan.submitLabel}
+        submittingLabel={ucapan.submittingLabel}
+        successMessage={ucapan.successMessage}
+        errorMessage={ucapan.errorMessage}
+        maxBatch={maxBatch}
+      />
+    </div>
 
-    <UcapanGallery
-      galleryTitle="Ucapan dari Sahabat PALASMA"
-      emptyGallery={ucapan.emptyGallery}
-      noMoreMessages={ucapan.noMoreMessages}
-      openFormLabel={ucapan.submitLabel}
-    />
+    <div class="w-full reveal-on-scroll reveal-fade-up" style="transition-delay: 400ms;">
+      <UcapanGallery
+        galleryTitle="Ucapan dari Sahabat PALASMA"
+        emptyGallery={ucapan.emptyGallery}
+        noMoreMessages={ucapan.noMoreMessages}
+        openFormLabel={ucapan.submitLabel}
+      />
+    </div>
 
     {/* ── Supabase unconfigured state ────────────────────────── */}
     <div class="ucapan-unconfigured" id="ucapan-unconfigured" hidden>
@@ -504,21 +515,11 @@ const { useBg = false } = Astro.props;
   })();
 </script>
 
-<script>
-  import { setupUcapanAnimations } from "@utils/ucapan-gsap.ts";
-
-  const section = document.getElementById("ucapan-doa") as HTMLElement;
-  if (section) {
-    setupUcapanAnimations(section);
-  }
-</script>
-
 <style>
   .ucapan-section {
     position: relative;
     width: 100%;
     min-height: 100dvh;
-    min-height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
     align-items: center;

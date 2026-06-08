@@ -91,7 +91,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 5;
+    z-index: 1; /* Positioned behind the main content (z-index: 10) */
     overflow: hidden;
   }
 
@@ -99,17 +99,17 @@
   .bday-cake {
     position: absolute;
     left: 50%;
-    bottom: -120px;
+    bottom: 20px;
     transform: translateX(-50%);
     width: 150px;
-    opacity: 0;
+    opacity: 0.2;
   }
 
   /* Balloons */
   .bday-balloon {
     position: absolute;
-    bottom: -100px;
-    opacity: 0;
+    bottom: 70px;
+    opacity: 0.15;
   }
 
   .bday-balloon-body {
@@ -141,24 +141,28 @@
 
   .bday-balloon-1 {
     left: 10%;
+    bottom: 60px;
   }
   .bday-balloon-2 {
     left: 25%;
+    bottom: 120px;
   }
   .bday-balloon-3 {
     right: 20%;
+    bottom: 130px;
   }
   .bday-balloon-4 {
     right: 8%;
+    bottom: 80px;
   }
 
   /* Party hat */
   .bday-hat {
     position: absolute;
     right: 15%;
-    bottom: -80px;
+    bottom: 30px;
     width: 50px;
-    opacity: 0;
+    opacity: 0.15;
     transform: rotate(-12deg);
   }
 
@@ -166,9 +170,9 @@
   .bday-gift {
     position: absolute;
     left: 12%;
-    bottom: -80px;
+    bottom: 30px;
     width: 70px;
-    opacity: 0;
+    opacity: 0.15;
   }
 
   /* Confetti burst */

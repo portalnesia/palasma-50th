@@ -15,5 +15,5 @@ export const ASSETS = {
     "/assets/images/gallery/photo-5.jpg",
     "/assets/images/gallery/photo-6.jpg",
   ],
-  bgMusic: "/assets/audio/background-music.mp3",
+  bgMusic: "/assets/audio/forever-young.mp3",
 };

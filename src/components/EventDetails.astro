@@ -19,58 +19,6 @@ const { useBg = false } = Astro.props;
 <section id="event-details" class:list={["event-section", { "has-bg-image": useBg }]}>
   <BackgroundLayers />
 
-  {/* ── Balloon decorations (bday-balloon style) ───────── */}
-  <div class="event-balloons" aria-hidden="true">
-    <div class="bday-balloon event-bday-1">
-      <div class="bday-balloon-body" style="background:var(--color-gold);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-2">
-      <div class="bday-balloon-body" style="background:var(--color-earth-moss-light);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-3">
-      <div class="bday-balloon-body" style="background:var(--color-earth-sand);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-4">
-      <div class="bday-balloon-body" style="background:var(--color-gold-light);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-5">
-      <div class="bday-balloon-body" style="background:var(--color-gold);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-6">
-      <div class="bday-balloon-body" style="background:var(--color-earth-moss-light);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-7">
-      <div class="bday-balloon-body" style="background:var(--color-earth-sand);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-8">
-      <div class="bday-balloon-body" style="background:var(--color-gold-light);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-9">
-      <div class="bday-balloon-body" style="background:var(--color-gold);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-10">
-      <div class="bday-balloon-body" style="background:var(--color-earth-moss-light);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-11">
-      <div class="bday-balloon-body" style="background:var(--color-earth-sand);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-    <div class="bday-balloon event-bday-12">
-      <div class="bday-balloon-body" style="background:var(--color-gold-light);"></div>
-      <div class="bday-balloon-string"></div>
-    </div>
-  </div>
-
   <FloatingParticles prefix="event" />
 
   <SideDecor position="left" />
@@ -112,7 +60,10 @@ const { useBg = false } = Astro.props;
       ]}
     />
 
-    <div class="event-maps-wrapper" data-reveal="event-maps">
+    <div
+      class="event-maps-wrapper reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 450ms;"
+    >
       <div class="event-maps-container">
         <iframe
           class="event-maps-embed"
@@ -129,12 +80,7 @@ const { useBg = false } = Astro.props;
 </section>
 
 <script>
-  import { setupEventDetailsReveal, startCountdown } from "@utils/event-details";
-
-  const section = document.getElementById("event-details")!;
-
-  // GSAP scroll reveal
-  const revealCleanup = setupEventDetailsReveal(section);
+  import { startCountdown } from "@utils/event-details";
 
   // Countdown
   const targetDate = new Date("2026-08-29T16:00:00+08:00");
@@ -147,7 +93,6 @@ const { useBg = false } = Astro.props;
   const countdownCleanup = startCountdown(targetDate, elements);
 
   document.addEventListener("astro:before-swap", () => {
-    revealCleanup();
     countdownCleanup();
   });
 </script>
@@ -157,7 +102,6 @@ const { useBg = false } = Astro.props;
   .event-section {
     position: relative;
     min-height: 100dvh;
-    min-height: -webkit-fill-available;
     display: flex;
     align-items: center;
     justify-content: center;

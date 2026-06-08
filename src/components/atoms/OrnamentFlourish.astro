@@ -8,8 +8,14 @@ const isBottom = position === "bottom";
 ---
 
 <div
-  class:list={["event-ornament", `event-ornament-${position}`]}
-  data-reveal={isBottom ? "event-ornament-bottom" : "event-ornament-top"}
+  data-reveal={`event-ornament-${position}`}
+  class:list={[
+    "event-ornament",
+    `event-ornament-${position}`,
+    "reveal-on-scroll",
+    isBottom ? "reveal-fade-up" : "reveal-fade-down",
+  ]}
+  style={isBottom ? "transition-delay: 500ms;" : ""}
   aria-hidden="true"
 >
   <svg class="event-flourish" viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">

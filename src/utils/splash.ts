@@ -11,6 +11,7 @@ export function getRecipientName(searchString: string): string | null {
   return params.get("to");
 }
 
+let playing = false;
 /**
  * Set up a play/pause music toggle.
  * Returns the current playing state getter.
@@ -19,12 +20,21 @@ export function setupMusicToggle(
   audio: HTMLAudioElement,
   iconOn: HTMLElement,
   iconOff: HTMLElement,
-): { isPlaying: () => boolean; toggle: () => Promise<void> } {
-  let playing = false;
-
+): { isPlaying: () => boolean; toggle: () => Promise<void>; turnOn: () => Promise<void> } {
   function updateUI(): void {
     iconOn.classList.toggle("hidden", !playing);
     iconOff.classList.toggle("hidden", playing);
+  }
+
+  async function turnOn(): Promise<void> {
+    try {
+      await audio.play();
+      playing = true;
+    } catch {
+      /* autoplay blocked — noop */
+    }
+    iconOn.classList.remove("hidden");
+    iconOff.classList.add("hidden");
   }
 
   async function toggle(): Promise<void> {
@@ -45,6 +55,7 @@ export function setupMusicToggle(
   return {
     isPlaying: () => playing,
     toggle,
+    turnOn,
   };
 }
 
@@ -52,26 +63,24 @@ export function setupMusicToggle(
  * Bind a CTA button that smooth-scrolls to a target element using GSAP.
  * Returns a cleanup function.
  */
-export function bindCtaScroll(
-  gsap: typeof globalThis.gsap,
-  btn: HTMLElement,
-  targetId: string,
-): () => void {
+export function bindCtaScroll(btn: HTMLElement, targetId: string): () => void {
   function handler(): void {
+    const audio = document.getElementById("bg-music") as HTMLAudioElement;
+    const iconOn = document.getElementById("music-icon-on") as HTMLElement;
+    const iconOff = document.getElementById("music-icon-off") as HTMLElement;
+    const musicToggle = document.getElementById("music-toggle") as HTMLElement;
+
+    // Unlock scroll
+    document.documentElement.classList.remove("scroll-locked");
+    document.body.classList.remove("scroll-locked");
+
     const target = document.getElementById(targetId) as HTMLElement;
     if (target) {
-      const heroTop = target.getBoundingClientRect().top + window.scrollY;
-      // Hero pinned "top top" + "+=100%" → timeline progress = scroll_px / innerHeight
-      // Text lines: 0.04 → 0.10, Mountain: 0.30 → 0.65
-      // Target progress 0.15: all text fully visible, mountain not yet
-      const targetScroll = heroTop + 0.15 * window.innerHeight;
-
-      // Use GSAP to smoothly scroll and keep ScrollTrigger in sync
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: { y: targetScroll, autoKill: false },
-        ease: "power2.out",
-      });
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (audio && iconOn && iconOff && musicToggle && !import.meta.env.PUBLIC_DEV_MUTED_AUDIO) {
+        const music = setupMusicToggle(audio, iconOn, iconOff);
+        music.turnOn();
+      }
     }
   }
 

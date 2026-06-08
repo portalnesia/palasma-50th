@@ -1,33 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-
-vi.mock("@utils/gsap", () => {
-  const mockGsap: any = {
-    context: (fn: () => void) => {
-      fn();
-      return { revert: () => {} };
-    },
-    timeline: () => ({
-      to: vi.fn(),
-      from: vi.fn(),
-      fromTo: vi.fn(),
-      set: vi.fn(),
-    }),
-    from: vi.fn(),
-    to: vi.fn(),
-    set: vi.fn(),
-    fromTo: vi.fn(),
-    registerPlugin: vi.fn(),
-  };
-  return {
-    initGSAP: async () => ({
-      gsap: mockGsap,
-      ScrollTrigger: { refresh: () => {} },
-      ScrollToPlugin: {},
-    }),
-    refreshScrollTrigger: async () => {},
-    setupScrollReveal: async () => {},
-  };
-});
+import { describe, it, expect, beforeEach } from "vitest";
 
 import { setupHeroParallax } from "@utils/hero";
 

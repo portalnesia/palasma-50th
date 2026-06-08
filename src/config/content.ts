@@ -73,6 +73,6 @@ export const CONTENT = {
   },
   footer: {
     text: "© 2026 PALASMA",
-    credit: "Dipersembahkan dengan penuh cinta oleh keluarga besar PALASMA",
+    credit: "Created with ❤️ by ",
   },
 };

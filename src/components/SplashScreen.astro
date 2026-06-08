@@ -47,25 +47,61 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
   {/* ── Main content ──────────────────────────────────────── */}
   <div class="splash-content">
     <img
-      data-splash="emblem"
+      data-splash="name-emblem"
       src={ASSETS.logo.palasma}
       alt="PALASMA Emblem"
-      class="splash-emblem"
+      class="splash-emblem reveal-on-scroll reveal-scale-in"
       width="140"
       height="140"
       loading="eager"
     />
     <div>
-      <div data-splash="50" class="splash-anniversary">50</div>
-      <div data-splash="tahun" class="splash-title">Tahun</div>
-      <div data-splash="palasma" class="splash-subtitle">PALASMA</div>
+      <div
+        data-splash="50"
+        class="splash-anniversary reveal-on-scroll reveal-fade-up"
+        style="transition-delay: 100ms;"
+      >
+        50
+      </div>
+      <div
+        data-splash="tahun"
+        class="splash-title reveal-on-scroll reveal-fade-up"
+        style="transition-delay: 150ms;"
+      >
+        Tahun
+      </div>
+      <div
+        data-splash="palasma"
+        class="splash-subtitle reveal-on-scroll reveal-fade-up"
+        style="transition-delay: 200ms;"
+      >
+        PALASMA
+      </div>
     </div>
     <div>
-      <div data-splash="tagline" class="splash-tagline">Yang Terhormat</div>
-      <div data-splash="name" class="splash-recipient">{recipientName}</div>
+      <div
+        data-splash="tagline"
+        class="splash-tagline reveal-on-scroll reveal-fade-up"
+        style="transition-delay: 250ms;"
+      >
+        Yang Terhormat
+      </div>
+      <div
+        data-splash="name"
+        class="splash-recipient reveal-on-scroll reveal-fade-up"
+        style="transition-delay: 300ms;"
+      >
+        {recipientName}
+      </div>
     </div>
-    <div data-splash="scroll-hint" class="splash-scroll-hint">
-      <span>Buka undangan</span>
+    <button
+      id="splash-scroll-btn"
+      data-splash="scroll-hint"
+      class="splash-scroll-btn reveal-on-scroll reveal-fade-up touch-target"
+      style="transition-delay: 400ms;"
+    >
+      <span class="splash-scroll-btn-glow"></span>
+      <span class="splash-scroll-btn-text">Buka undangan</span>
       <svg
         class="splash-scroll-arrow"
         width="20"
@@ -80,24 +116,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <polyline points="19 12 12 19 5 12"></polyline>
       </svg>
-    </div>
-    <!-- <button data-splash="cta" class="splash-cta touch-target">
-      {splash.buttonLabel}
-      <svg
-        class="splash-cta-icon"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <line x1="12" y1="5" x2="12" y2="19"></line>
-        <polyline points="19 12 12 19 5 12"></polyline>
-      </svg>
-    </button> -->
+    </button>
   </div>
 </section>
 
@@ -106,9 +125,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
   .splash-screen {
     position: relative;
     width: 100%;
-    height: 100dvh;
-    height: -webkit-fill-available;
-    min-height: 600px;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -308,18 +325,65 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
     /* margin-top: 1rem; */
   }
 
-  /* ── Scroll hint ─────────────────────────────────────────── */
-  .splash-scroll-hint {
-    display: flex;
-    flex-direction: column;
+  /* ── Scroll hint button ──────────────────────────────────── */
+  .splash-scroll-btn {
+    position: relative;
+    display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    justify-content: center;
+    gap: 0.75rem;
     margin-top: 1.5rem;
-    color: var(--color-earth-sand);
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
+    padding: 0.95rem 2.2rem;
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+    color: var(--color-navy);
+    border: none;
+    border-radius: 30px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    opacity: 0.6;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(200, 168, 78, 0.3);
+    overflow: hidden;
+    transition:
+      transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      box-shadow 0.3s;
+  }
+
+  .splash-scroll-btn:hover {
+    transform: scale(1.03) translateY(-2px);
+    box-shadow: 0 6px 24px rgba(200, 168, 78, 0.45);
+  }
+
+  .splash-scroll-btn:active {
+    transform: scale(0.98) translateY(1px);
+  }
+
+  .splash-scroll-btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.35) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    transition: 0.75s;
+  }
+
+  .splash-scroll-btn:hover .splash-scroll-btn-glow {
+    animation: shine-btn 1.5s infinite;
+  }
+
+  @keyframes shine-btn {
+    100% {
+      left: 150%;
+    }
   }
 
   .splash-scroll-arrow {
@@ -396,8 +460,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
 </style>
 
 <script>
-  import { initGSAP, refreshScrollTrigger } from "@utils/gsap.ts";
-  import { getRecipientName } from "@utils/splash";
+  import { getRecipientName, bindCtaScroll } from "@utils/splash";
 
   /* ── Client-side recipient name from query param ──────── */
   const urlRecipient = getRecipientName(window.location.search);
@@ -406,284 +469,22 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
     if (nameEl) nameEl.textContent = urlRecipient;
   }
 
-  const section = document.getElementById("splash") as HTMLElement;
-  if (!section) throw new Error("Splash screen section not found");
+  // Bind the scroll button
+  const scrollBtn = document.getElementById("splash-scroll-btn");
+  let cleanupScroll: (() => void) | undefined;
 
-  /* ── GSAP animations ───────────────────────────────────── */
-  await initSplashGSAP();
-
-  async function initSplashGSAP() {
-    const { gsap } = await initGSAP();
-
-    gsap.context(() => {
-      const emblem = section.querySelector('[data-splash="emblem"]');
-      const fifty = section.querySelector('[data-splash="50"]');
-      const tahun = section.querySelector('[data-splash="tahun"]');
-      const palasma = section.querySelector('[data-splash="palasma"]');
-      const tagline = section.querySelector('[data-splash="tagline"]');
-      const name = section.querySelector('[data-splash="name"]');
-      const scrollHint = section.querySelector('[data-splash="scroll-hint"]');
-      const cta = section.querySelector('[data-splash="cta"]');
-      const glow = section.querySelector<HTMLElement>(".splash-glow");
-      const ornament = section.querySelector<HTMLElement>(".splash-ornament");
-
-      const balloons = section.querySelectorAll<HTMLElement>(".splash-balloon");
-      const sparkles = section.querySelectorAll<HTMLElement>(".splash-sparkle");
-      const confetti = section.querySelectorAll<HTMLElement>(".splash-confetti-piece");
-
-      /* ── Birthday decoration elements ─────────────────── */
-      const bdayCake = section.querySelector<HTMLElement>(".bday-cake");
-      const bdayBalloons = section.querySelectorAll<HTMLElement>(".bday-balloon");
-      const bdayHat = section.querySelector<HTMLElement>(".bday-hat");
-      const bdayGift = section.querySelector<HTMLElement>(".bday-gift");
-      const bdayConfetti = section.querySelectorAll<HTMLElement>(".bday-confetti-piece");
-
-      // ── Pinned scrub timeline ──
-      // Phase 1 (0 → 0.05):  content visible (hold — short)
-      // Phase 2 (0.05 → 0.20): birthday decorations appear while text STILL visible
-      // Phase 3 (0.20 → 0.30): text fades out, original decorations fade
-      // Phase 4 (0.30 → 0.75): birthday decorations float up out of viewport
-      // Phase 5 (0.75 → 1.0):  transition to hero (pin release)
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "+=150%",
-          pin: true,
-          pinSpacing: true,
-          scrub: 1,
-        },
-      });
-
-      // ── Phase 2: Birthday decorations APPEAR (0.05 → 0.20) ──
-      // Decorations pop up from bottom while text remains fully visible
-      //
-      // NOTE: CSS positions decorations BELOW viewport (bottom: -Npx).
-      // GSAP y values use translateY: NEGATIVE = move UP into view.
-      // Phase2 end y must bring elements INTO the visible area.
-
-      // Cake: CSS bottom: -120px. y: 130→-220 = starts 130px below, ends ~100px into view
-      if (bdayCake) {
-        tl.fromTo(
-          bdayCake,
-          { y: 130, opacity: 0, scale: 0.7 },
-          { y: -220, opacity: 0.85, scale: 1, ease: "back.out(1.4)", duration: 0.15 },
-          0.05,
-        );
-      }
-
-      // Birthday balloons: CSS bottom: -100px. y: 100→-170
-      bdayBalloons.forEach((balloon, i) => {
-        tl.fromTo(
-          balloon,
-          { y: 100 + i * 5, opacity: 0, rotation: -5 + i * 3, scale: 0.5 },
-          {
-            y: -170 - i * 5,
-            opacity: 0.75,
-            rotation: 5 - i * 3,
-            scale: 1,
-            ease: "back.out(1.7)",
-            duration: 0.13,
-          },
-          0.06 + i * 0.012,
-        );
-      });
-
-      // Party hat: CSS bottom: -80px. y: 100→-140
-      if (bdayHat) {
-        tl.fromTo(
-          bdayHat,
-          { y: 100, opacity: 0, rotation: -20, scale: 0.6 },
-          { y: -140, opacity: 0.7, rotation: 5, scale: 1, ease: "back.out(1.3)", duration: 0.15 },
-          0.07,
-        );
-      }
-
-      // Gift: CSS bottom: -80px. y: 100→-140
-      if (bdayGift) {
-        tl.fromTo(
-          bdayGift,
-          { y: 100, opacity: 0, scale: 0.6 },
-          { y: -140, opacity: 0.65, scale: 1, ease: "back.out(1.3)", duration: 0.15 },
-          0.08,
-        );
-      }
-
-      // Confetti burst
-      bdayConfetti.forEach((piece, i) => {
-        const angle = (i / bdayConfetti.length) * 360;
-        const xDrift = Math.cos((angle * Math.PI) / 180) * 30;
-        tl.fromTo(
-          piece,
-          {
-            y: 80 + Math.random() * 20,
-            x: xDrift,
-            opacity: 0,
-            rotation: -180 + Math.random() * 360,
-            scale: 0,
-          },
-          {
-            y: -100 - Math.random() * 50,
-            x: 0,
-            opacity: 0.5,
-            rotation: Math.random() * 360,
-            scale: 1,
-            ease: "back.out(1.2)",
-            duration: 0.12,
-          },
-          0.09 + i * 0.006,
-        );
-      });
-
-      // ── Phase 3: Text + original decorations fade out (0.20 → 0.30) ──
-
-      if (scrollHint) {
-        tl.to(scrollHint, { opacity: 0, y: -10, ease: "power2.in", duration: 0.06 }, 0.19);
-      }
-
-      if (cta) {
-        tl.to(cta, { opacity: 0, y: -20, ease: "power2.in", duration: 0.08 }, 0.2);
-      }
-
-      if (name) {
-        tl.to(name, { opacity: 0, y: -15, ease: "power2.in", duration: 0.08 }, 0.21);
-      }
-
-      if (tagline) {
-        tl.to(tagline, { opacity: 0, y: -20, ease: "power2.in", duration: 0.08 }, 0.215);
-      }
-
-      if (ornament) {
-        tl.to(ornament, { opacity: 0, scaleX: 0.5, ease: "power2.in", duration: 0.07 }, 0.22);
-      }
-
-      if (palasma) {
-        tl.to(palasma, { opacity: 0, y: -40, ease: "power2.in", duration: 0.08 }, 0.225);
-      }
-
-      if (tahun) {
-        tl.to(tahun, { opacity: 0, y: -30, ease: "power2.in", duration: 0.07 }, 0.23);
-      }
-
-      if (fifty) {
-        tl.to(fifty, { opacity: 0, scale: 1.5, y: -30, ease: "power2.in", duration: 0.1 }, 0.235);
-      }
-
-      if (emblem) {
-        tl.to(
-          emblem,
-          { opacity: 0, scale: 1.8, filter: "blur(4px)", ease: "power2.in", duration: 0.12 },
-          0.24,
-        );
-      }
-
-      if (glow) {
-        tl.to(glow, { opacity: 0, ease: "power2.in", duration: 0.08 }, 0.25);
-      }
-
-      // Original splash balloons float away
-      balloons.forEach((balloon, i) => {
-        tl.to(
-          balloon,
-          {
-            opacity: 0,
-            y: -120 - Math.random() * 80,
-            scale: 0.4,
-            rotation: -20 + Math.random() * 40,
-            ease: "power2.in",
-            duration: 0.12,
-          },
-          0.22 + i * 0.008,
-        );
-      });
-
-      // Original sparkles fade out
-      sparkles.forEach((sparkle) => {
-        tl.to(
-          sparkle,
-          {
-            opacity: 0,
-            scale: 0,
-            ease: "power2.in",
-            duration: 0.06,
-          },
-          0.24,
-        );
-      });
-
-      // Original confetti drift away
-      confetti.forEach((piece, i) => {
-        tl.to(
-          piece,
-          {
-            opacity: 0,
-            y: 50 + Math.random() * 60,
-            rotation: "+=360",
-            ease: "power2.in",
-            duration: 0.1,
-          },
-          0.25 + i * 0.006,
-        );
-      });
-
-      // ── Phase 4: Birthday decorations — quick nudge up, then ride with scroll ──
-      // Small upward kick so they detach from content, overflow:hidden clips the rest.
-
-      if (bdayCake) {
-        tl.to(bdayCake, { y: -80, ease: "power2.out", duration: 0.08 }, 0.3);
-      }
-
-      bdayBalloons.forEach((balloon, i) => {
-        tl.to(
-          balloon,
-          {
-            y: -80 - i * 8,
-            rotation: 10 - i * 5,
-            ease: "power2.out",
-            duration: 0.07,
-          },
-          0.31 + i * 0.003,
-        );
-      });
-
-      if (bdayHat) {
-        tl.to(bdayHat, { y: -80, rotation: 25, ease: "power2.out", duration: 0.08 }, 0.31);
-      }
-
-      if (bdayGift) {
-        tl.to(bdayGift, { y: -80, ease: "power2.out", duration: 0.08 }, 0.31);
-      }
-
-      bdayConfetti.forEach((piece, i) => {
-        const xDrift = Math.random() * 20 - 10;
-        tl.to(
-          piece,
-          {
-            y: -60 - Math.random() * 40,
-            x: xDrift,
-            rotation: "+=180",
-            ease: "power2.out",
-            duration: 0.07,
-          },
-          0.31 + i * 0.003,
-        );
-      });
-    });
-
-    // Brief delay lets the pin spacer settle in layout before refresh.
-    await new Promise<void>((r) => setTimeout(r, 50));
-    await refreshScrollTrigger();
-
-    // Set global flag to avoid race conditions for deferred scripts
-    (window as any).splashGsapReady = true;
-
-    // Signal downstream sections that splash GSAP is ready
-    window.dispatchEvent(new Event("splash:gsap-ready"));
-
-    /* ── CTA scroll → hero visible immediately ─────────────── */
-    //  const ctaBtn = section.querySelector('[data-splash="cta"]') as HTMLElement;
-    // if (ctaBtn) {
-    //   bindCtaScroll(gsap, ctaBtn, "hero");
-    // }
+  if (scrollBtn) {
+    cleanupScroll = bindCtaScroll(scrollBtn, "hero");
   }
+
+  // Set global flag to avoid race conditions for deferred scripts
+  (window as any).splashGsapReady = true;
+
+  // Signal downstream sections that splash GSAP is ready (instantly)
+  window.dispatchEvent(new Event("splash:gsap-ready"));
+
+  // Clean up event listener when Astro swaps content
+  document.addEventListener("astro:before-swap", () => {
+    if (cleanupScroll) cleanupScroll();
+  });
 </script>
