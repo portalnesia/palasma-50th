@@ -9,7 +9,7 @@ interface Props {
 const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
 ---
 
-<div class="twibbon-card" data-reveal="twibbon-card">
+<div class="twibbon-card" data-reveal="twibbon-card" style={`--twibbon-url: url(${frameUrl});`}>
   <div class="twibbon-glass-border" aria-hidden="true"></div>
 
   {/* Corner ornaments */}
@@ -276,7 +276,7 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("/assets/images/twibbon.png");
+    background-image: var(--twibbon-url);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

@@ -1,5 +1,6 @@
 ---
 import { CONTENT } from "@config/content.ts";
+import { ASSETS } from "@config/assets.ts";
 import UcapanFormCard from "@components/molecules/UcapanFormCard.astro";
 import UcapanGallery from "@components/molecules/UcapanGallery.astro";
 import UcapanNoscriptCard from "@components/atoms/UcapanNoscriptCard.astro";
@@ -22,7 +23,11 @@ const { useBg = false } = Astro.props;
 
 <section id="ucapan-doa" class="ucapan-section">
   {/* ── Background layers ──────────────────────────────────── */}
-  <div class:list={["ucapan-bg", { "has-bg-image": useBg }]} aria-hidden="true">
+  <div
+    class:list={["ucapan-bg", { "has-bg-image": useBg }]}
+    aria-hidden="true"
+    style={useBg ? `--bg-url: url(${ASSETS.bg[7]})` : undefined}
+  >
     <div class="ucapan-bg-gradient-1"></div>
     <div class="ucapan-bg-gradient-2"></div>
     <div class="ucapan-bg-gradient-3"></div>
@@ -538,7 +543,7 @@ const { useBg = false } = Astro.props;
   .ucapan-bg.has-bg-image {
     background:
       linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
-      url("/assets/images/bg/7.jpeg") center/cover no-repeat fixed;
+      var(--bg-url) center/cover no-repeat fixed;
   }
 
   .ucapan-bg-gradient-1 {

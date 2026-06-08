@@ -13,7 +13,11 @@ const { sambutan } = CONTENT;
 const paragraphs = parseBodyParagraphs(sambutan.body);
 ---
 
-<section id="sambutan" class:list={["sambutan-section", { "has-bg-image": useBg }]}>
+<section
+  id="sambutan"
+  class:list={["sambutan-section", { "has-bg-image": useBg }]}
+  style={useBg ? `--bg-url: url(${ASSETS.bg[3]})` : undefined}
+>
   {/* ── Background layers ──────────────────────────────────── */}
   <div class="sambutan-bg" aria-hidden="true">
     <div class="sambutan-bg-gradient-1"></div>
@@ -177,7 +181,7 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
   .sambutan-section.has-bg-image {
     background:
       linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
-      url("/assets/images/bg/3.jpeg") center/cover no-repeat fixed;
+      var(--bg-url) center/cover no-repeat fixed;
   }
 
   /* ── Background layers ─────────────────────────────────── */

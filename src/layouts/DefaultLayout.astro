@@ -1,6 +1,6 @@
 ---
 import { SITE } from "@config/site.ts";
-import { ASSETS } from "@config/assets.ts";
+import { ASSETS, getAssetUrl } from "@config/assets.ts";
 import "../styles/global.css";
 
 interface Props {
@@ -18,9 +18,19 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0a1f3e" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png" />
+    <link rel="shortcut icon" href={getAssetUrl("/favicon.ico")} />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href={getAssetUrl("/assets/images/favicon-32x32.png")}
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href={getAssetUrl("/assets/images/favicon-16x16.png")}
+    />
     <title>{title}</title>
 
     <script is:inline>

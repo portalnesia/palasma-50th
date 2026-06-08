@@ -1,4 +1,6 @@
 ---
+import { ASSETS } from "@config/assets.ts";
+
 interface Props {
   useBg?: boolean;
 }
@@ -6,7 +8,11 @@ interface Props {
 const { useBg = false } = Astro.props;
 ---
 
-<div class:list={["hero-bg", { "has-bg-image": useBg }]} aria-hidden="true">
+<div
+  class:list={["hero-bg", { "has-bg-image": useBg }]}
+  aria-hidden="true"
+  style={useBg ? `--bg-url: url(${ASSETS.bg[2]})` : undefined}
+>
   <div class="hero-bg-gradient-1"></div>
   <div class="hero-bg-gradient-2"></div>
   <div class="hero-bg-gradient-3"></div>
@@ -38,7 +44,7 @@ const { useBg = false } = Astro.props;
         rgba(6, 21, 44, 0.55) 50%,
         rgba(10, 31, 62, 0.55) 100%
       ),
-      url("/assets/images/bg/2.jpeg") center/cover no-repeat fixed;
+      var(--bg-url) center/cover no-repeat fixed;
   }
 
   .hero-bg-gradient-1 {

@@ -1,6 +1,7 @@
 ---
 import { CONTENT } from "@config/content.ts";
 import { LINKS } from "@config/links.ts";
+import { ASSETS } from "@config/assets.ts";
 import FloatingParticles from "@components/atoms/FloatingParticles.astro";
 
 interface Props {
@@ -11,7 +12,11 @@ const { useBg = false } = Astro.props;
 const { absensi } = CONTENT;
 ---
 
-<section id="absensi" class:list={["absensi-section", { "has-bg-image": useBg }]}>
+<section
+  id="absensi"
+  class:list={["absensi-section", { "has-bg-image": useBg }]}
+  style={useBg ? `--bg-url: url(${ASSETS.bg[6]})` : undefined}
+>
   {/* ── Background layers (Distinct moss-green and gold glow) ─ */}
   <div class="absensi-bg" aria-hidden="true">
     <div class="absensi-bg-gradient-1"></div>
@@ -208,7 +213,7 @@ const { absensi } = CONTENT;
   .absensi-section.has-bg-image {
     background:
       linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
-      url("/assets/images/bg/6.jpeg") center/cover no-repeat fixed;
+      var(--bg-url) center/cover no-repeat fixed;
   }
 
   /* ── Background layers (Distinct moss-green and gold glow) ── */

@@ -13,7 +13,11 @@ const { twibbon } = CONTENT;
 const twibbonFrameUrl = ASSETS.twibbon.frame;
 ---
 
-<section id="twibbon" class:list={["twibbon-section", { "has-bg-image": useBg }]}>
+<section
+  id="twibbon"
+  class:list={["twibbon-section", { "has-bg-image": useBg }]}
+  style={`--transparent-url: url(${ASSETS.twibbon.bg_edit}); --twibbon-url: url(${ASSETS.twibbon.frame}); --bg-url: url(${ASSETS.bg[5]});`}
+>
   {/* ── Background layers ──────────────────────────────────── */}
   <div class="twibbon-bg" aria-hidden="true">
     <div class="twibbon-bg-gradient-1"></div>
@@ -136,7 +140,7 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
 
     /* Transparent boundary background (like Croppie.tsx) */
     #twibbon .cr-boundary {
-      background-image: url("/assets/images/transparent.jpg") !important;
+      background-image: var(--transparent-url) !important;
       background-size: cover !important;
       background-position: center !important;
     }
@@ -146,7 +150,7 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url("/assets/images/twibbon.png");
+      background-image: var(--twibbon-url);
       background-size: 100% 100%;
       background-repeat: no-repeat;
       background-position: center;
@@ -180,7 +184,7 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
         rgba(6, 21, 44, 0.55) 50%,
         rgba(10, 31, 62, 0.55) 100%
       ),
-      url("/assets/images/bg/5.jpeg") center/cover no-repeat fixed;
+      var(--bg-url) center/cover no-repeat fixed;
   }
 
   .twibbon-bg {

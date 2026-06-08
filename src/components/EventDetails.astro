@@ -1,6 +1,7 @@
 ---
 import { EVENT } from "@config/site.ts";
 import { LINKS } from "@config/links.ts";
+import { ASSETS } from "@config/assets.ts";
 import BackgroundLayers from "@components/atoms/BackgroundLayers.astro";
 import FloatingParticles from "@components/atoms/FloatingParticles.astro";
 import SideDecor from "@components/atoms/SideDecor.astro";
@@ -16,7 +17,11 @@ interface Props {
 const { useBg = false } = Astro.props;
 ---
 
-<section id="event-details" class:list={["event-section", { "has-bg-image": useBg }]}>
+<section
+  id="event-details"
+  class:list={["event-section", { "has-bg-image": useBg }]}
+  style={useBg ? `--bg-url: url(${ASSETS.bg[4]})` : undefined}
+>
   <BackgroundLayers />
 
   <FloatingParticles prefix="event" />
@@ -114,7 +119,7 @@ const { useBg = false } = Astro.props;
   .event-section.has-bg-image {
     background:
       linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
-      url("/assets/images/bg/4.jpeg") center/cover no-repeat;
+      var(--bg-url) center/cover no-repeat;
   }
 
   /* ── Balloon decorations (bday-balloon style) ─────────── */
