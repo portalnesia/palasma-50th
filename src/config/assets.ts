@@ -25,13 +25,20 @@ export const ASSETS = {
     bg_edit: getAssetUrl("/assets/images/transparent.jpg"),
   },
   gallery: [
-    "/assets/images/gallery/photo-1.jpg",
-    "/assets/images/gallery/photo-2.jpg",
-    "/assets/images/gallery/photo-3.jpg",
-    "/assets/images/gallery/photo-4.jpg",
-    "/assets/images/gallery/photo-5.jpg",
-    "/assets/images/gallery/photo-6.jpg",
-  ].map(getAssetUrl),
+    {
+      src: "/assets/images/gallery/1.jpeg",
+      caption: "Momen kebersamaan di tengah petualangan alam bebas.",
+    },
+    {
+      src: "/assets/images/gallery/2.jpeg",
+      caption: "Menembus batas, menapaki puncak-puncak tertinggi.",
+    },
+    { src: "/assets/images/gallery/3.jpeg", caption: "" },
+    { src: "/assets/images/gallery/4.jpeg", caption: "" },
+    { src: "/assets/images/gallery/5.jpeg", caption: "" },
+    { src: "/assets/images/gallery/6.jpeg", caption: "" },
+    { src: "/assets/images/gallery/7.jpeg", caption: "" },
+  ].map((item) => ({ ...item, src: getAssetUrl(item.src) })),
   bgMusic: getAssetUrl("/assets/audio/forever-young.mp3"),
   bg: {
     1: getAssetUrl("/assets/images/bg/1.jpeg"),

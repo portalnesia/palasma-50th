@@ -1,0 +1,2192 @@
+---
+import { ASSETS } from "@config/assets.ts";
+import SectionTitle from "@components/atoms/SectionTitle.astro";
+import OrnamentFlourish from "@components/atoms/OrnamentFlourish.astro";
+import SideDecor from "@components/atoms/SideDecor.astro";
+import FloatingParticles from "@components/atoms/FloatingParticles.astro";
+
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
+const allPhotos = ASSETS.gallery || [];
+
+// 7 Milestone Data matching the 7 photos
+const milestones = [
+  {
+    index: 0,
+    name: "Gerbang Rimba",
+    subName: "Sembalun Starting Point",
+    altitude: 1156,
+    coords: "8°21'15\" S, 116°26'10\" E",
+    temp: "22°C",
+    desc: "Perjalanan dimulai di padang rumput savanna yang membentang tak berujung. Angin berhembus membawa aroma tanah basah dan petualangan yang menanti di ufuk timur Rinjani.",
+    photo: allPhotos[0] || { src: "", caption: "" },
+    caption: "Momen kebersamaan di tengah petualangan alam bebas.",
+  },
+  {
+    index: 1,
+    name: "Savana Emas",
+    subName: "Pos 2 Tenengean",
+    altitude: 1500,
+    coords: "8°22'05\" S, 116°25'40\" E",
+    temp: "26°C",
+    desc: "Langkah kaki berderap di antara ilalang emas setinggi dada. Di kejauhan, bayangan megah Gunung Rinjani tampak kokoh menyapa jiwa-jiwa petualang PALASMA.",
+    photo: allPhotos[1] || { src: "", caption: "" },
+    caption: "Menembus batas, menapaki puncak-puncak tertinggi.",
+  },
+  {
+    index: 2,
+    name: "Cemara Tunggal",
+    subName: "Tanjakan Penyesalan",
+    altitude: 1800,
+    coords: "8°23'10\" S, 116°25'12\" E",
+    temp: "20°C",
+    desc: "Keringat bercucuran membasahi bumi, napas terengah di setiap tanjakan terjal berdebu. Namun di sinilah tekad baja ditempa dan persaudaraan sejati diuji.",
+    photo: allPhotos[2] || { src: "", caption: "" },
+    caption: "",
+  },
+  {
+    index: 3,
+    name: "Plawangan Camp",
+    subName: "Campsite Kawah",
+    altitude: 2639,
+    coords: "8°24'30\" S, 116°24'45\" E",
+    temp: "14°C",
+    desc: "Tenda-tenda berdiri kokoh di tepi kawah. Kabut malam turun perlahan menemani kehangatan api unggun, sementara di atas kepala, rasi bintang berkilau begitu dekat.",
+    photo: allPhotos[3] || { src: "", caption: "" },
+    caption: "",
+  },
+  {
+    index: 4,
+    name: "Segara Anak",
+    subName: "Danau Vulkanik",
+    altitude: 2008,
+    coords: "8°25'15\" S, 116°24'02\" E",
+    temp: "16°C",
+    desc: "Turun ke dasar kawah menuju riak air biru jernih. Tempat membasuh lelah pendakian, memancing ikan mas liar, dan merasakan keagungan kawah purba yang tenang.",
+    photo: allPhotos[4] || { src: "", caption: "" },
+    caption: "",
+  },
+  {
+    index: 5,
+    name: "Letter U",
+    subName: "Jalur Pasir Summit",
+    altitude: 3200,
+    coords: "8°25'45\" S, 116°24'15\" E",
+    temp: "9°C",
+    desc: "Subuh dingin mencubit kulit. Berjalan merayap di atas pasir berkerikil tajam, selangkah naik setengah merosot, berkejaran dengan fajar yang mulai menyembul.",
+    photo: allPhotos[5] || { src: "", caption: "" },
+    caption: "",
+  },
+  {
+    index: 6,
+    name: "Puncak Rinjani",
+    subName: "Summit of Lombok 3,726m",
+    altitude: 3726,
+    coords: "8°25'50\" S, 116°24'20\" E",
+    temp: "4°C",
+    desc: "Berdiri tegak di titik tertinggi. Air mata haru menetes saat mentari pagi memancarkan cahaya keemasan ke seluruh kawah dan samudera awan Nusantara. Kami sampai!",
+    photo: allPhotos[6] || { src: "", caption: "" },
+    caption: "",
+  },
+];
+---
+
+<section id="wilderness-lanterns" class="lanterns-section">
+  {/* ── Background layers ──────────────────────────────────── */}
+  <div
+    class:list={["lanterns-bg", { "has-bg-image": useBg }]}
+    aria-hidden="true"
+    style={useBg ? `--bg-url: url(${ASSETS.bg[7]})` : undefined}
+  >
+    <div class="lanterns-bg-gradient"></div>
+    <div class="lanterns-bg-grain"></div>
+    <div class="lanterns-forest-silhouette"></div>
+  </div>
+
+  {/* ── Floating Firefly Particles ────────────────────────── */}
+  <FloatingParticles prefix="lanterns" count={14} />
+
+  {/* ── Side decorations ───────────────────────────────────── */}
+  <SideDecor position="left" />
+  <SideDecor position="right" />
+
+  <div class="lanterns-container">
+    {/* ── Top flourish ───────────────────────────────────────── */}
+    <OrnamentFlourish position="top" />
+
+    {/* ── Title ──────────────────────────────────────────────── */}
+    <SectionTitle text="Lentera Hutan" />
+
+    {/* ── Subtitle ──────────────────────────────────────────── */}
+    <p class="lanterns-subtitle reveal-on-scroll reveal-fade-up" style="transition-delay: 100ms;">
+      Kenangan hangat yang menggantung indah di bawah keteduhan rimba raya
+    </p>
+
+    {/* ── Divider ────────────────────────────────────────────── */}
+    <div
+      class="lanterns-divider reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 150ms;"
+      aria-hidden="true"
+    >
+      <span class="lanterns-divider-line"></span>
+      <span class="lanterns-divider-diamond">◆</span>
+      <span class="lanterns-divider-line"></span>
+    </div>
+
+    {/* ── Ambient Night Soundscape Controller ────────────────── */}
+    <div
+      class="soundscape-control reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 180ms;"
+    >
+      <button
+        type="button"
+        id="lanterns-sound-toggle"
+        class="sound-toggle-btn"
+        aria-label="Aktifkan Dengung Malam"
+      >
+        <span class="sound-icon-wrapper">
+          <svg
+            class="sound-icon-play"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg
+            class="sound-icon-mute hidden"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </span>
+        <span class="sound-btn-text">Dengung Malam Off</span>
+      </button>
+
+      <div class="sound-visualizer">
+        <span class="bar bar-1"></span>
+        <span class="bar bar-2"></span>
+        <span class="bar bar-3"></span>
+        <span class="bar bar-4"></span>
+        <span class="bar bar-5"></span>
+      </div>
+    </div>
+
+    {/* ── AUTOMATIC HANGING LANTERN CAROUSEL ─────────────────── */}
+    <div class="carousel-wrapper reveal-on-scroll reveal-scale-in" style="transition-delay: 200ms;">
+      {/* Golden progress bar reflecting autoplay timer */}
+      <div class="autoplay-progress-container" aria-hidden="true">
+        <div class="autoplay-progress-bar" id="lantern-timer-progress"></div>
+      </div>
+
+      {/* Manual slide controllers */}
+      <button
+        type="button"
+        class="ctrl-arrow prev"
+        id="lantern-prev-btn"
+        aria-label="Lentera sebelumnya"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="ctrl-arrow next"
+        id="lantern-next-btn"
+        aria-label="Lentera selanjutnya"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      {/* Slide viewport */}
+      <div class="lantern-viewport" id="wilderness-lantern-viewport">
+        <div class="lantern-track" id="wilderness-lantern-track">
+          {
+            milestones.map((ms) => (
+              <div class:list={["lantern-slide", { active: ms.index === 0 }]} data-index={ms.index}>
+                {/* Thin golden chain hanging the card */}
+                <div class="lantern-chain" aria-hidden="true">
+                  <svg width="6" height="60" viewBox="0 0 6 60" fill="none">
+                    <line
+                      x1="3"
+                      y1="0"
+                      x2="3"
+                      y2="60"
+                      stroke="#d4af37"
+                      stroke-width="1.5"
+                      stroke-dasharray="2 3"
+                    />
+                    <circle cx="3" cy="58" r="2" fill="#d4af37" />
+                  </svg>
+                </div>
+
+                <div class="lantern-card">
+                  {/* Gold brass top cap */}
+                  <div class="lantern-cap top-cap" aria-hidden="true">
+                    <span class="cap-bracket" />
+                  </div>
+
+                  <div class="lantern-glass">
+                    {ms.photo.src ? (
+                      <img src={ms.photo.src} alt={ms.name} class="lantern-img" loading="lazy" />
+                    ) : (
+                      <div class="lantern-img-placeholder">
+                        <span>✨</span>
+                      </div>
+                    )}
+
+                    {/* Warm Candle Light overlay filtering the photo */}
+                    <div class="lantern-candle-glow" />
+                    {/* Glass glare highlight */}
+                    <div class="lantern-reflection" />
+                  </div>
+
+                  {/* Gold brass bottom cap */}
+                  <div class="lantern-cap bottom-cap" aria-hidden="true" />
+
+                  {/* Photo Title Overlay */}
+                  <div class="lantern-title-overlay">
+                    <span class="lantern-index">#0{ms.index + 1}</span>
+                    <h4 class="lantern-name">{ms.name}</h4>
+                  </div>
+
+                  {/* Zoom shutter trigger button */}
+                  <button
+                    type="button"
+                    class="lantern-zoom-btn"
+                    data-index={ms.index}
+                    aria-label="Perbesar Lentera Kenangan"
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line x1="11" y1="8" x2="11" y2="14" />
+                      <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    {/* ── Carousel Dot Indicators ────────────────────────────── */}
+    <div
+      class="lantern-dots-strip reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 240ms;"
+    >
+      {
+        milestones.map((ms) => (
+          <button
+            type="button"
+            class:list={["lantern-dot", { active: ms.index === 0 }]}
+            data-index={ms.index}
+            aria-label={`Lihat lentera ${ms.index + 1}`}
+          />
+        ))
+      }
+    </div>
+
+    {/* ── LUXURY LEATHER LOGBOOK (Explorer's Journal) ─────────── */}
+    <div class="logbook-viewport reveal-on-scroll reveal-fade-up" style="transition-delay: 280ms;">
+      <div class="logbook-container">
+        {/* Leather texture bindings */}
+        <div class="logbook-binder" aria-hidden="true">
+          <span class="binder-ring"></span>
+          <span class="binder-ring"></span>
+          <span class="binder-ring"></span>
+        </div>
+
+        <div class="logbook-page">
+          <div class="logbook-header">
+            <div class="logbook-stat">
+              <span class="stat-lbl">ELEVASI</span>
+              <div class="stat-val-group">
+                <span class="stat-val" id="log-alt-num">1156</span>
+                <span class="stat-unit">mdpl</span>
+              </div>
+            </div>
+
+            <div class="logbook-stat">
+              <span class="stat-lbl">TEMPERATUR</span>
+              <span class="stat-val text-emerald-400" id="log-temp-val">22°C</span>
+            </div>
+
+            <div class="logbook-stat">
+              <span class="stat-lbl">KOORDINAT</span>
+              <span class="stat-val text-amber-300 font-mono text-xs" id="log-coords-val"
+                >8°21'15" S, 116°26'10" E</span
+              >
+            </div>
+          </div>
+
+          <div class="logbook-content">
+            <h3 class="logbook-title" id="log-title-text">Gerbang Rimba</h3>
+            <span class="logbook-subtitle" id="log-subtitle-text">Sembalun Starting Point</span>
+            <p class="logbook-description" id="log-desc-text">
+              Perjalanan dimulai di padang rumput savanna yang membentang tak berujung. Angin
+              berhembus membawa aroma tanah basah dan petualangan yang menanti di ufuk timur
+              Rinjani.
+            </p>
+          </div>
+
+          {/* Caption banner quote */}
+          <div class="logbook-caption" id="log-caption-banner">
+            <span class="quote-sign">“</span>
+            <span class="quote-text" id="log-caption-text"
+              >Momen kebersamaan di tengah petualangan alam bebas.</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* ── Bottom flourish ────────────────────────────────────── */}
+    <OrnamentFlourish position="bottom" />
+  </div>
+
+  {/* ── Shutter Lightbox Modal ────────────────────────────── */}
+  <dialog id="lanterns-lightbox" class="w-lightbox-modal" aria-label="Tampilan Lentera Fullscreen">
+    <div class="w-lightbox-backdrop" id="w-lightbox-backdrop"></div>
+    <div class="w-lightbox-content">
+      <button
+        type="button"
+        id="w-lightbox-close"
+        class="w-lightbox-close-btn"
+        aria-label="Tutup Lentera"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        id="w-lightbox-prev"
+        class="w-lightbox-nav-btn w-lightbox-prev-btn"
+        aria-label="Sebelumnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="w-lightbox-frame">
+        {/* Shutter Blades overlay effect */}
+        <div class="shutter-blades" id="w-shutter-blades">
+          <span class="blade"></span><span class="blade"></span>
+          <span class="blade"></span><span class="blade"></span>
+        </div>
+
+        <div class="w-lightbox-lens-ring">
+          <img id="w-lightbox-image" src="" alt="Lentera Kenangan" class="w-lightbox-image" />
+          <div class="w-lightbox-glass-glare"></div>
+        </div>
+
+        <div class="w-lightbox-details">
+          <h4 id="w-lightbox-title" class="w-lightbox-title-text">Gerbang Rimba</h4>
+          <p id="w-lightbox-coords" class="w-lightbox-coords-text">8°21'15" S, 116°26'10" E</p>
+          <p id="w-lightbox-desc" class="w-lightbox-desc-text"></p>
+          <div id="w-lightbox-caption-box" class="w-lightbox-caption-box hidden">
+            <p id="w-lightbox-caption" class="w-lightbox-caption-text"></p>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        id="w-lightbox-next"
+        class="w-lightbox-nav-btn w-lightbox-next-btn"
+        aria-label="Selanjutnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  (function () {
+    "use strict";
+
+    // ── Web Audio API Synthesizer (Forest Ambient Sound) ──
+    class ForestSynth {
+      private ctx: AudioContext | null = null;
+      public isPlaying: boolean = false;
+      private masterGain: GainNode | null = null;
+      private windNoise: AudioBufferSourceNode | null = null;
+      private windFilter: BiquadFilterNode | null = null;
+      private windLFO: OscillatorNode | null = null;
+      private fireHiss: AudioBufferSourceNode | null = null;
+      private fireFilter: BiquadFilterNode | null = null;
+      private fireInterval: any = null;
+      private cricketInterval: any = null;
+
+      start() {
+        if (this.isPlaying) return;
+        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+        if (!AudioContextClass) return;
+
+        this.ctx = new AudioContextClass();
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.setValueAtTime(0, this.ctx.currentTime);
+        this.masterGain.connect(this.ctx.destination);
+        this.masterGain.gain.linearRampToValueAtTime(0.5, this.ctx.currentTime + 1.5);
+
+        this.initWind();
+        this.initCampfire();
+        this.initCrickets();
+        this.isPlaying = true;
+      }
+
+      stop() {
+        if (!this.isPlaying || !this.ctx) return;
+        const stopTime = this.ctx.currentTime + 0.8;
+        this.masterGain?.gain.linearRampToValueAtTime(0, stopTime);
+
+        const currentLFO = this.windLFO;
+        const currentWind = this.windNoise;
+        const currentHiss = this.fireHiss;
+        const currentCtx = this.ctx;
+
+        clearInterval(this.fireInterval);
+        clearInterval(this.cricketInterval);
+
+        setTimeout(() => {
+          try {
+            currentLFO?.stop();
+            currentWind?.stop();
+            currentHiss?.stop();
+            if (currentCtx && currentCtx.state !== "closed") {
+              currentCtx.close();
+            }
+          } catch (e) {}
+        }, 1000);
+        this.isPlaying = false;
+      }
+
+      private createNoiseBuffer(): AudioBuffer {
+        const sampleRate = this.ctx!.sampleRate;
+        const bufferSize = 2 * sampleRate;
+        const noiseBuffer = this.ctx!.createBuffer(1, bufferSize, sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+        return noiseBuffer;
+      }
+
+      private initWind() {
+        if (!this.ctx || !this.masterGain) return;
+        this.windNoise = this.ctx.createBufferSource();
+        this.windNoise.buffer = this.createNoiseBuffer();
+        this.windNoise.loop = true;
+
+        this.windFilter = this.ctx.createBiquadFilter();
+        this.windFilter.type = "lowpass";
+        this.windFilter.frequency.setValueAtTime(280, this.ctx.currentTime);
+        this.windFilter.Q.setValueAtTime(1.0, this.ctx.currentTime);
+
+        const windGain = this.ctx.createGain();
+        windGain.gain.setValueAtTime(0.18, this.ctx.currentTime);
+
+        this.windLFO = this.ctx.createOscillator();
+        this.windLFO.frequency.setValueAtTime(0.04, this.ctx.currentTime);
+
+        const lfoGain = this.ctx.createGain();
+        lfoGain.gain.setValueAtTime(150, this.ctx.currentTime);
+
+        this.windLFO.connect(lfoGain);
+        lfoGain.connect(this.windFilter.frequency);
+
+        this.windNoise.connect(this.windFilter);
+        this.windFilter.connect(windGain);
+        windGain.connect(this.masterGain);
+
+        this.windLFO.start();
+        this.windNoise.start();
+      }
+
+      private initCampfire() {
+        if (!this.ctx || !this.masterGain) return;
+        this.fireHiss = this.ctx.createBufferSource();
+        this.fireHiss.buffer = this.createNoiseBuffer();
+        this.fireHiss.loop = true;
+
+        this.fireFilter = this.ctx.createBiquadFilter();
+        this.fireFilter.type = "bandpass";
+        this.fireFilter.frequency.setValueAtTime(320, this.ctx.currentTime);
+        this.fireFilter.Q.setValueAtTime(1.2, this.ctx.currentTime);
+
+        const hissGain = this.ctx.createGain();
+        hissGain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+
+        this.fireHiss.connect(this.fireFilter);
+        this.fireFilter.connect(hissGain);
+        hissGain.connect(this.masterGain);
+        this.fireHiss.start();
+
+        const hissLFO = this.ctx.createOscillator();
+        hissLFO.frequency.setValueAtTime(1.8, this.ctx.currentTime);
+        const hissLFOGain = this.ctx.createGain();
+        hissLFOGain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+        hissLFO.connect(hissLFOGain);
+        hissLFOGain.connect(hissGain.gain);
+        hissLFO.start();
+
+        this.fireInterval = setInterval(() => {
+          if (this.isPlaying && Math.random() > 0.45) {
+            this.playPop();
+          }
+        }, 140);
+      }
+
+      private playPop() {
+        if (!this.ctx || !this.masterGain) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = "sine";
+        const startFreq = 700 + Math.random() * 1100;
+        osc.frequency.setValueAtTime(startFreq, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + 0.012);
+
+        filter.type = "highpass";
+        filter.frequency.setValueAtTime(550, this.ctx.currentTime);
+
+        gain.gain.setValueAtTime(0.04 + Math.random() * 0.1, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.012);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.018);
+      }
+
+      private initCrickets() {
+        this.cricketInterval = setInterval(() => {
+          if (this.isPlaying && Math.random() > 0.3) {
+            this.playCricketChirp();
+          }
+        }, 1800);
+      }
+
+      private playCricketChirp() {
+        if (!this.ctx || !this.masterGain) return;
+        const time = this.ctx.currentTime;
+        const pulseCount = 3 + Math.floor(Math.random() * 2);
+        const pulseLen = 0.012;
+        const pulseSpacing = 0.03;
+
+        for (let i = 0; i < pulseCount; i++) {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(4100 + Math.random() * 80, time + i * pulseSpacing);
+
+          const pStart = time + i * pulseSpacing;
+          gain.gain.setValueAtTime(0, pStart);
+          gain.gain.linearRampToValueAtTime(0.004, pStart + 0.002);
+          gain.gain.setValueAtTime(0.004, pStart + pulseLen - 0.002);
+          gain.gain.linearRampToValueAtTime(0, pStart + pulseLen);
+
+          osc.connect(gain);
+          gain.connect(this.masterGain);
+
+          osc.start(pStart);
+          osc.stop(pStart + pulseLen + 0.003);
+        }
+      }
+    }
+
+    // Initialize Forest Synth
+    const synth = new ForestSynth();
+    const soundToggleBtn = document.getElementById("lanterns-sound-toggle");
+    const soundBtnText = soundToggleBtn?.querySelector(".sound-btn-text");
+    const visualizer = document.querySelector(".sound-visualizer");
+    const iconPlay = soundToggleBtn?.querySelector(".sound-icon-play");
+    const iconMute = soundToggleBtn?.querySelector(".sound-icon-mute");
+
+    soundToggleBtn?.addEventListener("click", () => {
+      if (!synth.isPlaying) {
+        synth.start();
+        soundToggleBtn.classList.add("playing");
+        if (soundBtnText) soundBtnText.textContent = "Dengung Malam On";
+        visualizer?.classList.add("active");
+        iconPlay?.classList.add("hidden");
+        iconMute?.classList.remove("hidden");
+      } else {
+        synth.stop();
+        soundToggleBtn.classList.remove("playing");
+        if (soundBtnText) soundBtnText.textContent = "Dengung Malam Off";
+        visualizer?.classList.remove("active");
+        iconPlay?.classList.remove("hidden");
+        iconMute?.classList.add("hidden");
+      }
+    });
+
+    // ── Milestone Registry ──
+    const milestoneData = [
+      {
+        index: 0,
+        name: "Gerbang Rimba",
+        subName: "Sembalun Starting Point",
+        altitude: 1156,
+        coords: "8°21'15\" S, 116°26'10\" E",
+        temp: "22°C",
+        desc: "Perjalanan dimulai di padang rumput savanna yang membentang tak berujung. Angin berhembus membawa aroma tanah basah dan petualangan yang menanti di ufuk timur Rinjani.",
+        caption: "Momen kebersamaan di tengah petualangan alam bebas.",
+      },
+      {
+        index: 1,
+        name: "Savana Emas",
+        subName: "Pos 2 Tenengean",
+        altitude: 1500,
+        coords: "8°22'05\" S, 116°25'40\" E",
+        temp: "26°C",
+        desc: "Langkah kaki berderap di antara ilalang emas setinggi dada. Di kejauhan, bayangan megah Gunung Rinjani tampak kokoh menyapa jiwa-jiwa petualang PALASMA.",
+        caption: "Menembus batas, menapaki puncak-puncak tertinggi.",
+      },
+      {
+        index: 2,
+        name: "Cemara Tunggal",
+        subName: "Tanjakan Penyesalan",
+        altitude: 1800,
+        coords: "8°23'10\" S, 116°25'12\" E",
+        temp: "20°C",
+        desc: "Keringat bercucuran membasahi bumi, napas terengah di setiap tanjakan terjal berdebu. Namun di sinilah tekad baja ditempa dan persaudaraan sejati diuji.",
+        caption: "",
+      },
+      {
+        index: 3,
+        name: "Plawangan Camp",
+        subName: "Campsite Kawah",
+        altitude: 2639,
+        coords: "8°24'30\" S, 116°24'45\" E",
+        temp: "14°C",
+        desc: "Tenda-tenda berdiri kokoh di tepi kawah. Kabut malam turun perlahan menemani kehangatan api unggun, sementara di atas kepala, rasi bintang berkilau begitu dekat.",
+        caption: "",
+      },
+      {
+        index: 4,
+        name: "Segara Anak",
+        subName: "Danau Vulkanik",
+        altitude: 2008,
+        coords: "8°25'15\" S, 116°24'02\" E",
+        temp: "16°C",
+        desc: "Turun ke dasar kawah menuju riak air biru jernih. Tempat membasuh lelah pendakian, memancing ikan mas liar, dan merasakan keagungan kawah purba yang tenang.",
+        caption: "",
+      },
+      {
+        index: 5,
+        name: "Letter U",
+        subName: "Jalur Pasir Summit",
+        altitude: 3200,
+        coords: "8°25'45\" S, 116°24'15\" E",
+        temp: "9°C",
+        desc: "Subuh dingin mencubit kulit. Berjalan merayap di atas pasir berkerikil tajam, selangkah naik setengah merosot, berkejaran dengan fajar yang mulai menyembul.",
+        caption: "",
+      },
+      {
+        index: 6,
+        name: "Puncak Rinjani",
+        subName: "Summit of Lombok 3,726m",
+        altitude: 3726,
+        coords: "8°25'50\" S, 116°24'20\" E",
+        temp: "4°C",
+        desc: "Berdiri tegak di titik tertinggi. Air mata haru menetes saat mentari pagi memancarkan cahaya keemasan ke seluruh kawah dan samudera awan Nusantara. Kami sampai!",
+        caption: "",
+      },
+    ];
+
+    // ── Carousel Elements ──
+    const viewport = document.getElementById("wilderness-lantern-viewport");
+    const track = document.getElementById("wilderness-lantern-track") as HTMLDivElement;
+    const slides = document.querySelectorAll(".lantern-slide") as NodeListOf<HTMLDivElement>;
+    const dots = document.querySelectorAll(".lantern-dot") as NodeListOf<HTMLButtonElement>;
+    const timerProgress = document.getElementById("lantern-timer-progress") as HTMLDivElement;
+
+    const prevBtn = document.getElementById("lantern-prev-btn");
+    const nextBtn = document.getElementById("lantern-next-btn");
+
+    // Logbook Refs
+    const altNum = document.getElementById("log-alt-num");
+    const tempVal = document.getElementById("log-temp-val");
+    const coordsVal = document.getElementById("log-coords-val");
+    const titleText = document.getElementById("log-title-text");
+    const subTitleText = document.getElementById("log-subtitle-text");
+    const descText = document.getElementById("log-desc-text");
+    const captionBanner = document.getElementById("log-caption-banner");
+    const captionText = document.getElementById("log-caption-text");
+
+    if (!track || !slides.length || !viewport) return;
+
+    let activeIdx = 0;
+    let currentAltitude = 1156;
+    let altAnimId: any = null;
+
+    // Autoplay Timer Loop variables
+    const slideDuration = 4500; // 4.5s
+    let lastTime = performance.now();
+    let accumulatedTime = 0;
+    let isPaused = false;
+    let userInteractionTimer: any = null;
+
+    // Gesture variables
+    let startX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let isDragging = false;
+
+    // ── Altitude Odometer Animate ──
+    function animateAltitude(targetAlt: number) {
+      if (altAnimId) cancelAnimationFrame(altAnimId);
+      const startAlt = currentAltitude;
+      const diff = targetAlt - startAlt;
+      const duration = 650;
+      const startTime = performance.now();
+
+      function update(now: number) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(startAlt + diff * ease);
+
+        if (altNum) altNum.textContent = value.toString();
+
+        if (progress < 1) {
+          altAnimId = requestAnimationFrame(update);
+        } else {
+          currentAltitude = targetAlt;
+          if (altNum) altNum.textContent = targetAlt.toString();
+        }
+      }
+      altAnimId = requestAnimationFrame(update);
+    }
+
+    // ── Update Slider Position & State ──
+    function updateSlider(idx: number, animate: boolean = true) {
+      if (idx < 0 || idx >= milestoneData.length) return;
+      activeIdx = idx;
+      const data = milestoneData[activeIdx];
+
+      // 1. Update slide active classes
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === activeIdx);
+      });
+
+      // 2. Translate Track
+      if (animate) {
+        track.style.transition = "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
+      } else {
+        track.style.transition = "none";
+      }
+
+      const slideWidth = slides[0].offsetWidth;
+      currentTranslate = -activeIdx * slideWidth;
+      prevTranslate = currentTranslate;
+      track.style.transform = `translateX(${currentTranslate}px)`;
+
+      // 3. Update Dots active class
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === activeIdx);
+      });
+
+      // 4. Update Logbook
+      animateAltitude(data.altitude);
+      if (tempVal) tempVal.textContent = data.temp;
+      if (coordsVal) coordsVal.textContent = data.coords;
+      if (titleText) titleText.textContent = data.name;
+      if (subTitleText) subTitleText.textContent = data.subName;
+      if (descText) descText.textContent = data.desc;
+
+      // Caption banner toggle
+      if (captionBanner && captionText) {
+        if (data.caption) {
+          captionText.textContent = data.caption;
+          captionBanner.classList.remove("hidden");
+        } else {
+          captionBanner.classList.add("hidden");
+        }
+      }
+
+      // Reset autoplay progress counter on slide shift
+      accumulatedTime = 0;
+      if (timerProgress) timerProgress.style.width = "0%";
+    }
+
+    function showNext() {
+      const next = (activeIdx + 1) % milestoneData.length;
+      updateSlider(next);
+    }
+
+    function showPrev() {
+      const prev = (activeIdx - 1 + milestoneData.length) % milestoneData.length;
+      updateSlider(prev);
+    }
+
+    // Controls click
+    prevBtn?.addEventListener("click", () => {
+      showPrev();
+      resetUserTimer();
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      showNext();
+      resetUserTimer();
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        updateSlider(i);
+        resetUserTimer();
+      });
+    });
+
+    // ── AUTOPLAY LOOP (requestAnimationFrame) ──
+    function autoPlayTick(now: number) {
+      if (isDragging) {
+        lastTime = now;
+        requestAnimationFrame(autoPlayTick);
+        return;
+      }
+
+      const delta = now - lastTime;
+      lastTime = now;
+
+      if (!isPaused) {
+        accumulatedTime += delta;
+        const progressPct = Math.min((accumulatedTime / slideDuration) * 100, 100);
+        if (timerProgress) {
+          timerProgress.style.width = `${progressPct}%`;
+        }
+
+        if (accumulatedTime >= slideDuration) {
+          accumulatedTime = 0;
+          showNext();
+        }
+      }
+
+      requestAnimationFrame(autoPlayTick);
+    }
+
+    // Pause on Hover (Desktop)
+    viewport.addEventListener("mouseenter", () => {
+      isPaused = true;
+    });
+    viewport.addEventListener("mouseleave", () => {
+      isPaused = false;
+      lastTime = performance.now();
+    });
+
+    // Pause on Touch (Mobile)
+    viewport.addEventListener(
+      "touchstart",
+      () => {
+        isPaused = true;
+      },
+      { passive: true },
+    );
+    viewport.addEventListener(
+      "touchend",
+      () => {
+        resetUserTimer();
+      },
+      { passive: true },
+    );
+
+    // Reset loop timer after user clicks/swipes
+    function resetUserTimer() {
+      isPaused = true;
+      accumulatedTime = 0;
+      if (timerProgress) timerProgress.style.width = "0%";
+
+      if (userInteractionTimer) clearTimeout(userInteractionTimer);
+      userInteractionTimer = setTimeout(() => {
+        isPaused = false;
+        lastTime = performance.now();
+      }, 5000); // Resume autoplay after 5 seconds of inactivity
+    }
+
+    // Start auto-run loop
+    requestAnimationFrame(autoPlayTick);
+
+    // ── TOUCH SWIPE GESTURES (Parallax Drag) ──
+    function getPositionX(event: TouchEvent | MouseEvent): number {
+      return event.type.includes("mouse")
+        ? (event as MouseEvent).clientX
+        : (event as TouchEvent).touches[0].clientX;
+    }
+
+    function touchStart(event: TouchEvent | MouseEvent) {
+      isDragging = true;
+      startX = getPositionX(event);
+      track.style.transition = "none";
+      isPaused = true;
+    }
+
+    function touchMove(event: TouchEvent | MouseEvent) {
+      if (!isDragging) return;
+      const currentX = getPositionX(event);
+      const diffX = currentX - startX;
+      currentTranslate = prevTranslate + diffX;
+
+      // Friction drag boundaries
+      const maxTrans = 0;
+      const minTrans = -(slides.length - 1) * slides[0].offsetWidth;
+      if (currentTranslate > maxTrans) {
+        currentTranslate = maxTrans + (currentTranslate - maxTrans) * 0.25;
+      } else if (currentTranslate < minTrans) {
+        currentTranslate = minTrans + (currentTranslate - minTrans) * 0.25;
+      }
+
+      track.style.transform = `translateX(${currentTranslate}px)`;
+
+      // Parallax shearing effect inside active slide lantern caps
+      const activeSlide = slides[activeIdx];
+      const card = activeSlide.querySelector(".lantern-card") as HTMLDivElement;
+      if (card) {
+        const img = card.querySelector(".lantern-img") as HTMLImageElement;
+        const capTop = card.querySelector(".top-cap") as HTMLDivElement;
+        const capBottom = card.querySelector(".bottom-cap") as HTMLDivElement;
+
+        if (img) img.style.transform = `scale(1.15) translateX(${diffX * 0.1}px)`;
+        if (capTop) capTop.style.transform = `translateX(${diffX * 0.22}px)`;
+        if (capBottom) capBottom.style.transform = `translateX(${diffX * 0.22}px)`;
+      }
+    }
+
+    function touchEnd() {
+      isDragging = false;
+      const movedBy = currentTranslate - prevTranslate;
+
+      // Reset card layer transformations
+      const activeSlide = slides[activeIdx];
+      const card = activeSlide.querySelector(".lantern-card") as HTMLDivElement;
+      if (card) {
+        const img = card.querySelector(".lantern-img") as HTMLImageElement;
+        const capTop = card.querySelector(".top-cap") as HTMLDivElement;
+        const capBottom = card.querySelector(".bottom-cap") as HTMLDivElement;
+        if (img) {
+          img.style.transition = "transform 0.4s ease";
+          img.style.transform = "scale(1.1) translateX(0px)";
+        }
+        if (capTop) {
+          capTop.style.transition = "transform 0.4s ease";
+          capTop.style.transform = "translateX(0px)";
+        }
+        if (capBottom) {
+          capBottom.style.transition = "transform 0.4s ease";
+          capBottom.style.transform = "translateX(0px)";
+        }
+
+        setTimeout(() => {
+          if (img) img.style.transition = "";
+          if (capTop) capTop.style.transition = "";
+          if (capBottom) capBottom.style.transition = "";
+        }, 400);
+      }
+
+      // Threshold to change slide: 80px
+      if (movedBy < -80 && activeIdx < slides.length - 1) {
+        updateSlider(activeIdx + 1);
+      } else if (movedBy > 80 && activeIdx > 0) {
+        updateSlider(activeIdx - 1);
+      } else {
+        updateSlider(activeIdx);
+      }
+
+      resetUserTimer();
+    }
+
+    viewport.addEventListener("touchstart", touchStart, { passive: true });
+    viewport.addEventListener("touchmove", touchMove, { passive: true });
+    viewport.addEventListener("touchend", touchEnd);
+
+    // Desktop mouse drag support
+    viewport.addEventListener("mousedown", touchStart);
+    viewport.addEventListener("mousemove", touchMove);
+    viewport.addEventListener("mouseup", touchEnd);
+    viewport.addEventListener("mouseleave", () => {
+      if (isDragging) touchEnd();
+    });
+
+    // Handle Resize
+    window.addEventListener("resize", () => {
+      updateSlider(activeIdx, false);
+    });
+
+    // ── LIGHTBOX LOGIC ──
+    const lightbox = document.getElementById("lanterns-lightbox") as HTMLDialogElement;
+    const lightboxImg = document.getElementById("w-lightbox-image") as HTMLImageElement;
+    const lightboxTitle = document.getElementById("w-lightbox-title");
+    const lightboxCoords = document.getElementById("w-lightbox-coords");
+    const lightboxDesc = document.getElementById("w-lightbox-desc");
+    const lightboxCaptionBox = document.getElementById("w-lightbox-caption-box");
+    const lightboxCaptionText = document.getElementById("w-lightbox-caption");
+    const shutterBlades = document.getElementById("w-shutter-blades");
+
+    const closeLightboxBtn = document.getElementById("w-lightbox-close");
+    const lightboxPrevBtn = document.getElementById("w-lightbox-prev");
+    const lightboxNextBtn = document.getElementById("w-lightbox-next");
+    const backdrop = document.getElementById("w-lightbox-backdrop");
+    const zoomBtns = document.querySelectorAll(
+      ".lantern-zoom-btn",
+    ) as NodeListOf<HTMLButtonElement>;
+
+    if (!lightbox || !lightboxImg) return;
+
+    let lightboxActiveIdx = 0;
+
+    function openLightbox(idx: number) {
+      if (idx < 0 || idx >= milestoneData.length) return;
+      lightboxActiveIdx = idx;
+      const data = milestoneData[lightboxActiveIdx];
+
+      // Close Shutter blades animation
+      if (shutterBlades) {
+        shutterBlades.classList.add("shutter-closed");
+      }
+
+      setTimeout(() => {
+        const slide = slides[lightboxActiveIdx];
+        const img = slide.querySelector(".lantern-img") as HTMLImageElement | null;
+        lightboxImg.src = img ? img.src : "";
+
+        if (lightboxTitle) lightboxTitle.textContent = data.name;
+        if (lightboxCoords) lightboxCoords.textContent = data.coords;
+        if (lightboxDesc) lightboxDesc.textContent = data.desc;
+
+        if (lightboxCaptionBox && lightboxCaptionText) {
+          if (data.caption) {
+            lightboxCaptionText.textContent = data.caption;
+            lightboxCaptionBox.classList.remove("hidden");
+          } else {
+            lightboxCaptionBox.classList.add("hidden");
+          }
+        }
+
+        // Open blades
+        if (shutterBlades) {
+          shutterBlades.classList.remove("shutter-closed");
+        }
+      }, 200);
+
+      if (!lightbox.open) {
+        lightbox.showModal();
+        document.body.style.overflow = "hidden";
+      }
+
+      // Sync active state slide
+      if (lightboxActiveIdx !== activeIdx) {
+        updateSlider(lightboxActiveIdx);
+      }
+      resetUserTimer();
+    }
+
+    function closeLightbox() {
+      lightbox.close();
+      document.body.style.overflow = "";
+    }
+
+    function showLightboxNext() {
+      const nextIdx = (lightboxActiveIdx + 1) % milestoneData.length;
+      openLightbox(nextIdx);
+    }
+
+    function showLightboxPrev() {
+      const prevIdx = (lightboxActiveIdx - 1 + milestoneData.length) % milestoneData.length;
+      openLightbox(prevIdx);
+    }
+
+    zoomBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.getAttribute("data-index") || "0", 10);
+        openLightbox(idx);
+      });
+    });
+
+    // Double clicking slide card also opens lightbox
+    slides.forEach((slide, i) => {
+      const card = slide.querySelector(".lantern-card");
+      card?.addEventListener("dblclick", () => {
+        openLightbox(i);
+      });
+    });
+
+    closeLightboxBtn?.addEventListener("click", closeLightbox);
+    lightboxPrevBtn?.addEventListener("click", showLightboxPrev);
+    lightboxNextBtn?.addEventListener("click", showLightboxNext);
+    backdrop?.addEventListener("click", closeLightbox);
+
+    // Keyboard controls
+    window.addEventListener("keydown", (e) => {
+      if (!lightbox.open) return;
+      if (e.key === "ArrowRight") {
+        showLightboxNext();
+      } else if (e.key === "ArrowLeft") {
+        showLightboxPrev();
+      } else if (e.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  })();
+</script>
+
+<style>
+  /* ── General Section styling ── */
+  .lanterns-section {
+    position: relative;
+    width: 100%;
+    z-index: 52;
+    background: linear-gradient(180deg, #040e09 0%, #0c2115 50%, #030805 100%);
+    padding: var(--spacing-section-lg) 0;
+    overflow: hidden;
+  }
+
+  .lanterns-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .lanterns-bg.has-bg-image {
+    background:
+      linear-gradient(180deg, rgba(4, 14, 9, 0.8) 0%, rgba(3, 8, 5, 0.85) 100%),
+      var(--bg-url) center/cover no-repeat fixed;
+  }
+
+  .lanterns-bg-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 55% at 50% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 75%),
+      linear-gradient(180deg, transparent 80%, rgba(4, 14, 9, 0.5) 100%);
+  }
+
+  .lanterns-bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Forest silhouette vector backing */
+  .lanterns-forest-silhouette {
+    position: absolute;
+    bottom: -10px;
+    left: -5%;
+    right: -5%;
+    height: 180px;
+    opacity: 0.06;
+    background-repeat: repeat-x;
+    background-size: contain;
+    background-position: center bottom;
+    background-image: url("data:image/svg+xml,%3Csvg width='300' height='100' viewBox='0 0 300 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 100 L30 40 L50 85 L70 30 L90 75 L110 50 L130 90 L150 20 L170 80 L190 45 L210 70 L230 15 L250 85 L270 35 L290 95 L300 100 Z' fill='%234a7c59'/%3E%3C/svg%3E");
+  }
+
+  /* ── Container ── */
+  .lanterns-container {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 600px) {
+    .lanterns-container {
+      padding: 0 24px;
+    }
+  }
+
+  .lanterns-subtitle {
+    text-align: center;
+    font-size: var(--text-body);
+    color: var(--color-earth-sand);
+    margin: 0 0 0.5rem;
+    opacity: 0.9;
+    padding: 0 12px;
+  }
+
+  .lanterns-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0.75rem 0 2rem;
+  }
+
+  .lanterns-divider-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+  }
+
+  .lanterns-divider-diamond {
+    color: #d4af37;
+    font-size: 0.5rem;
+    opacity: 0.6;
+  }
+
+  /* ── Soundscape Controls ── */
+  .soundscape-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(12, 32, 20, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 30px;
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 3.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .sound-toggle-btn {
+    background: transparent;
+    border: none;
+    color: #f4f6f0;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    outline: none;
+    padding: 0.2rem 0;
+  }
+
+  .sound-toggle-btn.playing {
+    color: #d4af37;
+  }
+
+  .sound-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sound-icon-play,
+  .sound-icon-mute {
+    transition: transform 0.2s;
+  }
+
+  .sound-toggle-btn:hover .sound-icon-play {
+    transform: scale(1.15);
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  /* EQ Visualizer */
+  .sound-visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 14px;
+    width: 25px;
+  }
+
+  .sound-visualizer .bar {
+    width: 3px;
+    height: 3px;
+    background-color: #d4af37;
+    border-radius: 1px;
+    transition: height 0.3s;
+  }
+
+  .sound-visualizer.active .bar {
+    animation: bounce-eq 1.2s ease-in-out infinite alternate;
+  }
+
+  .sound-visualizer.active .bar-1 {
+    animation-delay: 0.1s;
+    animation-duration: 0.8s;
+  }
+  .sound-visualizer.active .bar-2 {
+    animation-delay: 0.3s;
+    animation-duration: 1.1s;
+  }
+  .sound-visualizer.active .bar-3 {
+    animation-delay: 0s;
+    animation-duration: 0.7s;
+  }
+  .sound-visualizer.active .bar-4 {
+    animation-delay: 0.4s;
+    animation-duration: 1.3s;
+  }
+  .sound-visualizer.active .bar-5 {
+    animation-delay: 0.2s;
+    animation-duration: 0.9s;
+  }
+
+  @keyframes bounce-eq {
+    0% {
+      height: 3px;
+    }
+    100% {
+      height: 14px;
+    }
+  }
+
+  /* ── AUTOMATIC LANTERN CAROUSEL ── */
+  .carousel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+  }
+
+  /* Autoplay thin linear gold progress bar */
+  .autoplay-progress-container {
+    width: calc(100% - 40px);
+    margin: 0 auto 1.5rem;
+    height: 2px;
+    background: rgba(212, 175, 55, 0.12);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .autoplay-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #aa841c, #d4af37, #f5e6c8);
+    will-change: width;
+  }
+
+  .lantern-viewport {
+    width: 100%;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+
+  .lantern-viewport:active {
+    cursor: grabbing;
+  }
+
+  .lantern-track {
+    display: flex;
+    width: 100%;
+    transform: translateX(0px);
+    will-change: transform;
+  }
+
+  .lantern-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.3;
+    scale: 0.88;
+    filter: blur(2px) grayscale(0.2);
+    transition:
+      opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+      scale 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+      filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* Swaying hanging lantern animation for inactive cards */
+    animation: lantern-sway-inactive 6s ease-in-out infinite alternate;
+  }
+
+  .lantern-slide.active {
+    opacity: 1;
+    scale: 1;
+    filter: blur(0px) grayscale(0);
+    animation: lantern-sway-active 8s ease-in-out infinite alternate;
+  }
+
+  /* Sways like a real hanging lantern */
+  @keyframes lantern-sway-inactive {
+    0% {
+      transform: rotate(-2deg);
+    }
+    100% {
+      transform: rotate(2deg);
+    }
+  }
+
+  @keyframes lantern-sway-active {
+    0% {
+      transform: rotate(-0.8deg);
+    }
+    100% {
+      transform: rotate(0.8deg);
+    }
+  }
+
+  .lantern-chain {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+  }
+
+  .lantern-card {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 4/5;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75);
+    border-radius: 12px;
+  }
+
+  /* Metallic brass/gold cap decoration */
+  .lantern-cap {
+    height: 14px;
+    background: linear-gradient(
+      90deg,
+      #3d2b0f 0%,
+      #a47d25 30%,
+      #d4af37 50%,
+      #a47d25 70%,
+      #3d2b0f 100%
+    );
+    border: 1px solid #1a1204;
+    position: relative;
+    z-index: 10;
+  }
+
+  .top-cap {
+    border-radius: 12px 12px 0 0;
+  }
+
+  .bottom-cap {
+    border-radius: 0 0 12px 12px;
+  }
+
+  .cap-bracket {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 10px;
+    border: 2px solid #d4af37;
+    border-bottom: none;
+    border-radius: 9px 9px 0 0;
+  }
+
+  .lantern-glass {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    border-left: 2.5px solid #a47d25;
+    border-right: 2.5px solid #a47d25;
+    background: #020704;
+  }
+
+  .lantern-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.95;
+    transform: scale(1.1);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .lantern-slide.active .lantern-img {
+    transform: scale(1.02); /* Ken Burns reset */
+  }
+
+  .lantern-img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #07170e, #020704);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  /* Candle glowing filter overlay inside glass */
+  .lantern-candle-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    mix-blend-mode: color-dodge;
+    background: radial-gradient(circle at center 75%, rgba(212, 175, 55, 0.35) 0%, transparent 65%);
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .lantern-slide.active .lantern-candle-glow {
+    animation: candle-flicker 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes candle-flicker {
+    0% {
+      opacity: 0.65;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scale(1.03);
+    }
+    100% {
+      opacity: 0.55;
+      transform: scale(0.97);
+    }
+  }
+
+  /* Light reflection on glass face */
+  .lantern-reflection {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.01) 35%,
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+
+  /* Title & number tags on card */
+  .lantern-title-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 8;
+    background: linear-gradient(
+      to top,
+      rgba(2, 7, 4, 0.95) 0%,
+      rgba(2, 7, 4, 0.7) 70%,
+      transparent 100%
+    );
+    padding: 2rem 1.25rem 1rem;
+    pointer-events: none;
+  }
+
+  .lantern-index {
+    font-size: 0.6rem;
+    font-family: monospace;
+    font-weight: 800;
+    color: #d4af37;
+    letter-spacing: 0.1em;
+  }
+
+  .lantern-name {
+    font-size: 1rem;
+    font-family: var(--font-heading);
+    color: #f4f6f0;
+    margin: 0.1rem 0 0;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Zoom button trigger */
+  .lantern-zoom-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 9;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(4, 12, 8, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #d4af37;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+  }
+
+  .lantern-zoom-btn:hover {
+    background: #d4af37;
+    color: #040e09;
+    border-color: #ffffff;
+  }
+
+  /* Navigation arrows */
+  .ctrl-arrow {
+    position: absolute;
+    top: 55%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(12, 32, 20, 0.65);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: #f4f6f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 20;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+  }
+
+  .ctrl-arrow:hover {
+    background: #d4af37;
+    color: #040e09;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+  }
+
+  .prev {
+    left: -10px;
+  }
+  .next {
+    right: -10px;
+  }
+
+  @media (min-width: 540px) {
+    .prev {
+      left: -30px;
+    }
+    .next {
+      right: -30px;
+    }
+  }
+
+  /* ── dots indicators ── */
+  .lantern-dots-strip {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 2.5rem;
+  }
+
+  .lantern-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.2);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s;
+  }
+
+  .lantern-dot.active {
+    background: #d4af37;
+    box-shadow: 0 0 8px #d4af37;
+    width: 14px;
+    border-radius: 3px;
+  }
+
+  /* ── LUXURY LEATHER LOGBOOK (Explorer's Journal) ── */
+  .logbook-viewport {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .logbook-container {
+    background: linear-gradient(135deg, #18150e 0%, #0c0a07 100%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+    position: relative;
+  }
+
+  /* binder rings */
+  .logbook-binder {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: -1px;
+    height: 2px;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+  }
+
+  .binder-ring {
+    width: 8px;
+    height: 12px;
+    border: 1.5px solid #d4af37;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    background: #040e09;
+    transform: translateY(-6px);
+  }
+
+  .logbook-page {
+    background: linear-gradient(
+      to right,
+      rgba(212, 175, 55, 0.02),
+      transparent 10%,
+      transparent 90%,
+      rgba(212, 175, 55, 0.02)
+    );
+    border-radius: 12px;
+    padding: 0.5rem 0.25rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logbook-header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .logbook-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .stat-lbl {
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: rgba(244, 246, 240, 0.35);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .stat-val-group {
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+  }
+
+  .stat-val {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #f4f6f0;
+    font-family: monospace;
+  }
+
+  .stat-unit {
+    font-size: 0.6rem;
+    color: rgba(212, 175, 55, 0.7);
+    font-weight: 700;
+    margin-left: 2px;
+  }
+
+  .logbook-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .logbook-title {
+    font-size: 1.2rem;
+    font-family: var(--font-heading);
+    color: #d4af37;
+    margin: 0;
+  }
+
+  .logbook-subtitle {
+    font-size: 0.6rem;
+    color: rgba(244, 246, 240, 0.45);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: 0.1rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .logbook-description {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: rgba(244, 246, 240, 0.75);
+    margin: 0;
+  }
+
+  /* Caption quote */
+  .logbook-caption {
+    display: flex;
+    gap: 6px;
+    background: rgba(212, 175, 55, 0.04);
+    border-left: 2.5px solid #d4af37;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 0.5rem;
+    animation: fade-caption-in 0.4s ease;
+  }
+
+  @keyframes fade-caption-in {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .quote-sign {
+    color: #d4af37;
+    font-size: 1.2rem;
+    line-height: 1;
+    font-family: serif;
+    font-weight: 900;
+  }
+
+  .quote-text {
+    font-size: 0.7rem;
+    line-height: 1.4;
+    font-style: italic;
+    color: rgba(212, 175, 55, 0.95);
+  }
+
+  /* ── LIGHTBOX DIALOG MODAL ── */
+  .w-lightbox-modal {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    z-index: 9999;
+  }
+
+  .w-lightbox-modal[open] {
+    display: flex;
+  }
+
+  .w-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 12, 8, 0.94);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1;
+  }
+
+  .w-lightbox-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 540px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .w-lightbox-close-btn {
+    position: absolute;
+    top: -55px;
+    right: 24px;
+    background: rgba(12, 32, 20, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: #f4f6f0;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+  }
+
+  @media (max-width: 640px) {
+    .w-lightbox-close-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+    }
+  }
+
+  .w-lightbox-close-btn:hover {
+    border-color: #ffffff;
+    color: #ffffff;
+    transform: rotate(90deg);
+  }
+
+  .w-lightbox-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(12, 32, 20, 0.55);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: #f4f6f0;
+    width: 40px;
+    height: 60px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s;
+    outline: none;
+  }
+
+  .w-lightbox-prev-btn {
+    left: -16px;
+    border-radius: 0 8px 8px 0;
+  }
+  .w-lightbox-next-btn {
+    right: -16px;
+    border-radius: 8px 0 0 8px;
+  }
+
+  @media (min-width: 720px) {
+    .w-lightbox-prev-btn {
+      left: -60px;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+    }
+    .w-lightbox-next-btn {
+      right: -60px;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  .w-lightbox-nav-btn:hover {
+    background: #d4af37;
+    border-color: #ffffff;
+    color: #05100a;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  }
+
+  .w-lightbox-frame {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(135deg, #0c2014 0%, #05100a 100%);
+    border: 2px solid rgba(212, 175, 55, 0.35);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .w-lightbox-lens-ring {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+  }
+
+  @media (min-width: 480px) {
+    .w-lightbox-lens-ring {
+      height: 350px;
+    }
+  }
+
+  .w-lightbox-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .w-lightbox-glass-glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+  }
+
+  .w-lightbox-details {
+    padding: 1.25rem;
+    background: #040c08;
+  }
+
+  .w-lightbox-title-text {
+    font-size: 1.2rem;
+    font-family: var(--font-heading);
+    color: #d4af37;
+    margin: 0 0 0.15rem 0;
+  }
+
+  .w-lightbox-coords-text {
+    font-size: 0.65rem;
+    font-family: monospace;
+    color: rgba(212, 175, 55, 0.7);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .w-lightbox-desc-text {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: rgba(244, 246, 240, 0.75);
+    margin: 0;
+  }
+
+  .w-lightbox-caption-box {
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(212, 175, 55, 0.05);
+    border-left: 2px solid #d4af37;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .w-lightbox-caption-text {
+    font-size: 0.7rem;
+    line-height: 1.4;
+    font-style: italic;
+    color: rgba(212, 175, 55, 0.95);
+    margin: 0;
+  }
+
+  /* Shutter Blades overlay */
+  .shutter-blades {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .shutter-blades.shutter-closed {
+    opacity: 1;
+  }
+
+  .shutter-blades .blade {
+    position: absolute;
+    background: #020805;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .shutter-blades .blade:nth-child(1) {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    transform: translateY(-100%);
+  }
+  .shutter-blades .blade:nth-child(2) {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    transform: translateY(100%);
+  }
+  .shutter-blades .blade:nth-child(3) {
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    transform: translateX(-100%);
+  }
+  .shutter-blades .blade:nth-child(4) {
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    transform: translateX(100%);
+  }
+
+  .shutter-closed .blade:nth-child(1) {
+    transform: translateY(0);
+  }
+  .shutter-closed .blade:nth-child(2) {
+    transform: translateY(0);
+  }
+  .shutter-closed .blade:nth-child(3) {
+    transform: translateX(0);
+  }
+  .shutter-closed .blade:nth-child(4) {
+    transform: translateX(0);
+  }
+</style>

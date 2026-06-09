@@ -1,0 +1,1040 @@
+---
+import { ASSETS } from "@config/assets.ts";
+import SectionTitle from "@components/atoms/SectionTitle.astro";
+import OrnamentFlourish from "@components/atoms/OrnamentFlourish.astro";
+import SideDecor from "@components/atoms/SideDecor.astro";
+import FloatingParticles from "@components/atoms/FloatingParticles.astro";
+
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
+const allPhotos = ASSETS.gallery || [];
+
+// Distribute photos into Rinjani checkpoints
+const checkpoints = [
+  {
+    id: "basecamp",
+    altitude: 1156,
+    name: "Basecamp Sembalun",
+    desc: "Titik awal pendakian. Tempat merajut doa, membagi perlengkapan, dan menyatukan tekad sebelum menapaki jalur terjal Rinjani.",
+    photos: allPhotos.slice(0, 2),
+  },
+  {
+    id: "pos2",
+    altitude: 1500,
+    name: "Pos 2 Tenengean",
+    desc: "Menyusuri savanna luas di bawah terik matahari Lombok. Langkah kaki diiringi tiupan angin padang rumput yang menenangkan.",
+    photos: allPhotos.slice(2, 3),
+  },
+  {
+    id: "pos3",
+    altitude: 1800,
+    name: "Pos 3 Padabalong",
+    desc: "Gerbang menuju tanjakan penyesalan. Tanjakan curam yang menguji ketahanan fisik dan mental setiap petualang PALASMA.",
+    photos: allPhotos.slice(3, 4),
+  },
+  {
+    id: "plawangan",
+    altitude: 2639,
+    name: "Plawangan Sembalun",
+    desc: "Cemara dan tebing kawah Segara Anak menyambut hangat di sore hari. Tempat mendirikan tenda dan menghabiskan malam di bawah jutaan bintang.",
+    photos: allPhotos.slice(4, 6),
+  },
+  {
+    id: "summit",
+    altitude: 3726,
+    name: "Puncak Rinjani",
+    desc: "Puncak tertinggi Lombok. Air mata, dinginnya angin subuh, dan rasa lelah terbayar lunas saat menyaksikan keindahan sang surya terbit.",
+    photos: allPhotos.slice(6, 7),
+  },
+];
+---
+
+<section id="expedition" class="expedition-section">
+  {/* ── Background layers ──────────────────────────────────── */}
+  <div
+    class:list={["expedition-bg", { "has-bg-image": useBg }]}
+    aria-hidden="true"
+    style={useBg ? `--bg-url: url(${ASSETS.bg[6]})` : undefined}
+  >
+    <div class="expedition-bg-gradient"></div>
+    <div class="expedition-bg-grain"></div>
+  </div>
+
+  {/* ── Mountain Parallax Layers ───────────────────────────── */}
+  <div class="expedition-parallax" aria-hidden="true">
+    <div class="parallax-layer layer-back" id="p-layer-back"></div>
+    <div class="parallax-layer layer-mid" id="p-layer-mid"></div>
+    <div class="parallax-layer layer-front" id="p-layer-front"></div>
+  </div>
+
+  {/* ── Floating Glowing Fire Embers ──────────────────────── */}
+  <FloatingParticles prefix="expedition" count={12} />
+
+  {/* ── Side decorations ───────────────────────────────────── */}
+  <SideDecor position="left" />
+  <SideDecor position="right" />
+
+  <div class="expedition-container">
+    {/* ── Top flourish ───────────────────────────────────────── */}
+    <OrnamentFlourish position="top" />
+
+    {/* ── Title ──────────────────────────────────────────────── */}
+    <SectionTitle text="Rinjani Expedition Trail" />
+
+    {/* ── Subtitle ──────────────────────────────────────────── */}
+    <p class="expedition-subtitle reveal-on-scroll reveal-fade-up" style="transition-delay: 100ms;">
+      Pilih pos pendakian untuk mendaki ketinggian dan membuka memori petualangan
+    </p>
+
+    {/* ── Divider ────────────────────────────────────────────── */}
+    <div
+      class="expedition-divider reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 150ms;"
+      aria-hidden="true"
+    >
+      <span class="expedition-divider-line"></span>
+      <span class="expedition-divider-diamond">◆</span>
+      <span class="expedition-divider-line"></span>
+    </div>
+
+    {/* ── Main Interactive Board ────────────────────────────── */}
+    <div class="expedition-board reveal-on-scroll reveal-scale-in" style="transition-delay: 200ms;">
+      {/* Topographic Contour Overlay */}
+      <div class="board-topography" aria-hidden="true"></div>
+
+      {/* LEFT PANEL: The Trail Path & Altitude */}
+      <div class="board-left-panel">
+        <div class="altitude-display">
+          <span class="alt-label">ALTITUDE</span>
+          <div class="alt-number-wrapper">
+            <span class="alt-number" id="exp-alt-number">1156</span>
+            <span class="alt-unit">M</span>
+          </div>
+        </div>
+
+        <div class="trail-nav">
+          <div class="trail-line-glow" id="trail-line-glow"></div>
+          <div class="trail-line"></div>
+          {
+            checkpoints.map((cp, idx) => (
+              <button
+                type="button"
+                class:list={["trail-node", { active: idx === 0 }]}
+                data-index={idx}
+                data-altitude={cp.altitude}
+                data-id={cp.id}
+                aria-label={`Pilih pos ${cp.name}`}
+              >
+                <span class="node-dot" />
+                <span class="node-label">
+                  <span class="node-alt">{cp.altitude}m</span>
+                  <span class="node-name">{cp.name}</span>
+                </span>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      {/* RIGHT PANEL: Campsite Memory Cards */}
+      <div class="board-right-panel">
+        {
+          checkpoints.map((cp, cpIdx) => (
+            <div
+              class:list={["campsite-card", { active: cpIdx === 0 }]}
+              id={`card-${cp.id}`}
+              data-index={cpIdx}
+            >
+              <h3 class="campsite-title">{cp.name}</h3>
+              <p class="campsite-desc">{cp.desc}</p>
+
+              <div class="campsite-photos">
+                {cp.photos.map((photo, photoIdx) => (
+                  <button
+                    type="button"
+                    class="campsite-photo-btn"
+                    data-src={photo.src}
+                    data-caption={photo.caption || `${cp.name} - Kenangan Indah`}
+                    data-index={photoIdx}
+                    aria-label="Perbesar foto"
+                  >
+                    <img src={photo.src} alt="" class="campsite-img" />
+                    <span class="campsite-zoom-hover">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        <line x1="11" y1="8" x2="11" y2="14" />
+                        <line x1="8" y1="11" x2="14" y2="11" />
+                      </svg>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* ── Bottom flourish ────────────────────────────────────── */}
+    <OrnamentFlourish position="bottom" />
+  </div>
+
+  {/* ── Expedition Lightbox Modal ──────────────────────────── */}
+  <dialog id="expedition-lightbox" class="e-lightbox-modal" aria-label="Tampilan Penuh Ekspedisi">
+    <div class="e-lightbox-backdrop" id="e-lightbox-backdrop"></div>
+    <div class="e-lightbox-content-wrapper">
+      <button
+        type="button"
+        id="e-lightbox-close"
+        class="e-lightbox-btn e-lightbox-close-btn"
+        aria-label="Tutup Galeri"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        id="e-lightbox-prev"
+        class="e-lightbox-btn e-lightbox-nav-btn e-lightbox-prev-btn"
+        aria-label="Foto Sebelumnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="e-lightbox-frame">
+        <img id="e-lightbox-image" src="" alt="Tampilan Penuh Ekspedisi" class="e-lightbox-image" />
+        <div id="e-lightbox-caption-panel" class="e-lightbox-caption-panel">
+          <p id="e-lightbox-caption" class="e-lightbox-caption-text"></p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        id="e-lightbox-next"
+        class="e-lightbox-btn e-lightbox-nav-btn e-lightbox-next-btn"
+        aria-label="Foto Selanjutnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  (function () {
+    "use strict";
+
+    const nodes = document.querySelectorAll(".trail-node") as NodeListOf<HTMLButtonElement>;
+    const cards = document.querySelectorAll(".campsite-card") as NodeListOf<HTMLDivElement>;
+    const altDisplay = document.getElementById("exp-alt-number");
+    const glowLine = document.getElementById("trail-line-glow");
+
+    // Parallax layers
+    const layerBack = document.getElementById("p-layer-back");
+    const layerMid = document.getElementById("p-layer-mid");
+    const layerFront = document.getElementById("p-layer-front");
+
+    // Lightbox refs
+    const lightbox = document.getElementById("expedition-lightbox") as HTMLDialogElement;
+    const lightboxImg = document.getElementById("e-lightbox-image") as HTMLImageElement;
+    const lightboxCaption = document.getElementById("e-lightbox-caption") as HTMLParagraphElement;
+    const lightboxCaptionPanel = document.getElementById(
+      "e-lightbox-caption-panel",
+    ) as HTMLDivElement;
+    const closeBtn = document.getElementById("e-lightbox-close");
+    const prevBtn = document.getElementById("e-lightbox-prev");
+    const nextBtn = document.getElementById("e-lightbox-next");
+    const backdrop = document.getElementById("e-lightbox-backdrop");
+    const photoBtns = document.querySelectorAll(
+      ".campsite-photo-btn",
+    ) as NodeListOf<HTMLButtonElement>;
+
+    if (!nodes.length || !cards.length || !altDisplay || !glowLine) return;
+
+    let activeIndex = 0;
+    let currentAltitude = parseInt(nodes[0].getAttribute("data-altitude") || "1156", 10);
+    let altTimer: any = null;
+
+    // ── Altitude Odometer Counter ──
+    function animateAltitude(targetAlt: number) {
+      if (altTimer) clearInterval(altTimer);
+
+      const startAlt = currentAltitude;
+      const diff = targetAlt - startAlt;
+      const duration = 800; // ms
+      const startTime = performance.now();
+
+      function update(now: number) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing out cubic
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(startAlt + diff * ease);
+
+        altDisplay!.textContent = value.toString();
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          currentAltitude = targetAlt;
+          altDisplay!.textContent = targetAlt.toString();
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // ── Update Trail & Content Displays ──
+    function selectCheckpoint(index: number) {
+      if (index < 0 || index >= nodes.length) return;
+      activeIndex = index;
+
+      const node = nodes[activeIndex];
+      const targetAlt = parseInt(node.getAttribute("data-altitude") || "1156", 10);
+
+      // 1. Animate Altitude
+      animateAltitude(targetAlt);
+
+      // 2. Update node active class
+      nodes.forEach((n, idx) => {
+        n.classList.toggle("active", idx === activeIndex);
+      });
+
+      // 3. Update trail line glow height
+      const percent = (activeIndex / (nodes.length - 1)) * 100;
+      glowLine!.style.height = `${percent}%`;
+
+      // 4. Update Cards
+      cards.forEach((card, idx) => {
+        card.classList.toggle("active", idx === activeIndex);
+      });
+
+      // 5. Shift Background Parallax Layers
+      const offset = activeIndex * 25; // Shift factor
+      if (layerBack) layerBack.style.transform = `translateY(${offset * 0.2}px)`;
+      if (layerMid) layerMid.style.transform = `translateY(${offset * 0.4}px)`;
+      if (layerFront) layerFront.style.transform = `translateY(${offset * 0.6}px)`;
+    }
+
+    // Attach click events to coordinates nodes
+    nodes.forEach((node, idx) => {
+      node.addEventListener("click", () => {
+        selectCheckpoint(idx);
+      });
+    });
+
+    // ── LIGHTBOX LOGIC ──
+    if (!lightbox || !lightboxImg || !lightboxCaption || !lightboxCaptionPanel) return;
+
+    let activePhotoIndex = 0;
+    const totalPhotos = photoBtns.length;
+
+    function openLightbox(index: number) {
+      if (index < 0 || index >= totalPhotos) return;
+      activePhotoIndex = index;
+
+      const btn = photoBtns[activePhotoIndex];
+      const src = btn.getAttribute("data-src") || "";
+      const caption = btn.getAttribute("data-caption") || "";
+
+      lightboxImg.src = src;
+      lightboxCaption.textContent = caption;
+
+      // Transition modal image
+      const frame = lightboxImg.parentElement;
+      if (frame) {
+        frame.classList.remove("fade-in-active");
+        void lightboxImg.offsetWidth;
+        frame.classList.add("fade-in-active");
+      }
+
+      if (!lightbox.open) {
+        lightbox.showModal();
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    function closeLightbox() {
+      lightbox.close();
+      document.body.style.overflow = "";
+    }
+
+    function showNext() {
+      const nextIdx = (activePhotoIndex + 1) % totalPhotos;
+      openLightbox(nextIdx);
+
+      // Auto-sync coordinates panel if photo belongs to another checkpoint
+      syncCheckpointFromPhoto(nextIdx);
+    }
+
+    function showPrev() {
+      const prevIdx = (activePhotoIndex - 1 + totalPhotos) % totalPhotos;
+      openLightbox(prevIdx);
+
+      syncCheckpointFromPhoto(prevIdx);
+    }
+
+    function syncCheckpointFromPhoto(photoIndex: number) {
+      const btn = photoBtns[photoIndex];
+      const parentCard = btn.closest(".campsite-card");
+      if (parentCard) {
+        const cardIndex = parseInt(parentCard.getAttribute("data-index") || "0", 10);
+        if (cardIndex !== activeIndex) {
+          selectCheckpoint(cardIndex);
+        }
+      }
+    }
+
+    // Attach click events to photos in campsites
+    photoBtns.forEach((btn, idx) => {
+      btn.addEventListener("click", () => {
+        openLightbox(idx);
+      });
+    });
+
+    closeBtn?.addEventListener("click", closeLightbox);
+    prevBtn?.addEventListener("click", showPrev);
+    nextBtn?.addEventListener("click", showNext);
+    backdrop?.addEventListener("click", closeLightbox);
+
+    // Keyboard navigation
+    window.addEventListener("keydown", (e) => {
+      if (!lightbox.open) return;
+      if (e.key === "ArrowRight") {
+        showNext();
+      } else if (e.key === "ArrowLeft") {
+        showPrev();
+      } else if (e.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  })();
+</script>
+
+<style>
+  .expedition-section {
+    position: relative;
+    width: 100%;
+    z-index: 51;
+    background: linear-gradient(180deg, #030b1a 0%, #06152c 50%, #0a1f3e 100%);
+    padding: var(--spacing-section-lg) 0;
+    overflow: hidden;
+  }
+
+  .expedition-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .expedition-bg.has-bg-image {
+    background:
+      linear-gradient(180deg, rgba(3, 11, 26, 0.7) 0%, rgba(10, 31, 62, 0.65) 100%),
+      var(--bg-url) center/cover no-repeat fixed;
+  }
+
+  .expedition-bg-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 55% at 50% 50%, rgba(200, 168, 78, 0.05) 0%, transparent 70%),
+      linear-gradient(180deg, transparent 80%, rgba(10, 31, 62, 0.4) 100%);
+  }
+
+  .expedition-bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ── Mountain Parallax Layers ── */
+  .expedition-parallax {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .parallax-layer {
+    position: absolute;
+    bottom: -50px;
+    left: -10%;
+    right: -10%;
+    height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Forest green stylized peaks */
+  .layer-back {
+    height: 400px;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 300' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 300 L350 80 L750 200 L1100 40 L1440 250 L1440 300 Z' fill='%23c8a84e'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+
+  .layer-mid {
+    height: 320px;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 300' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 300 L250 150 L600 80 L950 220 L1200 110 L1440 300 Z' fill='%234a7c59'/%3E%3C/svg%3E");
+    z-index: 2;
+  }
+
+  .layer-front {
+    height: 240px;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 300' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 300 L180 180 L480 230 L800 120 L1150 210 L1440 300 Z' fill='%230a1f3e'/%3E%3C/svg%3E");
+    z-index: 3;
+  }
+
+  /* ── Container ── */
+  .expedition-container {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .expedition-subtitle {
+    text-align: center;
+    font-size: var(--text-body);
+    color: var(--color-earth-sand);
+    margin: 0 0 0.5rem;
+    opacity: 0.9;
+  }
+
+  .expedition-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0.75rem 0 3.5rem;
+  }
+
+  .expedition-divider-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 168, 78, 0.5), transparent);
+  }
+
+  .expedition-divider-diamond {
+    color: var(--color-gold);
+    font-size: 0.5rem;
+    opacity: 0.6;
+  }
+
+  /* ── Main Interactive Board ── */
+  .expedition-board {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(
+      135deg,
+      rgba(10, 31, 62, 0.6) 0%,
+      rgba(5, 10, 24, 0.45) 50%,
+      rgba(10, 31, 62, 0.55) 100 *
+    );
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(200, 168, 78, 0.15);
+    border-radius: 20px;
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.6),
+      inset 0 0 30px rgba(200, 168, 78, 0.05);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  /* Topography contour ornament background inside board */
+  .board-topography {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 20 C30 10 50 30 70 20 C70 40 40 50 10 20 Z M20 40 C40 30 60 50 80 40' stroke='%23c8a84e' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* LEFT PANEL: The Trail Path & Altitude */
+  .board-left-panel {
+    width: 100%;
+    padding: 2.5rem 2rem;
+    border-bottom: 1px solid rgba(200, 168, 78, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+  }
+
+  .altitude-display {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+
+  .alt-label {
+    font-size: 0.65rem;
+    color: var(--color-gold);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+
+  .alt-number-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+  }
+
+  .alt-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-earth-cream);
+    font-family: monospace;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    text-shadow: 0 0 15px rgba(245, 230, 200, 0.2);
+  }
+
+  .alt-unit {
+    font-size: 1rem;
+    color: var(--color-gold);
+    font-weight: 700;
+  }
+
+  /* Vertical Trail Navigator */
+  .trail-nav {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .trail-line {
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: rgba(200, 168, 78, 0.15);
+    z-index: 1;
+  }
+
+  .trail-line-glow {
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-gold-light), var(--color-gold));
+    height: 0%;
+    z-index: 2;
+    box-shadow: 0 0 8px var(--color-gold);
+    transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .trail-node {
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 3;
+  }
+
+  .node-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-navy-900);
+    border: 2px solid rgba(200, 168, 78, 0.4);
+    position: absolute;
+    left: -1.5rem;
+    transition:
+      background 0.3s,
+      border-color 0.3s,
+      transform 0.3s,
+      box-shadow 0.3s;
+  }
+
+  .trail-node.active .node-dot {
+    background: var(--color-gold-light);
+    border-color: var(--color-gold);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px var(--color-gold);
+  }
+
+  .node-label {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+  }
+
+  .node-alt {
+    font-size: 0.65rem;
+    color: var(--color-gold);
+    font-weight: 700;
+  }
+
+  .node-name {
+    font-size: 0.85rem;
+    color: rgba(245, 230, 200, 0.75);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+
+  .trail-node:hover .node-name {
+    color: var(--color-earth-cream);
+  }
+
+  .trail-node.active .node-name {
+    color: var(--color-gold-light);
+    font-weight: 700;
+  }
+
+  /* RIGHT PANEL: Campsite Memory Cards */
+  .board-right-panel {
+    flex: 1;
+    padding: 2.5rem 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .campsite-card {
+    position: absolute;
+    inset: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(20px) scale(0.98);
+    transition:
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .campsite-card.active {
+    position: relative;
+    inset: auto;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+  }
+
+  .campsite-title {
+    font-size: 1.5rem;
+    color: var(--color-gold-light);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-heading);
+  }
+
+  .campsite-desc {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(212, 184, 134, 0.8);
+    margin-bottom: 1.5rem;
+  }
+
+  .campsite-photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .campsite-photo-btn {
+    position: relative;
+    border: 1px solid rgba(200, 168, 78, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+    background: rgba(10, 31, 62, 0.4);
+    padding: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s;
+  }
+
+  .campsite-photo-btn:hover {
+    border-color: rgba(200, 168, 78, 0.5);
+    box-shadow: 0 0 15px rgba(200, 168, 78, 0.2);
+  }
+
+  .campsite-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .campsite-photo-btn:hover .campsite-img {
+    transform: scale(1.05);
+  }
+
+  .campsite-zoom-hover {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 10, 24, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold-light);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .campsite-photo-btn:hover .campsite-zoom-hover {
+    opacity: 1;
+  }
+
+  /* Responsive Board Split layout */
+  @media (min-width: 768px) {
+    .expedition-board {
+      flex-direction: row;
+    }
+
+    .board-left-panel {
+      width: 280px;
+      border-bottom: none;
+      border-right: 1px solid rgba(200, 168, 78, 0.15);
+    }
+
+    .campsite-photos {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ── Lightbox Modal ── */
+  .e-lightbox-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    z-index: 2000;
+    overflow: hidden;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+  }
+
+  .e-lightbox-modal[open] {
+    display: flex;
+  }
+
+  .e-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 8, 20, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1;
+  }
+
+  .e-lightbox-content-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .e-lightbox-frame {
+    position: relative;
+    max-width: 900px;
+    max-height: 75vh;
+    border-radius: 16px;
+    border: 1px solid rgba(200, 168, 78, 0.25);
+    background: #030b1a;
+    box-shadow:
+      0 25px 50px -12px rgba(0, 0, 0, 0.8),
+      0 0 40px rgba(200, 168, 78, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: scale(0.95);
+    transition:
+      opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .e-lightbox-content-wrapper .fade-in-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .e-lightbox-image {
+    max-width: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    background: #020612;
+  }
+
+  .e-lightbox-caption-panel {
+    background: linear-gradient(180deg, rgba(10, 31, 62, 0.9) 0%, rgba(3, 11, 26, 0.95) 100%);
+    border-top: 1px solid rgba(200, 168, 78, 0.15);
+    padding: 1rem 1.5rem;
+    width: 100%;
+  }
+
+  .e-lightbox-caption-text {
+    font-size: 0.9rem;
+    color: var(--color-earth-cream);
+    line-height: 1.5;
+    font-style: italic;
+    text-align: center;
+    margin: 0;
+  }
+
+  .e-lightbox-btn {
+    position: absolute;
+    background: rgba(10, 31, 62, 0.6);
+    border: 1px solid rgba(200, 168, 78, 0.3);
+    color: var(--color-earth-cream);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background 0.2s,
+      border-color 0.2s,
+      color 0.2s,
+      transform 0.2s;
+    z-index: 10;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .e-lightbox-btn:hover {
+    background: rgba(10, 31, 62, 0.9);
+    border-color: var(--color-gold);
+    color: var(--color-gold-light);
+    transform: scale(1.05);
+  }
+
+  .e-lightbox-close-btn {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+  }
+
+  .e-lightbox-nav-btn {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+  }
+
+  .e-lightbox-nav-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .e-lightbox-prev-btn {
+    left: 2rem;
+  }
+
+  .e-lightbox-next-btn {
+    right: 2rem;
+  }
+
+  /* Responsive adjustments for lightbox */
+  @media (max-width: 768px) {
+    .e-lightbox-nav-btn {
+      display: none;
+    }
+
+    .e-lightbox-content-wrapper {
+      padding: 1rem;
+    }
+
+    .e-lightbox-frame {
+      max-height: 80vh;
+    }
+
+    .e-lightbox-image {
+      max-height: 70vh;
+    }
+
+    .e-lightbox-close-btn {
+      top: 1rem;
+      right: 1rem;
+      width: 42px;
+      height: 42px;
+    }
+  }
+</style>

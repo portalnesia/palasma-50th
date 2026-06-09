@@ -1,0 +1,933 @@
+---
+import { ASSETS } from "@config/assets.ts";
+import SectionTitle from "@components/atoms/SectionTitle.astro";
+import OrnamentFlourish from "@components/atoms/OrnamentFlourish.astro";
+import SideDecor from "@components/atoms/SideDecor.astro";
+import FloatingParticles from "@components/atoms/FloatingParticles.astro";
+
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
+const polaroidItems = ASSETS.gallery || [];
+
+// Pre-defined static rotations to keep the HTML render consistent
+const rotations = [-2, 1.5, -3, 2, -1, 2.5, -1.5];
+const delays = [100, 150, 200, 250, 300, 350, 400];
+
+const defaultQuotes = [
+  "Petualangan mengajarkan kita tentang kerendahan hati di hadapan keagungan alam.",
+  "Di puncak gunung, kita tidak menaklukkan alam, melainkan menaklukkan ego diri sendiri.",
+  "Setengah abad merajut mimpi di antara belantara dan samudera kebersamaan.",
+  "Bukan tentang puncaknya, melainkan setiap langkah dan tawa yang kita bagi bersama.",
+  "Alam adalah rumah, petualangan adalah guru, dan persaudaraan adalah abadi.",
+  "Persahabatan sejati ditempa oleh badai gunung dan dinginnya malam di tenda kebersamaan.",
+  "Jejak kaki yang tertinggal di jalan setapak belantara adalah bukti persaudaraan abadi.",
+];
+---
+
+<!-- Load beautiful handwriting Google Font specifically for Polaroids -->
+<link
+  href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Architects+Daughter&display=swap"
+  rel="stylesheet"
+/>
+
+<section id="polaroid-gallery" class="polaroid-section">
+  {/* ── Background layers ──────────────────────────────────── */}
+  <div
+    class:list={["polaroid-bg", { "has-bg-image": useBg }]}
+    aria-hidden="true"
+    style={useBg ? `--bg-url: url(${ASSETS.bg[5]})` : undefined}
+  >
+    <div class="polaroid-bg-gradient-1"></div>
+    <div class="polaroid-bg-gradient-2"></div>
+    <div class="polaroid-bg-gradient-3"></div>
+    <div class="polaroid-bg-grain"></div>
+  </div>
+
+  {/* ── Floating gold particles ──────────────────────────────── */}
+  <FloatingParticles prefix="polaroid" />
+
+  {/* ── Decorative side lines ─────────────────────────────────── */}
+  <SideDecor position="left" />
+  <SideDecor position="right" />
+
+  <div class="polaroid-container">
+    {/* ── Top flourish ───────────────────────────────────────── */}
+    <OrnamentFlourish position="top" />
+
+    {/* ── Title ──────────────────────────────────────────────── */}
+    <SectionTitle text="Galeri Sejarah & Polaroid" />
+
+    {/* ── Subtitle ──────────────────────────────────────────── */}
+    <p class="polaroid-subtitle reveal-on-scroll reveal-fade-up" style="transition-delay: 100ms;">
+      Sentuh dan balik foto untuk melihat lembar kenangan di balik lensa
+    </p>
+
+    {/* ── Divider ────────────────────────────────────────────── */}
+    <div
+      class="polaroid-divider reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 150ms;"
+      aria-hidden="true"
+    >
+      <span class="polaroid-divider-line"></span>
+      <span class="polaroid-divider-diamond">◆</span>
+      <span class="polaroid-divider-line"></span>
+    </div>
+
+    {/* ── Polaroid Grid Collage ──────────────────────────────── */}
+    <div class="polaroid-grid">
+      {
+        polaroidItems.map((item, idx) => {
+          const rotation = rotations[idx % rotations.length];
+          const delay = delays[idx % delays.length];
+          const quote = defaultQuotes[idx % defaultQuotes.length];
+
+          return (
+            <div
+              class="polaroid-card-wrapper reveal-on-scroll reveal-scale-in"
+              style={`transition-delay: ${delay}ms; --rotate: ${rotation}deg;`}
+            >
+              <div class="polaroid-card" data-index={idx}>
+                <div class="polaroid-card-inner">
+                  {/* FRONT FACE */}
+                  <div class="polaroid-front">
+                    <div class="polaroid-tape" />
+                    <div class="polaroid-photo-frame">
+                      <img
+                        src={item.src}
+                        alt={item.caption || `Kenangan PALASMA ${idx + 1}`}
+                        class="polaroid-photo"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div class="polaroid-shimmer" />
+                    </div>
+                    <div class="polaroid-caption-area">
+                      <p class="polaroid-handwriting">
+                        {item.caption ? "Kenangan Indah" : `Kenangan ke-${idx + 1}`}
+                      </p>
+                    </div>
+                    <div class="polaroid-actions">
+                      <button
+                        type="button"
+                        class="polaroid-btn btn-flip"
+                        aria-label="Detail cerita foto"
+                      >
+                        ✦ Cerita
+                      </button>
+                      <button
+                        type="button"
+                        class="polaroid-btn btn-zoom"
+                        data-src={item.src}
+                        data-caption={item.caption || quote}
+                        aria-label="Perbesar foto"
+                      >
+                        🔍 Zoom
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* BACK FACE */}
+                  <div class="polaroid-back">
+                    <div class="polaroid-tape" />
+                    <div class="polaroid-back-content">
+                      <div class="polaroid-crest" aria-hidden="true">
+                        <span class="crest-gold">✦</span>
+                        <span class="crest-title">PALASMA 50th</span>
+                        <span class="crest-gold">✦</span>
+                      </div>
+                      <p class="polaroid-story">{item.caption ? item.caption : quote}</p>
+                      <button
+                        type="button"
+                        class="polaroid-btn btn-flip-back"
+                        aria-label="Kembali ke depan"
+                      >
+                        Kembali
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    {/* ── Bottom flourish ────────────────────────────────────── */}
+    <OrnamentFlourish position="bottom" />
+  </div>
+
+  {/* ── Polaroid Lightbox Modal ────────────────────────────── */}
+  <dialog id="polaroid-lightbox" class="p-lightbox-modal" aria-label="Tampilan Penuh Polaroid">
+    <div class="p-lightbox-backdrop" id="p-lightbox-backdrop"></div>
+    <div class="p-lightbox-content-wrapper">
+      <button
+        type="button"
+        id="p-lightbox-close"
+        class="p-lightbox-btn p-lightbox-close-btn"
+        aria-label="Tutup Galeri"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        id="p-lightbox-prev"
+        class="p-lightbox-btn p-lightbox-nav-btn p-lightbox-prev-btn"
+        aria-label="Foto Sebelumnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="p-lightbox-frame">
+        <img id="p-lightbox-image" src="" alt="Tampilan Penuh Polaroid" class="p-lightbox-image" />
+        <div id="p-lightbox-caption-panel" class="p-lightbox-caption-panel">
+          <p id="p-lightbox-caption" class="p-lightbox-caption-text"></p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        id="p-lightbox-next"
+        class="p-lightbox-btn p-lightbox-nav-btn p-lightbox-next-btn"
+        aria-label="Foto Selanjutnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  import { getNextIndex, getPrevIndex } from "@utils/gallery.ts";
+
+  (function () {
+    "use strict";
+
+    const cards = document.querySelectorAll(".polaroid-card") as NodeListOf<HTMLDivElement>;
+    const zoomBtns = document.querySelectorAll(".btn-zoom") as NodeListOf<HTMLButtonElement>;
+    const lightbox = document.getElementById("polaroid-lightbox") as HTMLDialogElement;
+    const lightboxImg = document.getElementById("p-lightbox-image") as HTMLImageElement;
+    const lightboxCaption = document.getElementById("p-lightbox-caption") as HTMLParagraphElement;
+    const lightboxCaptionPanel = document.getElementById(
+      "p-lightbox-caption-panel",
+    ) as HTMLDivElement;
+    const closeBtn = document.getElementById("p-lightbox-close");
+    const prevBtn = document.getElementById("p-lightbox-prev");
+    const nextBtn = document.getElementById("p-lightbox-next");
+    const backdrop = document.getElementById("p-lightbox-backdrop");
+
+    if (!cards.length) return;
+
+    // ── 3D Card Flipping Logic ──
+    cards.forEach((card) => {
+      const flipBtn = card.querySelector(".btn-flip");
+      const flipBackBtn = card.querySelector(".btn-flip-back");
+
+      flipBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        card.classList.add("flipped");
+      });
+
+      flipBackBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        card.classList.remove("flipped");
+      });
+
+      // Clicking the card front (except zoom btn) also flips it
+      card.querySelector(".polaroid-front")?.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        if (!target.classList.contains("btn-zoom")) {
+          card.classList.add("flipped");
+        }
+      });
+
+      card.querySelector(".polaroid-back")?.addEventListener("click", () => {
+        card.classList.remove("flipped");
+      });
+    });
+
+    // ── LIGHTBOX MODAL LOGIC ──
+    if (!lightbox || !lightboxImg || !lightboxCaption || !lightboxCaptionPanel) return;
+
+    let activeLightboxIndex = 0;
+    const totalItems = zoomBtns.length;
+
+    function openLightbox(index: number) {
+      if (index < 0 || index >= totalItems) return;
+      activeLightboxIndex = index;
+
+      const btn = zoomBtns[activeLightboxIndex];
+      const src = btn.getAttribute("data-src") || "";
+      const caption = btn.getAttribute("data-caption") || "";
+
+      lightboxImg.src = src;
+
+      if (caption) {
+        lightboxCaption.textContent = caption;
+        lightboxCaptionPanel.style.display = "block";
+      } else {
+        lightboxCaption.textContent = "";
+        lightboxCaptionPanel.style.display = "none";
+      }
+
+      // Transition modal image
+      const frame = lightboxImg.parentElement;
+      if (frame) {
+        frame.classList.remove("fade-in-active");
+        void lightboxImg.offsetWidth;
+        frame.classList.add("fade-in-active");
+      }
+
+      if (!lightbox.open) {
+        lightbox.showModal();
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    function closeLightbox() {
+      lightbox.close();
+      document.body.style.overflow = "";
+    }
+
+    function showNext() {
+      openLightbox(getNextIndex(activeLightboxIndex, totalItems));
+    }
+
+    function showPrev() {
+      openLightbox(getPrevIndex(activeLightboxIndex, totalItems));
+    }
+
+    // Attach click events to Zoom buttons
+    zoomBtns.forEach((btn, idx) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openLightbox(idx);
+      });
+    });
+
+    closeBtn?.addEventListener("click", closeLightbox);
+    prevBtn?.addEventListener("click", showPrev);
+    nextBtn?.addEventListener("click", showNext);
+    backdrop?.addEventListener("click", closeLightbox);
+
+    // Keyboard navigation
+    window.addEventListener("keydown", (e) => {
+      if (!lightbox.open) return;
+      if (e.key === "ArrowRight") {
+        showNext();
+      } else if (e.key === "ArrowLeft") {
+        showPrev();
+      } else if (e.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  })();
+</script>
+
+<style>
+  .polaroid-section {
+    position: relative;
+    width: 100%;
+    z-index: 52;
+    background: linear-gradient(180deg, #0a1f3e 0%, #150e05 50%, #030b1a 100%);
+    padding: var(--spacing-section-lg) 0;
+    overflow: hidden;
+  }
+
+  .polaroid-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .polaroid-bg.has-bg-image {
+    background:
+      linear-gradient(180deg, rgba(10, 31, 62, 0.7) 0%, rgba(3, 11, 26, 0.65) 100%),
+      var(--bg-url) center/cover no-repeat fixed;
+  }
+
+  .polaroid-bg-gradient-1 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 65% 55% at 50% 50%,
+      rgba(200, 168, 78, 0.05) 0%,
+      transparent 70%
+    );
+  }
+
+  .polaroid-bg-gradient-2 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 45% 45% at 85% 20%,
+      rgba(74, 124, 89, 0.06) 0%,
+      transparent 60%
+    );
+  }
+
+  .polaroid-bg-gradient-3 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 50% 50% at 15% 85%,
+      rgba(200, 168, 78, 0.04) 0%,
+      transparent 60%
+    );
+  }
+
+  .polaroid-bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .polaroid-container {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .polaroid-subtitle {
+    text-align: center;
+    font-size: var(--text-body);
+    color: var(--color-earth-sand);
+    margin: 0 0 0.5rem;
+    opacity: 0.9;
+  }
+
+  .polaroid-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0.75rem 0 3.5rem;
+  }
+
+  .polaroid-divider-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 168, 78, 0.5), transparent);
+  }
+
+  .polaroid-divider-diamond {
+    color: var(--color-gold);
+    font-size: 0.5rem;
+    opacity: 0.6;
+  }
+
+  /* ── Polaroid Collage Grid ──────────────────────────────── */
+  .polaroid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .polaroid-card-wrapper {
+    position: relative;
+    width: 100%;
+    perspective: 1200px;
+    transform: rotate(var(--rotate, 0deg));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .polaroid-card-wrapper:hover {
+    transform: scale(1.05) rotate(0deg) translateY(-8px);
+    z-index: 25;
+  }
+
+  .polaroid-card {
+    width: 100%;
+    height: 380px;
+    cursor: pointer;
+  }
+
+  .polaroid-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .polaroid-card.flipped .polaroid-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .polaroid-front,
+  .polaroid-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 12px;
+    background: #f7f5f0; /* Paper color */
+    background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 0);
+    background-size: 8px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1.25rem 1.75rem;
+    transition: z-index 0s 0.3s;
+  }
+
+  .polaroid-front {
+    z-index: 2;
+    pointer-events: auto;
+  }
+
+  .polaroid-back {
+    z-index: 1;
+    pointer-events: none;
+    transform: rotateY(180deg);
+    background: #f2efe7; /* Slightly aged paper color */
+    border: 1px solid rgba(200, 168, 78, 0.25);
+    box-shadow: 0 8px 20px rgba(200, 168, 78, 0.15);
+  }
+
+  .polaroid-card.flipped .polaroid-front {
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .polaroid-card.flipped .polaroid-back {
+    z-index: 2;
+    pointer-events: auto;
+  }
+
+  /* Tape Ornament */
+  .polaroid-tape {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 90px;
+    height: 28px;
+    background: rgba(245, 230, 200, 0.25);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border-left: 1px dashed rgba(0, 0, 0, 0.08);
+    border-right: 1px dashed rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .polaroid-back .polaroid-tape {
+    transform: translateX(-50%) rotate(3deg);
+    background: rgba(200, 168, 78, 0.12);
+  }
+
+  /* Front Content */
+  .polaroid-photo-frame {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    background: #020612;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+  }
+
+  .polaroid-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .polaroid-card-wrapper:hover .polaroid-photo {
+    transform: scale(1.02);
+  }
+
+  /* Shimmer Shine Hover Effect */
+  .polaroid-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.25) 45%,
+      rgba(255, 255, 255, 0.25) 50%,
+      transparent 65%
+    );
+    background-size: 200% 100%;
+    background-position: 250% 0;
+    pointer-events: none;
+    z-index: 2;
+    transition: background-position 0.6s ease;
+  }
+
+  .polaroid-card-wrapper:hover .polaroid-shimmer {
+    background-position: -150% 0;
+  }
+
+  /* Polaroid Caption Handwriting */
+  .polaroid-caption-area {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+
+  .polaroid-handwriting {
+    font-family: "Caveat", "Architects Daughter", cursive;
+    font-size: 1.6rem;
+    color: #2e281b;
+    text-align: center;
+    margin: 0;
+    line-height: 1.1;
+    transform: rotate(-1deg);
+  }
+
+  /* Front Button Toolbar */
+  .polaroid-actions {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 31, 62, 0.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 12px;
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .polaroid-card-wrapper:hover .polaroid-actions {
+    opacity: 1;
+  }
+
+  .polaroid-btn {
+    padding: 0.6rem 1.5rem;
+    background: rgba(200, 168, 78, 0.08);
+    border: 1px solid rgba(200, 168, 78, 0.35);
+    border-radius: 30px;
+    color: var(--color-gold-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      border-color 0.2s,
+      color 0.2s,
+      transform 0.2s;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .polaroid-btn:hover {
+    background: rgba(200, 168, 78, 0.2);
+    border-color: var(--color-gold);
+    color: var(--color-earth-cream);
+    transform: scale(1.05);
+  }
+
+  .polaroid-front .btn-zoom {
+    background: var(--color-navy-800);
+  }
+
+  /* Back Content */
+  .polaroid-back-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    color: #3b3323;
+  }
+
+  .polaroid-crest {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid rgba(200, 168, 78, 0.3);
+    padding-bottom: 0.4rem;
+    width: 80%;
+    justify-content: center;
+  }
+
+  .crest-gold {
+    color: var(--color-gold-dark);
+    font-size: 0.6rem;
+  }
+
+  .crest-title {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .polaroid-story {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(46, 40, 27, 0.85);
+    font-family: var(--font-body);
+    font-style: italic;
+    overflow-y: auto;
+    margin: 1rem 0;
+    padding: 0 0.5rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .polaroid-back-content .btn-flip-back {
+    width: 80%;
+    background: transparent;
+    border-color: rgba(46, 40, 27, 0.25);
+    color: #463d2d;
+    padding: 0.4rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .polaroid-back-content .btn-flip-back:hover {
+    background: rgba(46, 40, 27, 0.05);
+    border-color: rgba(46, 40, 27, 0.5);
+  }
+
+  /* ── Polaroid Lightbox Modal ────────────────────────────── */
+  .p-lightbox-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    z-index: 2000;
+    overflow: hidden;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+  }
+
+  .p-lightbox-modal[open] {
+    display: flex;
+  }
+
+  .p-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 8, 20, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1;
+  }
+
+  .p-lightbox-content-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .p-lightbox-frame {
+    position: relative;
+    max-width: 900px;
+    max-height: 75vh;
+    border-radius: 16px;
+    border: 1px solid rgba(200, 168, 78, 0.25);
+    background: #030b1a;
+    box-shadow:
+      0 25px 50px -12px rgba(0, 0, 0, 0.8),
+      0 0 40px rgba(200, 168, 78, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: scale(0.95);
+    transition:
+      opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .p-lightbox-content-wrapper .fade-in-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .p-lightbox-image {
+    max-width: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    background: #020612;
+  }
+
+  .p-lightbox-caption-panel {
+    background: linear-gradient(180deg, rgba(10, 31, 62, 0.9) 0%, rgba(3, 11, 26, 0.95) 100%);
+    border-top: 1px solid rgba(200, 168, 78, 0.15);
+    padding: 1rem 1.5rem;
+    width: 100%;
+  }
+
+  .p-lightbox-caption-text {
+    font-size: 0.9rem;
+    color: var(--color-earth-cream);
+    line-height: 1.5;
+    font-style: italic;
+    text-align: center;
+    margin: 0;
+  }
+
+  .p-lightbox-btn {
+    position: absolute;
+    background: rgba(10, 31, 62, 0.6);
+    border: 1px solid rgba(200, 168, 78, 0.3);
+    color: var(--color-earth-cream);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background 0.2s,
+      border-color 0.2s,
+      color 0.2s,
+      transform 0.2s;
+    z-index: 10;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .p-lightbox-btn:hover {
+    background: rgba(10, 31, 62, 0.9);
+    border-color: var(--color-gold);
+    color: var(--color-gold-light);
+    transform: scale(1.05);
+  }
+
+  .p-lightbox-close-btn {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+  }
+
+  .p-lightbox-nav-btn {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+  }
+
+  .p-lightbox-nav-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .p-lightbox-prev-btn {
+    left: 2rem;
+  }
+
+  .p-lightbox-next-btn {
+    right: 2rem;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .polaroid-grid {
+      gap: 2rem;
+      justify-items: center;
+    }
+
+    .polaroid-card-wrapper {
+      max-width: 320px;
+      transform: none !important;
+    }
+
+    .polaroid-card-wrapper:hover {
+      transform: scale(1.03) translateY(-4px) !important;
+    }
+
+    .p-lightbox-nav-btn {
+      display: none;
+    }
+
+    .p-lightbox-content-wrapper {
+      padding: 1rem;
+    }
+
+    .p-lightbox-frame {
+      max-height: 80vh;
+    }
+
+    .p-lightbox-image {
+      max-height: 70vh;
+    }
+
+    .p-lightbox-close-btn {
+      top: 1rem;
+      right: 1rem;
+      width: 42px;
+      height: 42px;
+    }
+  }
+</style>

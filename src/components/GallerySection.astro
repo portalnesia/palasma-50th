@@ -1,0 +1,1109 @@
+---
+import { ASSETS } from "@config/assets.ts";
+import SectionTitle from "@components/atoms/SectionTitle.astro";
+import OrnamentFlourish from "@components/atoms/OrnamentFlourish.astro";
+import SideDecor from "@components/atoms/SideDecor.astro";
+import FloatingParticles from "@components/atoms/FloatingParticles.astro";
+
+interface Props {
+  useBg?: boolean;
+}
+
+const { useBg = false } = Astro.props;
+const galleryItems = ASSETS.gallery || [];
+---
+
+<section id="gallery" class="gallery-section">
+  {/* ── Background layers ──────────────────────────────────── */}
+  <div
+    class:list={["gallery-bg", { "has-bg-image": useBg }]}
+    aria-hidden="true"
+    style={useBg ? `--bg-url: url(${ASSETS.bg[4]})` : undefined}
+  >
+    <div class="gallery-bg-gradient-1"></div>
+    <div class="gallery-bg-gradient-2"></div>
+    <div class="gallery-bg-gradient-3"></div>
+    <div class="gallery-bg-grain"></div>
+  </div>
+
+  {/* ── Floating gold particles ──────────────────────────────── */}
+  <FloatingParticles prefix="gallery" />
+
+  {/* ── Decorative side lines ─────────────────────────────────── */}
+  <SideDecor position="left" />
+  <SideDecor position="right" />
+
+  <div class="gallery-container">
+    {/* ── Top flourish ───────────────────────────────────────── */}
+    <OrnamentFlourish position="top" />
+
+    {/* ── Title ──────────────────────────────────────────────── */}
+    <SectionTitle text="Galeri Kenangan" />
+
+    {/* ── Subtitle ──────────────────────────────────────────── */}
+    <p class="gallery-subtitle reveal-on-scroll reveal-fade-up" style="transition-delay: 100ms;">
+      Merekam jejak langkah petualangan dan ikatan persaudaraan yang abadi
+    </p>
+
+    {/* ── Divider ────────────────────────────────────────────── */}
+    <div
+      class="gallery-divider reveal-on-scroll reveal-fade-up"
+      style="transition-delay: 150ms;"
+      aria-hidden="true"
+    >
+      <span class="gallery-divider-line"></span>
+      <span class="gallery-divider-diamond">◆</span>
+      <span class="gallery-divider-line"></span>
+    </div>
+
+    {/* ── 3D Showcase Carousel ───────────────────────────────── */}
+    <div
+      class="gallery-carousel-wrapper reveal-on-scroll reveal-scale-in"
+      style="transition-delay: 200ms;"
+    >
+      <button
+        type="button"
+        class="carousel-nav-btn prev"
+        id="carousel-prev"
+        aria-label="Slide Sebelumnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="carousel-track-container">
+        <div class="carousel-track" id="carousel-track">
+          {
+            galleryItems.map((item, idx) => (
+              <div
+                class="carousel-slide"
+                data-index={idx}
+                data-src={item.src}
+                data-caption={item.caption || ""}
+              >
+                <div class="slide-inner">
+                  <img
+                    src={item.src}
+                    alt={item.caption || `Foto galeri ke-${idx + 1}`}
+                    class="slide-img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="slide-overlay">
+                    <div class="slide-zoom-badge">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        <line x1="11" y1="8" x2="11" y2="14" />
+                        <line x1="8" y1="11" x2="14" y2="11" />
+                      </svg>
+                      <span>Perbesar</span>
+                    </div>
+                  </div>
+                  <div class="slide-border" />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="carousel-nav-btn next"
+        id="carousel-next"
+        aria-label="Slide Selanjutnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    {/* ── Active Caption Display ─────────────────────────────── */}
+    <div class="carousel-caption-container" id="carousel-caption-container">
+      <p class="carousel-caption-text" id="carousel-caption-text"></p>
+    </div>
+
+    {/* ── Thumbnail Row (Navigation dots alternatives) ───────── */}
+    <div class="carousel-thumbnails" id="carousel-thumbnails">
+      {
+        galleryItems.map((item, idx) => (
+          <button
+            type="button"
+            class="thumbnail-dot"
+            data-index={idx}
+            aria-label={`Pilih foto ${idx + 1}`}
+          >
+            <img src={item.src} alt="" class="thumbnail-img" />
+          </button>
+        ))
+      }
+    </div>
+
+    {/* ── Bottom flourish ────────────────────────────────────── */}
+    <OrnamentFlourish position="bottom" />
+  </div>
+
+  {/* ── Lightbox Modal for Full View ───────────────────────── */}
+  <dialog id="gallery-lightbox" class="lightbox-modal" aria-label="Detail Foto">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-content-wrapper">
+      <button
+        type="button"
+        id="lightbox-close"
+        class="lightbox-btn lightbox-close-btn"
+        aria-label="Tutup Galeri"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        id="lightbox-prev"
+        class="lightbox-btn lightbox-nav-btn lightbox-prev-btn"
+        aria-label="Foto Sebelumnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="lightbox-frame">
+        <img id="lightbox-image" src="" alt="Tampilan Penuh Galeri" class="lightbox-image" />
+        <div id="lightbox-caption-panel" class="lightbox-caption-panel">
+          <p id="lightbox-caption" class="lightbox-caption-text"></p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        id="lightbox-next"
+        class="lightbox-btn lightbox-nav-btn lightbox-next-btn"
+        aria-label="Foto Selanjutnya"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  import { getNextIndex, getPrevIndex, getSwipeDirection } from "@utils/gallery.ts";
+
+  (function () {
+    "use strict";
+
+    const slides = document.querySelectorAll(".carousel-slide") as NodeListOf<HTMLDivElement>;
+    const dots = document.querySelectorAll(".thumbnail-dot") as NodeListOf<HTMLButtonElement>;
+    const track = document.getElementById("carousel-track");
+    const prevBtn = document.getElementById("carousel-prev");
+    const nextBtn = document.getElementById("carousel-next");
+    const captionText = document.getElementById("carousel-caption-text") as HTMLParagraphElement;
+    const captionContainer = document.getElementById(
+      "carousel-caption-container",
+    ) as HTMLDivElement;
+
+    const lightbox = document.getElementById("gallery-lightbox") as HTMLDialogElement;
+    const lightboxImg = document.getElementById("lightbox-image") as HTMLImageElement;
+    const lightboxCaption = document.getElementById("lightbox-caption") as HTMLParagraphElement;
+    const lightboxCaptionPanel = document.getElementById(
+      "lightbox-caption-panel",
+    ) as HTMLDivElement;
+    const lightboxClose = document.getElementById("lightbox-close");
+    const lightboxPrev = document.getElementById("lightbox-prev");
+    const lightboxNext = document.getElementById("lightbox-next");
+    const lightboxBackdrop = document.getElementById("lightbox-backdrop");
+
+    if (!slides.length || !track || !captionText || !captionContainer) return;
+
+    let currentIndex = 0;
+    const totalItems = slides.length;
+    let autoplayTimer: any = null;
+    const autoplayDelay = 4000; // Autoplay delay 4 seconds
+
+    function startAutoplay() {
+      if (autoplayTimer) return;
+      autoplayTimer = setInterval(showNext, autoplayDelay);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    function resetAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    // ── Update Carousel Slides (3D Position/Animations) ──
+    function updateCarousel() {
+      slides.forEach((slide, idx) => {
+        slide.classList.remove("active", "prev", "next", "hidden-left", "hidden-right");
+
+        // Calculate dynamic relative index wrapping around the array circularity
+        let diff = idx - currentIndex;
+
+        // Handle wrap around calculations
+        if (diff < -1 && diff < -totalItems / 2) {
+          diff += totalItems;
+        } else if (diff > 1 && diff > totalItems / 2) {
+          diff -= totalItems;
+        }
+
+        if (diff === 0) {
+          slide.classList.add("active");
+        } else if (diff === -1) {
+          slide.classList.add("prev");
+        } else if (diff === 1) {
+          slide.classList.add("next");
+        } else if (diff < -1) {
+          slide.classList.add("hidden-left");
+        } else if (diff > 1) {
+          slide.classList.add("hidden-right");
+        }
+      });
+
+      // Update Active Caption
+      const activeSlide = slides[currentIndex];
+      const caption = activeSlide.getAttribute("data-caption") || "";
+
+      // Caption fade transition
+      captionText.style.opacity = "0";
+      captionText.style.transform = "translateY(8px)";
+
+      setTimeout(() => {
+        if (caption) {
+          captionText.textContent = caption;
+          captionContainer.classList.add("has-caption");
+          captionText.style.opacity = "1";
+          captionText.style.transform = "translateY(0)";
+        } else {
+          captionText.textContent = "";
+          captionContainer.classList.remove("has-caption");
+        }
+      }, 200);
+
+      // Update Dots/Thumbnails
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === currentIndex);
+      });
+    }
+
+    function goToSlide(index: number) {
+      currentIndex = (index + totalItems) % totalItems;
+      updateCarousel();
+      resetAutoplay();
+    }
+
+    function showNext() {
+      goToSlide(getNextIndex(currentIndex, totalItems));
+    }
+
+    function showPrev() {
+      goToSlide(getPrevIndex(currentIndex, totalItems));
+    }
+
+    // Attach click events to nav buttons
+    prevBtn?.addEventListener("click", showPrev);
+    nextBtn?.addEventListener("click", showNext);
+
+    // Attach click events to individual slides
+    slides.forEach((slide) => {
+      slide.addEventListener("click", () => {
+        if (slide.classList.contains("active")) {
+          // If active slide is clicked, open the premium Lightbox
+          openLightbox(currentIndex);
+        } else if (slide.classList.contains("prev")) {
+          showPrev();
+        } else if (slide.classList.contains("next")) {
+          showNext();
+        }
+      });
+    });
+
+    // Attach click events to thumbnails
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        goToSlide(idx);
+      });
+    });
+
+    // Swipe gestures on Carousel
+    let dragStartX = 0;
+    let dragEndX = 0;
+
+    track.addEventListener(
+      "touchstart",
+      (e) => {
+        dragStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true },
+    );
+
+    track.addEventListener(
+      "touchend",
+      (e) => {
+        dragEndX = e.changedTouches[0].screenX;
+        const direction = getSwipeDirection(dragStartX, dragEndX, 40);
+        if (direction === "prev") showPrev();
+        if (direction === "next") showNext();
+      },
+      { passive: true },
+    );
+
+    // ── LIGHTBOX MODAL LOGIC ─────────────────────────────
+    if (!lightbox || !lightboxImg || !lightboxCaption || !lightboxCaptionPanel) return;
+
+    let lightboxIndex = 0;
+
+    function openLightbox(index: number) {
+      stopAutoplay();
+      lightboxIndex = index;
+      const slide = slides[lightboxIndex];
+      const src = slide.getAttribute("data-src") || "";
+      const caption = slide.getAttribute("data-caption") || "";
+
+      lightboxImg.src = src;
+
+      if (caption) {
+        lightboxCaption.textContent = caption;
+        lightboxCaptionPanel.style.display = "block";
+      } else {
+        lightboxCaption.textContent = "";
+        lightboxCaptionPanel.style.display = "none";
+      }
+
+      // Transition modal image
+      const frame = lightboxImg.parentElement;
+      if (frame) {
+        frame.classList.remove("fade-in-active");
+        void lightboxImg.offsetWidth;
+        frame.classList.add("fade-in-active");
+      }
+
+      if (!lightbox.open) {
+        lightbox.showModal();
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    function closeLightbox() {
+      lightbox.close();
+      document.body.style.overflow = "";
+      startAutoplay();
+    }
+
+    function showLightboxNext() {
+      const nextIdx = getNextIndex(lightboxIndex, totalItems);
+      openLightbox(nextIdx);
+      goToSlide(nextIdx); // Sync main carousel as well
+    }
+
+    function showLightboxPrev() {
+      const prevIdx = getPrevIndex(lightboxIndex, totalItems);
+      openLightbox(prevIdx);
+      goToSlide(prevIdx); // Sync main carousel as well
+    }
+
+    lightboxClose?.addEventListener("click", closeLightbox);
+    lightboxPrev?.addEventListener("click", showLightboxPrev);
+    lightboxNext?.addEventListener("click", showLightboxNext);
+    lightboxBackdrop?.addEventListener("click", closeLightbox);
+
+    // Lightbox keyboard navigation
+    window.addEventListener("keydown", (e) => {
+      if (!lightbox.open) return;
+      if (e.key === "ArrowRight") {
+        showLightboxNext();
+      } else if (e.key === "ArrowLeft") {
+        showLightboxPrev();
+      } else if (e.key === "Escape") {
+        closeLightbox();
+      }
+    });
+
+    // Lightbox swipe gestures
+    let lightboxTouchStartX = 0;
+    let lightboxTouchEndX = 0;
+
+    lightbox.addEventListener(
+      "touchstart",
+      (e) => {
+        lightboxTouchStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true },
+    );
+
+    lightbox.addEventListener(
+      "touchend",
+      (e) => {
+        lightboxTouchEndX = e.changedTouches[0].screenX;
+        const direction = getSwipeDirection(lightboxTouchStartX, lightboxTouchEndX, 50);
+        if (direction === "prev") showLightboxPrev();
+        if (direction === "next") showLightboxNext();
+      },
+      { passive: true },
+    );
+
+    // Initialize carousel on load
+    updateCarousel();
+    startAutoplay();
+
+    // Pause autoplay on mouse enter and resume on mouse leave
+    track.addEventListener("mouseenter", stopAutoplay);
+    track.addEventListener("mouseleave", startAutoplay);
+  })();
+</script>
+
+<style>
+  .gallery-section {
+    position: relative;
+    width: 100%;
+    z-index: 55;
+    background: linear-gradient(180deg, #030b1a 0%, #150e05 50%, #0a1f3e 100%);
+    padding: var(--spacing-section-lg) 0;
+    overflow: hidden;
+  }
+
+  .gallery-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .gallery-bg.has-bg-image {
+    background:
+      linear-gradient(180deg, rgba(3, 11, 26, 0.7) 0%, rgba(10, 31, 62, 0.6) 100%),
+      var(--bg-url) center/cover no-repeat fixed;
+  }
+
+  .gallery-bg-gradient-1 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 65% 55% at 50% 50%,
+      rgba(200, 168, 78, 0.06) 0%,
+      transparent 70%
+    );
+  }
+
+  .gallery-bg-gradient-2 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 45% 45% at 15% 20%,
+      rgba(74, 124, 89, 0.05) 0%,
+      transparent 60%
+    );
+  }
+
+  .gallery-bg-gradient-3 {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 50% 50% at 85% 80%,
+      rgba(200, 168, 78, 0.05) 0%,
+      transparent 60%
+    );
+  }
+
+  .gallery-bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .gallery-container {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gallery-subtitle {
+    text-align: center;
+    font-size: var(--text-body);
+    color: var(--color-earth-sand);
+    margin: 0 0 0.5rem;
+    opacity: 0.9;
+  }
+
+  .gallery-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0.75rem 0 2.5rem;
+  }
+
+  .gallery-divider-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 168, 78, 0.5), transparent);
+  }
+
+  .gallery-divider-diamond {
+    color: var(--color-gold);
+    font-size: 0.5rem;
+    opacity: 0.6;
+  }
+
+  /* ── 3D Showcase Carousel ───────────────────────────────── */
+  .gallery-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+
+  .carousel-track-container {
+    width: 100%;
+    max-width: 900px;
+    height: 380px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+  }
+
+  .carousel-slide {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    width: 75%;
+    max-width: 520px;
+    height: 320px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    transition:
+      transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+      opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+      filter 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+      z-index 0.6s;
+    filter: blur(4px) brightness(0.4) grayscale(0.4);
+  }
+
+  .slide-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(10, 31, 62, 0.5);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+
+  .slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Slide States (3D Coverflow positioning) */
+  .carousel-slide.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    z-index: 10;
+    pointer-events: auto;
+    filter: blur(0) brightness(1) grayscale(0);
+  }
+
+  .carousel-slide.prev {
+    transform: translate(-95%, -50%) scale(0.8);
+    opacity: 0.6;
+    z-index: 5;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: blur(2px) brightness(0.6) grayscale(0.2);
+  }
+
+  .carousel-slide.next {
+    transform: translate(-5%, -50%) scale(0.8);
+    opacity: 0.6;
+    z-index: 5;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: blur(2px) brightness(0.6) grayscale(0.2);
+  }
+
+  .carousel-slide.hidden-left {
+    transform: translate(-140%, -50%) scale(0.6);
+    opacity: 0;
+    z-index: 2;
+  }
+
+  .carousel-slide.hidden-right {
+    transform: translate(40%, -50%) scale(0.6);
+    opacity: 0;
+    z-index: 2;
+  }
+
+  /* Slide Border Glow */
+  .slide-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 1px solid rgba(200, 168, 78, 0.15);
+    pointer-events: none;
+    z-index: 3;
+    transition:
+      border-color 0.6s,
+      box-shadow 0.6s;
+  }
+
+  .carousel-slide.active .slide-border {
+    border-color: rgba(200, 168, 78, 0.5);
+    box-shadow: 0 0 25px rgba(200, 168, 78, 0.25);
+  }
+
+  /* Slide Overlay with Zoom Icon */
+  .slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 10, 24, 0);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.4s;
+  }
+
+  .carousel-slide.active:hover .slide-overlay {
+    background-color: rgba(5, 10, 24, 0.45);
+    cursor: pointer;
+  }
+
+  .slide-zoom-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(10, 31, 62, 0.85);
+    border: 1px solid rgba(200, 168, 78, 0.35);
+    border-radius: 30px;
+    color: var(--color-gold-light);
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: scale(0.9);
+    transition:
+      opacity 0.3s,
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .carousel-slide.active:hover .slide-zoom-badge {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Carousel Navigation Buttons */
+  .carousel-nav-btn {
+    background: rgba(10, 31, 62, 0.6);
+    border: 1px solid rgba(200, 168, 78, 0.25);
+    color: var(--color-earth-cream);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 12;
+    transition:
+      background 0.2s,
+      border-color 0.2s,
+      color 0.2s,
+      transform 0.2s;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .carousel-nav-btn:hover {
+    background: rgba(10, 31, 62, 0.95);
+    border-color: var(--color-gold);
+    color: var(--color-gold-light);
+    transform: scale(1.08);
+  }
+
+  /* ── Active Caption Panel ── */
+  .carousel-caption-container {
+    max-width: 600px;
+    width: 100%;
+    min-height: 56px;
+    margin-top: 1rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .carousel-caption-container.has-caption {
+    opacity: 1;
+  }
+
+  .carousel-caption-text {
+    font-size: 0.95rem;
+    color: var(--color-earth-cream);
+    line-height: 1.55;
+    font-style: italic;
+    font-family: var(--font-body);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    margin: 0;
+    transition:
+      opacity 0.2s,
+      transform 0.2s;
+  }
+
+  /* ── Thumbnails Navigation ── */
+  .carousel-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    overflow-x: auto;
+    padding: 0.5rem;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .carousel-thumbnails::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .thumbnail-dot {
+    width: 64px;
+    height: 44px;
+    border-radius: 6px;
+    border: 2px solid rgba(200, 168, 78, 0.15);
+    background: rgba(10, 31, 62, 0.4);
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    transition:
+      border-color 0.3s,
+      transform 0.3s,
+      filter 0.3s;
+    flex-shrink: 0;
+    filter: brightness(0.5) contrast(0.9);
+  }
+
+  .thumbnail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .thumbnail-dot:hover {
+    border-color: rgba(200, 168, 78, 0.4);
+    transform: translateY(-2px);
+    filter: brightness(0.8) contrast(1);
+  }
+
+  .thumbnail-dot.active {
+    border-color: var(--color-gold);
+    transform: translateY(-4px) scale(1.05);
+    filter: brightness(1) contrast(1.05);
+    box-shadow: 0 4px 10px rgba(200, 168, 78, 0.2);
+  }
+
+  /* ── Interactive Lightbox Modal ─────────────────────────── */
+  .lightbox-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    z-index: 2000;
+    overflow: hidden;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+  }
+
+  .lightbox-modal[open] {
+    display: flex;
+  }
+
+  .lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 8, 20, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1;
+  }
+
+  .lightbox-content-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .lightbox-frame {
+    position: relative;
+    max-width: 900px;
+    max-height: 75vh;
+    border-radius: 16px;
+    border: 1px solid rgba(200, 168, 78, 0.25);
+    background: #030b1a;
+    box-shadow:
+      0 25px 50px -12px rgba(0, 0, 0, 0.8),
+      0 0 40px rgba(200, 168, 78, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: scale(0.95);
+    transition:
+      opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .lightbox-content-wrapper .fade-in-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .lightbox-image {
+    max-width: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    background: #020612;
+  }
+
+  .lightbox-caption-panel {
+    background: linear-gradient(180deg, rgba(10, 31, 62, 0.9) 0%, rgba(3, 11, 26, 0.95) 100%);
+    border-top: 1px solid rgba(200, 168, 78, 0.15);
+    padding: 1rem 1.5rem;
+    width: 100%;
+  }
+
+  .lightbox-caption-text {
+    font-size: 0.9rem;
+    color: var(--color-earth-cream);
+    line-height: 1.5;
+    font-style: italic;
+    text-align: center;
+    margin: 0;
+  }
+
+  .lightbox-btn {
+    position: absolute;
+    background: rgba(10, 31, 62, 0.6);
+    border: 1px solid rgba(200, 168, 78, 0.3);
+    color: var(--color-earth-cream);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background 0.2s,
+      border-color 0.2s,
+      color 0.2s,
+      transform 0.2s;
+    z-index: 10;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .lightbox-btn:hover {
+    background: rgba(10, 31, 62, 0.9);
+    border-color: var(--color-gold);
+    color: var(--color-gold-light);
+    transform: scale(1.05);
+  }
+
+  .lightbox-close-btn {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+  }
+
+  .lightbox-nav-btn {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+  }
+
+  .lightbox-nav-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .lightbox-prev-btn {
+    left: 2rem;
+  }
+
+  .lightbox-next-btn {
+    right: 2rem;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .carousel-track-container {
+      height: 290px;
+    }
+
+    .carousel-slide {
+      width: 80%;
+      height: 230px;
+    }
+
+    .carousel-slide.prev {
+      transform: translate(-90%, -50%) scale(0.8);
+    }
+
+    .carousel-slide.next {
+      transform: translate(-10%, -50%) scale(0.8);
+    }
+
+    .carousel-nav-btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    .lightbox-nav-btn {
+      display: none;
+    }
+
+    .lightbox-content-wrapper {
+      padding: 1rem;
+    }
+
+    .lightbox-frame {
+      max-height: 80vh;
+    }
+
+    .lightbox-image {
+      max-height: 70vh;
+    }
+
+    .lightbox-close-btn {
+      top: 1rem;
+      right: 1rem;
+      width: 42px;
+      height: 42px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .carousel-track-container {
+      height: 240px;
+    }
+
+    .carousel-slide {
+      width: 85%;
+      height: 180px;
+    }
+
+    .carousel-slide.prev {
+      transform: translate(-88%, -50%) scale(0.8);
+    }
+
+    .carousel-slide.next {
+      transform: translate(-12%, -50%) scale(0.8);
+    }
+
+    .carousel-nav-btn {
+      display: none; /* Rely on swiping on small screens */
+    }
+
+    .thumbnail-dot {
+      width: 50px;
+      height: 34px;
+    }
+  }
+</style>
