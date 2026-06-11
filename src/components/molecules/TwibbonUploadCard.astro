@@ -210,10 +210,14 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
     position: relative;
     width: 100%;
     max-width: 440px;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(200, 168, 78, 0.15);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.01) 100%
+    );
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: none;
     border-radius: 16px;
     padding: 2rem;
     display: flex;
@@ -221,6 +225,9 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
     align-items: center;
     gap: 1.5rem;
     overflow: hidden;
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.37),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   }
 
   .twibbon-glass-border {
@@ -228,6 +235,19 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
     inset: 0;
     border-radius: 16px;
     pointer-events: none;
+    border: 1px solid transparent;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(200, 168, 78, 0.2) 50%,
+        rgba(255, 255, 255, 0.05) 100%
+      )
+      border-box;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
   }
 
   /* ── Corner ornaments ────────────────────────────────────── */
@@ -259,8 +279,8 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
     width: 100%;
     aspect-ratio: 1 / 1;
     max-width: 320px;
-    background: rgba(0, 0, 0, 0.25);
-    border: 2px dashed rgba(200, 168, 78, 0.25);
+    background: radial-gradient(circle, rgba(15, 23, 42, 0.6) 0%, rgba(10, 15, 30, 0.85) 100%);
+    border: 2px dashed rgba(200, 168, 78, 0.35);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -280,33 +300,45 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.2;
+    opacity: 0.15;
     z-index: 0;
+    pointer-events: none;
+    filter: brightness(0.8);
+  }
+
+  /* Dark overlay to fade the background frame */
+  .twibbon-preview::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(15, 23, 42, 0.2) 0%, rgba(10, 15, 30, 0.5) 100%);
+    z-index: 1;
     pointer-events: none;
   }
 
   .twibbon-preview-icon {
-    color: rgba(200, 168, 78, 0.3);
+    color: rgba(200, 168, 78, 0.65);
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
 
   .twibbon-preview-text {
     font-family: "Inter", system-ui, sans-serif;
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.75);
     margin: 0;
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   .twibbon-preview-hint {
     font-family: "Inter", system-ui, sans-serif;
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.45);
     margin: 0;
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
 
   /* ── Upload label / button ──────────────────────────────── */
@@ -326,7 +358,7 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
     transition: all 0.3s ease;
     margin-top: 0.5rem;
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
 
   .twibbon-upload-label:hover {
