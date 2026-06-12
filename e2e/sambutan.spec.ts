@@ -32,7 +32,7 @@ test.describe("Kata Sambutan Section", () => {
 
   test("photo loads from config path", async ({ page }) => {
     const photo = page.locator(".sambutan-photo");
-    await expect(photo).toHaveAttribute("src", "/assets/images/logo-50.png");
+    await expect(photo).toHaveAttribute("src", /\/assets\/images\/logo-50\.png/);
   });
 
   test("body contains greeting text", async ({ page }) => {

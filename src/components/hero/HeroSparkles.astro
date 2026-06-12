@@ -36,6 +36,19 @@
       2% 35%,
       39% 35%
     );
+    animation: sparkle-float 4s ease-in-out infinite;
+  }
+
+  @keyframes sparkle-float {
+    0%,
+    100% {
+      opacity: 0.2;
+      transform: translateY(0) scale(1) rotate(0deg);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translateY(-12px) scale(1.2) rotate(15deg);
+    }
   }
 
   .hero-sparkle-1 {
@@ -43,35 +56,47 @@
     height: 10px;
     left: 10%;
     top: 20%;
+    animation-duration: 5s;
+    animation-delay: 0s;
   }
   .hero-sparkle-2 {
     width: 6px;
     height: 6px;
     left: 22%;
     top: 65%;
+    animation-duration: 4s;
+    animation-delay: 1.5s;
   }
   .hero-sparkle-3 {
     width: 8px;
     height: 8px;
     left: 78%;
     top: 18%;
+    animation-duration: 6s;
+    animation-delay: 0.5s;
   }
   .hero-sparkle-4 {
     width: 7px;
     height: 7px;
     left: 85%;
     top: 60%;
+    animation-duration: 4.5s;
+    animation-delay: 2s;
   }
   .hero-sparkle-5 {
     width: 9px;
     height: 9px;
     left: 45%;
     top: 82%;
+    animation-duration: 5.5s;
+    animation-delay: 1s;
   }
   .hero-sparkle-6 {
     width: 6px;
     height: 6px;
     left: 55%;
     top: 12%;
+    animation-duration: 3.5s;
+    animation-delay: 2.5s;
   }
 </style>

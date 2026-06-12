@@ -28,12 +28,27 @@
     width: 8px;
     height: 4px;
     border-radius: 1px;
+    animation: confetti-drift 6s ease-in-out infinite;
+  }
+
+  @keyframes confetti-drift {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      opacity: 0.75;
+      transform: translateY(-15px) rotate(180deg);
+    }
   }
 
   .hero-confetti-1 {
     background: var(--color-gold);
     left: 8%;
     top: 25%;
+    animation-duration: 7s;
+    animation-delay: 0s;
   }
   .hero-confetti-2 {
     background: var(--color-earth-sand);
@@ -41,11 +56,15 @@
     top: 70%;
     width: 6px;
     height: 3px;
+    animation-duration: 5s;
+    animation-delay: 1.2s;
   }
   .hero-confetti-3 {
     background: var(--color-earth-moss);
     left: 35%;
     top: 15%;
+    animation-duration: 6.5s;
+    animation-delay: 0.4s;
   }
   .hero-confetti-4 {
     background: var(--color-gold-light);
@@ -53,11 +72,15 @@
     top: 75%;
     width: 7px;
     height: 3px;
+    animation-duration: 5.5s;
+    animation-delay: 2.1s;
   }
   .hero-confetti-5 {
     background: var(--color-earth-cream);
     left: 75%;
     top: 20%;
+    animation-duration: 7.5s;
+    animation-delay: 0.8s;
   }
   .hero-confetti-6 {
     background: var(--color-gold-dark);
@@ -65,11 +88,15 @@
     top: 65%;
     width: 6px;
     height: 4px;
+    animation-duration: 4.8s;
+    animation-delay: 1.5s;
   }
   .hero-confetti-7 {
     background: var(--color-earth-moss-light);
     left: 25%;
     top: 80%;
+    animation-duration: 6.2s;
+    animation-delay: 0.6s;
   }
   .hero-confetti-8 {
     background: var(--color-gold);
@@ -77,11 +104,15 @@
     top: 88%;
     width: 7px;
     height: 3px;
+    animation-duration: 5.2s;
+    animation-delay: 1.8s;
   }
   .hero-confetti-9 {
     background: var(--color-earth-sand);
     left: 68%;
     top: 82%;
+    animation-duration: 6.8s;
+    animation-delay: 0.2s;
   }
   .hero-confetti-10 {
     background: var(--color-gold-light);
@@ -89,5 +120,7 @@
     top: 10%;
     width: 6px;
     height: 4px;
+    animation-duration: 5.8s;
+    animation-delay: 2.5s;
   }
 </style>

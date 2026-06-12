@@ -33,7 +33,11 @@ test.describe("Absensi Section", () => {
   test("floating CTA visibility toggles on scroll", async ({ page }) => {
     await page.goto("/");
     await page.waitForSelector("#absensi");
-    await page.waitForTimeout(2000);
+
+    // Dismiss splash screen so the page can scroll
+    const splashBtn = page.locator("#splash-scroll-btn");
+    await splashBtn.click();
+    await page.waitForTimeout(1500);
 
     // By default, the floating CTA should be hidden/transparent when at the top of the page
     const floatingCta = page.locator("#absensi-floating-cta");
@@ -43,10 +47,8 @@ test.describe("Absensi Section", () => {
     const initialOpacity = await floatingCta.evaluate((el) => window.getComputedStyle(el).opacity);
     expect(Number(initialOpacity)).toBe(0);
 
-    // Scroll down to the bottom of the page (beyond the absensi section)
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-
-    // Wait for animation frame or brief delay for GSAP to trigger
+    // Scroll down to bring the absensi section into view
+    await page.locator("#absensi").scrollIntoViewIfNeeded();
     await page.waitForTimeout(1500);
 
     // Now it should be visible (opacity close to 1)
@@ -65,13 +67,17 @@ test.describe("Absensi Section", () => {
   test("clicking floating CTA scrolls viewport to absensi section", async ({ page }) => {
     await page.goto("/");
     await page.waitForSelector("#absensi");
-    await page.waitForTimeout(2000);
+
+    // Dismiss splash screen so the page can scroll
+    const splashBtn = page.locator("#splash-scroll-btn");
+    await splashBtn.click();
+    await page.waitForTimeout(1500);
 
     const section = page.locator("#absensi");
     const floatingCta = page.locator("#absensi-floating-cta");
 
     // Scroll down to activate the floating CTA
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await section.scrollIntoViewIfNeeded();
     await page.waitForTimeout(1500);
 
     // Click the floating button

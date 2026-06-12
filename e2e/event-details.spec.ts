@@ -13,11 +13,11 @@ test.describe("Event Details Section", () => {
   });
 
   test("displays title", async ({ page }) => {
-    await expect(page.locator(".event-title")).toContainText("Info Acara");
+    await expect(page.locator("#event-details .event-title")).toContainText("Info Acara");
   });
 
   test("title has decorative stars", async ({ page }) => {
-    const stars = page.locator(".event-title-star");
+    const stars = page.locator("#event-details .event-title-star");
     await expect(stars).toHaveCount(2);
   });
 

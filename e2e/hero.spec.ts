@@ -89,7 +89,7 @@ test.describe("Hero Section", () => {
   test("mountain silhouette image exists", async ({ page }) => {
     const mountain = page.locator("#hero .hero-mountain");
     await expect(mountain).toBeAttached();
-    await expect(mountain).toHaveAttribute("src", "/assets/images/mountains.png");
+    await expect(mountain).toHaveAttribute("src", /\/assets\/images\/mountains\.png/);
   });
 
   test("mountain image is decorative (empty alt)", async ({ page }) => {

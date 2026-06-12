@@ -21,7 +21,19 @@
   .hero-bokeh-orb {
     position: absolute;
     border-radius: 50%;
-    opacity: 0;
+    opacity: 0.4;
+    animation: bokeh-pulse 10s ease-in-out infinite alternate;
+  }
+
+  @keyframes bokeh-pulse {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 0.3;
+    }
+    100% {
+      transform: translate(20px, -20px) scale(1.1);
+      opacity: 0.65;
+    }
   }
 
   .hero-bokeh-1 {
@@ -36,6 +48,8 @@
       transparent 70%
     );
     filter: blur(40px);
+    animation-duration: 12s;
+    animation-delay: 0s;
   }
 
   .hero-bokeh-2 {
@@ -50,6 +64,8 @@
       transparent 70%
     );
     filter: blur(35px);
+    animation-duration: 9s;
+    animation-delay: 1.5s;
   }
 
   .hero-bokeh-3 {
@@ -64,6 +80,8 @@
       transparent 70%
     );
     filter: blur(30px);
+    animation-duration: 14s;
+    animation-delay: 0.5s;
   }
 
   .hero-bokeh-4 {
@@ -78,6 +96,8 @@
       transparent 70%
     );
     filter: blur(50px);
+    animation-duration: 10s;
+    animation-delay: 2s;
   }
 
   .hero-bokeh-5 {
@@ -92,5 +112,7 @@
       transparent 70%
     );
     filter: blur(25px);
+    animation-duration: 8s;
+    animation-delay: 3s;
   }
 </style>
