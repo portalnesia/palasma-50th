@@ -15,11 +15,7 @@ const galleryItems = ASSETS.gallery || [];
 
 <section id="gallery" class="gallery-section">
   {/* ── Background layers ──────────────────────────────────── */}
-  <div
-    class:list={["gallery-bg", { "has-bg-image": useBg }]}
-    aria-hidden="true"
-    style={useBg ? `--bg-url: url(${ASSETS.bg[4]})` : undefined}
-  >
+  <div class:list={["gallery-bg", { "has-bg-image": useBg }]} aria-hidden="true">
     <div class="gallery-bg-gradient-1"></div>
     <div class="gallery-bg-gradient-2"></div>
     <div class="gallery-bg-gradient-3"></div>
@@ -96,6 +92,7 @@ const galleryItems = ASSETS.gallery || [];
                     class="slide-img"
                     loading="lazy"
                     decoding="async"
+                    {...(item.style ? { style: item.style } : undefined)}
                   />
                   <div class="slide-overlay">
                     <div class="slide-zoom-badge">
@@ -157,7 +154,7 @@ const galleryItems = ASSETS.gallery || [];
             data-index={idx}
             aria-label={`Pilih foto ${idx + 1}`}
           >
-            <img src={item.src} alt="" class="thumbnail-img" />
+            <img src={item.src} alt={item.caption} class="thumbnail-img" />
           </button>
         ))
       }

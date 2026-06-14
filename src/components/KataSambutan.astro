@@ -13,11 +13,7 @@ const { sambutan } = CONTENT;
 const paragraphs = parseBodyParagraphs(sambutan.body);
 ---
 
-<section
-  id="sambutan"
-  class:list={["sambutan-section", { "has-bg-image": useBg }]}
-  style={useBg ? `--bg-url: url(${ASSETS.bg[3]})` : undefined}
->
+<section id="sambutan" class:list={["sambutan-section", { "has-bg-image": useBg }]}>
   {/* ── Background layers ──────────────────────────────────── */}
   <div class="sambutan-bg" aria-hidden="true">
     <div class="sambutan-bg-gradient-1"></div>

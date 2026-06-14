@@ -23,11 +23,7 @@ const { useBg = false } = Astro.props;
 
 <section id="ucapan-doa" class="ucapan-section">
   {/* ── Background layers ──────────────────────────────────── */}
-  <div
-    class:list={["ucapan-bg", { "has-bg-image": useBg }]}
-    aria-hidden="true"
-    style={useBg ? `--bg-url: url(${ASSETS.bg[7]})` : undefined}
-  >
+  <div class:list={["ucapan-bg", { "has-bg-image": useBg }]} aria-hidden="true">
     <div class="ucapan-bg-gradient-1"></div>
     <div class="ucapan-bg-gradient-2"></div>
     <div class="ucapan-bg-gradient-3"></div>

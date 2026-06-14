@@ -4,7 +4,7 @@ export const CONTENT = {
     subtitle: "Setengah Abad Alam, Petualangan, dan Persaudaraan",
     buttonLabel: "Buka Undangan",
     greeting: "Kepada Yth.",
-    defaultName: "Anggota PALASMA",
+    defaultName: "ANGGOTA PALASMA",
   },
   hero: {
     welcome: "Selamat Datang",
@@ -26,7 +26,40 @@ export const CONTENT = {
   },
   sambutan: {
     title: "Kata Sambutan",
-    body: "SALAM LESTARI!,\n\nPuji syukur ke hadirat Tuhan Yang Maha Esa, karena atas berkat dan rahmat-Nya kita dapat berkumpul kembali dalam acara Reuni Akbar HUT ke-50 PALASMA.\n\nSetengah abad sudah PALASMA berdiri, menemani perjalanan para pencinta alam dari berbagai angkatan. Melalui momen ini, kami mengajak seluruh keluarga besar PALASMA untuk bernostalgia, melepas rindu, dan merayakan pencapaian bersama.\n\nMari kita sambut hangat hari bahagia ini dengan penuh sukacita.\n\nWassalamualaikum warahmatullahi wabarakatuh,\n\nPanitia HUT ke-50 PALASMA",
+    body: `SALAM LESTARI!
+
+Lima puluh tahun yang lalu, kisah ini dimulai.
+Kita semua pernah menjadi anak SMA bandel itu.
+Tas ransel kebesaran, sepatu belum kenal lumpur,
+tapi mimpi kita sudah setinggi Rinjani.
+
+Kita belajar jatuh di batu,
+belajar dingin di tenda bocor,
+belajar lapar di puncak yang tak ada warung.
+Tapi di sana, kita juga belajar satu hal:
+Pulang itu bukan soal alamat.
+Pulang itu soal tawa yang sama,
+di meja yang sama,
+dengan orang-orang yang sama.
+
+Rambut boleh memutih.
+Lutut boleh protes kalau naik tangga.
+Tapi waktu kumpul,
+kita tetap anak PALASMA yang dulu.
+Yang teriak “semangat!” pas teman hampir nyerah.
+Yang bagi mie instan terakhir jadi berlima.
+Yang nangis bareng waktu satu dari kita pulang lebih dulu.
+
+50 tahun.
+Gunungnya tetap berdiri.
+Jalannya tetap terjal.
+Dan kita... kita tetap pulang.
+Ke tenda yang namanya persaudaraan.
+Ke api unggun yang namanya kenangan.
+Ke rumah yang namanya PALASMA.
+
+PALASMA 50 Tahun. Kita, Pulang.
+    `,
     author: "Panitia",
     authorRole: "HUT ke-50 PALASMA",
   },

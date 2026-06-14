@@ -19,7 +19,6 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
   id="splash"
   class:list={["splash-screen", { "has-bg-image": useBg }]}
   aria-label="Splash Screen"
-  style={useBg ? `--bg-url: url(${ASSETS.bg[1]})` : undefined}
 >
   {/* ── Radial golden glow ────────────────────────────────── */}
   <div class="splash-glow" aria-hidden="true"></div>

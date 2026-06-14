@@ -7,15 +7,15 @@ export interface Contact {
 
 export const CONTACTS: Contact[] = [
   {
-    name: "John Doe",
-    role: "Ketua Panitia",
-    phone: "+62-xxx-xxxx-xxxx",
-    whatsapp: "#",
+    name: "Rieory",
+    role: "",
+    phone: "+6282341352677",
+    whatsapp: "https://wa.me/6282341352677",
   },
   {
-    name: "Jane Doe",
-    role: "Sekretaris",
-    phone: "+62-xxx-xxxx-xxxx",
-    whatsapp: "#",
+    name: "Ceri",
+    role: "",
+    phone: "+6287821945126",
+    whatsapp: "https://wa.me/6287821945126",
   },
 ];

@@ -17,11 +17,7 @@ interface Props {
 const { useBg = false } = Astro.props;
 ---
 
-<section
-  id="event-details"
-  class:list={["event-section", { "has-bg-image": useBg }]}
-  style={useBg ? `--bg-url: url(${ASSETS.bg[4]})` : undefined}
->
+<section id="event-details" class:list={["event-section", { "has-bg-image": useBg }]}>
   <BackgroundLayers />
 
   <FloatingParticles prefix="event" />

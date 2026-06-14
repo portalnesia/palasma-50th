@@ -35,11 +35,7 @@ const defaultQuotes = [
 
 <section id="polaroid-gallery" class="polaroid-section">
   {/* ── Background layers ──────────────────────────────────── */}
-  <div
-    class:list={["polaroid-bg", { "has-bg-image": useBg }]}
-    aria-hidden="true"
-    style={useBg ? `--bg-url: url(${ASSETS.bg[5]})` : undefined}
-  >
+  <div class:list={["polaroid-bg", { "has-bg-image": useBg }]} aria-hidden="true">
     <div class="polaroid-bg-gradient-1"></div>
     <div class="polaroid-bg-gradient-2"></div>
     <div class="polaroid-bg-gradient-3"></div>

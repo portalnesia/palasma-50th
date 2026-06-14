@@ -12,11 +12,7 @@ const { useBg = false } = Astro.props;
 const { absensi } = CONTENT;
 ---
 
-<section
-  id="absensi"
-  class:list={["absensi-section", { "has-bg-image": useBg }]}
-  style={useBg ? `--bg-url: url(${ASSETS.bg[6]})` : undefined}
->
+<section id="absensi" class:list={["absensi-section", { "has-bg-image": useBg }]}>
   {/* ── Background layers (Distinct moss-green and gold glow) ─ */}
   <div class="absensi-bg" aria-hidden="true">
     <div class="absensi-bg-gradient-1"></div>

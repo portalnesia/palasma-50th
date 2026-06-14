@@ -8,11 +8,7 @@ interface Props {
 const { useBg = false } = Astro.props;
 ---
 
-<div
-  class:list={["hero-bg", { "has-bg-image": useBg }]}
-  aria-hidden="true"
-  style={useBg ? `--bg-url: url(${ASSETS.bg[2]})` : undefined}
->
+<div class:list={["hero-bg", { "has-bg-image": useBg }]} aria-hidden="true">
   <div class="hero-bg-gradient-1"></div>
   <div class="hero-bg-gradient-2"></div>
   <div class="hero-bg-gradient-3"></div>

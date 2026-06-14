@@ -26,28 +26,21 @@ export const ASSETS = {
   },
   gallery: [
     {
-      src: "/assets/images/gallery/1.jpeg",
-      caption: "Momen kebersamaan di tengah petualangan alam bebas.",
+      src: "/assets/images/gallery/1.jpg",
+      caption: "Pendakian Gunung Rinjani, 2013",
     },
     {
       src: "/assets/images/gallery/2.jpeg",
-      caption: "Menembus batas, menapaki puncak-puncak tertinggi.",
+      caption: "Pendakian Gunung Agung, 2014",
     },
-    { src: "/assets/images/gallery/3.jpeg", caption: "" },
-    { src: "/assets/images/gallery/4.jpeg", caption: "" },
-    { src: "/assets/images/gallery/5.jpeg", caption: "" },
-    { src: "/assets/images/gallery/6.jpeg", caption: "" },
-    { src: "/assets/images/gallery/7.jpeg", caption: "" },
+    {
+      src: "/assets/images/gallery/3.jpg",
+      caption: "Pendakikan Puncak Cartenz, 2015",
+      style: { objectPosition: "top" },
+    },
+    { src: "/assets/images/gallery/4.jpg", caption: "Gathering PALASMA, 2022" },
+    { src: "/assets/images/gallery/5.jpg", caption: "Pendakian Gunung Tambora, 2013" },
   ].map((item) => ({ ...item, src: getAssetUrl(item.src) })),
   bgMusic: getAssetUrl("/assets/audio/forever-young.mp3"),
-  bg: {
-    1: getAssetUrl("/assets/images/bg/1.jpeg"),
-    2: getAssetUrl("/assets/images/bg/2.jpeg"),
-    3: getAssetUrl("/assets/images/bg/3.jpeg"),
-    4: getAssetUrl("/assets/images/bg/4.jpeg"),
-    5: getAssetUrl("/assets/images/bg/5.jpeg"),
-    6: getAssetUrl("/assets/images/bg/6.jpeg"),
-    7: getAssetUrl("/assets/images/bg/7.jpeg"),
-  },
   mountains: getAssetUrl("/assets/images/mountains.png"),
 };

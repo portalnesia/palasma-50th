@@ -96,11 +96,7 @@ const milestones = [
 
 <section id="wilderness-lanterns" class="lanterns-section">
   {/* ── Background layers ──────────────────────────────────── */}
-  <div
-    class:list={["lanterns-bg", { "has-bg-image": useBg }]}
-    aria-hidden="true"
-    style={useBg ? `--bg-url: url(${ASSETS.bg[7]})` : undefined}
-  >
+  <div class:list={["lanterns-bg", { "has-bg-image": useBg }]} aria-hidden="true">
     <div class="lanterns-bg-gradient"></div>
     <div class="lanterns-bg-grain"></div>
     <div class="lanterns-forest-silhouette"></div>
