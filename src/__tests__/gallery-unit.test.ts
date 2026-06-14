@@ -24,7 +24,7 @@ describe("Gallery Configuration", () => {
     const withCaptions = ASSETS.gallery.filter(
       (item) => item.caption && item.caption.trim() !== "",
     );
-    expect(withCaptions.length).toBe(2);
+    expect(withCaptions.length).toBe(ASSETS.gallery.length);
   });
 });
 
