@@ -21,9 +21,9 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
     fill="none"
     aria-hidden="true"
   >
-    <path d="M2 30 V8 C2 4 4 2 8 2 H30" stroke="#c8a84e" stroke-width="1" fill="none" opacity="0.5"
+    <path d="M2 30 V8 C2 4 4 2 8 2 H30" stroke="#eec024" stroke-width="1" fill="none" opacity="0.5"
     ></path>
-    <circle cx="2" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+    <circle cx="2" cy="30" r="2" fill="#c91a1a" opacity="0.8"></circle>
   </svg>
   <svg
     class="twibbon-corner twibbon-corner-tr"
@@ -35,11 +35,11 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
   >
     <path
       d="M30 30 V8 C30 4 28 2 24 2 H2"
-      stroke="#c8a84e"
+      stroke="#eec024"
       stroke-width="1"
       fill="none"
       opacity="0.5"></path>
-    <circle cx="30" cy="30" r="2" fill="#c8a84e" opacity="0.4"></circle>
+    <circle cx="30" cy="30" r="2" fill="#c91a1a" opacity="0.8"></circle>
   </svg>
   <svg
     class="twibbon-corner twibbon-corner-bl"
@@ -51,11 +51,11 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
   >
     <path
       d="M2 2 V24 C2 28 4 30 8 30 H30"
-      stroke="#c8a84e"
+      stroke="#eec024"
       stroke-width="1"
       fill="none"
       opacity="0.5"></path>
-    <circle cx="2" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+    <circle cx="2" cy="2" r="2" fill="#c91a1a" opacity="0.8"></circle>
   </svg>
   <svg
     class="twibbon-corner twibbon-corner-br"
@@ -67,11 +67,11 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
   >
     <path
       d="M30 2 V24 C30 28 28 30 24 30 H2"
-      stroke="#c8a84e"
+      stroke="#eec024"
       stroke-width="1"
       fill="none"
       opacity="0.5"></path>
-    <circle cx="30" cy="2" r="2" fill="#c8a84e" opacity="0.4"></circle>
+    <circle cx="30" cy="2" r="2" fill="#c91a1a" opacity="0.8"></circle>
   </svg>
 
   {/* ── Upload / preview area ─────────────────────────── */}
@@ -423,20 +423,20 @@ const { ctaLabel, downloadLabel, resetLabel, frameUrl } = Astro.props;
   }
 
   .twibbon-btn:focus-visible {
-    outline: 2px solid #c8a84e;
+    outline: 2px solid var(--color-earth-moss);
     outline-offset: 2px;
   }
 
   .twibbon-btn--primary {
-    background: linear-gradient(135deg, #c8a84e, #a8893e);
-    color: #0f172a;
-    box-shadow: 0 4px 16px rgba(200, 168, 78, 0.3);
+    background: linear-gradient(135deg, var(--color-earth-moss-light), var(--color-earth-moss));
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(201, 26, 26, 0.3);
   }
 
   .twibbon-btn--primary:hover {
-    background: linear-gradient(135deg, #d4b65e, #b8994e);
+    background: linear-gradient(135deg, #ff4d4d, var(--color-earth-moss-dark));
     transform: translateY(-1px);
-    box-shadow: 0 6px 24px rgba(200, 168, 78, 0.4);
+    box-shadow: 0 6px 24px rgba(201, 26, 26, 0.4);
   }
 
   .twibbon-btn--primary:active {

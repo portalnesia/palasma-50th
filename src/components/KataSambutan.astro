@@ -71,17 +71,17 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
           stroke-width="1"
           fill="none"
           opacity="0.5"></path>
-        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
-        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
+        <circle cx="100" cy="15" r="3" fill="#c91a1a" opacity="0.86"></circle>
+        <circle cx="100" cy="15" r="6" stroke="#eec024" stroke-width="0.5" fill="none" opacity="0.4"
         ></circle>
         <defs>
           <linearGradient id="gold-grad-l" x1="200" y1="15" x2="0" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+            <stop offset="0%" stop-color="#eec024" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#eec024" stop-opacity="1"></stop>
           </linearGradient>
           <linearGradient id="gold-grad-r" x1="0" y1="15" x2="200" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+            <stop offset="0%" stop-color="#eec024" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#eec024" stop-opacity="1"></stop>
           </linearGradient>
         </defs>
       </svg>
@@ -149,15 +149,15 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
           stroke-width="1"
           fill="none"
           opacity="0.5"></path>
-        <circle cx="100" cy="15" r="2" fill="#c8a84e" opacity="0.6"></circle>
+        <circle cx="100" cy="15" r="2" fill="#c91a1a" opacity="0.8"></circle>
         <defs>
           <linearGradient id="gold-grad-l2" x1="200" y1="15" x2="0" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+            <stop offset="0%" stop-color="#eec024" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#eec024" stop-opacity="1"></stop>
           </linearGradient>
           <linearGradient id="gold-grad-r2" x1="0" y1="15" x2="200" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+            <stop offset="0%" stop-color="#eec024" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#eec024" stop-opacity="1"></stop>
           </linearGradient>
         </defs>
       </svg>
@@ -181,7 +181,7 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
 
   .sambutan-section.has-bg-image {
     background:
-      linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
+      linear-gradient(135deg, rgba(8, 73, 140, 0.55) 0%, rgba(12, 92, 179, 0.55) 100%),
       var(--bg-url) center/cover no-repeat fixed;
   }
 
@@ -208,7 +208,7 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     inset: 0;
     background: radial-gradient(
       ellipse 60% 40% at 20% 80%,
-      rgba(74, 124, 89, 0.06) 0%,
+      rgba(201, 26, 26, 0.06) 0%,
       transparent 60%
     );
   }
@@ -262,6 +262,10 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     background: var(--color-gold);
     opacity: 0;
     animation: sambutan-float linear infinite;
+  }
+
+  .sambutan-particle:nth-child(odd) {
+    background: var(--color-earth-moss);
   }
 
   .sambutan-particle-1 {
@@ -380,7 +384,7 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: var(--color-gold);
+    background: var(--color-earth-moss);
   }
 
   /* ── Container ─────────────────────────────────────────── */
@@ -595,7 +599,7 @@ const paragraphs = parseBodyParagraphs(sambutan.body);
     background: linear-gradient(
       135deg,
       rgba(200, 168, 78, 0.04) 0%,
-      rgba(10, 31, 62, 0.4) 40%,
+      rgba(12, 92, 179, 0.4) 40%,
       rgba(200, 168, 78, 0.03) 100%
     );
     backdrop-filter: blur(12px);

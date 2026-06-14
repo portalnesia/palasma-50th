@@ -335,8 +335,8 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
     gap: 0.75rem;
     margin-top: 1.5rem;
     padding: 0.95rem 2.2rem;
-    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
-    color: var(--color-navy);
+    background: linear-gradient(135deg, var(--color-earth-moss-light), var(--color-earth-moss));
+    color: #ffffff;
     border: none;
     border-radius: 30px;
     font-family: var(--font-heading);
@@ -345,7 +345,7 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 0 4px 18px rgba(200, 168, 78, 0.3);
+    box-shadow: 0 4px 18px rgba(201, 26, 26, 0.3);
     overflow: hidden;
     transition:
       transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
@@ -354,7 +354,8 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
 
   .splash-scroll-btn:hover {
     transform: scale(1.03) translateY(-2px);
-    box-shadow: 0 6px 24px rgba(200, 168, 78, 0.45);
+    box-shadow: 0 6px 24px rgba(201, 26, 26, 0.45);
+    background: linear-gradient(135deg, #ff4d4d, var(--color-earth-moss-dark));
   }
 
   .splash-scroll-btn:active {

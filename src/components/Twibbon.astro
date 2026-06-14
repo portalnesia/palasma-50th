@@ -62,17 +62,17 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
           stroke-width="1"
           fill="none"
           opacity="0.5"></path>
-        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
-        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
+        <circle cx="100" cy="15" r="3" fill="#c91a1a" opacity="0.86"></circle>
+        <circle cx="100" cy="15" r="6" stroke="#eec024" stroke-width="0.5" fill="none" opacity="0.4"
         ></circle>
         <defs>
           <linearGradient id="twibbon-gold-grad-l" x1="200" y1="15" x2="0" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+            <stop offset="0%" stop-color="#eec024" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#eec024" stop-opacity="1"></stop>
           </linearGradient>
           <linearGradient id="twibbon-gold-grad-r" x1="0" y1="15" x2="200" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+            <stop offset="0%" stop-color="#eec024" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#eec024" stop-opacity="1"></stop>
           </linearGradient>
         </defs>
       </svg>
@@ -172,7 +172,7 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
     padding: 6rem 1.5rem;
     box-sizing: border-box;
     /* Transition from deep forest green to deep slate twilight */
-    background: linear-gradient(180deg, #020c05 0%, #031424 100%);
+    background: linear-gradient(180deg, var(--color-navy-900) 0%, var(--color-navy-800) 100%);
   }
 
   .twibbon-section.has-bg-image {
@@ -180,9 +180,9 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
       radial-gradient(ellipse 80% 80% at 50% 50%, rgba(200, 168, 78, 0.06) 0%, transparent 70%),
       linear-gradient(
         175deg,
-        rgba(5, 16, 35, 0.55) 0%,
-        rgba(6, 21, 44, 0.55) 50%,
-        rgba(10, 31, 62, 0.55) 100%
+        rgba(8, 73, 140, 0.55) 0%,
+        rgba(12, 92, 179, 0.55) 50%,
+        rgba(12, 92, 179, 0.55) 100%
       ),
       var(--bg-url) center/cover no-repeat fixed;
   }
@@ -213,7 +213,7 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
     inset: 0;
     background: radial-gradient(
       circle 400px at 70% 30%,
-      rgba(74, 124, 89, 0.08) 0%,
+      rgba(201, 26, 26, 0.08) 0%,
       transparent 100%
     );
   }
@@ -266,7 +266,7 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(200, 168, 78, 0.5);
+    background: var(--color-earth-moss);
   }
 
   @media (max-width: 768px) {
@@ -308,13 +308,13 @@ const twibbonFrameUrl = ASSETS.twibbon.frame;
     font-family: "Cinzel Decorative", "Playfair Display", serif;
     font-size: clamp(1.5rem, 4vw, 2.25rem);
     font-weight: 700;
-    color: #c8a84e;
+    color: var(--color-gold);
     letter-spacing: 0.05em;
     text-shadow: 0 0 40px rgba(200, 168, 78, 0.3);
   }
 
   .twibbon-title-star {
-    color: #c8a84e;
+    color: var(--color-gold);
     font-size: 0.875rem;
     opacity: 0.6;
   }

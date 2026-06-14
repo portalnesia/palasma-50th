@@ -79,6 +79,18 @@ const particles = allParticles.slice(0, particleCount);
     animation: fp-float linear infinite;
   }
 
+  .event-particle:nth-child(odd),
+  .sambutan-particle:nth-child(odd),
+  .ucapan-particle:nth-child(odd),
+  .twibbon-particle:nth-child(odd),
+  .absensi-particle:nth-child(odd),
+  .gallery-particle:nth-child(odd),
+  .polaroid-particle:nth-child(odd),
+  .expedition-particle:nth-child(odd),
+  .wilderness-particle:nth-child(odd) {
+    background: var(--color-earth-moss);
+  }
+
   @keyframes fp-float {
     0% {
       opacity: 0;

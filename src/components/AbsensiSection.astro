@@ -87,17 +87,17 @@ const { absensi } = CONTENT;
           stroke-width="1"
           fill="none"
           opacity="0.5"></path>
-        <circle cx="100" cy="15" r="3" fill="#c8a84e" opacity="0.8"></circle>
-        <circle cx="100" cy="15" r="6" stroke="#c8a84e" stroke-width="0.5" fill="none" opacity="0.3"
+        <circle cx="100" cy="15" r="3" fill="#c91a1a" opacity="0.86"></circle>
+        <circle cx="100" cy="15" r="6" stroke="#eec024" stroke-width="0.5" fill="none" opacity="0.4"
         ></circle>
         <defs>
           <linearGradient id="gold-grad-abs-l" x1="200" y1="15" x2="0" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+            <stop offset="0%" stop-color="#eec024" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#eec024" stop-opacity="1"></stop>
           </linearGradient>
           <linearGradient id="gold-grad-abs-r" x1="0" y1="15" x2="200" y2="15">
-            <stop offset="0%" stop-color="#c8a84e" stop-opacity="0"></stop>
-            <stop offset="100%" stop-color="#c8a84e" stop-opacity="1"></stop>
+            <stop offset="0%" stop-color="#eec024" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#eec024" stop-opacity="1"></stop>
           </linearGradient>
         </defs>
       </svg>
@@ -202,7 +202,7 @@ const { absensi } = CONTENT;
     z-index: 60;
     min-height: 110vh;
     /* Transition from slate twilight to warm earth bronze */
-    background: linear-gradient(180deg, #031424 0%, #150e05 100%);
+    background: linear-gradient(180deg, var(--color-navy-900) 0%, var(--color-navy-800) 100%);
     padding: 8rem 1.5rem 10rem;
     display: flex;
     align-items: center;
@@ -212,7 +212,7 @@ const { absensi } = CONTENT;
 
   .absensi-section.has-bg-image {
     background:
-      linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
+      linear-gradient(135deg, rgba(8, 73, 140, 0.55) 0%, rgba(12, 92, 179, 0.55) 100%),
       var(--bg-url) center/cover no-repeat fixed;
   }
 
@@ -456,13 +456,13 @@ const { absensi } = CONTENT;
     align-items: center;
     gap: 0.75rem;
     padding: 0.95rem 2.2rem;
-    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
-    color: var(--color-navy);
+    background: linear-gradient(135deg, var(--color-earth-moss-light), var(--color-earth-moss));
+    color: #ffffff;
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 0.95rem;
     border-radius: var(--radius-btn);
-    box-shadow: 0 4px 18px rgba(200, 168, 78, 0.3);
+    box-shadow: 0 4px 18px rgba(201, 26, 26, 0.3);
     text-decoration: none;
     transition:
       transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
@@ -472,7 +472,7 @@ const { absensi } = CONTENT;
 
   .absensi-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(200, 168, 78, 0.45);
+    box-shadow: 0 6px 24px rgba(201, 26, 26, 0.45);
   }
 
   .absensi-btn:active {

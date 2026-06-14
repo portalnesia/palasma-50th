@@ -531,7 +531,7 @@ const { useBg = false } = Astro.props;
     overflow: hidden;
     padding: var(--spacing-section-lg) 0;
     /* Transition from warm earth bronze to starry deep navy-black */
-    background: linear-gradient(180deg, #150e05 0%, #030b1a 100%);
+    background: linear-gradient(180deg, var(--color-navy-800) 0%, var(--color-navy-900) 100%);
   }
 
   .ucapan-bg {
@@ -542,7 +542,7 @@ const { useBg = false } = Astro.props;
 
   .ucapan-bg.has-bg-image {
     background:
-      linear-gradient(135deg, rgba(5, 16, 35, 0.55) 0%, rgba(10, 31, 62, 0.55) 100%),
+      linear-gradient(135deg, rgba(8, 73, 140, 0.55) 0%, rgba(12, 92, 179, 0.55) 100%),
       var(--bg-url) center/cover no-repeat fixed;
   }
 
@@ -550,7 +550,7 @@ const { useBg = false } = Astro.props;
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 70% 60% at 50% 10%, rgba(10, 31, 62, 0.5) 0%, transparent 80%),
+      radial-gradient(ellipse 70% 60% at 50% 10%, rgba(12, 92, 179, 0.5) 0%, transparent 80%),
       radial-gradient(ellipse 50% 50% at 85% 25%, rgba(200, 168, 78, 0.08) 0%, transparent 60%),
       radial-gradient(ellipse 45% 45% at 15% 75%, rgba(74, 124, 89, 0.06) 0%, transparent 60%);
   }
@@ -561,7 +561,7 @@ const { useBg = false } = Astro.props;
     background: linear-gradient(
       170deg,
       transparent 0%,
-      rgba(10, 31, 62, 0.3) 40%,
+      rgba(12, 92, 179, 0.3) 40%,
       rgba(42, 75, 58, 0.15) 70%,
       transparent 100%
     );
@@ -570,7 +570,7 @@ const { useBg = false } = Astro.props;
   .ucapan-bg-gradient-3 {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 0%, rgba(10, 31, 62, 0.2) 100%);
+    background: linear-gradient(to bottom, transparent 0%, rgba(12, 92, 179, 0.2) 100%);
   }
 
   .ucapan-bg-grain {
