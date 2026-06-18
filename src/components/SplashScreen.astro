@@ -51,8 +51,8 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
       src={ASSETS.logo.palasma}
       alt="PALASMA Emblem"
       class="splash-emblem reveal-on-scroll reveal-scale-in"
-      width="140"
-      height="140"
+      width="280"
+      height="280"
       loading="eager"
     />
     <div>
@@ -277,14 +277,14 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
   }
 
   .splash-emblem {
-    width: 160px;
-    height: 160px;
+    width: 300px;
+    height: 300px;
     object-fit: contain;
     filter: drop-shadow(0 0 20px rgba(200, 168, 78, 0.3));
   }
 
   .splash-anniversary {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading-splash);
     font-size: 5rem;
     font-weight: 800;
     color: var(--color-gold);
@@ -454,8 +454,11 @@ const recipientName = getRecipientName(Astro.url.search) ?? splash.defaultName;
 
   @media (max-width: 640px) {
     .splash-emblem {
-      width: 120px;
-      height: 120px;
+      width: 280px;
+      height: 280px;
+    }
+    .splash-anniversary {
+      font-size: 3rem;
     }
   }
 </style>
