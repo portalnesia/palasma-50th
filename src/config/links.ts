@@ -1,6 +1,6 @@
 export const LINKS = {
   googleForm:
-    "https://docs.google.com/forms/d/e/1FAIpQLSeqHYF-9GM3A02wuviA2HXY5ZX-sd6qR0YSONVRJxom2ezsug/viewform",
+    "https://docs.google.com/forms/d/e/1FAIpQLSdyVEHppho_XUySde-Z1T5nO6eZ2HS7-qaImebcwLtrd0frvw/viewform",
   whatsapp: "#",
   googleDrive: "#",
   instagram: "https://www.instagram.com/palasma_adventure",
